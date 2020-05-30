@@ -6,7 +6,7 @@ def text(bot, update):
         elif update.message.text.lower() in 'котик' or update.message.text.lower() in 'мило':
             Cat_photo.Cat_photo(bot, update)
         else:
-            voice(bot, update)
+            #voice(bot, update)
             bot.send_message(update.message.chat.id, update.message.text)
     except Exception:
         bot.send_message(update.message.chat.id, 'Со мной что-то не то, будь тише')
