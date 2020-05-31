@@ -1,12 +1,14 @@
-import Cat_photo, weather, badge
+import Cat_photo, weather, badge, CreateVoice
 def text(bot, update):
     try:
-        if 'погода' in update.message.text.lower():
+        if badge.Command == True:
+            CreateVoice.voice(bot, update)
+            badge.Command = False
+        elif 'погода' in update.message.text.lower():
             weather.CurrentWeather(bot, update)
         elif update.message.text.lower() in 'котик' or update.message.text.lower() in 'мило':
             Cat_photo.Cat_photo(bot, update)
         else:
-            #voice(bot, update)
             bot.send_message(update.message.chat.id, update.message.text)
     except Exception:
         bot.send_message(update.message.chat.id, 'Со мной что-то не то, будь тише')
