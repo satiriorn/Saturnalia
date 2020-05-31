@@ -1,10 +1,7 @@
-import calendar
-import time
-import math
-import re
-import requests
+import requests, badge, re, math, time,calendar
 from gtts import gTTS
 from gtts_token.gtts_token import Token
+from langdetect import detect
 
 def _patch_faulty_function(self):
     if self.token_key is not None:
@@ -23,7 +20,6 @@ def _patch_faulty_function(self):
     self.token_key = result
     return result
 
-# Monkey patch faulty function.
 Token._get_token_key = _patch_faulty_function
 
 def voice(bot, update, status=True):
@@ -34,12 +30,12 @@ def voice(bot, update, status=True):
             mes = update.message.text
         else:
             mes = update
-        print(mes, 'voice')
-        tts = gTTS('hello', lang='en').save(mp3_name)
-        print("1")
-
+        if badge.Command != True:
+            bot.send_message(update.message.chat_id, "Введите сообщение:")
+            badge.Command = True
+            return
+        gTTS(text = mes, lang=detect(mes)).save(mp3_name)
         if status == True:
-            print('2')
             return bot.send_voice(update.message.chat_id, open(mp3_name, 'rb'))
         else:
             return mp3_name
