@@ -1,5 +1,5 @@
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
-import badge, start, help, weather, Evtuh, text,  CreateVoice
+import badge, start, help, weather, Evtuh, text,  CreateVoice, DogAndCat
 
 
 def main():
@@ -10,6 +10,7 @@ def main():
     weather_command_handler = CommandHandler('weather', weather.weather)
     evtuh_command_handler = CommandHandler('evtuh', Evtuh.Evtuh)
     voice_command_handler = CommandHandler("voice", CreateVoice.voice)
+    cat_command_handler = CommandHandler('cat', DogAndCat.Cat_photo)
     text_message_handler = MessageHandler(Filters.text, text.text)
 
     dispatcher.add_handler(evtuh_command_handler)
@@ -17,6 +18,7 @@ def main():
     dispatcher.add_handler(help_command_handler)
     dispatcher.add_handler(weather_command_handler)
     dispatcher.add_handler(voice_command_handler)
+    dispatcher.add_handler(cat_command_handler)
     dispatcher.add_handler(text_message_handler)
 
     updater.start_polling(clean=True)
