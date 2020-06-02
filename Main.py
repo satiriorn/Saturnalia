@@ -11,6 +11,7 @@ def main():
     evtuh_command_handler = CommandHandler('evtuh', Evtuh.Evtuh)
     voice_command_handler = CommandHandler("voice", CreateVoice.voice)
     cat_command_handler = CommandHandler('cat', DogAndCat.Cat_photo)
+    dog_command_handler = CommandHandler('dog', DogAndCat.Dog_photo)
     text_message_handler = MessageHandler(Filters.text, text.text)
 
     dispatcher.add_handler(evtuh_command_handler)
@@ -19,6 +20,7 @@ def main():
     dispatcher.add_handler(weather_command_handler)
     dispatcher.add_handler(voice_command_handler)
     dispatcher.add_handler(cat_command_handler)
+    dispatcher.add_handler(dog_command_handler)
     dispatcher.add_handler(text_message_handler)
 
     updater.start_polling(clean=True)
