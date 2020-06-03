@@ -1,6 +1,6 @@
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
-import badge, start, help, weather, Evtuh, text,  CreateVoice, DogAndCat
-
+import badge, start, help, weather, Evtuh, text,  CreateVoice, DogAndCat, InlineQuery
+from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, InlineQueryHandler
 
 def main():
     updater = Updater(badge.token)
@@ -22,6 +22,7 @@ def main():
     dispatcher.add_handler(cat_command_handler)
     dispatcher.add_handler(dog_command_handler)
     dispatcher.add_handler(text_message_handler)
+    dispatcher.add_handler(InlineQueryHandler(InlineQuery.inlinequery))
 
     updater.start_polling(clean=True)
 
