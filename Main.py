@@ -24,7 +24,7 @@ def main():
     dispatcher.add_handler(text_message_handler)
     dispatcher.add_handler(InlineQueryHandler(InlineQuery.inlinequery))
 
-    updater.start_polling(clean=True)
+    updater.start_polling(clean=True,timeout=500)
 
 if __name__ == '__main__':
     main()
