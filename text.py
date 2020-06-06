@@ -8,6 +8,7 @@ def text(bot, update):
             weather.CurrentWeather(bot, update)
         elif update.message.text.lower() in 'котик' or update.message.text.lower() in 'мило':
             DogAndCat.Cat_photo(bot, update)
+        print("1")
     except Exception:
         bot.send_message(update.message.chat.id, 'Со мной что-то не то, будь тише')
 
