@@ -21,10 +21,10 @@ def main():
     #dispatcher.add_handler(voice_command_handler)
     dispatcher.add_handler(cat_command_handler)
     dispatcher.add_handler(dog_command_handler)
-    dispatcher.add_handler(text_message_handler)
+    #dispatcher.add_handler(text_message_handler)
     dispatcher.add_handler(InlineQueryHandler(InlineQuery.inlinequery))
 
-    updater.start_polling(clean=True,timeout=5000, poll_interval=5)
+    updater.start_polling(timeout=5000, poll_interval=5)
 
 if __name__ == '__main__':
     main()
