@@ -20,7 +20,6 @@ def weather(bot, update):
 
 def CurrentWeather(bot, update, status=True):
     try:
-        #jopa
         res = requests.get("http://api.openweathermap.org/data/2.5/weather",
                            params={'q': 'Kharkiv', 'units': 'metric', 'lang': 'ru', 'APPID': badge.appid})
         data = res.json()
@@ -28,12 +27,10 @@ def CurrentWeather(bot, update, status=True):
         temp = 'Температура в твоем отсталом городе: ' + str(data['main']['temp'])
         wind = 'Скорость ветерка между ног: ' + str(data['wind']['speed']) + 'м/с'
         text = description_weather + '. ' + temp + '. \n' + wind
-        #if status == True:
-        #    update.message.text = text
-        #    voice(bot, update)
-        #else:
-        bot.send_message(update.message.chat.id, text)
-        return text
+        if status == True:
+            bot.send_message(update.message.chat.id, text)
+        else:
+            return text
 
     except Exception:
         bot.send_message(update.message.chat_id,
