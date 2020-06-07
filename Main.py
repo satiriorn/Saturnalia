@@ -3,8 +3,6 @@ import badge, start, help, weather, Evtuh, text,  CreateVoice, DogAndCat, Inline
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, InlineQueryHandler
 
 def main():
-    TOKEN = badge.token
-    PORT = int(os.environ.get('PORT', '8443'))
     updater = Updater(badge.token)
     dispatcher = updater.dispatcher
     start_command_handler = CommandHandler('start', start.start)
@@ -19,11 +17,11 @@ def main():
     dispatcher.add_handler(evtuh_command_handler)
     dispatcher.add_handler(start_command_handler)
     dispatcher.add_handler(help_command_handler)
-    #dispatcher.add_handler(weather_command_handler)
-    #dispatcher.add_handler(voice_command_handler)
+    dispatcher.add_handler(weather_command_handler)
+    dispatcher.add_handler(voice_command_handler)
     dispatcher.add_handler(cat_command_handler)
     dispatcher.add_handler(dog_command_handler)
-    #dispatcher.add_handler(text_message_handler)
+    dispatcher.add_handler(text_message_handler)
     dispatcher.add_handler(InlineQueryHandler(InlineQuery.inlinequery))
 
     updater.start_polling(timeout=5000, poll_interval=5)
