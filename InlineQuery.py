@@ -23,7 +23,16 @@ def inlinequery(bot, update):
                 input_message_content=InputTextMessageContent(
                     Evtuh.Evtuh(bot, query, False)),
                 parse_mode=ParseMode.MARKDOWN))
-            
+
+            result.append(InlineQueryResultArticle(
+                id=uuid4(),
+                title="Current Weather",
+                thumb_url=photo,
+                description='Текуущая погодка',
+                input_message_content=InputTextMessageContent(
+                    weather.CurrentWeather(bot, update, False)),
+                parse_mode=ParseMode.MARKDOWN))
+
             result.append(InlineQueryResultArticle(
                 id=uuid4(),
                 title="Bold",
