@@ -1,9 +1,15 @@
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
-import badge, start, help, weather, Evtuh, text,  CreateVoice, DogAndCat, InlineQuery
+import badge, start, help, weather, Evtuh, text,  CreateVoice, DogAndCat, InlineQuery, os
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, InlineQueryHandler
 
 def main():
     updater = Updater(badge.token)
+    PORT = int(os.environ.get('PORT', '8443'))
+    updater.start_webhook(listen="0.0.0.0",
+                          port=PORT,
+                          url_path=badge.token)
+    updater.bot.set_webhook("https://mafina.herokuapp.com/" + badge.token)
+    updater.idle()
     dispatcher = updater.dispatcher
     start_command_handler = CommandHandler('start', start.start)
     help_command_handler = CommandHandler('help', help.help)
@@ -22,7 +28,7 @@ def main():
     dispatcher.add_handler(cat_command_handler)
     dispatcher.add_handler(dog_command_handler)
     #dispatcher.add_handler(text_message_handler)
-    #dispatcher.add_handler(InlineQueryHandler(InlineQuery.inlinequery))
+    dispatcher.add_handler(InlineQueryHandler(InlineQuery.inlinequery))
 
     updater.start_polling(timeout=5000, poll_interval=5)
 
