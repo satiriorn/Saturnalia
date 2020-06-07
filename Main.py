@@ -4,10 +4,7 @@ from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, Inlin
 
 def main():
     updater = Updater(badge.token)
-    PORT = int(os.environ.get('PORT', '8443'))
-    updater.start_webhook(listen="0.0.0.0",
-                          port=PORT,
-                          url_path=badge.token)
+    updater.start_webhook(listen="0.0.0.0",url_path=badge.token)
     updater.bot.set_webhook("https://mafina.herokuapp.com/" + badge.token)
     updater.idle()
     dispatcher = updater.dispatcher
