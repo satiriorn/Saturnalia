@@ -5,7 +5,7 @@ from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, Inlin
 def main():
     updater = Updater(badge.token)
     updater.start_webhook(listen="0.0.0.0",url_path=badge.token)
-    updater.bot.set_webhook("https://mafina.herokuapp.com/" + badge.token)
+    updater.bot.set_webhook("https://mafina.herokuapp.com")
     updater.idle()
     dispatcher = updater.dispatcher
     start_command_handler = CommandHandler('start', start.start)
