@@ -3,10 +3,9 @@ import badge, start, help, weather, Evtuh, text,  CreateVoice, DogAndCat, Inline
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, InlineQueryHandler
 
 def main():
+    TOKEN = badge.token
+    PORT = int(os.environ.get('PORT', '8443'))
     updater = Updater(badge.token)
-    updater.start_webhook(listen="0.0.0.0",url_path=badge.token)
-    updater.bot.set_webhook("https://mafina.herokuapp.com")
-    updater.idle()
     dispatcher = updater.dispatcher
     start_command_handler = CommandHandler('start', start.start)
     help_command_handler = CommandHandler('help', help.help)
