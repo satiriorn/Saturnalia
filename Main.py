@@ -3,7 +3,8 @@ import badge, start, help, weather, Evtuh, text,  CreateVoice, DogAndCat, Inline
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, InlineQueryHandler
 
 def main():
-    updater = Updater(badge.token)
+    TOKEN = os.getenv("TOKEN")
+    updater = Updater(TOKEN)
     dispatcher = updater.dispatcher
     start_command_handler = CommandHandler('start', start.start)
     help_command_handler = CommandHandler('help', help.help)
