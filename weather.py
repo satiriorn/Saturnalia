@@ -31,7 +31,6 @@ def CurrentWeather(bot, update, status=True):
             bot.send_message(update.message.chat.id, text)
         else:
             return text
-
     except Exception:
         bot.send_message(update.message.chat_id,
                          'Ааа, со мной что-то не так, пытаюсь дышать в этой грязной и огромной сети...')
