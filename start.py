@@ -16,7 +16,7 @@ def start(bot, update):
         print(results)"""
         if 'Rositsa Maneva' in first_name:
             bot.send_message(chat_id, """Слава создателю, мне написала сама """ + first_name)
-            bot.send_message(chat_i d,
+            bot.send_message(chat_id,
                              """Честно говоря, я не ожидал тебя здесь увидеть, но для меня большая честь видеть вас тут(Я поцеловал ваш телефон в микросхему, сейчас он улыбается, можете погладить его), а для вас у меня особая программа...УХАХАХАХАХА """)
 
         else:
