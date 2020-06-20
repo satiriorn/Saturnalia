@@ -5,6 +5,7 @@ def start(bot, update):
 
         first_name = update.message.chat.first_name
         chat_id = update.message.chat_id
+        k = Keyboard.InitKeyboard()
         """
         conn=sqll
         print(conn)
@@ -33,6 +34,6 @@ def start(bot, update):
                          /Dog рандомные собакены для экстравертов
                          Пока что это всё, а то твои некомплектные мозги отстали от жизни и ты сдохнешь от этого
                          
-                         """,reply_markup=Keyboard.InitKeyboard())
+                         """,reply_markup=k)
     except Exception:
         bot.send_message(update.message.chat_id, 'Прости, но я мертв для тебя')
