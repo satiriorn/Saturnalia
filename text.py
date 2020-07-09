@@ -1,4 +1,5 @@
 import DogAndCat, weather, badge, CreateVoice
+
 def text(bot, update):
     try:
         if badge.Command == True:

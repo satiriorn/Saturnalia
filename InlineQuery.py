@@ -1,6 +1,5 @@
 from uuid import uuid4
 import DogAndCat,Evtuh, weather, CreateVoice
-from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, InlineQueryHandler
 from telegram import InlineQueryResultArticle, InputMediaPhoto, ParseMode, InputTextMessageContent, \
     InlineQueryResultCachedVoice, \
     InlineQueryResultPhoto, InputMessageContent, InlineQueryResultCachedPhoto
