@@ -1,4 +1,3 @@
-from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 import Quotes, start, help, weather, Evtuh, text,  CreateVoice, DogAndCat, InlineQuery, os
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, InlineQueryHandler
 
@@ -15,7 +14,6 @@ def main():
     dog_command_handler = CommandHandler('Dog', DogAndCat.Dog_photo)
     sheva_command_handler = CommandHandler('ShevchenkoStyle', Quotes.ShevchenkoStyle)
     text_message_handler = MessageHandler(Filters.text, text.text)
-
 
     dispatcher.add_handler(evtuh_command_handler)
     dispatcher.add_handler(start_command_handler)
