@@ -10,7 +10,7 @@ def text(bot, update):
         elif update.message.text.lower() in 'котик' or update.message.text.lower() in 'мило':
             DogAndCat.Cat_photo(bot, update)
     except Exception:
-        bot.send_message(update.message.chat.id, 'Со мной что-то не то, будь тише')
+        bot.send_message(update.message.chat.id, 'Я створив тисячи відповедей задля того, щоб тобі не відповідати.')
 
 def textMessage(bot, update):
     try:
@@ -23,4 +23,4 @@ def textMessage(bot, update):
         else:
             text(bot, update)
     except Exception:
-        bot.send_message(update.message.chat.id, 'Со мной что-то не то, будь тише')
+        bot.send_message(update.message.chat.id, 'Я створив тисячи відповедей задля того, щоб тобі не відповідати.')
