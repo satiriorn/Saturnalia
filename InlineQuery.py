@@ -17,7 +17,7 @@ def inlinequery(bot, update):
             result.append(InlineQueryResultArticle(
                 id=uuid4(),
                 title="Word of God",
-                description='Добавь слово божье в свой диалог',
+                description='Цитати Євтушенка',
                 thumb_url=photo,
                 input_message_content=InputTextMessageContent(
                     Evtuh.Evtuh(bot, query, False)),
@@ -27,7 +27,7 @@ def inlinequery(bot, update):
                 id=uuid4(),
                 title="Current Weather",
                 thumb_url=photo,
-                description='Текуущая погодка',
+                description='Погода',
                 input_message_content=InputTextMessageContent(
                     weather.CurrentWeather(bot, update, False)),
                 parse_mode=ParseMode.MARKDOWN))
@@ -53,7 +53,7 @@ def inlinequery(bot, update):
             result.append(InlineQueryResultPhoto(
                 id=uuid4(),
                 title="Cat",
-                description='Получить дозу котика прямо сейчас',
+                description='Не хочеш котика?',
                 photo_url=DogAndCat.get_url_cat(),
                 thumb_url=photo,
                 parse_mode=ParseMode.MARKDOWN))
@@ -61,7 +61,7 @@ def inlinequery(bot, update):
             result.append(InlineQueryResultPhoto(
                 id=uuid4(),
                 title="Dog",
-                description='Получить дозу собак прямо сейчас',
+                description='Не хочеш собаку?',
                 photo_url=DogAndCat.get_url_dog(),
                 thumb_url=photo,
                 parse_mode=ParseMode.MARKDOWN))
@@ -69,5 +69,5 @@ def inlinequery(bot, update):
         update.inline_query.answer(result)
     except:
         u = 'update.inline_query.from.id'
-        bot.send_message(u, 'Чуть позже, мнээ плохо...')
+        bot.send_message(u, 'Вибач, мої мікросхеми згоріли, пиши пізніше...')
 

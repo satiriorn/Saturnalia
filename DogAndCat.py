@@ -41,7 +41,7 @@ def Cat_photo(bot, update):
         url = get_url_cat()
         Photo(url, update)
     except Exception:
-        bot.send_message(update.message.chat_id, "Пока без котиков, только не плачь, умоляю")
+        bot.send_message(update.message.chat_id, "Ти точно хороша людина? Коти, не хочуть бути с тобою.")
 
 
 def Dog_photo(bot, update):
@@ -49,4 +49,4 @@ def Dog_photo(bot, update):
         url = get_url_dog()
         Photo(url, update)
     except Exception:
-        bot.send_message(update.message.chat_id, "Пока без собакеном, только не плачь, умоляю")
+        bot.send_message(update.message.chat_id, "Рада собак заборонила в'їзд гіфок та картинок собак в полі зору ваших очей та чатику.")
