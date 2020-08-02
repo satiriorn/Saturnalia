@@ -9,9 +9,7 @@ def inlinequery(bot, update):
     try:
         query = update.inline_query.query
         photo = DogAndCat.get_url_dog()
-        print(update)
         result = []
-        results = []
         if len(str(query))!= 0:
             print("1")
             result.append(InlineQueryResultArticle(
