@@ -14,7 +14,7 @@ def weather(bot, update):
             if '12:00:00' in i['dt_txt'] or '18:00:00' in i['dt_txt']:
                 bot.send_message(update.message.chat_id, '''Дата: ''' + date + '\n'
                                                                                '''Температура:''' + temp + '\n'
-                                                                                                           '''Что будет за окном: ''' + description)
+                                                                                                           '''Стан неба: ''' + description)
     except Exception:
         bot.send_message(update.message.chat_id, 'Погода дала сбой, но я все равно с тобой')
 
@@ -23,9 +23,9 @@ def CurrentWeather(bot, update, status=True):
         res = requests.get("http://api.openweathermap.org/data/2.5/weather",
                            params={'q': 'Kharkiv', 'units': 'metric', 'lang': 'ru', 'APPID': badge.appid})
         data = res.json()
-        description_weather = 'Текущее состояния погоды, пока ты сидишь дома: ' + data['weather'][0]['description']
-        temp = 'Температура в твоем отсталом городе: ' + str(data['main']['temp'])
-        wind = 'Скорость ветерка между ног: ' + str(data['wind']['speed']) + 'м/с'
+        description_weather = 'Стан погоди, поки ти сидиш вдома: ' + data['weather'][0]['description']
+        temp = 'Температура твого міста: ' + str(data['main']['temp'])
+        wind = 'Швидкість вітру: ' + str(data['wind']['speed']) + 'м/с'
         text = description_weather + '. ' + temp + '. \n' + wind
         if status == True:
             bot.send_message(update.message.chat.id, text)
@@ -33,4 +33,4 @@ def CurrentWeather(bot, update, status=True):
             return text
     except Exception:
         bot.send_message(update.message.chat_id,
-                         'Ааа, со мной что-то не так, пытаюсь дышать в этой грязной и огромной сети...')
+                         'Та що таке, ти створюєш одні проблеми для мене')

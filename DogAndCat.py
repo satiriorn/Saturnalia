@@ -3,8 +3,8 @@ import  datetime, requests
 now = datetime.datetime.now()
 
 def get_url_cat():
-    contents = requests.get('http://aws.random.cat/meow').json()
-    url = contents['file']
+    contents = requests.get('https://api.thecatapi.com/v1/images/search').json()
+    url = contents['url']
     return url
 
 def get_url_dog():
