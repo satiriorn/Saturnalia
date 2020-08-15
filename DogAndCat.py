@@ -4,7 +4,7 @@ now = datetime.datetime.now()
 
 def get_url_cat():
     contents = requests.get('https://api.thecatapi.com/v1/images/search').json()
-    url = contents['url']
+    url = contents[0]['url']
     return url
 
 def get_url_dog():
