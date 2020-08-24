@@ -1,4 +1,4 @@
-import  datetime, requests
+import  datetime, requests, Keyboard
 
 now = datetime.datetime.now()
 
@@ -41,7 +41,7 @@ def Cat_photo(bot, update):
         url = get_url_cat()
         Photo(url, update)
     except Exception:
-        bot.send_message(update.message.chat_id, "Ти точно людина? Коти, не хочуть бути с тобою.")
+        bot.send_message(update.message.chat_id, "Ти точно людина? Коти, не хочуть бути с тобою.", reply_markup = Keyboard.InitKeyboard())
 
 
 def Dog_photo(bot, update):
@@ -49,4 +49,4 @@ def Dog_photo(bot, update):
         url = get_url_dog()
         Photo(url, update)
     except Exception:
-        bot.send_message(update.message.chat_id, "Рада собак заборонила в'їзд гіфок та картинок собак в полі зору ваших очей та чатику.")
+        bot.send_message(update.message.chat_id, "Рада собак заборонила в'їзд гіфок та картинок собак в полі зору ваших очей та чатику.", reply_markup = Keyboard.InitKeyboard())
