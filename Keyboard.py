@@ -1,5 +1,5 @@
 import telegram
-NameButton = ["/Evtuh","/Weather","/Voice", "/ShevchenkoStyle", "/Cat", "/Dog", "/Help"]
+NameButton = ["/Evtuh","/Weather","/Voice", "/ShevchenkoStyle", "/Cat", "/Dog", "/Help", "/Meme"]
 
 def InitKeyboard():
     LevelOne = []

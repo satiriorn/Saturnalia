@@ -1,4 +1,4 @@
-import requests, badge
+import requests, badge, Keyboard
 
 def weather(bot, update):
     try:
@@ -16,21 +16,21 @@ def weather(bot, update):
                                                                                '''Температура:''' + temp + '\n'
                                                                                                            '''Стан неба: ''' + description)
     except Exception:
-        bot.send_message(update.message.chat_id, 'Погода дала сбой, но я все равно с тобой')
+        bot.send_message(update.message.chat_id, 'Погода дала сбой, но я все равно с тобой', Keyboard.InitKeyboard())
 
 def CurrentWeather(bot, update, status=True):
     try:
         res = requests.get("http://api.openweathermap.org/data/2.5/weather",
-                           params={'q': 'Kharkiv', 'units': 'metric', 'lang': 'ru', 'APPID': badge.appid})
+                           params={'q': 'Kharkiv', 'units': 'metric', 'lang': 'uk', 'APPID': badge.appid})
         data = res.json()
         description_weather = 'Стан погоди, поки ти сидиш вдома: ' + data['weather'][0]['description']
         temp = 'Температура твого міста: ' + str(data['main']['temp'])
         wind = 'Швидкість вітру: ' + str(data['wind']['speed']) + 'м/с'
         text = description_weather + '. ' + temp + '. \n' + wind
         if status == True:
-            bot.send_message(update.message.chat.id, text)
+            bot.send_message(update.message.chat.id, text, reply_markup = Keyboard.InitKeyboard())
         else:
             return text
     except Exception:
         bot.send_message(update.message.chat_id,
-                         'Та що таке, ти створюєш одні проблеми для мене')
+                         "Та що таке, ти створюєш одні проблеми для мене", reply_markup = Keyboard.InitKeyboard())
