@@ -11,7 +11,6 @@ def inlinequery(bot, update):
         photo = DogAndCat.get_url_dog()
         result = []
         if len(str(query))!= 0:
-            print("1")
             result.append(InlineQueryResultArticle(
                 id=uuid4(),
                 title="Word of God",
