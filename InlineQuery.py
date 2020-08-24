@@ -1,5 +1,5 @@
 from uuid import uuid4
-import DogAndCat,Evtuh, weather, CreateVoice
+import DogAndCat,Evtuh, weather, CreateVoice, Meme
 from telegram import InlineQueryResultArticle, InputMediaPhoto, ParseMode, InputTextMessageContent, \
     InlineQueryResultCachedVoice, \
     InlineQueryResultPhoto, InputMessageContent, InlineQueryResultCachedPhoto
@@ -61,6 +61,14 @@ def inlinequery(bot, update):
                 title="Dog",
                 description='Не хочеш собаку?',
                 photo_url=DogAndCat.get_url_dog(),
+                thumb_url=photo,
+                parse_mode=ParseMode.MARKDOWN))
+
+            result.append(InlineQueryResultPhoto(
+                id=uuid4(),
+                title="MEME",
+                description='MORE MEME',
+                photo_url=Meme.Link(),
                 thumb_url=photo,
                 parse_mode=ParseMode.MARKDOWN))
 
