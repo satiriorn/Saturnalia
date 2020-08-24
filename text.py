@@ -1,4 +1,4 @@
-import DogAndCat, weather, badge, CreateVoice, UkrainianGame
+import DogAndCat, weather, badge, CreateVoice, UkrainianGame, requests
 
 def text(bot, update):
     try:
@@ -9,6 +9,9 @@ def text(bot, update):
             weather.CurrentWeather(bot, update)
         elif update.message.text.lower() in 'котик' or update.message.text.lower() in 'мило':
             DogAndCat.Cat_photo(bot, update)
+        elif update.message.text.lower() in 'мем':
+            c = requests.get('https://meme-api.herokuapp.com/gimme').json()
+            update.message.reply_photo(c['url'])
         elif '?' in update.message.text.lower():
             UkrainianGame.question(bot, update)
     except Exception:
