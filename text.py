@@ -1,4 +1,4 @@
-import DogAndCat, weather, badge, CreateVoice
+import DogAndCat, weather, badge, CreateVoice, UkrainianGame
 
 def text(bot, update):
     try:
@@ -9,6 +9,8 @@ def text(bot, update):
             weather.CurrentWeather(bot, update)
         elif update.message.text.lower() in 'котик' or update.message.text.lower() in 'мило':
             DogAndCat.Cat_photo(bot, update)
+        elif '?' in update.message.text.lower():
+            UkrainianGame.question(bot, update)
     except Exception:
         bot.send_message(update.message.chat.id, 'Я створив тисячи відповедей задля того, щоб тобі не відповідати.')
 
