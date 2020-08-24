@@ -13,7 +13,7 @@ def main():
     cat_command_handler = CommandHandler('Cat', DogAndCat.Cat_photo)
     dog_command_handler = CommandHandler('Dog', DogAndCat.Dog_photo)
     sheva_command_handler = CommandHandler('ShevchenkoStyle', Quotes.ShevchenkoStyle)
-    meme_command_handler = CommandHandler('Meme',Meme.Get_meme)
+    meme_command_handler = CommandHandler('Meme', Meme.Get_meme)
     text_message_handler = MessageHandler(Filters.text, text.text)
 
     dispatcher.add_handler(evtuh_command_handler)
@@ -21,10 +21,10 @@ def main():
     dispatcher.add_handler(help_command_handler)
     dispatcher.add_handler(weather_command_handler)
     dispatcher.add_handler(voice_command_handler)
+    dispatcher.add_handler(meme_command_handler)
     dispatcher.add_handler(cat_command_handler)
     dispatcher.add_handler(dog_command_handler)
     dispatcher.add_handler(sheva_command_handler)
-    dispatcher.add_handler(meme_command_handler)
     dispatcher.add_handler(text_message_handler)
 
     dispatcher.add_handler(InlineQueryHandler(InlineQuery.inlinequery))

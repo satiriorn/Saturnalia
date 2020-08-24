@@ -9,7 +9,7 @@ def text(bot, update):
             weather.CurrentWeather(bot, update)
         elif update.message.text.lower() in 'котик' or update.message.text.lower() in 'мило':
             DogAndCat.Cat_photo(bot, update)
-        elif 'мем' in update.message.text.lower()  :
+        elif 'мем' in update.message.text.lower():
             Meme.Get_meme(update)
         elif '?' in update.message.text.lower():
             UkrainianGame.question(bot, update)
