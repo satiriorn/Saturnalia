@@ -10,7 +10,7 @@ def text(bot, update):
         elif update.message.text.lower() in 'котик' or update.message.text.lower() in 'мило':
             DogAndCat.Cat_photo(bot, update)
         elif 'мем' in update.message.text.lower():
-            Meme.Get_meme(update)
+            Meme.Get_meme(bot, update)
         elif '?' in update.message.text.lower():
             UkrainianGame.question(bot, update)
     except Exception:
