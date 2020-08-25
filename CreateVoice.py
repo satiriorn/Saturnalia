@@ -39,7 +39,7 @@ def voice(bot, update, status=True):
             return
         gTTS(text = mes, lang=detect(mes)).save(mp3_name)
         if status == True:
-            return bot.send_voice(update.message.chat_id, open(mp3_name, 'rb'), reply_markup = Keyboard.InitKeyboard())
+            return bot.send_voice(update.message.chat_id, open(mp3_name, 'rb'))
         else:
             return mp3_name
     except Exception:

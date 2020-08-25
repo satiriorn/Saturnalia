@@ -1,4 +1,4 @@
-import requests, badge, Keyboard
+import requests, badge
 
 def weather(bot, update):
     try:
@@ -16,7 +16,7 @@ def weather(bot, update):
                                                                                '''Температура:''' + temp + '\n'
                                                                                                            '''Стан неба: ''' + description)
     except Exception:
-        bot.send_message(update.message.chat_id, 'Погода дала сбой, но я все равно с тобой', Keyboard.InitKeyboard())
+        bot.send_message(update.message.chat_id, 'Погода дала сбой, но я все равно с тобой')
 
 def CurrentWeather(bot, update, status=True):
     try:
@@ -28,9 +28,8 @@ def CurrentWeather(bot, update, status=True):
         wind = 'Швидкість вітру: ' + str(data['wind']['speed']) + 'м/с'
         text = description_weather + '. ' + temp + '. \n' + wind
         if status == True:
-            bot.send_message(update.message.chat.id, text, reply_markup = Keyboard.InitKeyboard())
+            bot.send_message(update.message.chat.id, text)
         else:
             return text
     except Exception:
-        bot.send_message(update.message.chat_id,
-                         "Та що таке, ти створюєш одні проблеми для мене", reply_markup = Keyboard.InitKeyboard())
+        bot.send_message(update.message.chat_id, "Та що таке, ти створюєш одні проблеми для мене")
