@@ -29,7 +29,7 @@ def main():
 
     dispatcher.add_handler(InlineQueryHandler(InlineQuery.inlinequery))
 
-    updater.start_polling(timeout=10000, poll_interval=6)
+    updater.start_polling(timeout=100, poll_interval=3)
 
 if __name__ == '__main__':
     main()
