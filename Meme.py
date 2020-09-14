@@ -1,4 +1,4 @@
-import requests, Keyboard
+import requests
 
 def Link():
     return requests.get('https://meme-api.herokuapp.com/gimme').json()['url']
