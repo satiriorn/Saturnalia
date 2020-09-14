@@ -21,7 +21,7 @@ def main():
     dispatcher.add_handler(help_command_handler)
     #dispatcher.add_handler(weather_command_handler)
     #dispatcher.add_handler(voice_command_handler)
-    #dispatcher.add_handler(meme_command_handler)
+    dispatcher.add_handler(meme_command_handler)
     #dispatcher.add_handler(cat_command_handler)
     #dispatcher.add_handler(dog_command_handler)
     #dispatcher.add_handler(sheva_command_handler)
