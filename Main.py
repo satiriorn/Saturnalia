@@ -3,7 +3,7 @@ from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, Inlin
 
 def main():
     TOKEN = os.getenv("TOKEN")
-    updater = Updater(TOKEN)
+    updater = Updater(TOKEN,use_context=True)
     dispatcher = updater.dispatcher
     start_command_handler = CommandHandler('start', start.start)
     help_command_handler = CommandHandler('Help', help.help)
@@ -19,13 +19,13 @@ def main():
     dispatcher.add_handler(evtuh_command_handler)
     dispatcher.add_handler(start_command_handler)
     dispatcher.add_handler(help_command_handler)
-    #dispatcher.add_handler(weather_command_handler)
-    #dispatcher.add_handler(voice_command_handler)
-    #dispatcher.add_handler(meme_command_handler)
-    #dispatcher.add_handler(cat_command_handler)
-    #dispatcher.add_handler(dog_command_handler)
-    #dispatcher.add_handler(sheva_command_handler)
-    #dispatcher.add_handler(text_message_handler)
+    dispatcher.add_handler(weather_command_handler)
+    dispatcher.add_handler(voice_command_handler)
+    dispatcher.add_handler(meme_command_handler)
+    dispatcher.add_handler(cat_command_handler)
+    dispatcher.add_handler(dog_command_handler)
+    dispatcher.add_handler(sheva_command_handler)
+    dispatcher.add_handler(text_message_handler)
 
     dispatcher.add_handler(InlineQueryHandler(InlineQuery.inlinequery))
 
