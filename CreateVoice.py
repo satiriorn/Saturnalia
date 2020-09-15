@@ -33,9 +33,9 @@ def voice(update,context, status=True):
             mes = update.message.text
         else:
             mes = update
-        if badge.Command != True:
-            context.bot.send_message(update.message.chat_id, "Введите сообщение:")
-            badge.Command = True
+        if badge.CommandVoice != True:
+            context.bot.send_message(update.message.chat_id, "Чекаю на твоє повідомлення:")
+            badge.CommandVoice = True
             return
         gTTS(text = mes, lang=detect(mes)).save(mp3_name)
         if status == True:
