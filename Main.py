@@ -1,8 +1,14 @@
 import Quotes, start, help, weather, Evtuh, text,  CreateVoice, DogAndCat, InlineQuery, os, Meme
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, InlineQueryHandler
+from threading import Thread
 
 def main():
-    updater = Updater(os.getenv("TOKEN"))
+    PORT = int(os.environ.get('PORT', '8443'))
+    updater = Updater(os.getenv("TOKEN"), use_context=True)
+    #updater.start_webhook(listen='127.0.0.1', port=5000, url_path='TOKEN')
+    #dispatcher = Dispatcher(bot, update_queue)
+    #thread = Thread(target=dispatcher.start, name='dispatcher')
+    #thread.start()
     dispatcher = updater.dispatcher
     start_command_handler = CommandHandler('start', start.start)
     help_command_handler = CommandHandler('Help', help.help)
@@ -29,6 +35,6 @@ def main():
     dispatcher.add_handler(InlineQueryHandler(InlineQuery.inlinequery))
 
     updater.start_polling(timeout=100, poll_interval=3)
-
+    updater.idle()
 if __name__ == '__main__':
     main()

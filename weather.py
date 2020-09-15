@@ -1,10 +1,9 @@
 import requests, badge
-
-def weather(bot, update):
+def weather(update, context):
     try:
         count = 0
         res = requests.get("http://api.openweathermap.org/data/2.5/forecast",
-                           params={'q': 'Kharkiv', 'units': 'metric', 'lang': 'ru', 'APPID': badge.appid})
+                           params={'q': 'Kharkiv', 'units': 'metric', 'lang': 'uk', 'APPID': badge.appid})
         data = res.json()
         for i in data['list']:
             date = i['dt_txt']
@@ -12,13 +11,13 @@ def weather(bot, update):
             description = i['weather'][0]['description']
             count += 1
             if '12:00:00' in i['dt_txt'] or '18:00:00' in i['dt_txt']:
-                bot.send_message(update.message.chat_id, '''Дата: ''' + date + '\n'
+                context.bot.send_message(update.message.chat_id, '''Дата: ''' + date + '\n'
                                                                                '''Температура:''' + temp + '\n'
                                                                                                            '''Стан неба: ''' + description)
     except Exception:
-        bot.send_message(update.message.chat_id, 'Погода дала сбой, но я все равно с тобой')
+        context.bot.send_message(update.message.chat_id, 'Погода дала сбой, но я все равно с тобой')
 
-def CurrentWeather(bot, update, status=True):
+def CurrentWeather(update, context, status=True):
     try:
         res = requests.get("http://api.openweathermap.org/data/2.5/weather",
                            params={'q': 'Kharkiv', 'units': 'metric', 'lang': 'uk', 'APPID': badge.appid})
@@ -28,8 +27,8 @@ def CurrentWeather(bot, update, status=True):
         wind = 'Швидкість вітру: ' + str(data['wind']['speed']) + 'м/с'
         text = description_weather + '. ' + temp + '. \n' + wind
         if status == True:
-            bot.send_message(update.message.chat.id, text)
+            context.bot.send_message(update.message.chat.id, text)
         else:
             return text
     except Exception:
-        bot.send_message(update.message.chat_id, "Та що таке, ти створюєш одні проблеми для мене")
+        context.bot.send_message(update.message.chat_id, "Та що таке, ти створюєш одні проблеми для мене")

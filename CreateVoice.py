@@ -25,7 +25,7 @@ def _patch_faulty_function(self):
 
 Token._get_token_key = _patch_faulty_function
 
-def voice(bot, update, status=True):
+def voice(update,context, status=True):
     try:
         mes = ""
         mp3_name = 'voice.mp3'
@@ -34,13 +34,13 @@ def voice(bot, update, status=True):
         else:
             mes = update
         if badge.Command != True:
-            bot.send_message(update.message.chat_id, "Введите сообщение:")
+            context.bot.send_message(update.message.chat_id, "Введите сообщение:")
             badge.Command = True
             return
         gTTS(text = mes, lang=detect(mes)).save(mp3_name)
         if status == True:
-            return bot.send_voice(update.message.chat_id, open(mp3_name, 'rb'))
+            return context.bot.send_voice(update.message.chat_id, open(mp3_name, 'rb'))
         else:
             return mp3_name
     except Exception:
-        bot.send_message(update.message.chat_id, 'Голосовуха дала сбой, но я все равно с тобой')
+        context.bot.send_message(update.message.chat_id, 'Голосовуха дала сбой, но я все равно с тобой')
