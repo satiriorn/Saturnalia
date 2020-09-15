@@ -1,4 +1,4 @@
-import Quotes, start, help, weather, Evtuh, text,  CreateVoice, DogAndCat, InlineQuery, os, Meme
+import Quotes, start, help, weather, Evtuh, text,  CreateVoice, DogAndCat, InlineQuery, os, Meme, AddMusic
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, InlineQueryHandler
 from threading import Thread
 
@@ -19,6 +19,7 @@ def main():
     dog_command_handler = CommandHandler('Dog', DogAndCat.Dog_photo)
     sheva_command_handler = CommandHandler('ShevchenkoStyle', Quotes.ShevchenkoStyle)
     meme_command_handler = CommandHandler('Meme', Meme.Get_meme)
+    addmusic_command_handler = CommandHandler("GetMusic", AddMusic.single_download)
     text_message_handler = MessageHandler(Filters.text, text.text)
 
     dispatcher.add_handler(evtuh_command_handler)
@@ -30,7 +31,9 @@ def main():
     dispatcher.add_handler(cat_command_handler)
     dispatcher.add_handler(dog_command_handler)
     dispatcher.add_handler(sheva_command_handler)
+    dispatcher.add_handler(addmusic_command_handler)
     dispatcher.add_handler(text_message_handler)
+
 
     dispatcher.add_handler(InlineQueryHandler(InlineQuery.inlinequery))
 

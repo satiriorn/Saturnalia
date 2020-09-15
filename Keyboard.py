@@ -1,14 +1,14 @@
 import telegram
-NameButton = ["/Evtuh","/Weather","/Voice", "/ShevchenkoStyle", "/Cat", "/Dog", "/Help", "/Meme"]
+NameButton = ["/Evtuh","/Weather","/Voice","/GetMusic", "/ShevchenkoStyle", "/Cat", "/Dog", "/Help", "/Meme"]
 
 def InitKeyboard():
     LevelOne = []
     LevelThree = []
     Button = []
     for i in range(len(NameButton)):
-        if i<3:
+        if i<4:
             LevelOne.append(telegram.KeyboardButton(NameButton[i]))
-        elif i==3:
+        elif i==4:
             Button.append(LevelOne)
             Button.append([telegram.KeyboardButton(NameButton[i])])
         else:

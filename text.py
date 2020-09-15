@@ -1,10 +1,12 @@
-import DogAndCat, weather, badge, CreateVoice, UkrainianGame, Meme
+import DogAndCat, weather, badge, CreateVoice, UkrainianGame, Meme, AddMusic
 
 def text(update,context):
     try:
-        if badge.Command == True:
+        if badge.CommandVoice == True:
             CreateVoice.voice(update, context)
             badge.Command = False
+        elif badge.CommandMusic == True:
+            AddMusic.single_download(update, context)
         elif 'погода' in update.message.text.lower():
             weather.CurrentWeather(update, context)
         elif update.message.text.lower() in 'котик' or update.message.text.lower() in 'мило':
