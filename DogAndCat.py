@@ -28,15 +28,15 @@ def Photo(url, update):
     elif is_animation(url):
         update.message.reply_animation(url)
 
-def Cat_photo(bot, update):
+def Cat_photo(update, context):
     try:
         Photo(get_url_cat(), update)
     except Exception:
-        bot.send_message(update.message.chat_id, "Ти точно людина? Коти, не хочуть бути с тобою.")
+        context.bot.send_message(context.bot_data[update.poll_answer.poll_id], "Ти точно людина? Коти, не хочуть бути с тобою.")
 
 
-def Dog_photo(bot, update):
+def Dog_photo(update, context):
     try:
         Photo(get_url_dog(), update)
     except Exception:
-        bot.send_message(update.message.chat_id, "Рада собак заборонила в'їзд гіфок та картинок собак в полі зору ваших очей та чатику.")
+        context.bot.send_message(context.bot_data[update.poll_answer.poll_id], "Рада собак заборонила в'їзд гіфок та картинок собак в полі зору ваших очей та чатику.")

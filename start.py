@@ -1,8 +1,7 @@
 import Keyboard
-def start(bot, update):
+def start(update, context):
     print(update)
     try:
-
         first_name = update.message.chat.first_name
         chat_id = update.message.chat_id
         k = Keyboard.InitKeyboard()
@@ -16,12 +15,12 @@ def start(bot, update):
         conn.close()
         print(results)"""
         if 'Rositsa Maneva' in first_name:
-            bot.send_message(chat_id, """Слава создателю, мне написала сама """ + first_name)
-            bot.send_message(chat_id,
+            context.bot.send_message(chat_id, """Слава создателю, мне написала сама """ + first_name)
+            context.bot.send_message(chat_id,
                              """Честно говоря, я не ожидал тебя здесь увидеть, но для меня большая честь видеть вас тут(Я поцеловал ваш телефон в микросхему, сейчас он улыбается, можете погладить его), а для вас у меня особая программа...УХАХАХАХАХА """)
 
         else:
-            bot.send_message(chat_id, """Добридень, """ + first_name +
+            context.bot.send_message(chat_id, """Добридень, """ + first_name +
                              """
                                      Можливо мої розділи тобі сподобаються:
                          /Help - розділ якщо твоя влада над ботом по якоїсь причині зникла.
@@ -36,4 +35,4 @@ def start(bot, update):
                          
                          """,reply_markup=k)
     except Exception:
-        bot.send_message(update.message.chat_id, 'Вибач, але я вмер, тому не зможу тобі відповідати.')
+        context.bot.send_message(update.message.chat_id, 'Вибач, але я вмер, тому не зможу тобі відповідати.')
