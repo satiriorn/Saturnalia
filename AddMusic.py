@@ -1,4 +1,4 @@
-import re, os, sys, argparse, time, badge
+import re, os, badge
 import urllib.request
 import urllib.parse
 
@@ -47,11 +47,4 @@ def single_download(update,context):
         path = os.path.join(os.path.abspath(os.path.dirname(__file__)), NameMusic)
         os.remove(path)
     except Exception:
-        context.bot.send_message(update.message.chat.id, 'Жіпа.')
-
-def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument("-s", "--single", help="for single song download.")
-    ap.add_argument("-l", "--list", help="for list of song download")
-    #list_download()
-    single_download()
+        context.bot.send_message(update.message.chat.id, 'Щось пішло не так спробуй ще раз.')
