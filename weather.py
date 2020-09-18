@@ -1,9 +1,9 @@
-import requests, badge
+import requests
 def weather(update, context):
     try:
         count = 0
         res = requests.get("http://api.openweathermap.org/data/2.5/forecast",
-                           params={'q': 'Kharkiv', 'units': 'metric', 'lang': 'uk', 'APPID': badge.appid})
+                           params={'q': 'Kharkiv', 'units': 'metric', 'lang': 'uk', 'APPID': 'WeatherToken'})
         data = res.json()
         for i in data['list']:
             date = i['dt_txt']
@@ -20,7 +20,7 @@ def weather(update, context):
 def CurrentWeather(update, context, status=True):
     try:
         res = requests.get("http://api.openweathermap.org/data/2.5/weather",
-                           params={'q': 'Kharkiv', 'units': 'metric', 'lang': 'uk', 'APPID': badge.appid})
+                           params={'q': 'Kharkiv', 'units': 'metric', 'lang': 'uk', 'APPID': 'WeatherToken'})
         data = res.json()
         description_weather = 'Стан погоди, поки ти сидиш вдома: ' + data['weather'][0]['description']
         temp = 'Температура твого міста: ' + str(data['main']['temp'])
