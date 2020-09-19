@@ -1,7 +1,8 @@
-import Quotes, start, help, weather, Evtuh, text,  CreateVoice, DogAndCat, InlineQuery, os, Meme, AddMusic, Translate
+import Quotes, start, help, weather, Evtuh, text,  CreateVoice, DogAndCat, InlineQuery, os, Meme, AddMusic, Translate, DB, badge
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, InlineQueryHandler
 
 def main():
+    badge.DB =DB.DataBase()
     updater = Updater(os.getenv("TOKEN"), use_context=True)
     dispatcher = updater.dispatcher
     start_command_handler = CommandHandler('start', start.start)
