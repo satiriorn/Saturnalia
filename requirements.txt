@@ -13,3 +13,4 @@ youtube-dl==2020.9.14
 ffprobe==0.5
 ffmpeg==1.4
 googletrans==3.0.0
+mysql-connector-python==8.0.21

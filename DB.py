@@ -12,6 +12,7 @@ class DataBase:
 
     def GetCursor(self):
         return self.cursor
+
     def Commit(self):
         self.db.commit()
 
