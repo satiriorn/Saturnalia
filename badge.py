@@ -59,3 +59,12 @@ ShevchenkoStyle = ["""Мова творить націю та державу, в
                    """Краще ти знайдеш не в пошуках""",
                    """Згадай події свого дитинства. Щось, про що збереглися дуже яскраві спогади, які легко відроджуються в уяві у вигляді візуальних образів, дотикальних відчуттів або навіть запаху, неначе подія відбувається тут і зараз. Адже ви справді були там, коли вона відбулася. Бо як інакше вона могла закарбуватися у вашій пам’яті? Але ось вам неприємна несподіванка: ви там не були. Жоден з атомів, які утворюють ваше тіло зараз, не перебував там і тоді, коли сталася згадувана вами подія… Матерія перетікає з місця на місце, на якусь мить збираючись в унікальну комбінацію, якою в цей час є ви. Таким чином, ви можете бути чим завгодно, але ви однозначно не є матерією, з якої складаєтеся. Якщо у вас досі не стало волосся дибки, то перечитайте цей абзац іще раз, бо в ньому йдеться про серйозні речі."""
                    ]
+
+d = {"af":"Afrikaans", "ak":"Akan", "sq":"Albanian", "am":"Amharic", "ar":"Arabic","hy":"Armenian","az":"Azerbaijani","eu":"Basque",
+     "be":"Belarusian","bem":"Bemba","bn":"Bengali","bh":"Bihari","bs":"Bosnian","br":"Breton","bg":"Bulgarian","km":"Cambodian","ca":"Catalan",
+     "hr":"Croatian","cs":"Czech","da":"Danish","nl":"Dutch","en":"English","et":"Estonian","fr":"French","fi":"Finnish","ka":"Georgian",
+     "de":"German","el":"Greek","hu":"Hungarian","is":"Icelandic","id":"Indonesian","it":"Italian","ja":"Japanese","jw":"Javanese",
+     "kn":"Kannada","kk":"Kazakh","kg":"Kongo","ko":"Korean","la":"Latin","lv":"Latvian","mo":"Moldavian","mn":"Mongolian","pl":"Polish","pt-BR":"Portuguese (Brazil)",
+     "pt-PT":"Portuguese (Portugal)","ro":"Romanian","ru":"Russian","sr":"Serbian","sk":"Slovak","sl":"Slovenian","es":"Spanish","sw":"Swahili",
+     "sv":"Swedish","tt":"Tatar","tr":"Turkish","tk":"Turkmen","uk":"Ukrainian"}
+

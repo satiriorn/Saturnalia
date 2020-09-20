@@ -5,7 +5,7 @@ def start(update, context):
         first_name = update.message.chat.first_name
         chat_id = update.message.chat_id
         k = Keyboard.InitKeyboard()
-        DB.DataBase.CheckUser(badge.DB,first_name, update.message.chat.username, chat_id)
+        DB.DataBase.CheckUser(badge.DB,first_name, update.message.chat.username, chat_id,update.message.from_user.language_code)
         if 'Rositsa Maneva' in first_name:
             context.bot.send_message(chat_id, """Слава создателю, мне написала сама """ + first_name)
             context.bot.send_message(chat_id,
