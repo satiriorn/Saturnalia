@@ -11,9 +11,9 @@ def text(update,context):
             Translate.translate(update, context)
         elif 'погода' in update.message.text.lower():
             weather.CurrentWeather(update, context)
-        elif update.message.text.lower() in 'котик' or update.message.text.lower() in 'мило':
+        elif update.message.text.lower() == 'котик':
             DogAndCat.Cat_photo(update, context)
-        elif 'мем' in update.message.text.lower():
+        elif 'мем' == update.message.text.lower():
             Meme.Get_meme(update, context)
         elif '?' in update.message.text.lower():
             UkrainianGame.question(update, context)
