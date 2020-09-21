@@ -68,3 +68,17 @@ d = {"af":"Afrikaans", "ak":"Akan", "sq":"Albanian", "am":"Amharic", "ar":"Arabi
      "pt-PT":"Portuguese (Portugal)","ro":"Romanian","ru":"Russian","sr":"Serbian","sk":"Slovak","sl":"Slovenian","es":"Spanish","sw":"Swahili",
      "sv":"Swedish","tt":"Tatar","tr":"Turkish","tk":"Turkmen","uk":"Ukrainian"}
 
+answer = """
+                                 Можливо мої розділи тобі сподобаються:
+                     /Help - розділ якщо твоя влада над ботом по якоїсь причині зникла.
+                     /GetMusic - отримання будь якого трека з youtube
+                     /ShevchenkoStyle - те що тебе буде надихати.
+                     /Dologusha - розділ який не для тебе.
+                     /Evtuh - зроби себе комплектним.
+                     /Weather - погода на 5 дней.
+                     /Cat - котики, які тебе будуть надихати.
+                     /Dog - собаки, які будуть робити тебе щасливим.
+                     /Translate - перекладай все що захочеш.
+                     /Meme - я знаю ти хочеш більше мемів.
+                     Поки що це все, якщо є якісь ідеї пиши @Satirion 
+                     """
