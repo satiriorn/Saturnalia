@@ -8,20 +8,24 @@ class DataBase:
             password=os.getenv("PASSWORD"),
             database="heroku_c93f6b06b535bb4"
         )
-        self.cursor = self.db.cursor()
+
 
     def GetCursor(self):
+        self.cursor = self.db.cursor()
         return self.cursor
 
     def Commit(self):
         self.db.commit()
 
     def CheckUser(self, first_name, username, chat_id,language_code):
-        sql = "SELECT count(*) FROM heroku_c93f6b06b535bb4.user WHERE Name = '%s'" % first_name
+        sql = "SELECT count(*) FROM heroku_c93f6b06b535bb4.user WHERE Name = '%s'"   % first_name
+        self.GetCursor()
         self.cursor.execute(sql)
         for x in self.cursor:
             if int(x[0]) == 0:
-                DataBase.Insert(self, first_name,username, chat_id, language_code)
+                print(x[0])
+                self.Insert(first_name,username, chat_id, language_code)
+        self.cursor.close()
 
     def Insert(self, first_name, username, chat_id,language_code):
         s = "INSERT INTO heroku_c93f6b06b535bb4.user(Name,Username,chatID) VALUES(%s, %s, %s);"

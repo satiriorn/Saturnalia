@@ -5,7 +5,7 @@ from telegram import InlineQueryResultArticle, InputMediaPhoto, ParseMode, Input
     InlineQueryResultPhoto, InputMessageContent, InlineQueryResultCachedPhoto
 from telegram.utils.helpers import escape_markdown
 
-def inlinequery(bot, update):
+def inlinequery(update, context):
     try:
         query = update.inline_query.query
         photo = DogAndCat.get_url_dog()
@@ -17,7 +17,7 @@ def inlinequery(bot, update):
                 description='Цитати Євтушенка',
                 thumb_url=photo,
                 input_message_content=InputTextMessageContent(
-                    Evtuh.Evtuh(bot, query, False)),
+                    Evtuh.Evtuh(context, query, False)),
                 parse_mode=ParseMode.MARKDOWN))
 
             result.append(InlineQueryResultArticle(
@@ -26,7 +26,7 @@ def inlinequery(bot, update):
                 thumb_url=photo,
                 description='Погода',
                 input_message_content=InputTextMessageContent(
-                    weather.CurrentWeather(bot, update, False)),
+                    weather.CurrentWeather(context, update, False)),
                 parse_mode=ParseMode.MARKDOWN))
 
             result.append(InlineQueryResultArticle(
