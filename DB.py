@@ -13,6 +13,14 @@ class DataBase:
         self.cursor = self.db.cursor()
         return self.cursor
 
+    def GetIdUser(self, first_name):
+        sql = "SELECT id_user FROM heroku_c93f6b06b535bb4.user WHERE Name = '%s'" % first_name
+        self.cursor.execute(sql)
+        id = None
+        for x in self.cursor:
+            id = x[0]
+        return id
+
     def CheckUser(self, first_name, username, chat_id, language_code, type):
         sql = "SELECT count(*) FROM heroku_c93f6b06b535bb4.user WHERE Name = '%s'"   % first_name
         self.GetCursor()
@@ -28,12 +36,28 @@ class DataBase:
         val = (first_name,  username, chat_id, type)
         self.cursor.execute(s, val)
         self.db.commit()
-        sql = "SELECT id_user FROM heroku_c93f6b06b535bb4.user WHERE Name = '%s'" % first_name
-        self.cursor.execute(sql)
-        id = None
-        for x in self.cursor:
-            id = x[0]
+        id = self.GetIdUser(first_name)
         s = "INSERT INTO heroku_c93f6b06b535bb4.bot(LanguageBot, id_user) VALUES(%s, %s);"
         val = (language_code, id)
         self.cursor.execute(s, val)
         self.db.commit()
+
+    def VerificationLanguage(self, first_name,preferred_language):
+        self.GetCursor()
+        id = self.GetIdUser(first_name)
+        sql ="UPDATE heroku_c93f6b06b535bb4.bot SET TranslateLanguage = %s WHERE id_user =%s;"
+        val =(preferred_language, id)
+        self.cursor.execute(sql, val)
+        self.db.commit()
+        self.cursor.close()
+
+    def GetTranlateLanguage(self,first_name):
+        self.GetCursor()
+        id = self.GetIdUser(first_name)
+        sql = "SELECT TranslateLanguage FROM heroku_c93f6b06b535bb4.bot WHERE id_user = '%s'" % id
+        self.cursor.execute(sql)
+        lang = None
+        for x in self.cursor:
+            lang = x[0]
+        self.cursor.close()
+        return lang
