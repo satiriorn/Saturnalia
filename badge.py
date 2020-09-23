@@ -3,6 +3,7 @@ Id = None
 CommandVoice = False
 CommandMusic = False
 CommandTranslate = False
+CommandSettingTranslate = False
 DB=None
 God = ["""Наш розум - космос \nТа не всяк ракету має...\nТому далеко не літає""",
      """Вульгарний танець... Тьху!\nДля імпотентів!\nАле яких він вартий компліментів!""",
@@ -79,6 +80,13 @@ d = {"af":"Afrikaans", "ak":"Akan", "sq":"Albanian", "am":"Amharic", "ar":"Arabi
      "pt-PT":"Portuguese (Portugal)","ro":"Romanian","ru":"Russian","sr":"Serbian","sk":"Slovak","sl":"Slovenian","es":"Spanish","sw":"Swahili",
      "sv":"Swedish","tt":"Tatar","tr":"Turkish","tk":"Turkmen","uk":"Ukrainian"}
 
+b = {"Afrikaans":"af", "Akan":"ak", "Albanian":"sq", "Amharic":"am", "Arabic":"ar", "Armenian":"hy","Azerbaijani":"az","Basque":"eu",
+     "Belarusian":"be","Bemba":"bem","Bengali":"bn","Bihari":"bh","Bosnian":"bs","Breton":"br","Bulgarian":"bg","Cambodian":"km","Catalan":"ca",
+     "Croatian":"hr","Czech":"cs","Danish":"da","Dutch":"nl","English":"en","Estonian":"et","French":"fr","Finnish":"fi","Georgian":"ka",
+     "German":"de","Greek":"el","Hungarian":"hu","Icelandic":"is","Indonesian":"id","Italian":"it","Japanese":"ja","Javanese":"jw",
+     "Kannada":"kn","Kazakh":"kk","Kongo":"kg","Korean":"ko","Latin":"la","Latvian":"lv","Moldavian":"mo","Mongolian":"mn","Polish":"pl","Portuguese (Brazil)":"pt-BR",
+     "Portuguese (Portugal)":"pt-PT","Romanian":"ro","Russian":"ru","Serbian":"sr","Slovak":"sk","Slovenian":"sl","Spanish":"es","Swahili":"sw",
+     "Swedish":"sv","Tatar":"tt","Turkish":"tr","Turkmen":"tk","Ukrainian":"uk"}
 answer = """
                                  Можливо мої розділи тобі сподобаються:
                      /Help - розділ якщо твоя влада над ботом по якоїсь причині зникла.
@@ -93,3 +101,6 @@ answer = """
                      /Meme - я знаю ти хочеш більше мемів.
                      Поки що це все, якщо є якісь ідеї пиши @Satirion 
                      """
+MainKeyboard = ["/Help", "/Weather", "/Voice", "/Translate", "/Evtuh", "/ShevchenkoStyle", "/Meme", "/Cat", "/Dog","/GetMusic", "/SettingTranslate"]
+TranslateKeyboard = ["Belarusian", "Bulgarian", "Croatian", "Czech", "English", "Ukrainian", "French", "Finnish", "Georgian", "German", "Italian", "Latvian", "Polish", "Estonian"]
+

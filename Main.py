@@ -15,6 +15,7 @@ def main():
     sheva_command_handler = CommandHandler('ShevchenkoStyle', Quotes.ShevchenkoStyle)
     meme_command_handler = CommandHandler('Meme', Meme.Get_meme)
     addmusic_command_handler = CommandHandler("GetMusic", AddMusic.single_download)
+    settingtranslate_command_handler = CommandHandler("SettingTranslate", Translate.SettingTranslate)
     translate_command_handler = CommandHandler("Translate", Translate.translate)
     text_message_handler = MessageHandler(Filters.text, text.text)
 
@@ -29,6 +30,7 @@ def main():
     dispatcher.add_handler(sheva_command_handler)
     dispatcher.add_handler(addmusic_command_handler)
     dispatcher.add_handler(translate_command_handler)
+    dispatcher.add_handler(settingtranslate_command_handler)
     dispatcher.add_handler(text_message_handler)
 
     dispatcher.add_handler(InlineQueryHandler(InlineQuery.inlinequery))
