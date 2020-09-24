@@ -45,8 +45,11 @@ def voice(update,context, status=True):
     except Exception:
         context.bot.send_message(update.message.chat_id, 'Мої мікросхеми старі, давай трохи пізніше.')
 
-def TranslateVoice(update, context, mes):
-    mp3_name = 'voice.mp3'
-    gTTS(text=mes, lang=detect(mes)).save(mp3_name)
-    context.bot.send_voice(update.message.chat_id, open(mp3_name, 'rb'))
-    context.bot.send_message(update.message.chat.id, mes)
+def TranslateVoice(update, context, mes, lang):
+    try:
+        mp3_name = 'voice.mp3'
+        gTTS(text=mes.lower(), lang=lang).save(mp3_name)
+        context.bot.send_voice(update.message.chat_id, open(mp3_name, 'rb'))
+        context.bot.send_message(update.message.chat.id, mes)
+    except Exception:
+        context.bot.send_message(update.message.chat_id, mes)
