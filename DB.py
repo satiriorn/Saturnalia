@@ -2,15 +2,20 @@ import mysql.connector, os
 
 class DataBase:
     def __init__(self):
+        self.cursor = None
+        self.db = None
+
+    def GetCursor(self):
+        if self.cursor and self.db:
+            self.cursor.close()
+            self.db.close()
         self.db = mysql.connector.connect(
             host=os.getenv("HOST"),
             user=os.getenv("USER"),
             password=os.getenv("PASSWORD"),
             database="heroku_c93f6b06b535bb4"
         )
-
-    def GetCursor(self):
-        self.cursor = self.db.cursor()
+        self.cursor = self.db.cursor(buffered=True)
         return self.cursor
 
     def GetIdUser(self, first_name):
@@ -29,7 +34,6 @@ class DataBase:
             if int(x[0]) == 0:
                 print(x[0])
                 self.Insert(first_name,username, chat_id, language_code, type)
-        self.cursor.close()
 
     def Insert(self, first_name, username, chat_id, language_code, type):
         s = "INSERT INTO heroku_c93f6b06b535bb4.user(Name, Username, chatID, TypeChat) VALUES(%s, %s, %s, %s);"
@@ -49,7 +53,6 @@ class DataBase:
         val =(preferred_language, id)
         self.cursor.execute(sql, val)
         self.db.commit()
-        self.cursor.close()
 
     def GetTranlateLanguage(self,first_name):
         self.GetCursor()
@@ -59,5 +62,4 @@ class DataBase:
         lang = None
         for x in self.cursor:
             lang = x[0]
-        self.cursor.close()
         return lang
