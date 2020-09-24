@@ -4,7 +4,7 @@ def text(update,context):
     try:
         if badge.CommandVoice == True:
             CreateVoice.voice(update, context)
-            badge.Command = False
+            badge.CommandVoice = False
         elif badge.CommandMusic == True:
             AddMusic.single_download(update, context)
         elif badge.CommandTranslate == True:
@@ -20,4 +20,8 @@ def text(update,context):
         elif '?' in update.message.text.lower():
             UkrainianGame.question(update, context)
     except Exception:
+        badge.CommandVoice = False
+        badge.CommandMusic = False
+        badge.CommandTranslate = False
+        badge.CommandSettingTranslate = False
         context.bot.send_message(update.message.chat.id, 'Я створив тисячи відповедей задля того, щоб тобі не відповідати.')

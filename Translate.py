@@ -16,7 +16,7 @@ def translate(update, context):
         translations = translator.translate([update.message.text], dest=lang)
         for translation in translations:
             result = translation.text
-        CreateVoice.TranslateVoice(update, context, result)
+        CreateVoice.TranslateVoice(update, context, result, lang)
         badge.CommandTranslate = False
     except Exception:
         badge.CommandTranslate = False
