@@ -47,4 +47,5 @@ def single_download(update,context):
         path = os.path.join(os.path.abspath(os.path.dirname(__file__)), NameMusic)
         os.remove(path)
     except Exception:
+        badge.CommandMusic = False
         context.bot.send_message(update.message.chat.id, 'Щось пішло не так спробуй ще раз.')
