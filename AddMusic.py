@@ -1,4 +1,4 @@
-import re, os, badge
+import os, badge, re
 import urllib.request
 import urllib.parse
 
@@ -7,13 +7,6 @@ encode = urllib.parse.urlencode
 retrieve = urllib.request.urlretrieve
 cleanup = urllib.request.urlcleanup()
 
-def video_title(url):
-    try:
-        webpage = urlopen(url).read()
-        title = str(webpage).split('<title>')[1].split('</title>')[0]
-    except:
-        title = 'Youtube Song'
-    return title
 
 def list_download(song_list=None):
     if not song_list:
@@ -39,10 +32,10 @@ def single_download(update,context):
         else:
             command = 'youtube-dl --embed-thumbnail --no-warnings --extract-audio --audio-format mp3 -o "%(title)s.%(ext)s" ' + song[song.find("=") + 1:]
         os.system(command)
-        NameMusic = video_title(song)
-        NameMusic = NameMusic.replace(' - YouTube', '')
-        NameMusic += ".mp3"
-        context.bot.send_audio(update.message.chat_id, open(NameMusic, 'rb'))
+
+        NameMusic = [f for f in os.listdir(os.getcwd()) if f.endswith('.mp3')]
+        NameMusic.remove("voice.mp3")
+        context.bot.send_audio(update.message.chat_id, open(NameMusic[0], 'rb'))
         badge.CommandMusic = False
         path = os.path.join(os.path.abspath(os.path.dirname(__file__)), NameMusic)
         os.remove(path)
