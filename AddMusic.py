@@ -7,7 +7,6 @@ encode = urllib.parse.urlencode
 retrieve = urllib.request.urlretrieve
 cleanup = urllib.request.urlcleanup()
 
-
 def list_download(song_list=None):
     if not song_list:
         song_list = ""

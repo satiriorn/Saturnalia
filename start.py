@@ -4,7 +4,8 @@ def start(update, context):
     try:
         first_name = update.message.chat.first_name
         chat_id = update.message.chat_id
-        k = Keyboard.InitKeyboard(badge.MainKeyboard)
+        k2 = Keyboard.InitKeyboard(badge.MainKeyboard)
+        k = Keyboard.InlineKeyboard()
 
         if update.message.chat.type == "private":
             DB.DataBase.CheckUser(badge.DB, first_name, update.message.chat.username, chat_id,
