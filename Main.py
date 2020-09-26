@@ -1,5 +1,5 @@
-import Quotes, start, help, weather, Evtuh, text,  CreateVoice, DogAndCat, InlineQuery, os, Meme, AddMusic, Translate, DB, badge
-from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, InlineQueryHandler
+import Quotes, start, help, weather, Evtuh, text,  CreateVoice, DogAndCat, InlineQuery, os, Meme, AddMusic, Translate, DB, badge, Keyboard
+from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, InlineQueryHandler, CallbackQueryHandler
 
 def main():
     badge.DB =DB.DataBase()
@@ -17,6 +17,7 @@ def main():
     addmusic_command_handler = CommandHandler("GetMusic", AddMusic.single_download)
     settingtranslate_command_handler = CommandHandler("SettingTranslate", Translate.SettingTranslate)
     translate_command_handler = CommandHandler("Translate", Translate.translate)
+    callback_query_handler = CallbackQueryHandler(Keyboard.button)
     text_message_handler = MessageHandler(Filters.text, text.text)
 
     dispatcher.add_handler(evtuh_command_handler)
@@ -31,6 +32,7 @@ def main():
     dispatcher.add_handler(addmusic_command_handler)
     dispatcher.add_handler(translate_command_handler)
     dispatcher.add_handler(settingtranslate_command_handler)
+    dispatcher.add_handler(callback_query_handler)
     dispatcher.add_handler(text_message_handler)
 
     dispatcher.add_handler(InlineQueryHandler(InlineQuery.inlinequery))
