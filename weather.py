@@ -16,7 +16,7 @@ def weather(update, context):
                                                                                '''Температура:''' + temp + '\n'
                                                                                                            '''Стан неба: ''' + description)
     except Exception:
-        context.bot.send_message(update.message.chat_id, 'Погода дала сбой, но я все равно с тобой')
+        context.bot.send_message(update.message.chat_id, 'Температура моїх мікросхем дуже велика, спробуй пізніше')
 
 def CurrentWeather(update, context, status=True):
     try:
