@@ -1,5 +1,6 @@
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, KeyboardButton, ReplyKeyboardMarkup
 import Setting, badge
+
 def InitKeyboard(NameButton):
     LevelOne = []
     LevelTwo = []
@@ -17,22 +18,18 @@ def InitKeyboard(NameButton):
     Button.append(LevelThree)
     return ReplyKeyboardMarkup(Button, resize_keyboard=True)
 
-def databack(NameButton, Status, i):
-    if Status == True:
-        return i
-    else:
-        return NameButton[i]
-
 def InlineKeyboard(NameButton, Status=True):
     keyboard = []
     i = 0
+    data = lambda NameButton, Status, i: i if Status == True else NameButton[i]
     while i < len(NameButton):
+        print(data)
         if ((i+1)<len(NameButton)):
-            keyboard.append([InlineKeyboardButton(NameButton[i], callback_data= databack(NameButton, Status, i)),
-                         InlineKeyboardButton(NameButton[i+1], callback_data=databack(NameButton, Status, i+1))])
+            keyboard.append([InlineKeyboardButton(NameButton[i], callback_data= data(NameButton,Status,i)),
+                         InlineKeyboardButton(NameButton[i+1], callback_data= data(NameButton,Status,i))])
             i+=2
         else:
-            keyboard.append([InlineKeyboardButton(NameButton[i], callback_data=databack(NameButton, Status, i))])
+            keyboard.append([InlineKeyboardButton(NameButton[i], callback_data= data(NameButton,Status,i))])
             i += 1
     return  InlineKeyboardMarkup(keyboard)
 
@@ -43,6 +40,11 @@ def button(update,context):
         Setting.SettingTranslate(update, context)
     elif query.data == "0":
         Setting.SettingTranslate(update,context)
-
+    elif query.data =="1":
+        pass
+    else:
+        context.bot.edit_message_text(chat_id=update.callback_query.message.chat_id,
+                                      text="Ви нічого не змінили у своєму житті",
+                                      message_id=update.callback_query.message.message_id)
     return query
 

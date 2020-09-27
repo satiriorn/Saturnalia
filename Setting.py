@@ -1,4 +1,5 @@
 import badge, Keyboard, DB
+
 def ShowSetting(update, context):
     context.bot.send_message(update.message.chat_id, "Ви увійшли в налаштування бота оберіть бажані зміни.",
                              reply_markup=Keyboard.InlineKeyboard(badge.Setting))
@@ -10,7 +11,6 @@ def SettingTranslate(update,context):
         badge.CommandSettingTranslate = True
         return
     if update.callback_query.message.chat.type == "private":
-        print( badge.b[update.callback_query.data])
         DB.DataBase.VerificationLanguage(badge.DB, update.callback_query.message.chat.first_name, badge.b[update.callback_query.data])
     else:
         DB.DataBase.VerificationLanguage(badge.DB,  update.callback_query.message.chat.title, badge.b[update.callback_query.data])
