@@ -9,8 +9,6 @@ def text(update,context):
         AddMusic.single_download(update, context)
     elif badge.CommandTranslate == True:
         Translate.translate(update, context)
-    elif badge.CommandSettingTranslate ==True:
-        Setting.SettingTranslate(update, context)
     elif 'погода' in update.message.text.lower():
         weather.CurrentWeather(update, context)
     elif update.message.text.lower() == 'котик':
