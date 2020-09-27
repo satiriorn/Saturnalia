@@ -101,6 +101,7 @@ answer = """
                      /Meme - я знаю ти хочеш більше мемів.
                      Поки що це все, якщо є якісь ідеї пиши @Satirion 
                      """
-MainKeyboard = ["/Help", "/Weather", "/Voice", "/Translate", "/Evtuh", "/ShevchenkoStyle", "/Meme", "/Cat", "/Dog","/GetMusic", "/SettingTranslate"]
+MainKeyboard = ["/Help", "/Weather", "/Voice", "/Translate", "/Evtuh", "/ShevchenkoStyle", "/Meme", "/Cat", "/Dog","/GetMusic", "/SettingBot"]
 TranslateKeyboard = ["Belarusian", "Bulgarian", "Croatian", "Czech", "English", "Ukrainian", "French", "Finnish", "Georgian", "German", "Italian", "Latvian", "Polish", "Estonian"]
+Setting=["Змінити мову перекладу", "Змінити мову бота", "Не треба нічого змінювати"]
 

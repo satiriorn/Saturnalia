@@ -1,5 +1,5 @@
-
-from telegram import InlineKeyboardButton, InlineKeyboardMarkup, KeyboardButton, ReplyKeyboardMarkup, CallbackQuery
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup, KeyboardButton, ReplyKeyboardMarkup
+import Setting
 def InitKeyboard(NameButton):
     LevelOne = []
     LevelTwo = []
@@ -17,17 +17,26 @@ def InitKeyboard(NameButton):
     Button.append(LevelThree)
     return ReplyKeyboardMarkup(Button, resize_keyboard=True)
 
-def InlineKeyboard():
-    keyboard = [[InlineKeyboardButton("Option 1", callback_data='1'),
-                 InlineKeyboardButton("Option 2", callback_data='2')],
-
-                [InlineKeyboardButton("Option 3", callback_data='3')]]
+def InlineKeyboard(NameButton):
+    keyboard = []
+    i = 0
+    while i < len(NameButton):
+        if (i+1) == True:
+            keyboard.append([InlineKeyboardButton(NameButton[i], callback_data=str(i)),
+                         InlineKeyboardButton(NameButton[i+1], callback_data=str(i + 1))])
+            i+=2
+        else:
+            keyboard.append([InlineKeyboardButton(NameButton[i], callback_data=str(i))])
+            i += 1
+    for x in range(len(keyboard)):
+        print(keyboard[x])
     return  InlineKeyboardMarkup(keyboard)
 
 def button(update,context):
     query = update.callback_query
     print(query.data)
-    context.bot.edit_message_text(text="Selected option: {}".format(query.data),
-                          chat_id=query.message.chat_id,
-                          message_id=query.message.message_id)
+    if query.data == "0":
+        Setting.SettingTranslate(update,context)
+
+    return query
 
