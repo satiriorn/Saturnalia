@@ -1,4 +1,4 @@
-import Quotes, start, help, weather, Evtuh, text,  CreateVoice, DogAndCat, InlineQuery, os, Meme, AddMusic, Translate, DB, badge, Keyboard
+import Quotes, start, help, weather, Evtuh, text,  CreateVoice, DogAndCat, InlineQuery, os, Meme, AddMusic, Translate, DB, badge, Keyboard, Setting
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, InlineQueryHandler, CallbackQueryHandler
 
 def main():
@@ -15,7 +15,7 @@ def main():
     sheva_command_handler = CommandHandler('ShevchenkoStyle', Quotes.ShevchenkoStyle)
     meme_command_handler = CommandHandler('Meme', Meme.Get_meme)
     addmusic_command_handler = CommandHandler("GetMusic", AddMusic.single_download)
-    settingtranslate_command_handler = CommandHandler("SettingTranslate", Translate.SettingTranslate)
+    settingtranslate_command_handler = CommandHandler("SettingBot", Setting.ShowSetting)
     translate_command_handler = CommandHandler("Translate", Translate.translate)
     callback_query_handler = CallbackQueryHandler(Keyboard.button)
     text_message_handler = MessageHandler(Filters.text, text.text)

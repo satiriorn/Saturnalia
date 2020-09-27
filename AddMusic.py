@@ -15,13 +15,16 @@ def list_download(song_list=None):
         single_download(song)
     fhand.close()
 
+
 def single_download(update,context):
     try:
         if badge.CommandMusic != True:
             context.bot.send_message(update.message.chat_id, "Мені потрібне посилання на відео:")
             badge.CommandMusic = True
             return
-        song=update.message.text
+
+        song="https://www.youtube.com/watch?v="+(update.message.text).replace('https://youtu.be/','')
+
         if "youtube.com/" not in song:
             query_string = encode({"search_query": song})
             html_content = urlopen("http://www.youtube.com/results?" + query_string)
@@ -31,12 +34,11 @@ def single_download(update,context):
         else:
             command = 'youtube-dl --embed-thumbnail --no-warnings --extract-audio --audio-format mp3 -o "%(title)s.%(ext)s" ' + song[song.find("=") + 1:]
         os.system(command)
-
         NameMusic = [f for f in os.listdir(os.getcwd()) if f.endswith('.mp3')]
         NameMusic.remove("voice.mp3")
         context.bot.send_audio(update.message.chat_id, open(NameMusic[0], 'rb'))
         badge.CommandMusic = False
-        path = os.path.join(os.path.abspath(os.path.dirname(__file__)), NameMusic)
+        path = os.path.join(os.path.abspath(os.path.dirname(__file__)), NameMusic[0])
         os.remove(path)
     except Exception:
         badge.CommandMusic = False
