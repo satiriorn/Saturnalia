@@ -26,7 +26,7 @@ def InlineKeyboard(NameButton, Status=True):
         print(data)
         if ((i+1)<len(NameButton)):
             keyboard.append([InlineKeyboardButton(NameButton[i], callback_data= data(NameButton,Status,i)),
-                         InlineKeyboardButton(NameButton[i+1], callback_data= data(NameButton,Status,i))])
+                         InlineKeyboardButton(NameButton[i+1], callback_data= data(NameButton,Status,i+1))])
             i+=2
         else:
             keyboard.append([InlineKeyboardButton(NameButton[i], callback_data= data(NameButton,Status,i))])
@@ -35,13 +35,15 @@ def InlineKeyboard(NameButton, Status=True):
 
 def button(update,context):
     query = update.callback_query
-    print(query)
+    print(query.data)
     if badge.CommandSettingTranslate == True:
         Setting.SettingTranslate(update, context)
+    elif badge.CommandLangBot == True:
+        Setting.LanguageBot(update, context)
     elif query.data == "0":
         Setting.SettingTranslate(update,context)
     elif query.data =="1":
-        pass
+        Setting.LanguageBot(update,context)
     else:
         context.bot.edit_message_text(chat_id=update.callback_query.message.chat_id,
                                       text="Ви нічого не змінили у своєму житті",

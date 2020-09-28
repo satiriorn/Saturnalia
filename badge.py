@@ -4,6 +4,7 @@ CommandVoice = False
 CommandMusic = False
 CommandTranslate = False
 CommandSettingTranslate = False
+CommandLangBot = False
 DB=None
 God = ["""Наш розум - космос \nТа не всяк ракету має...\nТому далеко не літає""",
      """Вульгарний танець... Тьху!\nДля імпотентів!\nАле яких він вартий компліментів!""",
@@ -87,21 +88,9 @@ b = {"Afrikaans":"af", "Akan":"ak", "Albanian":"sq", "Amharic":"am", "Arabic":"a
      "Kannada":"kn","Kazakh":"kk","Kongo":"kg","Korean":"ko","Latin":"la","Latvian":"lv","Moldavian":"mo","Mongolian":"mn","Polish":"pl","Portuguese (Brazil)":"pt-BR",
      "Portuguese (Portugal)":"pt-PT","Romanian":"ro","Russian":"ru","Serbian":"sr","Slovak":"sk","Slovenian":"sl","Spanish":"es","Swahili":"sw",
      "Swedish":"sv","Tatar":"tt","Turkish":"tr","Turkmen":"tk","Ukrainian":"uk"}
-answer = """
-                                 Можливо мої розділи тобі сподобаються:
-                     /Help - розділ якщо твоя влада над ботом по якоїсь причині зникла.
-                     /GetMusic - отримання будь якого трека з youtube
-                     /ShevchenkoStyle - те що тебе буде надихати.
-                     /Dologusha - розділ який не для тебе.
-                     /Evtuh - зроби себе комплектним.
-                     /Weather - погода на 5 дней.
-                     /Cat - котики, які тебе будуть надихати.
-                     /Dog - собаки, які будуть робити тебе щасливим.
-                     /Translate - перекладай все що захочеш.
-                     /Meme - я знаю ти хочеш більше мемів.
-                     Поки що це все, якщо є якісь ідеї пиши @Satirion 
-                     """
+
 MainKeyboard = ["/Help", "/Weather", "/Voice", "/Translate", "/Evtuh", "/ShevchenkoStyle", "/Meme", "/Cat", "/Dog","/GetMusic", "/SettingBot"]
 TranslateKeyboard = ["Belarusian", "Bulgarian", "Croatian", "Czech", "English","Estonian" , "French", "Finnish", "Georgian", "German", "Italian", "Latvian", "Polish", "Ukrainian"]
 Setting=["Змінити мову перекладу", "Змінити мову бота", "Не треба нічого змінювати"]
+LanguageBot = ["Belarusian", "Ukrainian", "English"]
 
