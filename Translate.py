@@ -10,9 +10,9 @@ def translate(update, context):
         result = ''
         lang = None
         if update.message.chat.type == "private":
-            lang = DB.DataBase.GetTranlateLanguage(badge.DB, update.message.chat.first_name)
+            lang = DB.DataBase.GetLanguage(badge.DB, update.message.chat.first_name)
         else:
-            lang = DB.DataBase.GetTranlateLanguage(badge.DB, update.message.chat.title)
+            lang = DB.DataBase.GetLanguage(badge.DB, update.message.chat.title)
         translations = translator.translate([update.message.text], dest=lang)
         for translation in translations:
             result = translation.text
