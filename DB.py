@@ -76,11 +76,8 @@ class DataBase:
 
     def GetJsonLanguageBot(self,first_name):
         lang = self.GetLanguageBot(first_name)
-        print(lang)
         patch ="languages/{0}.json".format(lang)
-        print(patch)
         with open(patch, "r", encoding="utf-8") as json_file:
             data = json.load(json_file)
-            print(data["1"])
             json_file.close()
         return data

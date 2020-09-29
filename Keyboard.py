@@ -23,7 +23,6 @@ def InlineKeyboard(NameButton, Status=True):
     i = 0
     data = lambda NameButton, Status, i: i if Status == True else NameButton[i]
     while i < len(NameButton):
-        print(data)
         if ((i+1)<len(NameButton)):
             keyboard.append([InlineKeyboardButton(NameButton[i], callback_data= data(NameButton,Status,i)),
                          InlineKeyboardButton(NameButton[i+1], callback_data= data(NameButton,Status,i+1))])
@@ -35,7 +34,6 @@ def InlineKeyboard(NameButton, Status=True):
 
 def button(update,context):
     query = update.callback_query
-    print(query.data)
     if badge.CommandSettingTranslate == True:
         Setting.SettingTranslate(update, context)
     elif badge.CommandLangBot == True:

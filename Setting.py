@@ -5,7 +5,7 @@ def ShowSetting(update, context):
     context.bot.send_message(update.message.chat_id,answer["9"],reply_markup=Keyboard.InlineKeyboard(badge.Setting))
 
 def SettingTranslate(update,context):
-    answer = DB.DataBase.GetJsonLanguageBot(badge.DB, update.message.from_user.first_name)
+    answer = DB.DataBase.GetJsonLanguageBot(badge.DB, update.callback_query.from_user.first_name)
     if badge.CommandSettingTranslate !=True:
         context.bot.edit_message_text(chat_id=update.callback_query.message.chat_id, text=answer["10"],
         reply_markup = Keyboard.InlineKeyboard(badge.TranslateKeyboard, False),message_id=update.callback_query.message.message_id)
@@ -20,7 +20,7 @@ def SettingTranslate(update,context):
     badge.CommandSettingTranslate = False
 
 def LanguageBot(update, context):
-    answer = DB.DataBase.GetJsonLanguageBot(badge.DB, update.message.from_user.first_name)
+    answer = DB.DataBase.GetJsonLanguageBot(badge.DB, update.callback_query.from_user.first_name)
     if badge.CommandLangBot != True:
         context.bot.edit_message_text(chat_id=update.callback_query.message.chat_id,
                                       text=answer["12"],
@@ -36,7 +36,7 @@ def LanguageBot(update, context):
     badge.CommandLangBot = False
 
 def ExistentialResponse(update, context):
-    answer = DB.DataBase.GetJsonLanguageBot(badge.DB, update.message.from_user.first_name)
+    answer = DB.DataBase.GetJsonLanguageBot(badge.DB, update.callback_query.from_user.first_name)
     context.bot.edit_message_text(chat_id=update.callback_query.message.chat_id,
                                   text=answer["13"],
                                   message_id=update.callback_query.message.message_id)
