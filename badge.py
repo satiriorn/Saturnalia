@@ -5,6 +5,7 @@ CommandMusic = False
 CommandTranslate = False
 CommandSettingTranslate = False
 CommandLangBot = False
+NameUserCommand = ""
 DB=None
 God = ["""Наш розум - космос \nТа не всяк ракету має...\nТому далеко не літає""",
      """Вульгарний танець... Тьху!\nДля імпотентів!\nАле яких він вартий компліментів!""",
@@ -93,4 +94,3 @@ MainKeyboard = ["/Help", "/Weather", "/Voice", "/Translate", "/Evtuh", "/Shevche
 TranslateKeyboard = ["Belarusian", "Bulgarian", "Croatian", "Czech", "English","Estonian" , "French", "Finnish", "Georgian", "German", "Italian", "Latvian", "Polish", "Ukrainian"]
 Setting=["Змінити мову перекладу", "Змінити мову бота", "Не треба нічого змінювати"]
 LanguageBot = ["Belarusian", "Ukrainian", "English"]
-
