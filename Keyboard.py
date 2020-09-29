@@ -45,8 +45,6 @@ def button(update,context):
     elif query.data =="1":
         Setting.LanguageBot(update,context)
     else:
-        context.bot.edit_message_text(chat_id=update.callback_query.message.chat_id,
-                                      text="Ви нічого не змінили у своєму житті",
-                                      message_id=update.callback_query.message.message_id)
+        Setting.ExistentialResponse(update,context)
     return query
 

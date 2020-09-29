@@ -1,4 +1,4 @@
-import requests, badge, re, math, time, calendar, Keyboard
+import requests, badge, re, math, time, calendar, DB
 from gtts import gTTS
 from gtts_token.gtts_token import Token
 from langdetect import detect
@@ -25,25 +25,23 @@ def _patch_faulty_function(self):
 
 Token._get_token_key = _patch_faulty_function
 
-def voice(update,context, status=True):
+def voice(update,context, Status=True):
+    answer = DB.DataBase.GetJsonLanguageBot(badge.DB, update.message.from_user.first_name)
     try:
-        mes = ""
-        mp3_name = 'voice.mp3'
-        if status == True:
+        mes =""
+        if Status == True:
             mes = update.message.text
         else:
             mes = update
+        mp3_name = 'voice.mp3'
         if badge.CommandVoice != True:
-            context.bot.send_message(update.message.chat_id, "Чекаю на твоє текстове повідомлення:")
+            context.bot.send_message(update.message.chat_id, answer["4"])
             badge.CommandVoice = True
             return
         gTTS(text = mes, lang=detect(mes)).save(mp3_name)
-        if status == True:
-            return context.bot.send_voice(update.message.chat_id, open(mp3_name, 'rb'))
-        else:
-            return mp3_name
+        return (lambda status: status if context.bot.send_voice(update.message.chat_id, open(mp3_name, 'rb')) else mp3_name) (Status)
     except Exception:
-        context.bot.send_message(update.message.chat_id, 'Мої мікросхеми старі, давай трохи пізніше.')
+        context.bot.send_message(update.message.chat_id, answer["5"])
 
 def TranslateVoice(update, context, mes, lang):
     try:

@@ -1,4 +1,4 @@
-import  datetime, requests
+import  datetime, requests, DB, badge
 
 now = datetime.datetime.now()
 
@@ -29,14 +29,16 @@ def Photo(url, update):
         update.message.reply_animation(url)
 
 def Cat_photo(update, context):
+    answer = DB.DataBase.GetJsonLanguageBot(badge.DB, update.message.from_user.first_name)
     try:
         Photo(get_url_cat(), update)
     except Exception:
-        context.bot.send_message(context.bot_data[update.poll_answer.poll_id], "Ти точно людина? Коти, не хочуть бути с тобою.")
+        context.bot.send_message(context.bot_data[update.poll_answer.poll_id], answer["6"])
 
 
 def Dog_photo(update, context):
+    answer = DB.DataBase.GetJsonLanguageBot(badge.DB, update.message.from_user.first_name)
     try:
         Photo(get_url_dog(), update)
     except Exception:
-        context.bot.send_message(context.bot_data[update.poll_answer.poll_id], "Рада собак заборонила в'їзд гіфок та картинок собак в полі зору ваших очей та чатику.")
+        context.bot.send_message(context.bot_data[update.poll_answer.poll_id], answer["7"])

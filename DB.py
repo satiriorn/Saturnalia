@@ -1,9 +1,15 @@
-import mysql.connector, os
+import mysql.connector, os, json
 
 class DataBase:
     def __init__(self):
         self.cursor = None
         self.db = None
+
+    def GetValue(self):
+        value = None
+        for x in self.cursor:
+            value = x[0]
+        return value
 
     def GetCursor(self):
         if self.cursor and self.db:
@@ -21,10 +27,7 @@ class DataBase:
     def GetIdUser(self, first_name):
         sql = "SELECT id_user FROM heroku_c93f6b06b535bb4.user WHERE Name = '%s'" % first_name
         self.cursor.execute(sql)
-        id = None
-        for x in self.cursor:
-            id = x[0]
-        return id
+        return self.GetValue()
 
     def CheckUser(self, first_name, username, chat_id, language_code, type):
         sql = "SELECT count(*) FROM heroku_c93f6b06b535bb4.user WHERE Name = '%s'"   % first_name
@@ -57,15 +60,27 @@ class DataBase:
         self.cursor.execute(sql, val)
         self.db.commit()
 
-    def GetLanguage(self,first_name, Translatelanguage = True):
+    def GetTranslateLanguage(self,first_name):
         self.GetCursor()
         id = self.GetIdUser(first_name)
-        if Translatelanguage:
-            sql = "SELECT TranslateLanguage FROM heroku_c93f6b06b535bb4.bot WHERE id_user = '%s'" % id
-        else:
-            sql = "SELECT LanguageBot FROM heroku_c93f6b06b535bb4.bot WHERE id_user = '%s'" % id
+        sql = "SELECT TranslateLanguage FROM heroku_c93f6b06b535bb4.bot WHERE id_user = '%s'" % id
         self.cursor.execute(sql)
-        lang = None
-        for x in self.cursor:
-            lang = x[0]
-        return lang
+        return self.GetValue()
+
+    def GetLanguageBot(self, first_name):
+        self.GetCursor()
+        id = self.GetIdUser(first_name)
+        sql = "SELECT LanguageBot FROM heroku_c93f6b06b535bb4.bot WHERE id_user = '%s'" % id
+        self.cursor.execute(sql)
+        return self.GetValue()
+
+    def GetJsonLanguageBot(self,first_name):
+        lang = self.GetLanguageBot(first_name)
+        print(lang)
+        patch ="languages/{0}.json".format(lang)
+        print(patch)
+        with open(patch, "r", encoding="utf-8") as json_file:
+            data = json.load(json_file)
+            print(data["1"])
+            json_file.close()
+        return data
