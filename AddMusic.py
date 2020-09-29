@@ -1,6 +1,4 @@
-import os, badge, re
-import urllib.request
-import urllib.parse
+import os, badge, re, urllib.request, urllib.parse, DB
 
 urlopen = urllib.request.urlopen
 encode = urllib.parse.urlencode
@@ -15,17 +13,16 @@ def list_download(song_list=None):
         single_download(song)
     fhand.close()
 
-
 def single_download(update,context):
+    answer = DB.DataBase.GetJsonLanguageBot(badge.DB, update.message.from_user.first_name)
     try:
         if badge.CommandMusic != True:
-            context.bot.send_message(update.message.chat_id, "Мені потрібне посилання на відео:")
+            context.bot.send_message(update.message.chat_id, answer["1"])
             badge.CommandMusic = True
             badge.NameUserCommand = update.message.from_user.first_name
             return
         elif(badge.NameUserCommand == update.message.from_user.first_name):
             song="https://www.youtube.com/watch?v="+(update.message.text).replace('https://youtu.be/','')
-
             if "youtube.com/" not in song:
                 query_string = encode({"search_query": song})
                 html_content = urlopen("http://www.youtube.com/results?" + query_string)
@@ -43,4 +40,4 @@ def single_download(update,context):
             os.remove(path)
     except Exception:
         badge.CommandMusic = False
-        context.bot.send_message(update.message.chat.id, 'Щось пішло не так спробуй ще раз.')
+        context.bot.send_message(update.message.chat.id, answer["2"])

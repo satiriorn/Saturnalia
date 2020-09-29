@@ -1,10 +1,11 @@
-import requests
+import requests, badge, DB
 
 def Link():
     return requests.get('https://meme-api.herokuapp.com/gimme').json()['url']
 
 def Get_meme(update, context):
+    answer = DB.DataBase.GetJsonLanguageBot(badge.DB, update.message.from_user.first_name)
     try:
         update.message.reply_photo(Link())
     except Exception:
-        context.bot.send_message(update.message.chat_id, "Ти точно людина? Меми, не хочуть бути с тобою.")
+        context.bot.send_message(update.message.chat_id, answer["3"])

@@ -1,5 +1,4 @@
-import Keyboard, badge
+import Keyboard, badge, DB
 def help(update, context):
-    context.bot.send_message(update.message.chat_id, '\
-    Тобі потрібна допомога? Я дав тобі кнопки влади наді мною. Користуйся мною скільки захочеш, я весь твій. ',
-                             reply_markup = Keyboard.InitKeyboard(badge.MainKeyboard))
+    answer = DB.DataBase.GetJsonLanguageBot(badge.DB, update.message.from_user.first_name)
+    context.bot.send_message(update.message.chat_id,answer["9"] ,reply_markup = Keyboard.InitKeyboard(badge.MainKeyboard))
