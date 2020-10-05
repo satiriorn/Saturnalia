@@ -32,12 +32,19 @@ def single_download(update,context):
             else:
                 command = 'youtube-dl --embed-thumbnail --no-warnings --extract-audio --audio-format mp3 -o "%(title)s.%(ext)s" ' + song[song.find("=") + 1:]
             os.system(command)
-            NameMusic = [f for f in os.listdir(os.getcwd()) if f.endswith('.mp3')]
-            NameMusic.remove("voice.mp3")
+            NameMusic = GetMp3()
             context.bot.send_audio(update.message.chat_id, open(NameMusic[0], 'rb'))
-            badge.CommandMusic = False
-            path = os.path.join(os.path.abspath(os.path.dirname(__file__)), NameMusic[0])
-            os.remove(path)
+            DeletePath(GetMp3())
     except Exception:
-        badge.CommandMusic = False
+        DeletePath(GetMp3())
         context.bot.send_message(update.message.chat.id, answer["2"])
+
+def GetMp3():
+    NameMusic = [f for f in os.listdir(os.getcwd()) if f.endswith('.mp3')]
+    NameMusic.remove("voice.mp3")
+    return NameMusic
+
+def DeletePath(NameMusic):
+    badge.CommandMusic = False
+    path = os.path.join(os.path.abspath(os.path.dirname(__file__)), NameMusic[0])
+    os.remove(path)
