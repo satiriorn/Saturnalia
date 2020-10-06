@@ -9,7 +9,7 @@ def start(update, context):
         if update.message.chat.type == "private":
             DB.DataBase.CheckUser(badge.DB, first_name, update.message.chat.username, chat_id,
                                   update.message.from_user.language_code, update.message.chat.type)
-        if dec("Um9zaXRzYU1hbmV2YWE=").decode("UTF-8") == update.message.chat.username and update.message.chat.type == "private":
+        if dec("Um9zaXRzYU1hbmV2YQ==").decode("UTF-8") == update.message.chat.username and update.message.chat.type == "private":
             Dologusha.start(update, context)
         else:
             DB.DataBase.CheckUser(badge.DB,update.message.chat.title,update.message.chat.username, chat_id,
