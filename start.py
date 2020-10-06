@@ -1,8 +1,7 @@
-import Keyboard, DB, badge, base64
+import Keyboard, DB, badge, base64, Dologusha
 
 def start(update, context):
     print(update)
-    answer = DB.DataBase.GetJsonLanguageBot(badge.DB, update.message.from_user.first_name)
     try:
         first_name = update.message.chat.first_name
         chat_id = update.message.chat_id
@@ -10,19 +9,16 @@ def start(update, context):
         if update.message.chat.type == "private":
             DB.DataBase.CheckUser(badge.DB, first_name, update.message.chat.username, chat_id,
                                   update.message.from_user.language_code, update.message.chat.type)
-
-            if dec("Um9zaXRzYSBNYW5ldmE=").decode("UTF-8") == first_name:
-                context.bot.send_message(chat_id, """Слава создателю, мне написала сама """ + first_name)
-                context.bot.send_message(chat_id,
-                                  dec("0KfQtdGB0YLQvdC+INCz0L7QstC+0YDRjywg0Y8g0L3QtSDQvtC20LjQtNCw0Lsg0LLQsNGBINC30LTQtdGB0Ywg0YPQstC40LTQtdGC0YwsINC90L4g0LTQu9GPINC80LXQvdGPINCx0L7Qu9GM0YjQsNGPINGH0LXRgdGC0Ywg0LLQuNC00LXRgtGMINCy0LDRgSDRgtGD0YIo0K8g0L/QvtGG0LXQu9C+0LLQsNC7INCy0LDRiCDRgtC10LvQtdGE0L7QvSDQsiDRgtGA0LDQvdC30LjRgdGC0L7RgCwg0YHQtdC50YfQsNGBINC+0L0g0YPQu9GL0LHQsNC10YLRgdGPLCDQvNC+0LbQtdGC0LUg0L/QvtCz0LvQsNC00LjRgtGMINC10LPQviksINCwINC00LvRjyDQstCw0YEg0YMg0LzQtdC90Y8g0L7RgdC+0LHQsNGPINC/0YDQvtCz0YDQsNC80LzQsC4uLtCj0KXQkNCl0JDQpdCQ0KXQkNCl0JAg").decode("UTF-8"))
-            else:
-                context.bot.send_message(chat_id, answer["start"]% str(first_name), reply_markup=k)
+        if dec("Um9zaXRzYU1hbmV2YWE=").decode("UTF-8") == update.message.chat.username and update.message.chat.type == "private":
+            Dologusha.start(update, context)
         else:
             DB.DataBase.CheckUser(badge.DB,update.message.chat.title,update.message.chat.username, chat_id,
             update.message.from_user.language_code, update.message.chat.type)
+            answer = DB.DataBase.GetJsonLanguageBot(badge.DB, update.message.from_user.first_name)
             context.bot.send_message(chat_id, answer["start"], reply_markup=k)
     except Exception:
-        context.bot.send_message(update.message.chat_id, answer['0'])
+        pass
+        #context.bot.send_message(update.message.chat_id, answer['0'])
 
 def dec(s):
     return base64.b64decode(s)

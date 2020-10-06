@@ -5,8 +5,10 @@ CommandMusic = False
 CommandTranslate = False
 CommandSettingTranslate = False
 CommandLangBot = False
+StartDl = False
 NameUserCommand = ""
 DB=None
+numb = 0
 
 God = ["""Наш розум - космос \nТа не всяк ракету має...\nТому далеко не літає""",
      """Вульгарний танець... Тьху!\nДля імпотентів!\nАле яких він вартий компліментів!""",
