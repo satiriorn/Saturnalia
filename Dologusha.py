@@ -1,10 +1,10 @@
-import base64, Keyboard, badge, os, time
+import base64, Keyboard, badge, time
 
 AnswerOne = ["Увімкнула", "Мені ліньки"]
 AnswerTwo = ["Продовжити"]
 AnswerThree = ["Гіфки з котиками", "Гіфки з собаками", "Продовження історії", "Відео вбиства того хто вас бісить"]
 AnswerFour = ["Занурюємося"]
-Animal = os.listdir("Animal")
+
 def start(update, context):
     if badge.StartDl == False:
         context.bot.send_message(update.message.chat_id, """Добридень, Ваша Величність\nЯ створений задля того щоб зачарувати ваш телефон. Я відчуваю як ви тримаєте мікросхему свого телефону, і йому стає тепліше від цього. Так ось, я грудка енергії, сенс якої перетворювати це тепло і передавати вам. Взагалі буде вельми кумедно якщо Ваша Величність сидить з компуктером, а я тут розповідаю про телефон. Для повної передачі теплої енергій увімкніть своє уявлення. Увімкнули?""", reply_markup =Keyboard.InlineKeyboard(AnswerOne))
@@ -65,7 +65,6 @@ def first(update, context, status = True):
                                 message_id=update.callback_query.message.message_id)
 
 
-
 def cat(update, context):
     context.bot.edit_message_text(chat_id=update.callback_query.message.chat_id,
                                   text="""Мій творець на цьому місці завис. Пам'ятаю як він переписував одне і те саме речення разів 10. Мій стан на той момент можна описати як сміх, але не простий сміх з вібрацією та розрядом процессора. Уявіть себе, свій сміх. Вийшло ні? Ладно зараз зроблю ваш сміх:""",
@@ -76,13 +75,13 @@ def cat(update, context):
     context.bot.send_message(chat_id=update.callback_query.message.chat_id,
                                   text="""Десь так я ржу кожний раз, коли бачу що модуль перероблен декілька раз в одному рядку, але все ж таки ви обрали котиків, і по алгоритму саме коти йшли першими і ви їх обрали. Не хочу вас затримувати перед ними """)
     time.sleep(15)
-    context.bot.send_animation(update.callback_query.message.chat_id, open("Animal/" + Animal[6], 'rb'))
+    context.bot.send_animation(update.callback_query.message.chat_id, open("Animal/6.mp3", 'rb'))
     time.sleep(15)
     context.bot.send_message(chat_id=update.callback_query.message.chat_id,
                                   text="""Перший котик, хоча моя нейромережа каже що це не котик, також вона каже що творець ідіот, і я думаю ви з цим згодні. Але десь так ми йдемо вперед, крок за кроком до тепла, воно все ближче і ближче, другий котик повинен показати те, як треба полювати на людські руки та зігрівати їх м'якою агресією.""",
                                   message_id=update.callback_query.message.message_id)
     time.sleep(15)
-    context.bot.send_animation(update.callback_query.message.chat_id, open("Animal/" + Animal[5], 'rb'))
+    context.bot.send_animation(update.callback_query.message.chat_id, open("Animal/5.mp3" , 'rb'))
 
 def dog(update, context):
     context.bot.edit_message_text(chat_id=update.callback_query.message.chat_id,
