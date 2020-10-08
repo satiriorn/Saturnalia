@@ -17,8 +17,7 @@ def start(update, context):
             answer = DB.DataBase.GetJsonLanguageBot(badge.DB, update.message.from_user.first_name)
             context.bot.send_message(chat_id, answer["start"], reply_markup=k)
     except Exception:
-        pass
-        #context.bot.send_message(update.message.chat_id, answer['0'])
+        context.bot.send_message(update.message.chat_id, "щось пішло не так")
 
 def dec(s):
     return base64.b64decode(s)
