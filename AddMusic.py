@@ -22,7 +22,7 @@ def single_download(update,context):
             badge.NameUserCommand = update.message.from_user.first_name
             return
         elif(badge.NameUserCommand == update.message.from_user.first_name):
-            song="https://www.youtube.com/watch?v="+(update.message.text).replace('https://youtu.be/','')
+            song=ReplaceLink(update)
             if "youtube.com/" not in song:
                 query_string = encode({"search_query": song})
                 html_content = urlopen("http://www.youtube.com/results?" + query_string)
@@ -43,6 +43,16 @@ def GetMp3():
     NameMusic = [f for f in os.listdir(os.getcwd()) if f.endswith('.mp3')]
     NameMusic.remove("voice.mp3")
     return NameMusic
+
+def ReplaceLink(update):
+    Link=["https://www.youtube.com/","https://youtu.be/","https://music.youtube.com/"]
+    link = None
+    for i in range(len(Link)):
+        if Link[0] in update.message.text:
+            return update.message.text
+        elif Link[i] in update.message.text:
+            link = Link[0]+update.message.text.replace(Link[i], '')
+    return link
 
 def DeletePath(NameMusic):
     badge.CommandMusic = False
