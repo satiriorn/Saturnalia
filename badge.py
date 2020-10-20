@@ -9,6 +9,8 @@ StartDl = False
 NameUserCommand = ""
 DB=None
 numb = 0
+job = None
+MemeChange=False
 
 God = ["""Наш розум - космос \nТа не всяк ракету має...\nТому далеко не літає""",
      """Вульгарний танець... Тьху!\nДля імпотентів!\nАле яких він вартий компліментів!""",
@@ -95,5 +97,6 @@ b = {"Afrikaans":"af", "Akan":"ak", "Albanian":"sq", "Amharic":"am", "Arabic":"a
 
 MainKeyboard = ["/Help", "/Weather", "/Voice", "/Translate", "/Evtuh", "/ShevchenkoStyle", "/Meme", "/Cat", "/Dog","/GetMusic", "/SettingBot"]
 TranslateKeyboard = ["Belarusian", "Bulgarian", "Croatian", "Czech", "English","Estonian" , "French", "Finnish", "Georgian", "German", "Italian", "Latvian", "Polish", "Ukrainian"]
-Setting=["Змінити мову перекладу", "Змінити мову бота", "Не треба нічого змінювати"]
+Setting=["Змінити мову перекладу", "Змінити мову бота","Кількість мемів у чатику", "Не треба нічого змінювати"]
+CountMeme = ["Не треба мені твоїх мемів", "1 мем у 15 хвилин","1 мем у 30 хвилин","1 мем у 60 хвилин", "1 мем у 120 хвилин"]
 LanguageBot = ["Belarusian", "Ukrainian", "English"]

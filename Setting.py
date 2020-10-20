@@ -2,7 +2,7 @@ import badge, Keyboard, DB
 
 def ShowSetting(update, context):
     answer = DB.DataBase.GetJsonLanguageBot(badge.DB, update.message.from_user.first_name)
-    context.bot.send_message(update.message.chat_id,answer["9"],reply_markup=Keyboard.InlineKeyboard(badge.Setting))
+    context.bot.send_message(update.message.chat_id,answer["9"], reply_markup=Keyboard.InlineKeyboard(badge.Setting))
 
 def SettingTranslate(update,context):
     answer = DB.DataBase.GetJsonLanguageBot(badge.DB, update.callback_query.from_user.first_name)

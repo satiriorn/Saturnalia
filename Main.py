@@ -4,6 +4,7 @@ from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, Inlin
 def main():
     badge.DB =DB.DataBase()
     updater = Updater(os.getenv("TOKEN"), use_context=True)
+    badge.job = updater.job_queue
     dispatcher = updater.dispatcher
     start_command_handler = CommandHandler('start', start.start)
     help_command_handler = CommandHandler('Help', help.help)
