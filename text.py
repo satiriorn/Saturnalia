@@ -2,6 +2,7 @@ import DogAndCat, weather, badge, CreateVoice, UkrainianGame, Meme, AddMusic, Tr
 
 def text(update,context):
     try:
+        print(update)
         if badge.CommandVoice == True:
             CreateVoice.voice(update, context)
             badge.CommandVoice = False

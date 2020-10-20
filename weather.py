@@ -19,6 +19,7 @@ def weather(update, context):
 
 def CurrentWeather(update, context, status=True):
     answer = DB.DataBase.GetJsonLanguageBot(badge.DB, update.message.from_user.first_name)
+    print(answer)
     try:
         res = requests.get("http://api.openweathermap.org/data/2.5/weather",
                            params={'q': 'Kharkiv', 'units': 'metric', 'lang': 'uk', 'APPID': os.getenv("WeatherToken")})
@@ -29,4 +30,4 @@ def CurrentWeather(update, context, status=True):
         text = description_weather + '. ' + temp + '. \n' + wind
         return (lambda status:status if context.bot.send_message(update.message.chat.id, text)else text)(status)
     except Exception:
-        context.bot.send_message(update.message.chat_id, )
+        context.bot.send_message(update.message.chat_id, answer["27"])

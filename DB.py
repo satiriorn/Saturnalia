@@ -72,7 +72,7 @@ class DataBase:
         id = self.GetIdUser(first_name)
         sql = "SELECT LanguageBot FROM heroku_c93f6b06b535bb4.bot WHERE id_user = '%s'" % id
         self.cursor.execute(sql)
-        return self.GetValue()
+        return (lambda self :"uk" if self.GetValue() == None else self.GetValue())(self)
 
     def GetJsonLanguageBot(self,first_name):
         lang = self.GetLanguageBot(first_name)
