@@ -23,5 +23,3 @@ def question(update, context):
         context.bot.send_message(update.message.chat_id, answer["24"])
     elif (r <= 100):
         context.bot.send_message(update.message.chat_id, answer["25"])
-
-
