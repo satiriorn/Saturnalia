@@ -20,7 +20,7 @@ def MoreMeme(update, context):
     value = {"0":"0","1":"900","2":"1800", "3":"3600", "4":"7200"}
     if value[str(update.callback_query.data)] != "0":
         if (update.callback_query.message.chat.type=='group'or update.callback_query.message.chat.type=='supergroup'):
-            badge.job.run_repeating(MemeChatGroup, interval=value[str(update.callback_query.data)], first=0)
+            badge.job.run_repeating(MemeChatGroup, interval=int(value[str(update.callback_query.data)]), first=0)
     else:
         badge.job.schedule_removal()
     context.bot.edit_message_text(chat_id=update.callback_query.message.chat_id, text=badge.CountMeme[int(update.callback_query.data)], message_id=update.callback_query.message.message_id)
