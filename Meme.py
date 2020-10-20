@@ -24,6 +24,6 @@ def MoreMeme(update, context):
     else:
         badge.job.schedule_removal()
     context.bot.edit_message_text(chat_id=update.callback_query.message.chat_id, text=badge.CountMeme[int(update.callback_query.data)], message_id=update.callback_query.message.message_id)
-
+    badge.MemeChange = False
 def MemeChatGroup(context: telegram.ext.CallbackContext):
     context.bot.send_photo('-1001477418565', Link())
