@@ -1,5 +1,5 @@
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, KeyboardButton, ReplyKeyboardMarkup
-import Setting, badge, Dologusha
+import Setting, badge, Dologusha, Meme
 
 def InitKeyboard(NameButton):
     LevelOne = []
@@ -34,10 +34,12 @@ def InlineKeyboard(NameButton, Status=True):
 
 def button(update,context):
     query = update.callback_query
-    if badge.CommandSettingTranslate == True:
+    print(query.data)
+    if badge.MemeChange == True:
+        Meme.MoreMeme(update, context)
+    elif badge.CommandSettingTranslate == True:
         Setting.SettingTranslate(update, context)
     elif badge.StartDl == True:
-        print("1")
         Dologusha.start(update, context)
     elif badge.CommandLangBot == True:
         Setting.LanguageBot(update, context)
@@ -45,6 +47,8 @@ def button(update,context):
         Setting.SettingTranslate(update,context)
     elif query.data =="1":
         Setting.LanguageBot(update,context)
+    elif query.data == "2":
+        Meme.CountMem(update,context)
     else:
         Setting.ExistentialResponse(update,context)
     return query
