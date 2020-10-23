@@ -1,12 +1,9 @@
-import requests, badge, DB, telegram.ext, Keyboard
-
-def Link():
-    return requests.get('https://meme-api.herokuapp.com/gimme').json()['url']
+import badge, DB, telegram.ext, Keyboard, Url
 
 def Get_meme(update, context):
     answer = DB.DataBase.GetJsonLanguageBot(badge.DB, update.message.from_user.first_name)
     try:
-        context.bot.send_photo(update.message.chat_id, Link())
+        Url.Photo(Url.get_url('https://meme-api.herokuapp.com/gimme'), update, context)
     except Exception:
         context.bot.send_message(update.message.chat_id, answer["3"])
 
@@ -26,4 +23,8 @@ def MoreMeme(update, context):
     badge.MemeChange = False
 
 def MemeChatGroup(context: telegram.ext.CallbackContext):
-    context.bot.send_photo(context.job.context, Link())
+    url = Url.get_url('https://meme-api.herokuapp.com/gimme')
+    if Url.is_image(url):
+        context.bot.send_photo(context.job.context, url)
+    elif Url.is_animation(url):
+        context.bot.send_animation(context.job.context, url)

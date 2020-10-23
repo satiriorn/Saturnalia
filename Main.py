@@ -1,4 +1,4 @@
-import Quotes, start, help, weather, Evtuh, text,  CreateVoice, DogAndCat, InlineQuery, os, Meme, AddMusic, Translate, DB, badge, Keyboard, Setting
+import Quotes, start, help, weather, Evtuh, text,  CreateVoice, DogAndCat, InlineQuery, os, Meme, AddMusic, Translate, DB, badge, Keyboard, Setting, Rest
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, InlineQueryHandler, CallbackQueryHandler
 
 def main():
@@ -18,10 +18,12 @@ def main():
     addmusic_command_handler = CommandHandler("GetMusic", AddMusic.single_download)
     settingtranslate_command_handler = CommandHandler("SettingBot", Setting.ShowSetting)
     translate_command_handler = CommandHandler("Translate", Translate.translate)
+    rest_command_handler = CommandHandler("Rest",Rest.Rest)
     callback_query_handler = CallbackQueryHandler(Keyboard.button)
     text_message_handler = MessageHandler(Filters.text, text.text)
 
     dispatcher.add_handler(evtuh_command_handler)
+    dispatcher.add_handler(rest_command_handler)
     dispatcher.add_handler(start_command_handler)
     dispatcher.add_handler(help_command_handler)
     dispatcher.add_handler(weather_command_handler)
