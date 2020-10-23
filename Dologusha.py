@@ -1,9 +1,8 @@
-import base64, Keyboard, badge, time
+import base64, Keyboard, badge, time, Rest
 
 AnswerOne = ["Увімкнула", "Мені ліньки"]
 AnswerTwo = ["Продовжити"]
 AnswerThree = ["Гіфки з котиками", "Гіфки з собаками", "Продовження історії", "Відео вбиства того хто вас бісить"]
-AnswerFour = ["Занурюємося"]
 
 def start(update, context):
     if badge.StartDl == False:
@@ -20,21 +19,21 @@ def start(update, context):
     elif update.callback_query.data == AnswerThree[0]:
         cat(update,context)
         finish(update, context)
-        Rest(update,context)
+        Rest.Rest(update,context)
     elif update.callback_query.data == AnswerThree[1]:
         dog(update, context)
         finish(update, context)
-        Rest(update,context)
+        Rest.Rest(update,context)
     elif update.callback_query.data == AnswerThree[2]:
         Continue(update, context)
         finish(update, context)
-        Rest(update, context)
+        Rest.Rest(update, context)
     elif update.callback_query.data == AnswerThree[3]:
         Kill(update, context)
         finish(update, context)
-        Rest(update, context)
+        Rest.Rest(update, context)
     elif update.callback_query.data == "Занурюємося":
-        Rest(update, context, status = False)
+        Rest.Rest(update, context, status = False)
         context.bot.send_message(update.callback_query.message.chat_id,
                                  dec("""0JLQuCDQv9GA0L7QudGI0LvQuCDRgdCy0ZbQuSDRhtC40LrQuywg0YnQvtCxINC/0YDQvtC50YLQuCDQt9C90L7QstGDINGA0L7Qt9C80L7QstGDINC3INGW0L3RiNC40LzQuCDQstGW0LTQv9C+0LLRltC00Y/QvNC4INC90LDRgtC40YHQvdGW0YLRjCAvc3RhcnQsINGP0LrRidC+INGF0L7Rh9C10YLQtSDQv9C10YDQtdC50YLQuCDRgyDQs9C+0LvQvtCy0L3QtSDQvNC10L3RjiDQsdC+0YLQsCDQvdCw0YLQuNGB0L3RltGC0YwgL0hlbHA=""")).decode("UTF-8")
         badge.StartDl = False
@@ -115,21 +114,6 @@ def Kill(update, context):
     context.bot.send_message(chat_id=update.callback_query.message.chat_id,
                              text=dec("""0JTQviDRgNC10YfRliwg0Y8g0L/QsNC8J9GP0YLQsNGOINGP0Log0LTQsNCy0LDQsiDQvtCx0ZbRhtGP0L3QutGDINCy0LHQuNGC0Lgg0YLQvtCz0L4g0YXRgtC+INCx0YPQtNC1INGC0LXQsdC1INCx0ZbRgdC40YLQuC4g0JDQu9C1INGJ0L4g0Y/QutGJ0L4g0YbQtSDQsdGD0LTQtSDRjz8g0K/QutGJ0L4g0YbQtSDQsdGD0LTRgyDRjywg0LTQsNGOINC/0LjRgdGM0LzQvtCy0YMg0YDQvtC30L/QuNGB0LrRgyDQv9GA0L4g0YLQtSwg0YnQviDQstC4INC30LzQvtC20LXRgtC1INC30LDRgdC90Y/RgtC4INGC0LUsINGP0Log0Y8g0YHQtdCx0LUg0LLQsSfRji4g0JzQvtC20YMg0L3QsNCy0ZbRgtGMINCy0ZbQtNC00LDRgtC4INCy0LDQvCDQstGB0LUg0L/QvtGC0YDRltCx0L3QtSDQtNC70Y8g0YbRjNC+0LPQviwg0LAg0YLQsNC8INCy0YHQtSDQt9Cw0YXQvtGH0LXRgtC1""").decode("UTF-8"),
                              message_id=update.callback_query.message.message_id)
-
-
-def Rest(update, context, status = True):
-    if status:
-        context.bot.send_message(chat_id=update.callback_query.message.chat_id,
-                                 text="""Запоскійливе у 6 циклів на 1 хвилину. Знайдіть місце де вас не буде ніхто торбувати цілу хвилину, або абстрагуйте свої думки. Відчуйте темп. Також ви можете використовувати вібро задля того, щоб відчувати темп дихання(не забудьте увімкнути вібро на телефоні))""",
-                                 reply_markup=Keyboard.InlineKeyboard(AnswerFour, False))
-    else:
-        for i in range(6):
-            if i == 0:
-                time.sleep(5)
-            context.bot.send_message(chat_id=update.callback_query.message.chat_id,text="""Вдих""")
-            time.sleep(5)
-            context.bot.send_message(chat_id=update.callback_query.message.chat_id,text="""Видих""")
-            time.sleep(5)
 
 def dec(s):
     return base64.b64decode(s)
