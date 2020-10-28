@@ -49,12 +49,26 @@ class DataBase:
         self.cursor.execute(s, val)
         self.db.commit()
 
-    def SysMeme(self, chat_id, status, interval):
+    def InsertSysMeme(self, chat_id, status, interval):
         sql = "INSERT INTO heroku_c93f6b06b535bb4.job_queue(Span, status_sys_meme, id_user)VALUES(%s, %s, %s);"
         val = (interval, status, self.GetIdUser(chat_id))
         self.GetCursor()
         self.cursor.execute(sql,val)
         self.db.commit()
+
+    def UpdateSysMeme(self, chat_id, status, interval):
+        sql = "UPDATE heroku_c93f6b06b535bb4.job_queue SET Span =%s, status_sys_meme=%s WHERE id_user =%s;"
+        val = (interval, status, self.GetIdUser(chat_id))
+        self.GetCursor()
+        self.cursor.execute(sql,val)
+        self.db.commit()
+
+    def UsersSysMeme(self):
+        sql="SELECT chatID, j.Span, j.status_sys_meme FROM heroku_c93f6b06b535bb4.user u, heroku_c93f6b06b535bb4.job_queue j WHERE u.id_user = j.id_user;"
+        self.GetCursor()
+        self.cursor.execute(sql)
+        self.db.commit()
+        return self.cursor
 
     def VerificationLanguage(self, chat_id,preferred_language, Translatelanguage = True):
         self.GetCursor()
