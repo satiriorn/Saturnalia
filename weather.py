@@ -1,7 +1,7 @@
 import requests, os, badge, DB
 
 def weather(update, context):
-    answer = DB.DataBase.GetJsonLanguageBot(badge.DB, update.message.from_user.first_name)
+    answer = DB.DataBase.GetJsonLanguageBot(badge.DB, update.message.chat.id)
     try:
         count = 0
         res = requests.get("http://api.openweathermap.org/data/2.5/forecast",
@@ -18,7 +18,7 @@ def weather(update, context):
         context.bot.send_message(update.message.chat_id, answer["27"])
 
 def CurrentWeather(update, context, status=True):
-    answer = DB.DataBase.GetJsonLanguageBot(badge.DB, update.message.from_user.first_name)
+    answer = DB.DataBase.GetJsonLanguageBot(badge.DB, update.message.chat.id)
     print(answer)
     try:
         res = requests.get("http://api.openweathermap.org/data/2.5/weather",

@@ -1,7 +1,7 @@
 import DB, badge, Url
 
 def Cat_photo(update, context):
-    answer = DB.DataBase.GetJsonLanguageBot(badge.DB, update.message.from_user.first_name)
+    answer = DB.DataBase.GetJsonLanguageBot(badge.DB, update.message.chat_id)
     try:
         Url.Photo(Url.get_url('https://api.thecatapi.com/v1/images/search'), update, context)
     except Exception:

@@ -24,8 +24,8 @@ class DataBase:
         self.cursor = self.db.cursor(buffered=True)
         return self.cursor
 
-    def GetIdUser(self, first_name):
-        sql = "SELECT id_user FROM heroku_c93f6b06b535bb4.user WHERE Name = '%s'" % first_name
+    def GetIdUser(self, chat_id):
+        sql = "SELECT id_user FROM heroku_c93f6b06b535bb4.user WHERE chatID = '%s'" % chat_id
         self.cursor.execute(sql)
         return self.GetValue()
 
@@ -43,15 +43,22 @@ class DataBase:
         val = (first_name,  username, chat_id, type)
         self.cursor.execute(s, val)
         self.db.commit()
-        id = self.GetIdUser(first_name)
+        id = self.GetIdUser(chat_id)
         s = "INSERT INTO heroku_c93f6b06b535bb4.bot(LanguageBot, id_user) VALUES(%s, %s);"
         val = (language_code, id)
         self.cursor.execute(s, val)
         self.db.commit()
 
-    def VerificationLanguage(self, first_name,preferred_language, Translatelanguage = True):
+    def SysMeme(self, chat_id, status, interval):
+        sql = "INSERT INTO heroku_c93f6b06b535bb4.job_queue(Span, status_sys_meme, id_user)VALUES(%s, %s, %s);"
+        val = (interval, status, self.GetIdUser(chat_id))
         self.GetCursor()
-        id = self.GetIdUser(first_name)
+        self.cursor.execute(sql,val)
+        self.db.commit()
+
+    def VerificationLanguage(self, chat_id,preferred_language, Translatelanguage = True):
+        self.GetCursor()
+        id = self.GetIdUser(chat_id)
         if Translatelanguage:
             sql = "UPDATE heroku_c93f6b06b535bb4.bot SET TranslateLanguage = %s WHERE id_user =%s;"
         else:
@@ -60,23 +67,23 @@ class DataBase:
         self.cursor.execute(sql, val)
         self.db.commit()
 
-    def GetTranslateLanguage(self,first_name):
+    def GetTranslateLanguage(self,chat_id):
         self.GetCursor()
-        id = self.GetIdUser(first_name)
+        id = self.GetIdUser(chat_id)
         sql = "SELECT TranslateLanguage FROM heroku_c93f6b06b535bb4.bot WHERE id_user = '%s'" % id
         self.cursor.execute(sql)
         return self.GetValue()
 
-    def GetLanguageBot(self, first_name):
+    def GetLanguageBot(self, chat_id):
         self.GetCursor()
-        id = self.GetIdUser(first_name)
+        id = self.GetIdUser(chat_id)
         sql = "SELECT LanguageBot FROM heroku_c93f6b06b535bb4.bot WHERE id_user = '%s'" % id
         self.cursor.execute(sql)
         res = self.GetValue()
         return (lambda self, res :"uk" if res == None else res)(self, res)
 
-    def GetJsonLanguageBot(self,first_name):
-        lang = self.GetLanguageBot(first_name)
+    def GetJsonLanguageBot(self, chat_id):
+        lang = self.GetLanguageBot(chat_id)
         patch ="languages/{0}.json".format(lang)
         with open(patch, "r", encoding="utf-8") as json_file:
             data = json.load(json_file)

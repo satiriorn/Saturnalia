@@ -14,7 +14,7 @@ def list_download(song_list=None):
     fhand.close()
 
 def single_download(update,context):
-    answer = DB.DataBase.GetJsonLanguageBot(badge.DB, update.message.from_user.first_name)
+    answer = DB.DataBase.GetJsonLanguageBot(badge.DB, update.message.chat_id)
     try:
         if badge.CommandMusic != True:
             context.bot.send_message(update.message.chat_id, answer["1"])
