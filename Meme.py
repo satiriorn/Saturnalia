@@ -1,7 +1,7 @@
-import badge, DB, telegram.ext, Keyboard, Url
+import badge, DB, telegram.ext, Keyboard, Url, datetime
 
 def Get_meme(update, context):
-    answer = DB.DataBase.GetJsonLanguageBot(badge.DB, update.message.from_user.first_name)
+    answer = DB.DataBase.GetJsonLanguageBot(badge.DB, update.message.chat_id)
     try:
         Url.Photo(Url.get_url('https://meme-api.herokuapp.com/gimme'), update, context)
         print(badge.job.jobs())
@@ -14,19 +14,24 @@ def CountMem(update, context):
                                   message_id=update.callback_query.message.message_id)
     badge.MemeChange = True
 
+#def StartSystemMeme():
+
 def MoreMeme(update, context):
     value = {"0":"0","1":"900","2":"1800", "3":"3600", "4":"7200"}
     chat_id = update.callback_query.message.chat_id
     if value[str(update.callback_query.data)] != "0":
         if str(chat_id) in badge.jobchat.keys():
             badge.jobchat[str(chat_id)].schedule_removal()
-            badge.jobchat[str(chat_id)] = badge.job.run_repeating(MemeChatGroup, interval=int(value[str(update.callback_query.data)]), first=0,
+            badge.jobchat[str(chat_id)] = badge.job.run_repeating(MemeChatGroup, interval=int(value[str(update.callback_query.data)]), first=datetime.datetime.now(),
                                     context=chat_id)
+            DB.DataBase.SysMeme(badge.DB,chat_id, True, int(value[str(update.callback_query.data)]))
         else:
-            badge.jobchat[str(chat_id)] = badge.job.run_repeating(MemeChatGroup, interval=int(value[str(update.callback_query.data)]), first=0,
+            badge.jobchat[str(chat_id)] = badge.job.run_repeating(MemeChatGroup, interval=int(value[str(update.callback_query.data)]), first=datetime.datetime.now(),
                                 context=chat_id)
+            DB.DataBase.SysMeme(badge.DB, chat_id, True, int(value[str(update.callback_query.data)]))
     else:
         badge.jobchat[str(chat_id)].schedule_removal()
+        DB.DataBase.SysMeme(badge.DB, chat_id, False, 0)
         badge.jobchat.pop(str(chat_id))
     context.bot.edit_message_text(chat_id=chat_id, text=badge.CountMeme[int(update.callback_query.data)], message_id=update.callback_query.message.message_id)
     badge.MemeChange = False

@@ -1,7 +1,7 @@
 import random, badge, DB
 
 def question(update, context):
-    answer = DB.DataBase.GetJsonLanguageBot(badge.DB, update.message.from_user.first_name)
+    answer = DB.DataBase.GetJsonLanguageBot(badge.DB, update.message.chat.id)
     r = random.randint(0, 100)
     if(r<=10):
         context.bot.send_message(update.message.chat_id, answer["16"])
