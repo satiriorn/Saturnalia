@@ -12,6 +12,7 @@ numb = 0
 job = None
 MemeChange=False
 RestMode = False
+Cute = False
 jobchat = {}
 
 God = ["""Наш розум - космос \nТа не всяк ракету має...\nТому далеко не літає""",

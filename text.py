@@ -1,4 +1,4 @@
-import DogAndCat, weather, badge, CreateVoice, UkrainianGame, Meme, AddMusic, Translate
+import DogAndCat, weather, badge, CreateVoice, UkrainianGame, Meme, AddMusic, Translate, CuteAudio
 
 def text(update,context):
     try:

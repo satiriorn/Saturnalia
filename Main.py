@@ -1,4 +1,4 @@
-import Quotes, start, help, weather, Evtuh, text,  CreateVoice, DogAndCat, InlineQuery, os, Meme, AddMusic, Translate, DB, badge, Keyboard, Setting, Rest
+import Quotes, start, help, weather, Evtuh, text,  CreateVoice, DogAndCat, InlineQuery, os, Meme, AddMusic, Translate, DB, badge, Keyboard, Setting, Rest, CuteAudio, File
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, InlineQueryHandler, CallbackQueryHandler
 
 def main():
@@ -20,11 +20,14 @@ def main():
     settingtranslate_command_handler = CommandHandler("SettingBot", Setting.ShowSetting)
     translate_command_handler = CommandHandler("Translate", Translate.translate)
     rest_command_handler = CommandHandler("Rest",Rest.Rest)
+    cute_command_handler = CommandHandler("Cute",CuteAudio.Cut)
     callback_query_handler = CallbackQueryHandler(Keyboard.button)
     text_message_handler = MessageHandler(Filters.text, text.text)
+    file_message_handler = MessageHandler(Filters.audio, File.file)
 
     dispatcher.add_handler(evtuh_command_handler)
     dispatcher.add_handler(rest_command_handler)
+    dispatcher.add_handler(cute_command_handler)
     dispatcher.add_handler(start_command_handler)
     dispatcher.add_handler(help_command_handler)
     dispatcher.add_handler(weather_command_handler)
@@ -38,6 +41,7 @@ def main():
     dispatcher.add_handler(settingtranslate_command_handler)
     dispatcher.add_handler(callback_query_handler)
     dispatcher.add_handler(text_message_handler)
+    dispatcher.add_handler(file_message_handler)
 
     dispatcher.add_handler(InlineQueryHandler(InlineQuery.inlinequery))
 
