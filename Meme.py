@@ -4,7 +4,6 @@ def Get_meme(update, context):
     answer = DB.DataBase.GetJsonLanguageBot(badge.DB, update.message.chat_id)
     try:
         Url.Photo(Url.get_url('https://meme-api.herokuapp.com/gimme'), update, context)
-        print(badge.job.jobs())
     except Exception:
         context.bot.send_message(update.message.chat_id, answer["3"])
 
@@ -18,10 +17,9 @@ def StartSystemMeme():
     cursor = DB.DataBase.UsersSysMeme(badge.DB)
     for x in cursor:
         for y in range(len(x)):
-            if y+2< len(x) and x[y+2]==True:
+            if y+2< len(x) and x[y+2]==1:
                 badge.jobchat[str(x[y])]=badge.job.run_repeating(MemeChatGroup, interval=int(x[y+1]), first= 0,
                                     context=int(x[y]))
-            y+=2
 
 def MoreMeme(update, context):
     value = {"0":"0","1":"900","2":"1800", "3":"3600", "4":"7200"}
