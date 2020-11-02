@@ -20,7 +20,7 @@ def main():
     settingtranslate_command_handler = CommandHandler("SettingBot", Setting.ShowSetting)
     translate_command_handler = CommandHandler("Translate", Translate.translate)
     rest_command_handler = CommandHandler("Rest",Rest.Rest)
-    cute_command_handler = CommandHandler("Cut", CutAudio.Cut)
+    cute_command_handler = CommandHandler("CutAudio", CutAudio.Cut)
     callback_query_handler = CallbackQueryHandler(Keyboard.button)
     text_message_handler = MessageHandler(Filters.text, text.text)
     file_message_handler = MessageHandler(Filters.audio, File.file)
