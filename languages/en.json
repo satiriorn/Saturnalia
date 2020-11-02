@@ -31,5 +31,7 @@
   "28":"Weather condition while you are sitting at home: ",
   "29":"The temperature of your city: ",
   "30":"Wind speed: ",
-  "31":"you create some problems for me"
+  "31":"you create some problems for me",
+  "32":"Load audio file, or forward.",
+  "33":"Write the beginning and end of the desired result, an example of the record will be below \n00:45-01:32"
 }

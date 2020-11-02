@@ -1,7 +1,7 @@
-import badge,CuteAudio
+import badge,CutAudio
 
 
 def file(update, context):
     print(update)
     if badge.Cute == True:
-        CuteAudio.Cut(update, context)
+        CutAudio.Cut(update, context)

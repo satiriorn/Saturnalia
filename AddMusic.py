@@ -1,4 +1,5 @@
 import os, badge, re, urllib.request, urllib.parse, DB
+from mutagen.easyid3 import EasyID3
 
 urlopen = urllib.request.urlopen
 encode = urllib.parse.urlencode
@@ -33,6 +34,9 @@ def single_download(update,context):
                 command = 'youtube-dl --embed-thumbnail --no-warnings --extract-audio --audio-format mp3 -o "%(title)s.%(ext)s" ' + song[song.find("=") + 1:]
             os.system(command)
             NameMusic = GetMp3()
+            audio = EasyID3(NameMusic[0])
+            audio['title'] = NameMusic[0].replace('.mp3',"")
+            audio.save()
             context.bot.send_audio(update.message.chat_id, open(NameMusic[0], 'rb'))
             DeletePath(GetMp3())
     except Exception:
