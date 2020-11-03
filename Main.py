@@ -1,4 +1,4 @@
-import Quotes, start, help, weather, Evtuh, text,  CreateVoice, DogAndCat, InlineQuery, os, Meme, AddMusic, Translate, DB, badge, Keyboard, Setting, Rest, CutAudio, File
+import Quotes, start, help, weather, Evtuh, text,  CreateVoice, DogAndCat, InlineQuery, os, Meme, Youtube, Translate, DB, badge, Keyboard, Setting, Rest, CutAudio, File
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, InlineQueryHandler, CallbackQueryHandler
 
 def main():
@@ -16,14 +16,15 @@ def main():
     dog_command_handler = CommandHandler('Dog', DogAndCat.Dog_photo)
     sheva_command_handler = CommandHandler('ShevchenkoStyle', Quotes.ShevchenkoStyle)
     meme_command_handler = CommandHandler('Meme', Meme.Get_meme)
-    addmusic_command_handler = CommandHandler("GetMusic", AddMusic.single_download)
+    addmusic_command_handler = CommandHandler("GetMusic", Youtube.Get_Audio)
     settingtranslate_command_handler = CommandHandler("SettingBot", Setting.ShowSetting)
     translate_command_handler = CommandHandler("Translate", Translate.translate)
     rest_command_handler = CommandHandler("Rest",Rest.Rest)
     cute_command_handler = CommandHandler("CutAudio", CutAudio.Cut)
+    get_video_command_handler = CommandHandler("GetVideo", Youtube.Get_Video)
     callback_query_handler = CallbackQueryHandler(Keyboard.button)
     text_message_handler = MessageHandler(Filters.text, text.text)
-    file_message_handler = MessageHandler(Filters.audio, File.file)
+    file_message_handler = MessageHandler(Filters.audio | Filters.video, File.file)
 
     dispatcher.add_handler(evtuh_command_handler)
     dispatcher.add_handler(rest_command_handler)
@@ -39,6 +40,7 @@ def main():
     dispatcher.add_handler(addmusic_command_handler)
     dispatcher.add_handler(translate_command_handler)
     dispatcher.add_handler(settingtranslate_command_handler)
+    dispatcher.add_handler(get_video_command_handler)
     dispatcher.add_handler(callback_query_handler)
     dispatcher.add_handler(text_message_handler)
     dispatcher.add_handler(file_message_handler)

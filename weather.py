@@ -31,3 +31,6 @@ def CurrentWeather(update, context, status=True):
         return (lambda status:status if context.bot.send_message(update.message.chat.id, text)else text)(status)
     except Exception:
         context.bot.send_message(update.message.chat_id, answer["27"])
+
+def SysWeather():
+    pass

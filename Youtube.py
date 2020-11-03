@@ -1,4 +1,4 @@
-import os, badge, re, urllib.request, urllib.parse, DB
+import os, badge, re, urllib.request, urllib.parse, DB, pytube
 from mutagen.easyid3 import EasyID3
 
 urlopen = urllib.request.urlopen
@@ -6,15 +6,7 @@ encode = urllib.parse.urlencode
 retrieve = urllib.request.urlretrieve
 cleanup = urllib.request.urlcleanup()
 
-def list_download(song_list=None):
-    if not song_list:
-        song_list = ""
-    fhand = open(song_list, 'r')
-    for song in fhand:
-        single_download(song)
-    fhand.close()
-
-def single_download(update,context):
+def Get_Audio(update,context):
     answer = DB.DataBase.GetJsonLanguageBot(badge.DB, update.message.chat_id)
     try:
         if badge.CommandMusic != True:
@@ -33,18 +25,34 @@ def single_download(update,context):
             else:
                 command = 'youtube-dl --embed-thumbnail --no-warnings --extract-audio --audio-format mp3 -o "%(title)s.%(ext)s" ' + song[song.find("=") + 1:]
             os.system(command)
-            NameMusic = GetMp3()
+            NameMusic = GetFormat()
             audio = EasyID3(NameMusic[0])
             audio['title'] = NameMusic[0].replace('.mp3',"")
             audio.save()
             context.bot.send_audio(update.message.chat_id, open(NameMusic[0], 'rb'))
-            DeletePath(GetMp3())
+            DeletePath(GetFormat())
     except Exception:
-        DeletePath(GetMp3())
+        DeletePath(GetFormat())
         context.bot.send_message(update.message.chat.id, answer["2"])
 
-def GetMp3():
-    NameMusic = [f for f in os.listdir(os.getcwd()) if f.endswith('.mp3')]
+def Get_Video(update, context):
+    answer = DB.DataBase.GetJsonLanguageBot(badge.DB, update.message.chat_id)
+    if badge.CommandVideo != True:
+        context.bot.send_message(update.message.chat_id, answer["1"])
+        badge.CommandVideo = True
+        return
+    else:
+        video_url = ReplaceLink(update)
+        youtube = pytube.YouTube(video_url)
+        video = youtube.streams.first()
+        a = video.download()
+        context.bot.send_video(update.message.chat_id, open(a, 'rb'))
+        DeletePath(GetFormat('.mp4'))
+        #command = 'ffmpeg -ss 00:00:33 -i jopa.mp4 -to 00:00:48 -c copy out.mp4'
+        #os.system(command)
+
+def GetFormat(format = '.mp3'):
+    NameMusic = [f for f in os.listdir(os.getcwd()) if f.endswith(format)]
     NameMusic.remove("voice.mp3")
     return NameMusic
 

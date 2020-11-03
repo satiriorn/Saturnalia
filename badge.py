@@ -5,6 +5,7 @@ CommandMusic = False
 CommandTranslate = False
 CommandSettingTranslate = False
 CommandLangBot = False
+CommandVideo = False
 StartDl = False
 NameUserCommand = ""
 DB=None
@@ -98,8 +99,9 @@ b = {"Afrikaans":"af", "Akan":"ak", "Albanian":"sq", "Amharic":"am", "Arabic":"a
      "Portuguese (Portugal)":"pt-PT","Romanian":"ro","Russian":"ru","Serbian":"sr","Slovak":"sk","Slovenian":"sl","Spanish":"es","Swahili":"sw",
      "Swedish":"sv","Tatar":"tt","Turkish":"tr","Turkmen":"tk","Ukrainian":"uk"}
 
-MainKeyboard = ["/Help", "/Weather", "/Voice", "/Translate", "/Evtuh", "/ShevchenkoStyle", "/Meme", "/Cat", "/Dog","/GetMusic", "/CutAudio", "/SettingBot"]
+MainKeyboard = ["/Help", "/Weather", "/Voice", "/Translate", "/Evtuh", "/ShevchenkoStyle", "/Meme", "/Cat", "/Dog", "/Youtube", "/SettingBot"]
 TranslateKeyboard = ["Belarusian", "Bulgarian", "Croatian", "Czech", "English","Estonian" , "French", "Finnish", "Georgian", "German", "Italian", "Latvian", "Polish", "Ukrainian"]
 Setting=["Змінити мову перекладу", "Змінити мову бота","Кількість мемів у чатику", "Не треба нічого змінювати"]
 CountMeme = ["Не треба мені твоїх мемів", "1 мем у 15 хвилин","1 мем у 30 хвилин","1 мем у 60 хвилин", "1 мем у 120 хвилин"]
 LanguageBot = ["Belarusian", "Ukrainian", "English"]
+YoutubeKeyboard = []
