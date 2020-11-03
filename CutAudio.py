@@ -1,5 +1,5 @@
 from pydub import AudioSegment
-import badge, DB, AddMusic, os
+import badge, DB, Youtube, os,pytube
 
 def Cut(update, context):
     answer = DB.DataBase.GetJsonLanguageBot(badge.DB, update.message.chat_id)
@@ -23,7 +23,7 @@ def Cut(update, context):
         endSec = int(finish[1])
         startTime = startMin * 60 * 1000 + startSec * 1000
         endTime = endMin * 60 * 1000 + endSec * 1000
-        NameMusic = AddMusic.GetMp3()
+        NameMusic = Youtube.GetMp3()
         song = AudioSegment.from_mp3(NameMusic[0])
         extract = song[startTime:endTime]
         ExtractName = NameMusic[0].replace('.mp3',"")+'-extract.mp3'

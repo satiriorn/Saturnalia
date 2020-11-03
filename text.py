@@ -1,4 +1,4 @@
-import DogAndCat, weather, badge, CreateVoice, UkrainianGame, Meme, AddMusic, Translate, CutAudio
+import DogAndCat, weather, badge, CreateVoice, UkrainianGame, Meme, Youtube, Translate, CutAudio
 
 def text(update,context):
    # try:
@@ -9,7 +9,9 @@ def text(update,context):
     elif badge.Cute == True:
         CutAudio.Cut(update, context)
     elif badge.CommandMusic == True:
-        AddMusic.single_download(update, context)
+        Youtube.Get_Audio(update, context)
+    elif badge.CommandVideo == True:
+        Youtube.Get_Video(update, context)
     elif badge.CommandTranslate == True:
         Translate.translate(update, context)
     elif "погода" == update.message.text.lower():
