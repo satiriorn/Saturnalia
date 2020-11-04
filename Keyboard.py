@@ -1,5 +1,5 @@
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, KeyboardButton, ReplyKeyboardMarkup
-import Setting, badge, Dologusha, Meme, Rest
+import Setting, badge, Dologusha, Meme, Rest, Youtube
 
 def InitKeyboard(NameButton):
     LevelOne = []
@@ -7,9 +7,9 @@ def InitKeyboard(NameButton):
     LevelThree = []
     Button = []
     for i in range(len(NameButton)):
-        if i<4:
+        if i<5:
             LevelOne.append(KeyboardButton(NameButton[i]))
-        elif (i>=4) and (i<7):
+        elif (i>=5) and (i<8):
             LevelTwo.append(KeyboardButton(NameButton[i]))
         else:
             LevelThree.append(KeyboardButton(NameButton[i]))
@@ -34,6 +34,7 @@ def InlineKeyboard(NameButton, Status=True):
 
 def button(update,context):
     query = update.callback_query
+    print(update)
     print(query.data)
     if badge.RestMode ==True:
         Rest.Rest(update,context, False)
@@ -51,6 +52,10 @@ def button(update,context):
         Setting.LanguageBot(update,context)
     elif query.data == "2":
         Meme.CountMem(update,context)
+    elif query.data == "Відео":
+        Youtube.Get_Video(update,context)
+    elif query.data == "Аудіо":
+        Youtube.Get_Audio(update,context)
     else:
         Setting.ExistentialResponse(update,context)
     return query

@@ -1,4 +1,4 @@
-import os, badge, re, urllib.request, urllib.parse, DB, pytube
+import os, badge, re, urllib.request, urllib.parse, DB, pytube, Keyboard
 from mutagen.easyid3 import EasyID3
 
 urlopen = urllib.request.urlopen
@@ -6,13 +6,17 @@ encode = urllib.parse.urlencode
 retrieve = urllib.request.urlretrieve
 cleanup = urllib.request.urlcleanup()
 
-def Get_Audio(update,context):
+def Start(update, context):
     answer = DB.DataBase.GetJsonLanguageBot(badge.DB, update.message.chat_id)
+    context.bot.send_message(update.message.chat_id, answer["34"], reply_markup=Keyboard.InlineKeyboard(badge.YoutubeKeyboard, False))
+
+def Get_Audio(update,context):
+    answer = GetAnswer(update)
     try:
         if badge.CommandMusic != True:
-            context.bot.send_message(update.message.chat_id, answer["1"])
+            context.bot.edit_message_text(chat_id=update.callback_query.message.chat_id, text=answer["1"], message_id=update.callback_query.message.message_id)
             badge.CommandMusic = True
-            badge.NameUserCommand = update.message.from_user.first_name
+            badge.NameUserCommand = update.callback_query.message.chat.first_name
             return
         elif(badge.NameUserCommand == update.message.from_user.first_name):
             song=ReplaceLink(update)
@@ -36,9 +40,10 @@ def Get_Audio(update,context):
         context.bot.send_message(update.message.chat.id, answer["2"])
 
 def Get_Video(update, context):
-    answer = DB.DataBase.GetJsonLanguageBot(badge.DB, update.message.chat_id)
+    answer = GetAnswer(update)
     if badge.CommandVideo != True:
-        context.bot.send_message(update.message.chat_id, answer["1"])
+        context.bot.edit_message_text(chat_id=update.callback_query.message.chat_id, text=answer["1"],
+                                      message_id=update.callback_query.message.message_id)
         badge.CommandVideo = True
         return
     else:
@@ -53,8 +58,15 @@ def Get_Video(update, context):
 
 def GetFormat(format = '.mp3'):
     NameMusic = [f for f in os.listdir(os.getcwd()) if f.endswith(format)]
-    NameMusic.remove("voice.mp3")
+    if format == '.mp3':NameMusic.remove("voice.mp3")
     return NameMusic
+
+def GetAnswer(update):
+    try:
+        return DB.DataBase.GetJsonLanguageBot(badge.DB, update.callback_query.message.chat_id)
+    except Exception:
+        return DB.DataBase.GetJsonLanguageBot(badge.DB, update.message.chat_id)
+
 
 def ReplaceLink(update):
     Link=["https://www.youtube.com/","https://youtu.be/","https://music.youtube.com/"]
