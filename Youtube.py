@@ -44,19 +44,25 @@ def Get_Audio(update,context):
 def Get_Video(update, context):
     chat_id = GetChatID(update)
     answer = DB.DataBase.GetJsonLanguageBot(badge.DB, chat_id)
-    if str(chat_id) in badge.UseCommand.keys():
-        if badge.UseCommand[str(chat_id)] == "Video":
-            video_url = ReplaceLink(update)
-            print(video_url)
-            youtube = pytube.YouTube(video_url).streams.first()
-            a = youtube.download()
-            context.bot.send_file(update.message.chat_id, a)
-            badge.UseCommand.pop(str(chat_id))
-            DeletePath(a)
-    else:
-        context.bot.edit_message_text(chat_id=update.callback_query.message.chat_id, text=answer["1"],
-                                      message_id=update.callback_query.message.message_id)
-        badge.UseCommand[str(chat_id)] = "Video"
+    file = ""
+    try:
+        if str(chat_id) in badge.UseCommand.keys():
+            if badge.UseCommand[str(chat_id)] == "Video":
+                video_url = ReplaceLink(update)
+                print(video_url)
+                youtube = pytube.YouTube(video_url).streams.first()
+                file = youtube.download()
+                context.bot.send_video(update.message.chat_id, file)
+                badge.UseCommand.pop(str(chat_id))
+                DeletePath(file)
+        else:
+            context.bot.edit_message_text(chat_id=update.callback_query.message.chat_id, text=answer["1"],
+                                          message_id=update.callback_query.message.message_id)
+            badge.UseCommand[str(chat_id)] = "Video"
+    except Exception:
+        DeletePath(file)
+        badge.UseCommand.pop(str(chat_id))
+        context.bot.send_message(chat_id, answer["2"])
 
 def GetFormat(format = '.mp3'):
     NameMusic = [f for f in os.listdir(os.getcwd()) if f.endswith(format)]
