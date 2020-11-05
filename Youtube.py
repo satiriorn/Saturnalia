@@ -1,23 +1,11 @@
-<<<<<<< HEAD
 import os, badge, DB, pytube, Keyboard, subprocess
 from mutagen.easyid3 import EasyID3
 
-=======
-import os, badge, re, urllib.request, urllib.parse, DB, pytube, Keyboard
-from mutagen.easyid3 import EasyID3
-
-urlopen = urllib.request.urlopen
-encode = urllib.parse.urlencode
-retrieve = urllib.request.urlretrieve
-cleanup = urllib.request.urlcleanup()
-
->>>>>>> facbc7dbfc3a4ebc81e5c6394c3214fb66074a92
 def Start(update, context):
     answer = DB.DataBase.GetJsonLanguageBot(badge.DB, update.message.chat_id)
     context.bot.send_message(update.message.chat_id, answer["34"], reply_markup=Keyboard.InlineKeyboard(badge.YoutubeKeyboard, False))
 
 def Get_Audio(update,context):
-<<<<<<< HEAD
     chat_id = GetChatID(update)
     answer = DB.DataBase.GetJsonLanguageBot(badge.DB, chat_id)
     file, NameMusic = "", ""
@@ -51,38 +39,6 @@ def Get_Audio(update,context):
 
 def Get_Video(update, context):
     answer = DB.DataBase.GetJsonLanguageBot(badge.DB, GetChatID(update))
-=======
-    answer = GetAnswer(update)
-    try:
-        if badge.CommandMusic != True:
-            context.bot.edit_message_text(chat_id=update.callback_query.message.chat_id, text=answer["1"], message_id=update.callback_query.message.message_id)
-            badge.CommandMusic = True
-            badge.NameUserCommand = update.callback_query.message.chat.first_name
-            return
-        elif(badge.NameUserCommand == update.message.from_user.first_name):
-            song=ReplaceLink(update)
-            if "youtube.com/" not in song:
-                query_string = encode({"search_query": song})
-                html_content = urlopen("http://www.youtube.com/results?" + query_string)
-                search_results = re.findall(r'href=\"\/watch\?v=(.{11})', html_content.read().decode())
-                command = 'youtube-dl --embed-thumbnail --no-warnings --extract-audio --audio-format mp3 -o "%(title)s.%(ext)s" ' + \
-                          search_results[0]
-            else:
-                command = 'youtube-dl --embed-thumbnail --no-warnings --extract-audio --audio-format mp3 -o "%(title)s.%(ext)s" ' + song[song.find("=") + 1:]
-            os.system(command)
-            NameMusic = GetFormat()
-            audio = EasyID3(NameMusic[0])
-            audio['title'] = NameMusic[0].replace('.mp3',"")
-            audio.save()
-            context.bot.send_audio(update.message.chat_id, open(NameMusic[0], 'rb'))
-            DeletePath(GetFormat())
-    except Exception:
-        DeletePath(GetFormat())
-        context.bot.send_message(update.message.chat.id, answer["2"])
-
-def Get_Video(update, context):
-    answer = GetAnswer(update)
->>>>>>> facbc7dbfc3a4ebc81e5c6394c3214fb66074a92
     if badge.CommandVideo != True:
         context.bot.edit_message_text(chat_id=update.callback_query.message.chat_id, text=answer["1"],
                                       message_id=update.callback_query.message.message_id)
@@ -103,19 +59,11 @@ def GetFormat(format = '.mp3'):
     if format == '.mp3':NameMusic.remove("voice.mp3")
     return NameMusic
 
-<<<<<<< HEAD
 def GetChatID(update):
     try:
         return update.callback_query.message.chat_id
     except Exception:
         return update.message.chat_id
-=======
-def GetAnswer(update):
-    try:
-        return DB.DataBase.GetJsonLanguageBot(badge.DB, update.callback_query.message.chat_id)
-    except Exception:
-        return DB.DataBase.GetJsonLanguageBot(badge.DB, update.message.chat_id)
->>>>>>> facbc7dbfc3a4ebc81e5c6394c3214fb66074a92
 
 
 def ReplaceLink(update):
@@ -130,9 +78,5 @@ def ReplaceLink(update):
 
 def DeletePath(NameMusic):
     badge.CommandMusic = False
-<<<<<<< HEAD
     path = os.path.join(os.path.abspath(os.path.dirname(__file__)), NameMusic)
-=======
-    path = os.path.join(os.path.abspath(os.path.dirname(__file__)), NameMusic[0])
->>>>>>> facbc7dbfc3a4ebc81e5c6394c3214fb66074a92
     os.remove(path)

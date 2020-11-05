@@ -74,9 +74,5 @@ def inlinequery(update, context):
         update.inline_query.answer(result)
     except:
         u = 'update.inline_query.from.id'
-<<<<<<< HEAD
         #bot.send_message(u, 'Вибач, мої мікросхеми згоріли, пиши пізніше...')
-=======
-        bot.send_message(u, 'Вибач, мої мікросхеми згоріли, пиши пізніше...')
->>>>>>> facbc7dbfc3a4ebc81e5c6394c3214fb66074a92
 
