@@ -8,7 +8,9 @@ def text(update,context):
         if res == "Audio": Youtube.Get_Audio(update, context)
         elif res == "Video":Youtube.Get_Video(update, context)
         elif res == "CutAudio":Cut.CutAudio(update, context)
-    if badge.CommandVoice == True:
+        elif res == "CutVideo":Cut.CutVideo(update, context)
+
+    elif badge.CommandVoice == True:
         CreateVoice.voice(update, context)
         badge.CommandVoice = False
     elif badge.CommandTranslate == True:

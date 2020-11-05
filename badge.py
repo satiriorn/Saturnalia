@@ -7,7 +7,7 @@ CommandLangBot = False
 StartDl = False
 
 UseCommand = {}
-CutAudio = {}
+CutFile = {}
 
 DB=None
 numb = 0

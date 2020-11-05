@@ -57,7 +57,7 @@ def button(update,context):
     elif query.data == "Скачати Аудіо":
         Youtube.Get_Audio(update,context)
     elif query.data == "Обрізати Відео":
-        pass #Youtube.Get_Video(update,context)
+        Cut.CutVideo(update,context)
     elif query.data == "Обрізати Аудіо":
         Cut.CutAudio(update,context)
     else:
