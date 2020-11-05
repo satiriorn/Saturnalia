@@ -38,6 +38,7 @@ def Get_Audio(update,context):
     except Exception:
         DeletePath(NameMusic)
         DeletePath(file)
+        badge.UseCommand.pop(str(chat_id))
         context.bot.send_message(chat_id, answer["2"])
 
 def Get_Video(update, context):
@@ -46,12 +47,12 @@ def Get_Video(update, context):
     if str(chat_id) in badge.UseCommand.keys():
         if badge.UseCommand[str(chat_id)] == "Video":
             video_url = ReplaceLink(update)
+            print(video_url)
             youtube = pytube.YouTube(video_url).streams.first()
             a = youtube.download()
-            context.bot.send_video(update.message.chat_id, open(a, 'rb'))
+            context.bot.send_file(update.message.chat_id, a)
             badge.UseCommand.pop(str(chat_id))
             DeletePath(a)
-            #command = 'ffmpeg -ss 00:00:33 -i jopa.mp4 -to 00:00:48 -c copy out.mp4'
     else:
         context.bot.edit_message_text(chat_id=update.callback_query.message.chat_id, text=answer["1"],
                                       message_id=update.callback_query.message.message_id)
@@ -68,7 +69,6 @@ def GetChatID(update):
     except Exception:
         return update.message.chat_id
 
-
 def ReplaceLink(update):
     Link=["https://www.youtube.com/","https://youtu.be/","https://music.youtube.com/"]
     link = None
@@ -76,7 +76,7 @@ def ReplaceLink(update):
         if Link[0] in update.message.text:
             return update.message.text
         elif Link[i] in update.message.text:
-            link = Link[0]+update.message.text.replace(Link[i], '')
+            link = Link[0]+"watch?v="+update.message.text.replace(Link[i], '')
     return link
 
 def DeletePath(NameMusic):
