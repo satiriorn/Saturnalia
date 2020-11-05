@@ -7,11 +7,10 @@ def text(update,context):
         res = badge.UseCommand[str(update.message.chat_id)]
         if res == "Audio": Youtube.Get_Audio(update, context)
         elif res == "Video":Youtube.Get_Video(update, context)
+        elif res == "CutAudio":Cut.CutAudio(update, context)
     if badge.CommandVoice == True:
         CreateVoice.voice(update, context)
         badge.CommandVoice = False
-    elif badge.Cute == True:
-        Cut.Cut(update, context)
     elif badge.CommandTranslate == True:
         Translate.translate(update, context)
     elif "погода" == update.message.text.lower():
