@@ -14,3 +14,4 @@ ffmpeg==1.4
 googletrans==3.0.0
 pytube==9.7.0
 mysql-connector-python==8.0.21
+mutagen==1.45.1
