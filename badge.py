@@ -7,7 +7,11 @@ CommandSettingTranslate = False
 CommandLangBot = False
 CommandVideo = False
 StartDl = False
+<<<<<<< HEAD
 UseCommand = {}
+=======
+UseCommand = [{}]
+>>>>>>> facbc7dbfc3a4ebc81e5c6394c3214fb66074a92
 DB=None
 numb = 0
 job = None

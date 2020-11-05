@@ -3,15 +3,25 @@ import DogAndCat, weather, badge, CreateVoice, UkrainianGame, Meme, Youtube, Tra
 def text(update,context):
    # try:
     print(update)
+<<<<<<< HEAD
     if str(update.message.chat_id) in badge.UseCommand.keys():
         res = badge.UseCommand[str(update.message.chat_id)]
         if res == "Audio": Youtube.Get_Audio(update, context)
         elif res == "Video":Youtube.Get_Video(update, context)
+=======
+>>>>>>> facbc7dbfc3a4ebc81e5c6394c3214fb66074a92
     if badge.CommandVoice == True:
         CreateVoice.voice(update, context)
         badge.CommandVoice = False
     elif badge.Cute == True:
         Cut.Cut(update, context)
+<<<<<<< HEAD
+=======
+    elif badge.CommandMusic == True:
+        Youtube.Get_Audio(update, context)
+    elif badge.CommandVideo == True:
+        Youtube.Get_Video(update, context)
+>>>>>>> facbc7dbfc3a4ebc81e5c6394c3214fb66074a92
     elif badge.CommandTranslate == True:
         Translate.translate(update, context)
     elif "погода" == update.message.text.lower():
