@@ -1,14 +1,13 @@
 count=False
 Id = None
 CommandVoice = False
-CommandMusic = False
 CommandTranslate = False
 CommandSettingTranslate = False
 CommandLangBot = False
-CommandVideo = False
 StartDl = False
 
 UseCommand = {}
+CutAudio = {}
 
 DB=None
 numb = 0
@@ -106,4 +105,5 @@ TranslateKeyboard = ["Belarusian", "Bulgarian", "Croatian", "Czech", "English","
 Setting=["Змінити мову перекладу", "Змінити мову бота","Кількість мемів у чатику", "Не треба нічого змінювати"]
 CountMeme = ["Не треба мені твоїх мемів", "1 мем у 15 хвилин","1 мем у 30 хвилин","1 мем у 60 хвилин", "1 мем у 120 хвилин"]
 LanguageBot = ["Belarusian", "Ukrainian", "English"]
-YoutubeKeyboard = ["Відео", "Аудіо"]
+YoutubeKeyboard = ["Скачати Відео", "Скачати Аудіо"]
+CutKeyboard = ["Обрізати Відео", "Обрізати Аудіо"]

@@ -13,7 +13,10 @@ def Get_Audio(update,context):
         if str(chat_id) in badge.UseCommand.keys():
             if badge.UseCommand[str(chat_id)] == "Audio":
                 url=ReplaceLink(update)
-                youtube = pytube.YouTube(url).streams.filter(only_audio=True)#.all()
+                try:
+                    youtube = pytube.YouTube(url).streams.filter(only_audio=True)
+                except Exception:
+                    youtube = pytube.YouTube(url).streams.filter(only_audio=True).all()
                 file = youtube[0].download()
                 title = pytube.YouTube(url).player_response['videoDetails']['title']
                 NameMusic = file.replace('.mp4','.mp3')
@@ -38,21 +41,21 @@ def Get_Audio(update,context):
         context.bot.send_message(chat_id, answer["2"])
 
 def Get_Video(update, context):
-    answer = DB.DataBase.GetJsonLanguageBot(badge.DB, GetChatID(update))
-    if badge.CommandVideo != True:
+    chat_id = GetChatID(update)
+    answer = DB.DataBase.GetJsonLanguageBot(badge.DB, chat_id)
+    if str(chat_id) in badge.UseCommand.keys():
+        if badge.UseCommand[str(chat_id)] == "Video":
+            video_url = ReplaceLink(update)
+            youtube = pytube.YouTube(video_url).streams.first()
+            a = youtube.download()
+            context.bot.send_video(update.message.chat_id, open(a, 'rb'))
+            badge.UseCommand.pop(str(chat_id))
+            DeletePath(a)
+            #command = 'ffmpeg -ss 00:00:33 -i jopa.mp4 -to 00:00:48 -c copy out.mp4'
+    else:
         context.bot.edit_message_text(chat_id=update.callback_query.message.chat_id, text=answer["1"],
                                       message_id=update.callback_query.message.message_id)
-        badge.CommandVideo = True
-        return
-    else:
-        video_url = ReplaceLink(update)
-        youtube = pytube.YouTube(video_url)
-        video = youtube.streams.first()
-        a = video.download()
-        context.bot.send_video(update.message.chat_id, open(a, 'rb'))
-        DeletePath(GetFormat('.mp4'))
-        #command = 'ffmpeg -ss 00:00:33 -i jopa.mp4 -to 00:00:48 -c copy out.mp4'
-        #os.system(command)
+        badge.UseCommand[str(chat_id)] = "Video"
 
 def GetFormat(format = '.mp3'):
     NameMusic = [f for f in os.listdir(os.getcwd()) if f.endswith(format)]
