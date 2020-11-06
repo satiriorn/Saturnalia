@@ -35,5 +35,6 @@
   "32": "Load audio file, or forward.",
   "33": "Write the beginning and end of the desired result, an example of the record will be below \n00:45-01:32",
   "34": "Do you want to get video or audio from YouTube?",
-  "35": "What exactly do you want to cut?"
+  "35": "What exactly do you want to cut?",
+  "36":"Upload the video file, or forward."
 }

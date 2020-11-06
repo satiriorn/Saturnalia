@@ -52,7 +52,7 @@ def Get_Video(update, context):
                 print(video_url)
                 youtube = pytube.YouTube(video_url).streams.first()
                 file = youtube.download()
-                context.bot.send_video(update.message.chat_id, file)
+                context.bot.send_video(update.message.chat_id,open(file, 'rb'))
                 badge.UseCommand.pop(str(chat_id))
                 DeletePath(file)
         else:
