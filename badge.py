@@ -1,7 +1,3 @@
-count=False
-Id = None
-CommandVoice = False
-CommandTranslate = False
 CommandSettingTranslate = False
 CommandLangBot = False
 StartDl = False
@@ -10,11 +6,7 @@ UseCommand = {}
 CutFile = {}
 
 DB=None
-numb = 0
 job = None
-MemeChange=False
-RestMode = False
-Cute = False
 jobchat = {}
 
 God = ["""Наш розум - космос \nТа не всяк ракету має...\nТому далеко не літає""",

@@ -5,7 +5,7 @@ def Rest(update, context, status = True):
         chat_id = update.callback_query.message.chat_id
     except Exception:
         chat_id = update.message.chat_id
-        badge.RestMode = True
+    badge.UseCommand[str(chat_id)] = "Rest"
     if status:
         context.bot.send_message(chat_id=chat_id,
                                  text="""Запоскійливе у 6 циклів на 1 хвилину. Знайдіть місце де вас не буде ніхто торбувати цілу хвилину, або абстрагуйте свої думки. Відчуйте темп. Також ви можете використовувати вібро задля того, щоб відчувати темп дихання(не забудьте увімкнути вібро на телефоні))""",
@@ -20,5 +20,5 @@ def Rest(update, context, status = True):
             context.bot.send_message(chat_id=chat_id,text="""Видих""")
             time.sleep(5)
         context.bot.send_message(chat_id=update.callback_query.message.chat_id, text="Втягніть в себе максимум спокію")
-        badge.RestMode = False
+        badge.UseCommand.pop(str(chat_id))
 
