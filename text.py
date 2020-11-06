@@ -9,10 +9,7 @@ def text(update,context):
         elif res == "Video":Youtube.Get_Video(update, context)
         elif res == "CutAudio":Cut.CutAudio(update, context)
         elif res == "CutVideo":Cut.CutVideo(update, context)
-
-    elif badge.CommandVoice == True:
-        CreateVoice.voice(update, context)
-        badge.CommandVoice = False
+        elif res == "CreateVoice":CreateVoice.voice(update, context)
     elif badge.CommandTranslate == True:
         Translate.translate(update, context)
     elif "погода" == update.message.text.lower():
