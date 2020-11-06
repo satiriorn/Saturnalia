@@ -1,4 +1,4 @@
-import requests, badge, re, math, time, calendar, DB
+import requests, badge, re, math, time, calendar, DB, os, shutil
 from gtts import gTTS
 from gtts_token.gtts_token import Token
 from langdetect import detect
@@ -10,7 +10,6 @@ def _patch_faulty_function(self):
 
         timestamp = calendar.timegm(time.gmtime())
         hours = int(math.floor(timestamp / 3600))
-
         results = requests.get("https://translate.google.com/")
         tkk_expr = re.search("(tkk:*?'\d{2,}.\d{3,}')", results.text).group(1)
         tkk = re.search("(\d{5,}.\d{6,})", tkk_expr).group(1)
@@ -25,29 +24,32 @@ def _patch_faulty_function(self):
 
 Token._get_token_key = _patch_faulty_function
 
-def voice(update,context, Status=True):
+def voice(update,context):
     answer = DB.DataBase.GetJsonLanguageBot(badge.DB, update.message.chat_id)
+    mp3_name = str(update.message.chat_id)+'.mp3'
+    file = shutil.copy(r'voice.mp3', mp3_name)
     try:
-        mes =""
-        if Status == True:
-            mes = update.message.text
+        if str(update.message.chat_id) in badge.UseCommand.keys():
+            if badge.UseCommand[str(update.message.chat_id)] == "CreateVoice":
+                mes = update.message.text
+                gTTS(text=mes, lang=detect(mes)).save(file)
+                context.bot.send_voice(update.message.chat_id,open(file, 'rb'))
+                os.remove(os.path.join(os.path.abspath(os.path.dirname(__file__)), file))
         else:
-            mes = update
-        mp3_name = 'voice.mp3'
-        if badge.CommandVoice != True:
+            badge.UseCommand[str(update.message.chat_id)] = "CreateVoice"
             context.bot.send_message(update.message.chat_id, answer["4"])
-            badge.CommandVoice = True
-            return
-        gTTS(text = mes, lang=detect(mes)).save(mp3_name)
-        return (lambda status: status if context.bot.send_voice(update.message.chat_id, open(mp3_name, 'rb')) else mp3_name) (Status)
     except Exception:
         context.bot.send_message(update.message.chat_id, answer["5"])
+        os.remove(os.path.join(os.path.abspath(os.path.dirname(__file__)), file))
 
 def TranslateVoice(update, context, mes, lang):
+    mp3_name = str(update.message.chat_id) + '.mp3'
+    file = shutil.copy(r'voice.mp3', mp3_name)
     try:
-        mp3_name = 'voice.mp3'
-        gTTS(text=mes.lower(), lang=lang).save(mp3_name)
-        context.bot.send_voice(update.message.chat_id, open(mp3_name, 'rb'))
+        gTTS(text=mes.lower(), lang=lang).save(file)
+        context.bot.send_voice(update.message.chat_id, open(file, 'rb'))
         context.bot.send_message(update.message.chat.id, mes)
+        os.remove(os.path.join(os.path.abspath(os.path.dirname(__file__)), file))
     except Exception:
         context.bot.send_message(update.message.chat_id, mes)
+        os.remove(os.path.join(os.path.abspath(os.path.dirname(__file__)), file))

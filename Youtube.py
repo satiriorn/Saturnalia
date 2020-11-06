@@ -86,6 +86,5 @@ def ReplaceLink(update):
     return link
 
 def DeletePath(NameMusic):
-    badge.CommandMusic = False
     path = os.path.join(os.path.abspath(os.path.dirname(__file__)), NameMusic)
     os.remove(path)
