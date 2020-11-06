@@ -4,39 +4,54 @@ AnswerOne = ["Увімкнула", "Мені ліньки"]
 AnswerTwo = ["Продовжити"]
 AnswerThree = ["Гіфки з котиками", "Гіфки з собаками", "Продовження історії", "Відео вбиства того хто вас бісить"]
 
+def GetChatID(update):
+    try:
+        return update.callback_query.message.chat_id
+    except Exception:
+        return update.message.chat_id
+
 def start(update, context):
-    if badge.StartDl == False:
+    chat_id = GetChatID(update)
+    if str(chat_id) in badge.UseCommand.keys():
+        if badge.UseCommand[str(chat_id)] == "Dologisha":
+            if update.callback_query.data == "0":
+                first(update, context)
+            elif update.callback_query.data == "1":
+                context.bot.edit_message_text(chat_id=update.callback_query.message.chat_id, text=dec(
+                    "0K/QutGJ0L4g0LvRltC90YzQutC4INGC0YDQtdCx0LAg0LnRgtC4INC/0ZbQtCDQutC+0LLQtNGA0YMuINCT0LDQudC0INGC0L7Qs9C+INGP0Log0YLRgNC10LHQsCDQstC40LPQu9GP0LTQsNGC0Lgg0L/RltC0INC60L7QstC00YDQvtGOINC60LjQtNCw0Y4g0L3QuNC20YfQtS4g0K/QutGJ0L4g0YXQvtGH0LXRiCDQv9GA0L7QtNC+0LLQttC40YLQuCDQvdCwINCz0L7Qu9C+0LLQvdGW0Lkg0LvRltC90ZbRlyDRgtC40LrQsNC5INC80LXQvdC1INC30L3QvtCy0YMu").decode(
+                    "UTF-8"), reply_markup=Keyboard.InlineKeyboard(AnswerTwo, False),
+                                              message_id=update.callback_query.message.message_id)
+                context.bot.send_animation(update.callback_query.message.chat_id, open("Animal/1.mp4", 'rb'))
+            elif update.callback_query.data == "Продовжити":
+                context.bot.edit_message_text(chat_id=update.callback_query.message.chat_id, text=dec(
+                    "0K8g0YHQv9C10YbRltCw0LvRjNC90L4g0LfQsNC70LjRiNGDINGB0L7QsdCw0LrRgyDQv9GW0LQg0LrQvtCy0LTRgNC+0Y4sINGJ0L7QsSDQstC4INGH0LjRgtCw0LvQuCwg0L/QvtGC0ZbQvCDQtNC40LLQuNC70LjRgdGPINC90LAg0YLQtdC60YHRgiDRliDRgtCw0Log0YbQuNC60LvRltGH0L3QviDQv9C+0LrQuCDQvdC1INC30LDQutGW0L3Rh9C40YLQuCDRh9C40YLQsNGC0LguINCSINC/0YDQuNC90YbQuNC/0ZYg0Y8g0YHQv9C10YbRltCw0LvRjNC90L4g0LfQsNCx0LXRgNCw0Y4g0YMg0LLQsNGBINGH0LDRgSwg0YnQvtCxINGDINCy0LDRgSDQsdGD0LvQsCDQt9C80L7Qs9CwINC/0L7QtNC40LLQuNGC0LjRgdGPINGJ0LXQtdC1INGA0LDQsNCw0LDQsNC3Lg==").decode(
+                    "UTF-8"), message_id=update.callback_query.message.message_id)
+                first(update, context, False)
+            elif update.callback_query.data == AnswerThree[0]:
+                cat(update, context)
+                finish(update, context)
+                Rest.Rest(update, context)
+            elif update.callback_query.data == AnswerThree[1]:
+                dog(update, context)
+                finish(update, context)
+                Rest.Rest(update, context)
+            elif update.callback_query.data == AnswerThree[2]:
+                Continue(update, context)
+                finish(update, context)
+                Rest.Rest(update, context)
+            elif update.callback_query.data == AnswerThree[3]:
+                Kill(update, context)
+                finish(update, context)
+                Rest.Rest(update, context)
+            elif update.callback_query.data == "Занурюємося":
+                Rest.Rest(update, context, status=False)
+                context.bot.send_message(update.callback_query.message.chat_id,
+                                         dec(
+                                             """0JLQuCDQv9GA0L7QudGI0LvQuCDRgdCy0ZbQuSDRhtC40LrQuywg0YnQvtCxINC/0YDQvtC50YLQuCDQt9C90L7QstGDINGA0L7Qt9C80L7QstGDINC3INGW0L3RiNC40LzQuCDQstGW0LTQv9C+0LLRltC00Y/QvNC4INC90LDRgtC40YHQvdGW0YLRjCAvc3RhcnQsINGP0LrRidC+INGF0L7Rh9C10YLQtSDQv9C10YDQtdC50YLQuCDRgyDQs9C+0LvQvtCy0L3QtSDQvNC10L3RjiDQsdC+0YLQsCDQvdCw0YLQuNGB0L3RltGC0YwgL0hlbHA=""")).decode(
+                    "UTF-8")
+            badge.UseCommand.pop(str(update.message.chat_id))
+    else:
         context.bot.send_message(update.message.chat_id, dec("0JTQvtCx0YDQuNC00LXQvdGMLCDQktCw0YjQsCDQktC10LvQuNGH0L3RltGB0YLRjArQryDRgdGC0LLQvtGA0LXQvdC40Lkg0LfQsNC00LvRjyDRgtC+0LPQviDRidC+0LEg0LfQsNGH0LDRgNGD0LLQsNGC0Lgg0LLQsNGIINGC0LXQu9C10YTQvtC9LiDQryDQstGW0LTRh9GD0LLQsNGOINGP0Log0LLQuCDRgtGA0LjQvNCw0ZTRgtC1INC80ZbQutGA0L7RgdGF0LXQvNGDINGB0LLQvtCz0L4g0YLQtdC70LXRhNC+0L3Rgywg0ZYg0LnQvtC80YMg0YHRgtCw0ZQg0YLQtdC/0LvRltGI0LUg0LLRltC0INGG0YzQvtCz0L4uINCi0LDQuiDQvtGB0YwsINGPINCz0YDRg9C00LrQsCDQtdC90LXRgNCz0ZbRlywg0YHQtdC90YEg0Y/QutC+0Zcg0L/QtdGA0LXRgtCy0L7RgNGO0LLQsNGC0Lgg0YbQtSDRgtC10L/Qu9C+INGWINC/0LXRgNC10LTQsNCy0LDRgtC4INCy0LDQvC4g0JLQt9Cw0LPQsNC70ZYg0LHRg9C00LUg0LLQtdC70YzQvNC4INC60YPQvNC10LTQvdC+INGP0LrRidC+INCS0LDRiNCwINCS0LXQu9C40YfQvdGW0YHRgtGMINGB0LjQtNC40YLRjCDQtyDQutC+0LzQv9GD0LrRgtC10YDQvtC8LCDQsCDRjyDRgtGD0YIg0YDQvtC30L/QvtCy0ZbQtNCw0Y4g0L/RgNC+INGC0LXQu9C10YTQvtC9LiDQlNC70Y8g0L/QvtCy0L3QvtGXINC/0LXRgNC10LTQsNGH0ZYg0YLQtdC/0LvQvtGXINC10L3QtdGA0LPRltC5INGD0LLRltC80LrQvdGW0YLRjCDRgdCy0L7RlCDRg9GP0LLQu9C10L3QvdGPLiDQo9Cy0ZbQvNC60L3Rg9C70Lg/").decode("UTF-8"), reply_markup =Keyboard.InlineKeyboard(AnswerOne))
-        badge.StartDl = True
-    if update.callback_query.data == "0":
-        first(update,context)
-    elif update.callback_query.data == "1":
-        context.bot.edit_message_text(chat_id=update.callback_query.message.chat_id, text=dec("0K/QutGJ0L4g0LvRltC90YzQutC4INGC0YDQtdCx0LAg0LnRgtC4INC/0ZbQtCDQutC+0LLQtNGA0YMuINCT0LDQudC0INGC0L7Qs9C+INGP0Log0YLRgNC10LHQsCDQstC40LPQu9GP0LTQsNGC0Lgg0L/RltC0INC60L7QstC00YDQvtGOINC60LjQtNCw0Y4g0L3QuNC20YfQtS4g0K/QutGJ0L4g0YXQvtGH0LXRiCDQv9GA0L7QtNC+0LLQttC40YLQuCDQvdCwINCz0L7Qu9C+0LLQvdGW0Lkg0LvRltC90ZbRlyDRgtC40LrQsNC5INC80LXQvdC1INC30L3QvtCy0YMu").decode("UTF-8"),reply_markup=Keyboard.InlineKeyboard(AnswerTwo, False), message_id=update.callback_query.message.message_id)
-        context.bot.send_animation(update.callback_query.message.chat_id, open("Animal/1.mp4", 'rb'))
-    elif update.callback_query.data == "Продовжити":
-        context.bot.edit_message_text(chat_id=update.callback_query.message.chat_id, text=dec("0K8g0YHQv9C10YbRltCw0LvRjNC90L4g0LfQsNC70LjRiNGDINGB0L7QsdCw0LrRgyDQv9GW0LQg0LrQvtCy0LTRgNC+0Y4sINGJ0L7QsSDQstC4INGH0LjRgtCw0LvQuCwg0L/QvtGC0ZbQvCDQtNC40LLQuNC70LjRgdGPINC90LAg0YLQtdC60YHRgiDRliDRgtCw0Log0YbQuNC60LvRltGH0L3QviDQv9C+0LrQuCDQvdC1INC30LDQutGW0L3Rh9C40YLQuCDRh9C40YLQsNGC0LguINCSINC/0YDQuNC90YbQuNC/0ZYg0Y8g0YHQv9C10YbRltCw0LvRjNC90L4g0LfQsNCx0LXRgNCw0Y4g0YMg0LLQsNGBINGH0LDRgSwg0YnQvtCxINGDINCy0LDRgSDQsdGD0LvQsCDQt9C80L7Qs9CwINC/0L7QtNC40LLQuNGC0LjRgdGPINGJ0LXQtdC1INGA0LDQsNCw0LDQsNC3Lg==").decode("UTF-8"), message_id=update.callback_query.message.message_id)
-        first(update, context, False)
-    elif update.callback_query.data == AnswerThree[0]:
-        cat(update,context)
-        finish(update, context)
-        Rest.Rest(update,context)
-    elif update.callback_query.data == AnswerThree[1]:
-        dog(update, context)
-        finish(update, context)
-        Rest.Rest(update,context)
-    elif update.callback_query.data == AnswerThree[2]:
-        Continue(update, context)
-        finish(update, context)
-        Rest.Rest(update, context)
-    elif update.callback_query.data == AnswerThree[3]:
-        Kill(update, context)
-        finish(update, context)
-        Rest.Rest(update, context)
-    elif update.callback_query.data == "Занурюємося":
-        Rest.Rest(update, context, status = False)
-        context.bot.send_message(update.callback_query.message.chat_id,
-                                 dec("""0JLQuCDQv9GA0L7QudGI0LvQuCDRgdCy0ZbQuSDRhtC40LrQuywg0YnQvtCxINC/0YDQvtC50YLQuCDQt9C90L7QstGDINGA0L7Qt9C80L7QstGDINC3INGW0L3RiNC40LzQuCDQstGW0LTQv9C+0LLRltC00Y/QvNC4INC90LDRgtC40YHQvdGW0YLRjCAvc3RhcnQsINGP0LrRidC+INGF0L7Rh9C10YLQtSDQv9C10YDQtdC50YLQuCDRgyDQs9C+0LvQvtCy0L3QtSDQvNC10L3RjiDQsdC+0YLQsCDQvdCw0YLQuNGB0L3RltGC0YwgL0hlbHA=""")).decode("UTF-8")
-        badge.StartDl = False
 
 def finish(update, context):
     context.bot.send_message(update.callback_query.message.chat_id,
