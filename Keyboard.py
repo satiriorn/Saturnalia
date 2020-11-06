@@ -39,12 +39,9 @@ def button(update,context):
         res = badge.UseCommand[str(update.callback_query.message.chat_id)]
         if res == "Rest": Rest.Rest(update, context, False)
         elif res == "MemeChange": Meme.MoreMeme(update, context)
-    elif badge.CommandSettingTranslate == True:
-        Setting.SettingTranslate(update, context)
-    elif badge.StartDl == True:
-        Dologusha.start(update, context)
-    elif badge.CommandLangBot == True:
-        Setting.LanguageBot(update, context)
+        elif res == "SettingTranslate": Setting.SettingTranslate(update, context)
+        elif res == "Dologisha": Dologusha.start(update, context)
+        elif res == "LangBot": Setting.LanguageBot(update, context)
     elif query.data == "0":
         Setting.SettingTranslate(update,context)
     elif query.data =="1":

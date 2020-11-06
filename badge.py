@@ -1,12 +1,12 @@
-CommandSettingTranslate = False
 CommandLangBot = False
-StartDl = False
 
 UseCommand = {}
 CutFile = {}
 
 DB=None
 job = None
+translator = None
+
 jobchat = {}
 
 God = ["""Наш розум - космос \nТа не всяк ракету має...\nТому далеко не літає""",
