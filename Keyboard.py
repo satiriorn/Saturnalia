@@ -34,12 +34,11 @@ def InlineKeyboard(NameButton, Status=True):
 
 def button(update,context):
     query = update.callback_query
-    print(update)
     print(query.data)
-    if badge.RestMode ==True:
-        Rest.Rest(update,context, False)
-    elif badge.MemeChange == True:
-        Meme.MoreMeme(update, context)
+    if str(update.callback_query.message.chat_id) in badge.UseCommand.keys():
+        res = badge.UseCommand[str(update.callback_query.message.chat_id)]
+        if res == "Rest": Rest.Rest(update, context, False)
+        elif res == "MemeChange": Meme.MoreMeme(update, context)
     elif badge.CommandSettingTranslate == True:
         Setting.SettingTranslate(update, context)
     elif badge.StartDl == True:

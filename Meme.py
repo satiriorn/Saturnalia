@@ -11,7 +11,7 @@ def CountMem(update, context):
     context.bot.edit_message_text(chat_id=update.callback_query.message.chat_id, text="Оберіть кількість мемів:",
                                   reply_markup=Keyboard.InlineKeyboard(badge.CountMeme),
                                   message_id=update.callback_query.message.message_id)
-    badge.MemeChange = True
+    badge.UseCommand[str(update.callback_query.message.chat_id)] = "MemeChange"
 
 def StartSystemMeme():
     cursor = DB.DataBase.UsersSysMeme(badge.DB)
@@ -39,7 +39,7 @@ def MoreMeme(update, context):
         DB.DataBase.UpdateSysMeme(badge.DB, chat_id, False, 0)
         badge.jobchat.pop(str(chat_id))
     context.bot.edit_message_text(chat_id=chat_id, text=badge.CountMeme[int(update.callback_query.data)], message_id=update.callback_query.message.message_id)
-    badge.MemeChange = False
+    badge.UseCommand.pop(str(chat_id))
 
 def MemeChatGroup(context: telegram.ext.CallbackContext):
     url = Url.get_url('https://meme-api.herokuapp.com/gimme')

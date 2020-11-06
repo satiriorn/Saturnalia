@@ -38,8 +38,10 @@ def voice(update,context):
         else:
             badge.UseCommand[str(update.message.chat_id)] = "CreateVoice"
             context.bot.send_message(update.message.chat_id, answer["4"])
+        badge.UseCommand.pop(str(update.message.chat_id))
     except Exception:
         context.bot.send_message(update.message.chat_id, answer["5"])
+        badge.UseCommand.pop(str(update.message.chat_id))
         os.remove(os.path.join(os.path.abspath(os.path.dirname(__file__)), file))
 
 def TranslateVoice(update, context, mes, lang):
@@ -50,6 +52,8 @@ def TranslateVoice(update, context, mes, lang):
         context.bot.send_voice(update.message.chat_id, open(file, 'rb'))
         context.bot.send_message(update.message.chat.id, mes)
         os.remove(os.path.join(os.path.abspath(os.path.dirname(__file__)), file))
+        badge.UseCommand.pop(str(update.message.chat_id))
     except Exception:
         context.bot.send_message(update.message.chat_id, mes)
+        badge.UseCommand.pop(str(update.message.chat_id))
         os.remove(os.path.join(os.path.abspath(os.path.dirname(__file__)), file))
