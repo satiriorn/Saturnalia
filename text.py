@@ -11,6 +11,8 @@ def text(update,context):
         elif res == "CutVideo":Thread.Thread(Cut.CutVideo,(update, context))
         elif res == "CreateVoice":Thread.Thread(CreateVoice.voice,(update, context))
         elif res == "Translate":Thread.Thread(Translate.translate,(update, context))
+        elif res == "GetCutVideo":Thread.Thread(Cut.GetCutStart,(update,context))
+        elif res == "CutEnd":Thread.Thread(Cut.Cut,(update, context))
     elif "погода" == update.message.text.lower():
         Thread.Thread(weather.CurrentWeather,(update, context))
     elif update.message.text.lower() == "котик":

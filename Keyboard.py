@@ -56,6 +56,8 @@ def button(update,context):
         Thread.Thread(Cut.CutVideo,(update,context))
     elif query.data == "Обрізати Аудіо":
         Thread.Thread(Cut.CutAudio,(update,context))
+    elif query.data == "Скачати та Обрізати":
+        Thread.Thread(Cut.GetCutStart,(update,context))
     else:
         Thread.Thread(Setting.ExistentialResponse,(update,context))
     return query
