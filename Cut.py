@@ -67,26 +67,7 @@ def CutVideo(update, context):
                 context.bot.send_message(update.message.chat_id, answer["33"])
         elif str(chat_id) in badge.UseCommand.keys()and update.message.text != None:
             if badge.UseCommand[str(chat_id)] == "CutVideo":
-                time = str(update.message.text).split('-')
-                start = (time[0]).split(':')
-                finish = (time[1]).split(':')
-                startMin = int(start[0])
-                startSec = int(start[1])
-                endMin = int(finish[0])
-                endSec = int(finish[1])
-                durationMin = endMin - startMin - 1
-                durationSec = (60 - startSec) + endSec
-                if durationSec>60:
-                    while (durationSec>=60):
-                        durationSec -= 60
-                        durationMin += 1
-                command = ('ffmpeg -ss 00:{}:{} -i {} -to 00:{}:{} -c copy {}.mp4').format(str(startMin), str(startSec),str(badge.CutFile[str(chat_id)]),str(durationMin), str(durationSec), str(chat_id))
-                os.system(command)
-                context.bot.send_video(update.message.chat_id, open(('{}.mp4').format(str(chat_id)), 'rb'))
-                remove(('{}.mp4').format(str(chat_id)))
-                remove(badge.CutFile[str(chat_id)])
-                badge.UseCommand.pop(str(chat_id))
-                badge.CutFile.pop(str(chat_id))
+                Cut(update,chat_id)
         else:
             context.bot.edit_message_text(chat_id=chat_id, text=answer["36"], message_id=update.callback_query.message.message_id)
             badge.UseCommand[str(chat_id)] = "CutVideo"
@@ -95,6 +76,69 @@ def CutVideo(update, context):
         remove(badge.CutFile[str(chat_id)])
         badge.UseCommand.pop(str(chat_id))
         badge.CutFile.pop(str(chat_id))
+
+def GetCutStart(update, context):
+    chat_id = Youtube.GetChatID(update)
+    answer = DB.DataBase.GetJsonLanguageBot(badge.DB, chat_id)
+    file = ""
+    try:
+        if str(chat_id) in badge.UseCommand.keys():
+            if badge.UseCommand[str(chat_id)] == "GetCutVideo":
+                video_url = Youtube.ReplaceLink(update)
+                youtube = pytube.YouTube(video_url).streams.first()
+                file = youtube.download()
+                os.rename(file, ('{}.mp4').format(update.message.chat.username))
+                file = ('{}.mp4').format(update.message.chat.username)
+                badge.CutFile[str(chat_id)]= file
+                context.bot.send_message(update.message.chat_id, answer["33"])
+                badge.UseCommand.pop(str(chat_id))
+                badge.UseCommand[str(chat_id)] = "CutEnd"
+        else:
+            context.bot.edit_message_text(chat_id=update.callback_query.message.chat_id, text=answer["1"],
+                                          message_id=update.callback_query.message.message_id)
+            badge.UseCommand[str(chat_id)] = "GetCutVideo"
+    except Exception:
+        remove(('{}.mp4').format(str(chat_id)))
+        remove(badge.CutFile[str(chat_id)])
+        badge.UseCommand.pop(str(chat_id))
+        badge.CutFile.pop(str(chat_id))
+
+def GetCutEnd(update, context):
+    chat_id = Youtube.GetChatID(update)
+    if str(chat_id) in badge.UseCommand.keys():
+        if badge.UseCommand[str(chat_id)] == "CutEnd":
+            Cut(update, context)
+
+def Cut(update, context):
+    chat_id = Youtube.GetChatID(update)
+    time = str(update.message.text).split('-')
+    start = (time[0]).split(':')
+    finish = (time[1]).split(':')
+    startMin = int(start[0])
+    startSec = int(start[1])
+    endMin = int(finish[0])
+    endSec = int(finish[1])
+    durationMin = endMin - startMin - 1
+    durationSec = (60 - startSec) + endSec
+    if durationSec >= 60:
+        while (durationSec >= 60):
+            durationSec -= 60
+            durationMin += 1
+    file = str(badge.CutFile[str(chat_id)])
+    if durationMin<10:
+        durationMin = '0'+str(durationMin)
+    if durationSec<10:
+        durationSec = '0'+str(durationSec)
+    command = ('ffmpeg -ss 00:{}:{} -i {} -to 00:{}:{} -c copy {}.mp4').format(str(startMin), str(startSec),
+                                                                               file,
+                                                                               str(durationMin), str(durationSec),
+                                                                               str(chat_id))
+    os.system(command)
+    context.bot.send_video(update.message.chat_id, open(('{}.mp4').format(str(chat_id)), 'rb'))
+    remove(('{}.mp4').format(str(chat_id)))
+    remove(badge.CutFile[str(chat_id)])
+    badge.UseCommand.pop(str(chat_id))
+    badge.CutFile.pop(str(chat_id))
 
 def remove(name):
     path = os.path.join(os.path.abspath(os.path.dirname(__file__)), name)
