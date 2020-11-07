@@ -1,5 +1,5 @@
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, KeyboardButton, ReplyKeyboardMarkup
-import Setting, badge, Dologusha, Meme, Rest, Youtube, Cut
+import Setting, badge, Dologusha, Meme, Rest, Youtube, Cut, Thread
 
 def InitKeyboard(NameButton):
     LevelOne = []
@@ -37,26 +37,26 @@ def button(update,context):
     print(query.data)
     if str(update.callback_query.message.chat_id) in badge.UseCommand.keys():
         res = badge.UseCommand[str(update.callback_query.message.chat_id)]
-        if res == "Rest": Rest.Rest(update, context, False)
-        elif res == "MemeChange": Meme.MoreMeme(update, context)
-        elif res == "SettingTranslate": Setting.SettingTranslate(update, context)
-        elif res == "Dologisha": Dologusha.start(update, context)
-        elif res == "LangBot": Setting.LanguageBot(update, context)
+        if res == "Rest": Thread.Thread(Rest.Rest,(update, context, False))
+        elif res == "MemeChange": Thread.Thread(Meme.MoreMeme,(update, context))
+        elif res == "SettingTranslate": Thread.Thread(Setting.SettingTranslate,(update, context))
+        elif res == "Dologusha": Thread.Thread(Dologusha.start,(update, context))
+        elif res == "LangBot": Thread.Thread(Setting.LanguageBot,(update, context))
     elif query.data == "0":
-        Setting.SettingTranslate(update,context)
+        Thread.Thread(Setting.SettingTranslate,(update,context))
     elif query.data =="1":
-        Setting.LanguageBot(update,context)
+        Thread.Thread(Setting.LanguageBot,(update,context))
     elif query.data == "2":
-        Meme.CountMem(update,context)
+        Thread.Thread(Meme.CountMem,(update,context))
     elif query.data == "Скачати Відео":
-        Youtube.Get_Video(update,context)
+        Thread.Thread(Youtube.Get_Video,(update,context))
     elif query.data == "Скачати Аудіо":
-        Youtube.Get_Audio(update,context)
+        Thread.Thread(Youtube.Get_Audio,(update,context))
     elif query.data == "Обрізати Відео":
-        Cut.CutVideo(update,context)
+        Thread.Thread(Cut.CutVideo,(update,context))
     elif query.data == "Обрізати Аудіо":
-        Cut.CutAudio(update,context)
+        Thread.Thread(Cut.CutAudio,(update,context))
     else:
-        Setting.ExistentialResponse(update,context)
+        Thread.Thread(Setting.ExistentialResponse,(update,context))
     return query
 
