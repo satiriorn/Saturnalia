@@ -9,7 +9,6 @@ def get_url(str):
     except Exception:
         return requests.get(str).json()[0]['url']
 
-
 def CheckExtension(url, array):
     for allowed_ext in array:
         if url.lower().endswith(allowed_ext):

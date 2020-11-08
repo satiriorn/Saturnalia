@@ -20,4 +20,3 @@ def translate(update, context):
         badge.translator = Translator()
         context.bot.send_message(update.message.chat.id, answer["15"])
         badge.UseCommand.pop(str(update.message.chat_id))
-

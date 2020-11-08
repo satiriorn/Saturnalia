@@ -86,5 +86,4 @@ def ReplaceLink(update):
     return link
 
 def DeletePath(NameMusic):
-    path = os.path.join(os.path.abspath(os.path.dirname(__file__)), NameMusic)
-    os.remove(path)
+    os.remove(os.path.join(os.path.abspath(os.path.dirname(__file__)), NameMusic))
