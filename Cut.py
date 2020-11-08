@@ -55,7 +55,6 @@ def CutAudio(update, context):
         remove(ExtractName)
         context.bot.send_message(chat_id, answer["2"])
 
-
 def CutVideo(update, context):
     chat_id = Youtube.GetChatID(update)
     answer = DB.DataBase.GetJsonLanguageBot(badge.DB, chat_id)
@@ -72,10 +71,7 @@ def CutVideo(update, context):
             context.bot.edit_message_text(chat_id=chat_id, text=answer["36"], message_id=update.callback_query.message.message_id)
             badge.UseCommand[str(chat_id)] = "CutVideo"
     except Exception:
-        remove(('{}.mp4').format(str(chat_id)))
-        remove(badge.CutFile[str(chat_id)])
-        badge.UseCommand.pop(str(chat_id))
-        badge.CutFile.pop(str(chat_id))
+        delete(chat_id)
 
 def GetCutStart(update, context):
     chat_id = Youtube.GetChatID(update)
@@ -98,10 +94,8 @@ def GetCutStart(update, context):
                                           message_id=update.callback_query.message.message_id)
             badge.UseCommand[str(chat_id)] = "GetCutVideo"
     except Exception:
-        remove(('{}.mp4').format(str(chat_id)))
-        remove(badge.CutFile[str(chat_id)])
-        badge.UseCommand.pop(str(chat_id))
-        badge.CutFile.pop(str(chat_id))
+        delete(chat_id)
+        context.bot.send_message(chat_id, answer["2"])
 
 def GetCutEnd(update, context):
     chat_id = Youtube.GetChatID(update)
@@ -126,26 +120,27 @@ def Cut(update, context):
                 durationSec -= 60
                 durationMin += 1
         file = str(badge.CutFile[str(chat_id)])
-        if durationMin<10:
-            durationMin = '0'+str(durationMin)
-        if durationSec<10:
-            durationSec = '0'+str(durationSec)
-        command = ('ffmpeg -ss 00:{}:{} -i {} -to 00:{}:{} -c copy {}.mp4').format(str(startMin), str(startSec),
+        durationMin = valid_duration(durationMin)
+        durationSec = valid_duration(durationSec)
+        os.system(('ffmpeg -ss 00:{}:{} -i {} -to 00:{}:{} -c copy {}.mp4').format(str(startMin), str(startSec),
                                                                                    file,
                                                                                    str(durationMin), str(durationSec),
-                                                                                   str(chat_id))
-        os.system(command)
+                                                                                   str(chat_id)))
         context.bot.send_video(update.message.chat_id, open(('{}.mp4').format(str(chat_id)), 'rb'))
-        remove(('{}.mp4').format(str(chat_id)))
-        remove(badge.CutFile[str(chat_id)])
-        badge.UseCommand.pop(str(chat_id))
-        badge.CutFile.pop(str(chat_id))
+        delete(chat_id)
     except Exception:
-        remove(('{}.mp4').format(str(chat_id)))
-        remove(badge.CutFile[str(chat_id)])
-        badge.UseCommand.pop(str(chat_id))
-        badge.CutFile.pop(str(chat_id))
+        delete(chat_id)
+
+def valid_duration(duration):
+    if duration < 10:
+        duration = '0' + str(duration)
+    return duration
+
+def delete(chat_id):
+    remove(('{}.mp4').format(str(chat_id)))
+    remove(badge.CutFile[str(chat_id)])
+    badge.UseCommand.pop(str(chat_id))
+    badge.CutFile.pop(str(chat_id))
 
 def remove(name):
-    path = os.path.join(os.path.abspath(os.path.dirname(__file__)), name)
-    os.remove(path)
+    os.remove( os.path.join(os.path.abspath(os.path.dirname(__file__)), name))
