@@ -138,9 +138,9 @@ def valid_duration(duration):
 
 def delete(chat_id):
     remove(('{}.mp4').format(str(chat_id)))
-    remove(badge.CutFile[str(chat_id)])
+    remove(os.path.join(badge.CutFile[str(chat_id)]))
     badge.UseCommand.pop(str(chat_id))
     badge.CutFile.pop(str(chat_id))
 
 def remove(name):
-    os.remove( os.path.join(os.path.abspath(os.path.dirname(__file__)), name))
+    os.remove(os.path.join(os.path.abspath(os.path.dirname(__file__)), name))
