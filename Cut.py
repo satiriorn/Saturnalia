@@ -66,8 +66,7 @@ def CutVideo(update, context):
                 context.bot.send_message(update.message.chat_id, answer["33"])
         elif str(chat_id) in badge.UseCommand.keys()and update.message.text != None:
             if badge.UseCommand[str(chat_id)] == "CutVideo":
-                Cut(update,chat_id)
-                print("jopa")
+                Cut(update, context)
         else:
             context.bot.edit_message_text(chat_id=chat_id, text=answer["36"], message_id=update.callback_query.message.message_id)
             badge.UseCommand[str(chat_id)] = "CutVideo"
@@ -131,12 +130,11 @@ def Cut(update, context):
     file = str(badge.CutFile[str(chat_id)])
     durationMin = valid_duration(durationMin)
     durationSec = valid_duration(durationSec)
-    print(os.path.join(file))
     os.system(('ffmpeg -ss 00:{}:{} -i {} -to 00:{}:{} -c copy {}.mp4').format(str(startMin), str(startSec),
                                                                                os.path.join(file),
                                                                                str(durationMin), str(durationSec),
                                                                                str(chat_id)))
-    context.bot.send_video(chat_id, open(('{}.mp4').format(str(chat_id)), 'rb'))
+    context.bot.send_video(update.message.chat_id, open(('{}.mp4').format(str(chat_id)), 'rb'))
     delete(chat_id)
 
 def valid_duration(duration):
@@ -145,7 +143,6 @@ def valid_duration(duration):
     return duration
 
 def delete(chat_id):
-    print(badge.CutFile.keys())
     file = badge.CutFile[str(chat_id)]
     badge.CutFile.pop(str(chat_id))
     badge.UseCommand.pop(str(chat_id))
