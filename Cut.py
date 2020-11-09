@@ -123,7 +123,7 @@ def Cut(update, context):
         durationMin = valid_duration(durationMin)
         durationSec = valid_duration(durationSec)
         os.system(('ffmpeg -ss 00:{}:{} -i {} -to 00:{}:{} -c copy {}.mp4').format(str(startMin), str(startSec),
-                                                                                   file,
+                                                                                   os.path.join(file),
                                                                                    str(durationMin), str(durationSec),
                                                                                    str(chat_id)))
         context.bot.send_video(update.message.chat_id, open(('{}.mp4').format(str(chat_id)), 'rb'))

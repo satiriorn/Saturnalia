@@ -13,3 +13,6 @@ def Dog_photo(update, context):
         Url.Photo(Url.get_url('https://random.dog/woof.json'), update, context)
     except Exception:
         context.bot.send_message(context.bot_data[update.poll_answer.poll_id], answer["7"])
+
+def SysAnimal():
+    pass
