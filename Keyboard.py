@@ -61,4 +61,3 @@ def button(update,context):
     else:
         Thread.Thread(Setting.ExistentialResponse,(update,context))
     return query
-
