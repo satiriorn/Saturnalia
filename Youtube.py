@@ -12,13 +12,15 @@ def Get_Audio(update,context):
     try:
         if str(chat_id) in badge.UseCommand.keys():
             if badge.UseCommand[str(chat_id)] == "Audio":
-                url=ReplaceLink(update)
+                url=update.message.text
+                print(url)
                 try:
                     youtube = pytube.YouTube(url).streams.filter(only_audio=True)
                 except Exception:
                     youtube = pytube.YouTube(url).streams.filter(only_audio=True).all()
                 file = youtube[0].download()
-                title = pytube.YouTube(url).player_response['videoDetails']['title']
+                details = pytube.YouTube(url).player_response['videoDetails']
+                print(details)
                 NameMusic = file.replace('.mp4','.mp3')
                 subprocess.call([
                     'ffmpeg',
@@ -26,7 +28,8 @@ def Get_Audio(update,context):
                     os.path.join(NameMusic)
                 ])
                 audio = EasyID3(NameMusic)
-                audio['title'] = title
+                audio['title'] = details['title']
+                audio['artist'] = details['keywords'][0]
                 audio.save()
                 context.bot.send_audio(chat_id, open(NameMusic, 'rb'))
                 badge.UseCommand.pop(str(chat_id))
@@ -36,10 +39,10 @@ def Get_Audio(update,context):
             context.bot.edit_message_text(chat_id=chat_id, text=answer["1"], message_id=update.callback_query.message.message_id)
             badge.UseCommand[str(chat_id)] = "Audio"
     except Exception:
-        DeletePath(NameMusic)
-        DeletePath(file)
         badge.UseCommand.pop(str(chat_id))
         context.bot.send_message(chat_id, answer["2"])
+        DeletePath(NameMusic)
+        DeletePath(file)
 
 def Get_Video(update, context):
     chat_id = GetChatID(update)
@@ -48,8 +51,7 @@ def Get_Video(update, context):
     try:
         if str(chat_id) in badge.UseCommand.keys():
             if badge.UseCommand[str(chat_id)] == "Video":
-                video_url = ReplaceLink(update)
-                print(video_url)
+                video_url = update.message.text
                 youtube = pytube.YouTube(video_url).streams.first()
                 file = youtube.download()
                 context.bot.send_video(update.message.chat_id,open(file, 'rb'))
@@ -60,9 +62,9 @@ def Get_Video(update, context):
                                           message_id=update.callback_query.message.message_id)
             badge.UseCommand[str(chat_id)] = "Video"
     except Exception:
-        DeletePath(file)
         badge.UseCommand.pop(str(chat_id))
         context.bot.send_message(chat_id, answer["2"])
+        DeletePath(file)
 
 def GetFormat(format = '.mp3'):
     NameMusic = [f for f in os.listdir(os.getcwd()) if f.endswith(format)]
@@ -74,16 +76,6 @@ def GetChatID(update):
         return update.callback_query.message.chat_id
     except Exception:
         return update.message.chat_id
-
-def ReplaceLink(update):
-    Link=["https://www.youtube.com/","https://youtu.be/","https://music.youtube.com/"]
-    link = None
-    for i in range(len(Link)):
-        if Link[0] in update.message.text:
-            return update.message.text
-        elif Link[i] in update.message.text:
-            link = Link[0]+"watch?v="+update.message.text.replace(Link[i], '')
-    return link
 
 def DeletePath(NameMusic):
     os.remove(os.path.join(os.path.abspath(os.path.dirname(__file__)), NameMusic))
