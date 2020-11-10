@@ -28,8 +28,8 @@ def Get_Audio(update,context):
                     os.path.join(NameMusic)
                 ])
                 audio = EasyID3(NameMusic)
-                audio['title'] = details['title']
-                audio['artist'] = details['keywords'][0]
+                audio['title'] = details['title'].replace(details['author'], "").replace('- ','')
+                audio['artist'] = details['author']
                 audio.save()
                 context.bot.send_audio(chat_id, open(NameMusic, 'rb'))
                 badge.UseCommand.pop(str(chat_id))

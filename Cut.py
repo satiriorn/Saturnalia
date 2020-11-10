@@ -71,7 +71,7 @@ def CutVideo(update, context):
             context.bot.edit_message_text(chat_id=chat_id, text=answer["36"], message_id=update.callback_query.message.message_id)
             badge.UseCommand[str(chat_id)] = "CutVideo"
     except Exception:
-        delete(chat_id)
+        delete(update, chat_id)
 
 def GetCutStart(update, context):
     chat_id = Youtube.GetChatID(update)
@@ -97,7 +97,7 @@ def GetCutStart(update, context):
                                           message_id=update.callback_query.message.message_id)
             badge.UseCommand[str(chat_id)] = "GetCutVideo"
     except Exception:
-        delete(chat_id)
+        delete(update, chat_id)
         context.bot.send_message(chat_id, answer["2"])
 
 def GetCutEnd(update, context):
@@ -108,7 +108,7 @@ def GetCutEnd(update, context):
             if badge.UseCommand[str(chat_id)] == "CutEnd":
                 Cut(update, context)
     except Exception:
-        delete(chat_id)
+        delete(update, chat_id)
         context.bot.send_message(chat_id, answer["2"])
 
 
@@ -130,23 +130,28 @@ def Cut(update, context):
     file = str(badge.CutFile[str(chat_id)])
     durationMin = valid_duration(durationMin)
     durationSec = valid_duration(durationSec)
+    name = get_name(update)
+    print(name)
     os.system(('ffmpeg -ss 00:{}:{} -i {} -to 00:{}:{} -c copy {}.mp4').format(str(startMin), str(startSec),
                                                                                os.path.join(file),
                                                                                str(durationMin), str(durationSec),
-                                                                               str(chat_id)))
-    context.bot.send_video(update.message.chat_id, open(('{}.mp4').format(str(chat_id)), 'rb'))
-    delete(chat_id)
+                                                                               str(name)))
+    context.bot.send_video(update.message.chat_id, open(('{}.mp4').format(str(name)), 'rb'))
+    delete(update, chat_id)
 
 def valid_duration(duration):
     if duration < 10:
         duration = '0' + str(duration)
     return duration
+def get_name(update):
+    (lambda x: x == 'private' if update.message.chat.username else DB.DataBase.GetIdUser(badge.DB, Youtube.GetChatID(update)))(
+        update.message.chat.type)
 
-def delete(chat_id):
+def delete(update, chat_id):
+    badge.UseCommand.pop(str(chat_id))
     file = badge.CutFile[str(chat_id)]
     badge.CutFile.pop(str(chat_id))
-    badge.UseCommand.pop(str(chat_id))
-    remove(('{}.mp4').format(str(chat_id)))
+    remove(('{}.mp4').format(str(get_name(update))))
     remove(os.path.join(file))
 
 def remove(name):
