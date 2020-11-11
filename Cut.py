@@ -81,12 +81,12 @@ def GetCutStart(update, context):
         if str(chat_id) in badge.UseCommand.keys():
             if badge.UseCommand[str(chat_id)] == "GetCutVideo":
                 video_url = update.message.text
-                youtube = pytube.YouTube(video_url).streams.first()
+                try:
+                    youtube = pytube.YouTube(video_url).streams.filter(only_audio=True)
+                except Exception:
+                    youtube = pytube.YouTube(video_url).streams.filter(only_audio=True).all()
                 file = youtube.download()
-                if update.message.chat.type == 'private':
-                    name = update.message.chat.username
-                else:
-                    name = DB.DataBase.GetIdUser(badge.DB, chat_id)
+                name = get_name(update)
                 os.rename(file, ('{}.mp4').format(name))
                 badge.CutFile[str(chat_id)]= ('{}.mp4').format(name)
                 context.bot.send_message(update.message.chat_id, answer["33"])
@@ -110,7 +110,6 @@ def GetCutEnd(update, context):
     except Exception:
         delete(update, chat_id)
         context.bot.send_message(chat_id, answer["2"])
-
 
 def Cut(update, context):
     chat_id = Youtube.GetChatID(update)
@@ -143,9 +142,10 @@ def valid_duration(duration):
     if duration < 10:
         duration = '0' + str(duration)
     return duration
+
 def get_name(update):
-    (lambda x: x == 'private' if update.message.chat.username else DB.DataBase.GetIdUser(badge.DB, Youtube.GetChatID(update)))(
-        update.message.chat.type)
+    (lambda x: x == 'private' if update.message.chat.username else DB.DataBase.GetIdUser(badge.DB, Youtube.GetChatID(update)))\
+            (update.message.chat.type)
 
 def delete(update, chat_id):
     badge.UseCommand.pop(str(chat_id))
