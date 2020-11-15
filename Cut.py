@@ -77,6 +77,7 @@ def GetCutStart(update, context):
     chat_id = Youtube.GetChatID(update)
     answer = DB.DataBase.GetJsonLanguageBot(badge.DB, chat_id)
     file, name = "",""
+    youtube = None
     try:
         if str(chat_id) in badge.UseCommand.keys():
             if badge.UseCommand[str(chat_id)] == "GetCutVideo":
@@ -85,7 +86,7 @@ def GetCutStart(update, context):
                     youtube = pytube.YouTube(video_url).streams.filter(only_audio=True)
                 except Exception:
                     youtube = pytube.YouTube(video_url).streams.filter(only_audio=True).all()
-                file = youtube.download()
+                file = youtube[0].download()
                 name = get_name(update)
                 os.rename(file, ('{}.mp4').format(name))
                 badge.CutFile[str(chat_id)]= ('{}.mp4').format(name)
