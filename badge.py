@@ -98,7 +98,7 @@ b = {"Afrikaans":"af", "Akan":"ak", "Albanian":"sq", "Amharic":"am", "Arabic":"a
 
 MainKeyboard = ["/Help", "/Weather", "/Rest", "/Voice", "/Translate", "/Evtuh", "/ShevchenkoStyle", "/Meme", "/Cat", "/Dog", "/Cut", "/Youtube", "/SettingBot"]
 TranslateKeyboard = ["Belarusian", "Bulgarian", "Croatian", "Czech", "English","Estonian" , "French", "Finnish", "Georgian", "German", "Italian", "Latvian", "Polish", "Ukrainian"]
-Setting=["Змінити мову перекладу", "Змінити мову бота","Кількість мемів у чатику", "Не треба нічого змінювати"]
+Setting=["Змінити мову перекладу", "Змінити мову бота", "Увм\Вимк систему погоди", "Увм\Вимк систему котиків","Кількість мемів у чатику", "Не треба нічого змінювати"]
 CountMeme = ["Не треба мені твоїх мемів", "1 мем у 15 хвилин","1 мем у 30 хвилин","1 мем у 60 хвилин", "1 мем у 120 хвилин"]
 LanguageBot = ["Belarusian", "Ukrainian", "English"]
 YoutubeKeyboard = ["Скачати Відео", "Скачати Аудіо", "Скачати та Обрізати"]

@@ -1,5 +1,5 @@
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, KeyboardButton, ReplyKeyboardMarkup
-import Setting, badge, Dologusha, Meme, Rest, Youtube, Cut, Thread
+import Setting, badge, Dologusha, Meme, Rest, Youtube, Cut, Thread, weather
 
 def InitKeyboard(NameButton):
     LevelOne = []
@@ -47,6 +47,8 @@ def button(update,context):
     elif query.data =="1":
         Thread.Thread(Setting.LanguageBot,(update,context))
     elif query.data == "2":
+        Thread.Thread(weather.StartSysWeather,(update,context))
+    elif query.data == "4":
         Thread.Thread(Meme.CountMem,(update,context))
     elif query.data == "Скачати Відео":
         Thread.Thread(Youtube.Get_Video,(update,context))
