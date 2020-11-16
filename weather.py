@@ -32,5 +32,5 @@ def CurrentWeather(update, context, status=True):
     except Exception:
         context.bot.send_message(update.message.chat_id, answer["27"])
 
-def SysWeather():
+def StartSysWeather():
     pass
