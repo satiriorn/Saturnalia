@@ -1,4 +1,4 @@
-import requests, os, badge, DB
+import requests, os, badge, DB,  telegram.ext
 
 def weather(update, context):
     answer = DB.DataBase.GetJsonLanguageBot(badge.DB, update.message.chat.id)
@@ -17,20 +17,28 @@ def weather(update, context):
     except Exception:
         context.bot.send_message(update.message.chat_id, answer["27"])
 
-def CurrentWeather(update, context, status=True):
+def CurrentWeather(update, context):
     answer = DB.DataBase.GetJsonLanguageBot(badge.DB, update.message.chat.id)
     print(answer)
     try:
-        res = requests.get("http://api.openweathermap.org/data/2.5/weather",
-                           params={'q': 'Kharkiv', 'units': 'metric', 'lang': 'uk', 'APPID': os.getenv("WeatherToken")})
-        data = res.json()
-        description_weather = answer["28"] + data['weather'][0]['description']
-        temp = answer["29"] + str(data['main']['temp'])
-        wind = answer["30"] + str(data['wind']['speed']) + 'м/с'
-        text = description_weather + '. ' + temp + '. \n' + wind
-        return (lambda status:status if context.bot.send_message(update.message.chat.id, text)else text)(status)
+        text = WeatherNow(update.message.chat.id)
+        context.bot.send_message(update.message.chat.id, text)
     except Exception:
         context.bot.send_message(update.message.chat_id, answer["27"])
 
-def StartSysWeather():
+def WeatherNow(chat_id):
+    answer = DB.DataBase.GetJsonLanguageBot(badge.DB, chat_id)
+    res = requests.get("http://api.openweathermap.org/data/2.5/weather",
+                       params={'q': 'Kharkiv', 'units': 'metric', 'lang': 'uk', 'APPID': os.getenv("WeatherToken")})
+    data = res.json()
+    description_weather = answer["28"] + data['weather'][0]['description']
+    temp = answer["29"] + str(data['main']['temp'])
+    wind = answer["30"] + str(data['wind']['speed']) + 'м/с'
+    text = description_weather + '. ' + temp + '. \n' + wind
+    return text
+
+def StartSysWeather(update,context):
     pass
+
+def WeatherJob(context: telegram.ext.CallbackContext):
+    context.bot.send_message(context.job.context, WeatherNow(context.job.context))

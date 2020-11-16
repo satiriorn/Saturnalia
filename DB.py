@@ -56,6 +56,13 @@ class DataBase:
         self.cursor.execute(sql,val)
         self.db.commit()
 
+    def InsertSysWeather(self, chat_id, status):
+        sql = "INSERT INTO heroku_c93f6b06b535bb4.job_queue(status_sys_weather, id_user)VALUES(%s, %s, %s);"
+        val = (status, self.GetIdUser(chat_id))
+        self.GetValue()
+        self.cursor.execute(sql,val)
+        self.db.commit()
+
     def UpdateSysMeme(self, chat_id, status, interval):
         sql = "UPDATE heroku_c93f6b06b535bb4.job_queue SET Span =%s, status_sys_meme=%s WHERE id_user =%s;"
         val = (interval, status, self.GetIdUser(chat_id))
