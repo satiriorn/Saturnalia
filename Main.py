@@ -7,6 +7,7 @@ def main():
     badge.job = updater.job_queue
     dispatcher = updater.dispatcher
     Meme.StartSystemMeme()
+    weather.StartSysWeather()
     start_command_handler = CommandHandler('start', start.start)
     help_command_handler = CommandHandler('Help', help.help)
     weather_command_handler = CommandHandler('Weather', weather.weather)
