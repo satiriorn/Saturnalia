@@ -47,7 +47,7 @@ def button(update,context):
     elif query.data =="1":
         Thread.Thread(Setting.LanguageBot,(update,context))
     elif query.data == "2":
-        Thread.Thread(weather.StartSysWeather,(update,context))
+        Thread.Thread(weather.StateWeather,(update,context))
     elif query.data == "4":
         Thread.Thread(Meme.CountMem,(update,context))
     elif query.data == "Скачати Відео":

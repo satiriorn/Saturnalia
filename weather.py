@@ -1,4 +1,4 @@
-import requests, os, badge, DB,  telegram.ext
+import requests, os, badge, DB, telegram.ext, datetime
 
 def weather(update, context):
     answer = DB.DataBase.GetJsonLanguageBot(badge.DB, update.message.chat.id)
@@ -19,7 +19,6 @@ def weather(update, context):
 
 def CurrentWeather(update, context):
     answer = DB.DataBase.GetJsonLanguageBot(badge.DB, update.message.chat.id)
-    print(answer)
     try:
         text = WeatherNow(update.message.chat.id)
         context.bot.send_message(update.message.chat.id, text)
@@ -37,8 +36,36 @@ def WeatherNow(chat_id):
     text = description_weather + '. ' + temp + '. \n' + wind
     return text
 
-def StartSysWeather(update,context):
-    pass
+def StartSysWeather():
+    cursor = DB.DataBase.UsersSysWeather(badge.DB)
+    target_tzinfo = datetime.timezone(datetime.timedelta(hours=2))
+    target_time = datetime.time(hour=16, minute=10, second=00).replace(tzinfo=target_tzinfo)
+    for x in cursor:
+        for y in range(len(x)):
+            if y+1< len(x) and x[y+1] == True:
+                badge.jobchat[str(x[y])] = badge.job.run_daily(WeatherJob, target_time, context=x[y])
+
+def StateWeather(update, context):
+    chat_id = update.callback_query.message.chat_id
+    cursor = DB.DataBase.UsersSysWeather(badge.DB)
+    target_tzinfo = datetime.timezone(datetime.timedelta(hours=2))
+    target_time = datetime.time(hour=9, minute=00, second=00).replace(tzinfo=target_tzinfo)
+    for x in cursor:
+        for y in range(len(x)):
+            if str(x[y]) == str(chat_id):
+                state = (lambda x, y: True if x[y+1] == False else False) (x,y)
+                DB.DataBase.UpdateSysWeather(badge.DB, chat_id, state)
+                if str(chat_id) in badge.jobchat.keys() and state==False:
+                    badge.jobchat[str(chat_id)].schedule_removal()
+                    badge.jobchat.pop(str(chat_id))
+                    break
+                else:
+                    badge.jobchat[str(chat_id)] = badge.job.run_daily(WeatherJob, target_time, context=chat_id)
+                break
+            else:
+                DB.DataBase.InsertSysWeather(badge.DB, update.callback_query.message.chat_id, True)
+                badge.jobchat[str(chat_id)] = badge.job.run_daily(WeatherJob, target_time, context=chat_id)
+                break
 
 def WeatherJob(context: telegram.ext.CallbackContext):
     context.bot.send_message(context.job.context, WeatherNow(context.job.context))
