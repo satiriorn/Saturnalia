@@ -39,7 +39,7 @@ def WeatherNow(chat_id):
 def StartSysWeather():
     cursor = DB.DataBase.UsersSysWeather(badge.DB)
     target_tzinfo = datetime.timezone(datetime.timedelta(hours=2))
-    target_time = datetime.time(hour=16, minute=10, second=00).replace(tzinfo=target_tzinfo)
+    target_time = datetime.time(hour=9, minute=00, second=00).replace(tzinfo=target_tzinfo)
     for x in cursor:
         for y in range(len(x)):
             if y+1< len(x) and x[y+1] == True:
@@ -47,6 +47,7 @@ def StartSysWeather():
 
 def StateWeather(update, context):
     chat_id = update.callback_query.message.chat_id
+    answer = DB.DataBase.GetJsonLanguageBot(badge.DB, chat_id)
     cursor = DB.DataBase.UsersSysWeather(badge.DB)
     target_tzinfo = datetime.timezone(datetime.timedelta(hours=2))
     target_time = datetime.time(hour=9, minute=00, second=00).replace(tzinfo=target_tzinfo)
@@ -65,6 +66,9 @@ def StateWeather(update, context):
             else:
                 DB.DataBase.InsertSysWeather(badge.DB, update.callback_query.message.chat_id, True)
                 badge.jobchat[str(chat_id)] = badge.job.run_daily(WeatherJob, target_time, context=chat_id)
+                context.bot.edit_message_text(chat_id=chat_id, text=answer["37"],
+                                              message_id=update.callback_query.message.message_id)
+
                 break
 
 def WeatherJob(context: telegram.ext.CallbackContext):
