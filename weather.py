@@ -59,9 +59,13 @@ def StateWeather(update, context):
                 if str(chat_id) in badge.jobchat.keys() and state==False:
                     badge.jobchat[str(chat_id)].schedule_removal()
                     badge.jobchat.pop(str(chat_id))
+                    context.bot.edit_message_text(chat_id=chat_id, text=answer["37"],
+                                                  message_id=update.callback_query.message.message_id)
                     break
                 else:
                     badge.jobchat[str(chat_id)] = badge.job.run_daily(WeatherJob, target_time, context=chat_id)
+                    context.bot.edit_message_text(chat_id=chat_id, text=answer["37"],
+                                                  message_id=update.callback_query.message.message_id)
                 break
             else:
                 DB.DataBase.InsertSysWeather(badge.DB, update.callback_query.message.chat_id, True)
