@@ -1,5 +1,5 @@
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, KeyboardButton, ReplyKeyboardMarkup
-import Setting, badge, Dologusha, Meme, Rest, Youtube, Cut, Thread, weather
+import Setting, badge, Dologusha, Meme, Rest, Youtube, Cut, Thread, weather, DogAndCat
 
 def InitKeyboard(NameButton):
     LevelOne = []
@@ -43,23 +43,25 @@ def button(update,context):
         elif res == "Dologusha": Thread.Thread(Dologusha.start,(update, context))
         elif res == "LangBot": Thread.Thread(Setting.LanguageBot,(update, context))
     elif query.data == "0":
-        Thread.Thread(Setting.SettingTranslate,(update,context))
+        Thread.Thread(Setting.SettingTranslate,(update ,context))
     elif query.data =="1":
-        Thread.Thread(Setting.LanguageBot,(update,context))
+        Thread.Thread(Setting.LanguageBot, (update,context))
     elif query.data == "2":
-        Thread.Thread(weather.StateWeather,(update,context))
+        Thread.Thread(weather.StateWeather, (update,context))
+    elif query.data == "3":
+        Thread.Thread(DogAndCat.SysAnimal, (update,context))
     elif query.data == "4":
-        Thread.Thread(Meme.CountMem,(update,context))
+        Thread.Thread(Meme.CountMem,(update, context))
     elif query.data == "Скачати Відео":
-        Thread.Thread(Youtube.Get_Video,(update,context))
+        Thread.Thread(Youtube.Get_Video,(update, context))
     elif query.data == "Скачати Аудіо":
-        Thread.Thread(Youtube.Get_Audio,(update,context))
+        Thread.Thread(Youtube.Get_Audio,(update, context))
     elif query.data == "Обрізати Відео":
-        Thread.Thread(Cut.CutVideo,(update,context))
+        Thread.Thread(Cut.CutVideo,(update, context))
     elif query.data == "Обрізати Аудіо":
-        Thread.Thread(Cut.CutAudio,(update,context))
+        Thread.Thread(Cut.CutAudio,(update, context))
     elif query.data == "Скачати та Обрізати":
-        Thread.Thread(Cut.GetCutStart,(update,context))
+        Thread.Thread(Cut.GetCutStart,(update, context))
     else:
-        Thread.Thread(Setting.ExistentialResponse,(update,context))
+        Thread.Thread(Setting.ExistentialResponse,(update, context))
     return query
