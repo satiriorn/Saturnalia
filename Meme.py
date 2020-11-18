@@ -24,13 +24,20 @@ def StartSystemMeme():
 def MoreMeme(update, context):
     value = {"0":"0","1":"900","2":"1800", "3":"3600", "4":"7200"}
     chat_id = update.callback_query.message.chat_id
+    cursor = DB.DataBase.UsersSysMeme(badge.DB)
+    NewUser = True
+    for x in cursor:
+        for y in range(len(x)):
+            if y+2< len(x) and x[y+2]==1:
+                if str(x[y])==str(chat_id):
+                    NewUser = False
     if value[str(update.callback_query.data)] != "0":
         if str(chat_id) in badge.jobchat.keys():
             badge.jobchat[str(chat_id)].schedule_removal()
             badge.jobchat[str(chat_id)] = badge.job.run_repeating(MemeChatGroup, interval=int(value[str(update.callback_query.data)]), first=datetime.datetime.now(),
                                     context=chat_id)
             DB.DataBase.UpdateSysMeme(badge.DB,chat_id, True, int(value[str(update.callback_query.data)]))
-        else:
+        elif NewUser == True:
             badge.jobchat[str(chat_id)] = badge.job.run_repeating(MemeChatGroup, interval=int(value[str(update.callback_query.data)]), first=datetime.datetime.now(),
                                 context=chat_id)
             DB.DataBase.InsertSysMeme(badge.DB, chat_id, True, int(value[str(update.callback_query.data)]))
