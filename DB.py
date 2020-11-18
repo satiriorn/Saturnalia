@@ -59,6 +59,11 @@ class DataBase:
         val = (status, self.GetIdUser(chat_id))
         self.UpdateSys(sql, val)
 
+    def InsertSysAnimal(self, chat_id, status):
+        sql = "INSERT INTO heroku_c93f6b06b535bb4.job_queue(status_sys_sweet_animal, id_user)VALUES(%s, %s);"
+        val = (status, self.GetIdUser(chat_id))
+        self.UpdateSys(sql, val)
+
     def UpdateSysWeather(self, chat_id, status):
         sql = "UPDATE heroku_c93f6b06b535bb4.job_queue SET status_sys_weather=%s WHERE id_user =%s;"
         val = (status, self.GetIdUser(chat_id))
@@ -93,19 +98,20 @@ class DataBase:
         self.db.commit()
         return self.cursor
 
+    def UsersSysWeather(self):
+
+        sql="SELECT chatID, j.status_sys_weather FROM heroku_c93f6b06b535bb4.user u, heroku_c93f6b06b535bb4.job_queue j WHERE u.id_user = j.id_user;"
+        self.GetCursor()
+        self.cursor.execute(sql)
+        self.db.commit()
+        return self.cursor
+
     def GetCountAnimal(self, chat_id):
         sql = "SELECT j.count_animal FROM heroku_c93f6b06b535bb4.user u, heroku_c93f6b06b535bb4.job_queue j WHERE u.id_user = j.id_user and u.chatID ='%s';"%chat_id
         self.GetCursor()
         self.cursor.execute(sql)
         self.db.commit()
         return self.GetValue()
-
-    def UsersSysWeather(self):
-        sql="SELECT chatID, j.status_sys_weather FROM heroku_c93f6b06b535bb4.user u, heroku_c93f6b06b535bb4.job_queue j WHERE u.id_user = j.id_user;"
-        self.GetCursor()
-        self.cursor.execute(sql)
-        self.db.commit()
-        return self.cursor
 
     def VerificationLanguage(self, chat_id,preferred_language, Translatelanguage = True):
         self.GetCursor()
