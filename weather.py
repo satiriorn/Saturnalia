@@ -67,12 +67,11 @@ def StateWeather(update, context):
                     context.bot.edit_message_text(chat_id=chat_id, text=answer["37"],
                                                   message_id=update.callback_query.message.message_id)
                 break
-            else:
+            elif y == range(len(x)):
                 DB.DataBase.InsertSysWeather(badge.DB, update.callback_query.message.chat_id, True)
                 badge.jobchat[str(chat_id)] = badge.job.run_daily(WeatherJob, target_time, context=chat_id)
                 context.bot.edit_message_text(chat_id=chat_id, text=answer["37"],
                                               message_id=update.callback_query.message.message_id)
-
                 break
 
 def WeatherJob(context: telegram.ext.CallbackContext):
