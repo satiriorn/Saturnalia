@@ -31,7 +31,6 @@ def SysAnimal(update,context):
     target_time = datetime.time(hour=9, minute=00, second=25).replace(tzinfo=target_tzinfo)
     for x in cursor:
         for y in range(len(x)):
-            print(x[y])
             if str(x[y]) == str(chat_id):
                 state = (lambda x, y: True if x[y+1] == False else False) (x,y)
                 DB.DataBase.UpdateSysAnimal(badge.DB, chat_id, state)
@@ -54,5 +53,8 @@ def SysAnimal(update,context):
                 break
 
 def AnimalJob(context: telegram.ext.CallbackContext):
-    context.bot.send_video(context.job.context, open(("Animal/{0}.mp4").format(DB.DataBase.GetCountAnimal(badge.DB, context.job.context)), 'rb'))
+    try:
+        context.bot.send_video(context.job.context, open(("Animal/{0}.mp4").format(DB.DataBase.GetCountAnimal(badge.DB, context.job.context)), 'rb'))
+    except Exception:
+        context.bot.send_animation(context.job.context, open(("Animal/{0}.mp4").format(DB.DataBase.GetCountAnimal(badge.DB, context.job.context)), 'rb'))
     DB.DataBase.UpCountAnimal(badge.DB, context.job.context)
