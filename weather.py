@@ -39,7 +39,7 @@ def WeatherNow(chat_id):
 def StartSysWeather():
     cursor = DB.DataBase.UsersSysWeather(badge.DB)
     target_tzinfo = datetime.timezone(datetime.timedelta(hours=2))
-    target_time = datetime.time(hour=9, minute=00, second=00).replace(tzinfo=target_tzinfo)
+    target_time = datetime.time(hour=9, minute=00, second=20).replace(tzinfo=target_tzinfo)
     for x in cursor:
         for y in range(len(x)):
             if y+1< len(x) and x[y+1] == True:

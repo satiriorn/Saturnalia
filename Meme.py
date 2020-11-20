@@ -30,6 +30,7 @@ def MoreMeme(update, context):
         for y in range(len(x)):
             if y+2< len(x) and x[y+2]==1:
                 if str(x[y])==str(chat_id):
+                    x[y]
                     NewUser = False
     if value[str(update.callback_query.data)] != "0":
         if str(chat_id) in badge.jobchat.keys():

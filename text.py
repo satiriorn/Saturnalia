@@ -2,7 +2,6 @@ import DogAndCat, weather, badge, CreateVoice, UkrainianGame, Meme, Youtube, Tra
 
 def text(update,context):
     try:
-        print(update)
         if str(update.message.chat_id) in badge.UseCommand.keys():
             res = badge.UseCommand[str(update.message.chat_id)]
             if res == "Audio": Thread.Thread(Youtube.Get_Audio,(update, context))
