@@ -1,6 +1,7 @@
 from pydub import AudioSegment
 import badge, DB, Youtube, os, pytube, Keyboard
 from mutagen.easyid3 import EasyID3
+from datetime import timedelta, datetime
 
 def CutStart(update, context):
     answer = DB.DataBase.GetJsonLanguageBot(badge.DB, update.message.chat_id)
@@ -116,33 +117,18 @@ def GetCutEnd(update, context):
 def Cut(update, context):
     chat_id = Youtube.GetChatID(update)
     time = str(update.message.text).split('-')
-    start = (time[0]).split(':')
-    finish = (time[1]).split(':')
-    startMin = int(start[0])
-    startSec = int(start[1])
-    endMin = int(finish[0])
-    endSec = int(finish[1])
-    durationMin = endMin - startMin - 1
-    durationSec = (60 - startSec) + endSec
-    if durationSec >= 60:
-        while (durationSec >= 60):
-            durationSec -= 60
-            durationMin += 1
+    start = GetDataTime(time[0])
+    finish = GetDataTime(time[1])
+    duration = finish - start
+    start = datetime.strftime(start, '%H:%M:%S')
     file = str(badge.CutFile[str(chat_id)])
-    durationMin = valid_duration(durationMin)
-    durationSec = valid_duration(durationSec)
     name = get_name(update)
-    os.system(('ffmpeg -ss 00:{}:{} -i {} -to 00:{}:{} -c copy {}.mp4').format(str(startMin), str(startSec),
-                                                                               os.path.join(file),
-                                                                               str(durationMin), str(durationSec),
-                                                                               str(name)))
+    os.system(('ffmpeg -ss {} -i {} -to {} -c copy {}.mp4').format(str(start),
+                                                                           os.path.join(file),
+                                                                           str(duration),
+                                                                           str(name)))
     context.bot.send_video(update.message.chat_id, open(('{}.mp4').format(str(name)), 'rb'))
     delete(update, chat_id)
-
-def valid_duration(duration):
-    if duration < 10:
-        duration = '0' + str(duration)
-    return duration
 
 def get_name(update):
     return (lambda x: x == 'private' if update.message.chat.username else DB.DataBase.GetIdUser(badge.DB, Youtube.GetChatID(update)))(
@@ -157,3 +143,11 @@ def delete(update, chat_id):
 
 def remove(name):
     os.remove(os.path.join(os.path.abspath(os.path.dirname(__file__)), name))
+
+def GetDataTime(time):
+    if str(time).count(':') > 1:
+        return datetime.strptime(time, '%H:%M:%S')
+    elif str(time).count(':') == 1:
+        return datetime.strptime(time, '%M:%S')
+    else:
+        return datetime.strptime(time, '%S')
