@@ -25,7 +25,7 @@ def main():
     cute_command_handler = CommandHandler("Cut", Cut.CutStart)
     callback_query_handler = CallbackQueryHandler(Keyboard.button)
     text_message_handler = MessageHandler(Filters.text, text.text)
-    file_message_handler = MessageHandler(Filters.audio | Filters.video, File.file)
+    file_message_handler = MessageHandler(Filters.audio | Filters.video | Filters.animation, File.file)
 
     dispatcher.add_handler(evtuh_command_handler)
     dispatcher.add_handler(rest_command_handler)

@@ -22,6 +22,8 @@ class DataBase:
             database="heroku_c93f6b06b535bb4"
         )
         self.cursor = self.db.cursor(buffered=True)
+        sql = "SET @@auto_increment_increment=1;"
+        self.cursor.execute(sql)
         return self.cursor
 
     def GetIdUser(self, chat_id):
@@ -53,6 +55,12 @@ class DataBase:
         sql = "INSERT INTO heroku_c93f6b06b535bb4.job_queue(Span, status_sys_meme, id_user)VALUES(%s, %s, %s);"
         val = (interval, status, self.GetIdUser(chat_id))
         self.UpdateSys(sql, val)
+
+    def InsertFile(self, fileID):
+        sql = "INSERT INTO heroku_c93f6b06b535bb4.file(TelegramFileID)VALUES('%s');"%fileID
+        self.GetCursor()
+        self.cursor.execute(sql)
+        self.db.commit()
 
     def InsertSysWeather(self, chat_id, status):
         sql = "INSERT INTO heroku_c93f6b06b535bb4.job_queue(status_sys_weather, id_user)VALUES(%s, %s);"
@@ -107,6 +115,14 @@ class DataBase:
 
     def GetCountAnimal(self, chat_id):
         sql = "SELECT j.count_animal FROM heroku_c93f6b06b535bb4.user u, heroku_c93f6b06b535bb4.job_queue j WHERE u.id_user = j.id_user and u.chatID ='%s';"%chat_id
+        self.GetCursor()
+        self.cursor.execute(sql)
+        self.db.commit()
+        return self.GetValue()
+
+    def GetFileId(self, chat_id):
+        x = self.GetCountAnimal(chat_id)
+        sql = "SELECT TelegramFileID FROM heroku_c93f6b06b535bb4.file  WHERE fileID ='%s';"%x
         self.GetCursor()
         self.cursor.execute(sql)
         self.db.commit()
