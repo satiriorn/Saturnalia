@@ -1,4 +1,4 @@
-import DogAndCat, weather, badge, CreateVoice, UkrainianGame, Meme, Youtube, Translate, Cut, Thread
+import DogAndCat, weather, badge, CreateVoice, UkrainianGame, Meme, Youtube, Translate, Cut, Thread, File
 
 def text(update,context):
     try:
@@ -18,6 +18,8 @@ def text(update,context):
             Thread.Thread(DogAndCat.Cat_photo,(update, context))
         elif "мем" == update.message.text.lower():
             Thread.Thread(Meme.Get_meme,(update, context))
+        elif "animal" == update.message.text.lower():
+            Thread.Thread(File.SendFile, (update, context))
         elif '?' in update.message.text.lower():
             Thread.Thread(UkrainianGame.question,(update, context))
     except Exception:

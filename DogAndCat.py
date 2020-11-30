@@ -53,8 +53,12 @@ def SysAnimal(update,context):
                 break
 
 def AnimalJob(context: telegram.ext.CallbackContext):
+    fileID = DB.DataBase.GetFileId(badge.DB, context.job.context)
+    file = context.bot.getFile(fileID)
+    title = ("{0}.gif").format(context.job.context)
+    file.download(title)
     try:
-        context.bot.send_video(context.job.context, open(("Animal/{0}.mp4").format(DB.DataBase.GetCountAnimal(badge.DB, context.job.context)), 'rb'))
+        context.bot.send_video(context.job.context, open(title, 'rb'))
     except Exception:
-        context.bot.send_animation(context.job.context, open(("Animal/{0}.mp4").format(DB.DataBase.GetCountAnimal(badge.DB, context.job.context)), 'rb'))
+        context.bot.send_animation(context.job.context, open(title, 'rb'))
     DB.DataBase.UpCountAnimal(badge.DB, context.job.context)
