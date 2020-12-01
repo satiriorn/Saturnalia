@@ -29,6 +29,7 @@ def SysAnimal(update,context):
     cursor = DB.DataBase.UsersSysAnimal(badge.DB)
     target_tzinfo = datetime.timezone(datetime.timedelta(hours=2))
     target_time = datetime.time(hour=9, minute=00, second=25).replace(tzinfo=target_tzinfo)
+    NewUser = True
     for x in cursor:
         for y in range(len(x)):
             if str(x[y]) == str(chat_id):
@@ -39,18 +40,20 @@ def SysAnimal(update,context):
                     badge.jobchat.pop(str(chat_id))
                     context.bot.edit_message_text(chat_id=chat_id, text=answer["37"],
                                                   message_id=update.callback_query.message.message_id)
+                    NewUser = False
                     break
                 else:
                     badge.jobchat[str(chat_id)] = badge.job.run_daily(AnimalJob, target_time, context=chat_id)
                     context.bot.edit_message_text(chat_id=chat_id, text=answer["37"],
                                                   message_id=update.callback_query.message.message_id)
+                    NewUser = False
                 break
-            elif y==range(len(x)):
-                DB.DataBase.InsertSysAnimal(badge.DB, update.callback_query.message.chat_id, True)
-                badge.jobchat[str(chat_id)] = badge.job.run_daily(AnimalJob, target_time, context=chat_id)
-                context.bot.edit_message_text(chat_id=chat_id, text=answer["37"],
-                                              message_id=update.callback_query.message.message_id)
-                break
+    if NewUser:
+        DB.DataBase.InsertSysAnimal(badge.DB, update.callback_query.message.chat_id, True)
+        badge.jobchat[str(chat_id)] = badge.job.run_daily(AnimalJob, target_time, context=chat_id)
+        context.bot.edit_message_text(chat_id=chat_id, text=answer["37"],
+                                      message_id=update.callback_query.message.message_id)
+
 
 def AnimalJob(context: telegram.ext.CallbackContext):
     fileID = DB.DataBase.GetFileId(badge.DB, context.job.context)

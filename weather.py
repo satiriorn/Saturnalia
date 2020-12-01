@@ -51,6 +51,7 @@ def StateWeather(update, context):
     cursor = DB.DataBase.UsersSysWeather(badge.DB)
     target_tzinfo = datetime.timezone(datetime.timedelta(hours=2))
     target_time = datetime.time(hour=9, minute=00, second=00).replace(tzinfo=target_tzinfo)
+    NewUser = True
     for x in cursor:
         for y in range(len(x)):
             if str(x[y]) == str(chat_id):
@@ -61,18 +62,20 @@ def StateWeather(update, context):
                     badge.jobchat.pop(str(chat_id))
                     context.bot.edit_message_text(chat_id=chat_id, text=answer["37"],
                                                   message_id=update.callback_query.message.message_id)
+                    NewUser = False
                     break
                 else:
                     badge.jobchat[str(chat_id)] = badge.job.run_daily(WeatherJob, target_time, context=chat_id)
                     context.bot.edit_message_text(chat_id=chat_id, text=answer["37"],
                                                   message_id=update.callback_query.message.message_id)
+                    NewUser = False
                 break
-            elif y == range(len(x)):
-                DB.DataBase.InsertSysWeather(badge.DB, update.callback_query.message.chat_id, True)
-                badge.jobchat[str(chat_id)] = badge.job.run_daily(WeatherJob, target_time, context=chat_id)
-                context.bot.edit_message_text(chat_id=chat_id, text=answer["37"],
-                                              message_id=update.callback_query.message.message_id)
-                break
+    if NewUser:
+        print('dsakfhadskjf')
+        DB.DataBase.InsertSysWeather(badge.DB, update.callback_query.message.chat_id, True)
+        badge.jobchat[str(chat_id)] = badge.job.run_daily(WeatherJob, target_time, context=chat_id)
+        context.bot.edit_message_text(chat_id=chat_id, text=answer["37"],
+                                      message_id=update.callback_query.message.message_id)
 
 def WeatherJob(context: telegram.ext.CallbackContext):
     context.bot.send_message(context.job.context, WeatherNow(context.job.context))
