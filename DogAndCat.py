@@ -17,11 +17,16 @@ def Dog_photo(update, context):
 def StartSysAnimal():
     cursor = DB.DataBase.UsersSysAnimal(badge.DB)
     target_tzinfo = datetime.timezone(datetime.timedelta(hours=2))
-    target_time = datetime.time(hour=9, minute=00, second=25).replace(tzinfo=target_tzinfo)
+    target_time = None
     for x in cursor:
         for y in range(len(x)):
             if y + 1 < len(x) and x[y + 1] == True:
-                badge.jobchat[str(x[y])] = badge.job.run_daily(AnimalJob, target_time, context=x[y])
+                for i in range(2):
+                    if i==0:
+                        target_time = datetime.time(hour=9, minute=00, second=25).replace(tzinfo=target_tzinfo)
+                    else:
+                        target_time = datetime.time(hour=22, minute=00, second=25).replace(tzinfo=target_tzinfo)
+                    badge.jobchat[str(x[y])] = badge.job.run_daily(AnimalJob, target_time, context=x[y])
 
 def SysAnimal(update,context):
     chat_id = update.callback_query.message.chat_id
