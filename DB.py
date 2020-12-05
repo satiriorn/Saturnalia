@@ -120,8 +120,7 @@ class DataBase:
         self.db.commit()
         return self.GetValue()
 
-    def GetFileId(self, chat_id):
-        x = self.GetCountAnimal(chat_id)
+    def GetFileId(self, x):
         sql = "SELECT TelegramFileID FROM heroku_c93f6b06b535bb4.file  WHERE fileID ='%s';"%x
         self.GetCursor()
         self.cursor.execute(sql)
