@@ -15,10 +15,11 @@ def Get_Audio(update,context):
                 url=update.message.text
                 print(url)
                 try:
-                    youtube = pytube.YouTube(url).streams.filter(only_audio=True).first().download()
+                    youtube = pytube.YouTube(url).streams.filter(only_audio=True).first()
+                    file = youtube.download()
                 except Exception:
-                    youtube = pytube.YouTube(url).streams.filter(only_audio=True).all()
-                file = youtube[0].download()
+                     youtube = pytube.YouTube(url).streams.filter(only_audio=True).all()
+                     file = youtube[0].download()
                 details = pytube.YouTube(url).player_response['videoDetails']
                 print(details)
                 NameMusic = file.replace('.mp4','.mp3')

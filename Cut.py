@@ -84,10 +84,11 @@ def GetCutStart(update, context):
             if badge.UseCommand[str(chat_id)] == "GetCutVideo":
                 video_url = update.message.text
                 try:
-                    youtube = pytube.YouTube(video_url).streams.filter()
+                    youtube = pytube.YouTube(video_url).streams.first()
+                    file = youtube.download()
                 except Exception:
-                    youtube = pytube.YouTube(video_url).streams.filter().all()
-                file = youtube[0].download()
+                    youtube = pytube.YouTube(video_url).streams.all()
+                    file = youtube[0].download()
                 name = str(chat_id).replace('-','')
                 print(name)
                 os.rename(file, ('{}.mp4').format(name))
