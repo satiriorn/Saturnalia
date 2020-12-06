@@ -64,7 +64,7 @@ def AnimalJob(context: telegram.ext.CallbackContext):
     x = DB.DataBase.GetCountAnimal(badge.DB, context.job.context)
     fileID = DB.DataBase.GetFileId(badge.DB, x)
     if x==1:
-        context.bot.send_message(context.job.context,"Увімкнута система котиків. Котики будуть надсилатися у заданий час два рази на день, якщо вони вам не потрібні або заважають, можете вимкнути через налаштування бота. Якщо немає клавіатури бота -> /Help. Якщо клавіатура не потрібна-> /SettingBot. Кількість котиків на даний момент вистачає на півроку.\n Насолоджуйтесь.\n Якщо у вас є непогана кількість унікальних мімімішних котиків пишіть @Satiriorn.")
+        context.bot.send_message(context.job.context,"Увімкнута система котиків.\nКотики будуть надсилатися у заданий час два рази на день, якщо вони вам не потрібні або заважають, можете вимкнути через налаштування бота.\n Якщо немає клавіатури бота -> /Help.\n Якщо клавіатура не потрібна-> /SettingBot.\n Кількість котиків на даний момент вистачає на півроку.\n Насолоджуйтесь.\n Якщо у вас є непогана кількість унікальних мімімішних котиків пишіть @Satiriorn.")
     file = context.bot.getFile(fileID)
     title = ("{0}.gif").format(context.job.context)
     file.download(title)
