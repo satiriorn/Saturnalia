@@ -15,7 +15,7 @@ def Get_Audio(update,context):
                 url=update.message.text
                 print(url)
                 try:
-                    youtube = pytube.YouTube(url).streams.filter(only_audio=True)
+                    youtube = pytube.YouTube(url).streams.filter(only_audio=True).first().download()
                 except Exception:
                     youtube = pytube.YouTube(url).streams.filter(only_audio=True).all()
                 file = youtube[0].download()
