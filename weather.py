@@ -43,7 +43,14 @@ def StartSysWeather():
     for x in cursor:
         for y in range(len(x)):
             if y+1< len(x) and x[y+1] == True:
-                badge.jobchat[str(x[y])] = badge.job.run_daily(WeatherJob, target_time, context=x[y])
+                for i in range(3):
+                    if i==0:
+                        target_time = datetime.time(hour=9, minute=00, second=00).replace(tzinfo=target_tzinfo)
+                    elif i == 1:
+                        target_time = datetime.time(hour=15, minute=00, second=00).replace(tzinfo=target_tzinfo)
+                    else:
+                        target_time = datetime.time(hour=22, minute=00, second=00).replace(tzinfo=target_tzinfo)
+                    badge.jobchat[str(x[y])] = badge.job.run_daily(WeatherJob, target_time, context=x[y])
 
 def StateWeather(update, context):
     chat_id = update.callback_query.message.chat_id
