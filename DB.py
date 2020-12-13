@@ -32,7 +32,7 @@ class DataBase:
         return self.GetValue()
 
     def CheckUser(self, first_name, username, chat_id, language_code, type):
-        sql = "SELECT count(*) FROM heroku_c93f6b06b535bb4.user WHERE Name = '%s'"   % first_name
+        sql = "SELECT count(*) FROM heroku_c93f6b06b535bb4.user WHERE chatID = '%s'"   % chat_id
         self.GetCursor()
         self.cursor.execute(sql)
         for x in self.cursor:

@@ -14,8 +14,8 @@ def start(update, context):
         else:
             DB.DataBase.CheckUser(badge.DB,update.message.chat.title,update.message.chat.username, chat_id,
             update.message.from_user.language_code, update.message.chat.type)
-            answer = DB.DataBase.GetJsonLanguageBot(badge.DB, update.message.from_user.first_name)
-            context.bot.send_message(chat_id, answer["start"], reply_markup=k)
+        answer = DB.DataBase.GetJsonLanguageBot(badge.DB, update.message.from_user.first_name)
+        context.bot.send_message(chat_id, answer["start"], reply_markup=k)
     except Exception:
         context.bot.send_message(update.message.chat_id, "щось пішло не так")
 
