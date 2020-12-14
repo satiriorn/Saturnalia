@@ -3,17 +3,7 @@ import requests, os, badge, DB, telegram.ext, datetime
 def weather(update, context):
     answer = DB.DataBase.GetJsonLanguageBot(badge.DB, update.message.chat.id)
     try:
-        count = 0
-        res = requests.get("http://api.openweathermap.org/data/2.5/forecast",
-                           params={'q': 'Kharkiv', 'units': 'metric', 'lang': 'uk', 'APPID': os.getenv("WeatherToken")})
-        data = res.json()
-        for i in data['list']:
-            date = i['dt_txt']
-            temp = '{0:+3.0f}'.format(i['main']['temp'])
-            description = i['weather'][0]['description']
-            count += 1
-            if '12:00:00' in i['dt_txt'] or '18:00:00' in i['dt_txt']:
-                context.bot.send_message(update.message.chat_id, answer["26"].format(date,temp,description))
+        context.bot.send_message(update.message.chat_id, PrognosisWeather(answer))
     except Exception:
         context.bot.send_message(update.message.chat_id, answer["27"])
 
@@ -25,6 +15,24 @@ def CurrentWeather(update, context):
     except Exception:
         context.bot.send_message(update.message.chat_id, answer["27"])
 
+def PrognosisWeather(answer, OneDay = True):
+    text = ""
+    count = 0
+    res = requests.get("http://api.openweathermap.org/data/2.5/forecast",
+                       params={'q': 'Kharkiv', 'units': 'metric', 'lang': 'uk', 'APPID': os.getenv("WeatherToken")})
+    data = res.json()
+    for i in data['list']:
+        date = i['dt_txt']
+        temp = '{0:+3.0f}'.format(i['main']['temp'])
+        description = i['weather'][0]['description']
+        if ' 09:00:00' in i['dt_txt'] or '12:00:00' in i['dt_txt'] or '18:00:00' in i['dt_txt'] or '21:00:00'in i['dt_txt']:
+            if OneDay and count == 4:
+                break
+            else:
+                text += answer["26"].format(date,temp,description)+'. \n\n'
+                count += 1
+    return text
+
 def WeatherNow(chat_id):
     answer = DB.DataBase.GetJsonLanguageBot(badge.DB, chat_id)
     res = requests.get("http://api.openweathermap.org/data/2.5/weather",
@@ -33,7 +41,11 @@ def WeatherNow(chat_id):
     description_weather = answer["28"] + data['weather'][0]['description']
     temp = answer["29"] + str(data['main']['temp'])
     wind = answer["30"] + str(data['wind']['speed']) + 'м/с'
-    text = description_weather + '. ' + temp + '. \n' + wind
+    text = description_weather + '. ' + temp + '. \n' + wind+'\n\n'
+    target_tzinfo = datetime.timezone(datetime.timedelta(hours=2))
+    now = datetime.datetime.now().replace(tzinfo=target_tzinfo)
+    if "08:00" in str(now):
+        text += answer["38"]+PrognosisWeather(answer, True)
     return text
 
 def StartSysWeather():
@@ -45,11 +57,11 @@ def StartSysWeather():
             if y+1< len(x) and x[y+1] == True:
                 for i in range(3):
                     if i==0:
-                        target_time = datetime.time(hour=9, minute=00, second=00).replace(tzinfo=target_tzinfo)
+                        target_time = datetime.time(hour=8, minute=00, second=00).replace(tzinfo=target_tzinfo)
                     elif i == 1:
                         target_time = datetime.time(hour=15, minute=00, second=00).replace(tzinfo=target_tzinfo)
                     else:
-                        target_time = datetime.time(hour=22, minute=00, second=00).replace(tzinfo=target_tzinfo)
+                        target_time = datetime.time(hour=18, minute=00, second=00).replace(tzinfo=target_tzinfo)
                     badge.jobchat[str(x[y])] = badge.job.run_daily(WeatherJob, target_time, context=x[y])
 
 def StateWeather(update, context):
@@ -78,7 +90,6 @@ def StateWeather(update, context):
                     NewUser = False
                 break
     if NewUser:
-        print('dsakfhadskjf')
         DB.DataBase.InsertSysWeather(badge.DB, update.callback_query.message.chat_id, True)
         badge.jobchat[str(chat_id)] = badge.job.run_daily(WeatherJob, target_time, context=chat_id)
         context.bot.edit_message_text(chat_id=chat_id, text=answer["37"],
