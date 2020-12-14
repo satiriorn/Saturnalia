@@ -1,4 +1,4 @@
-import DB, badge, Url, telegram.ext, datetime
+import DB, badge, Url, telegram.ext, datetime, os
 
 def Cat_photo(update, context):
     answer = DB.DataBase.GetJsonLanguageBot(badge.DB, update.message.chat_id)
@@ -75,3 +75,4 @@ def AnimalJob(context: telegram.ext.CallbackContext):
     except Exception:
         context.bot.send_animation(context.job.context, open(title, 'rb'))
     DB.DataBase.UpCountAnimal(badge.DB, context.job.context)
+    os.remove(os.path.join(os.path.abspath(os.path.dirname(__file__)), title))
