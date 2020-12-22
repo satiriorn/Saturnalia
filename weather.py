@@ -44,7 +44,7 @@ def WeatherNow(chat_id):
     text = description_weather + '. ' + temp + '. \n' + wind+'\n\n'
     target_tzinfo = datetime.timezone(datetime.timedelta(hours=2))
     now = datetime.datetime.now().replace(tzinfo=target_tzinfo)
-    if "08:00" in str(now) or "8:00"in str(now):
+    if "10:00" in str(now):
         text += answer["38"]+PrognosisWeather(answer, True)
     return text
 
@@ -57,7 +57,7 @@ def StartSysWeather():
             if y+1< len(x) and x[y+1] == True:
                 for i in range(3):
                     if i==0:
-                        target_time = datetime.time(hour=8, minute=00, second=00).replace(tzinfo=target_tzinfo)
+                        target_time = datetime.time(hour=10, minute=00, second=00).replace(tzinfo=target_tzinfo)
                     elif i == 1:
                         target_time = datetime.time(hour=15, minute=00, second=00).replace(tzinfo=target_tzinfo)
                     else:

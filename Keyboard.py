@@ -1,5 +1,5 @@
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, KeyboardButton, ReplyKeyboardMarkup
-import Setting, badge, Dologusha, Meme, Rest, Youtube, Cut, Thread, weather, DogAndCat
+import Setting, badge, Dologusha, Meme, Rest, Youtube, Cut, Thread, weather, DogAndCat, Book
 
 def InitKeyboard(NameButton):
     LevelOne = []
@@ -62,6 +62,8 @@ def button(update,context):
         Thread.Thread(Cut.CutAudio,(update, context))
     elif query.data == "Скачати та Обрізати":
         Thread.Thread(Cut.GetCutStart,(update, context))
+    elif query.data=="Завантажування книги":
+        Thread.Thread(Book.UploadBook, (update, context))
     else:
         Thread.Thread(Setting.ExistentialResponse,(update, context))
     return query
