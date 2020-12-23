@@ -1,4 +1,4 @@
-import DogAndCat, weather, badge, CreateVoice, UkrainianGame, Meme, Youtube, Translate, Cut, Thread, File
+import DogAndCat, weather, badge, CreateVoice, UkrainianGame, Meme, Youtube, Translate, Cut, Thread, File, Book
 
 def text(update,context):
     try:
@@ -12,6 +12,7 @@ def text(update,context):
             elif res == "Translate":Thread.Thread(Translate.translate,(update, context))
             elif res == "GetCutVideo":Thread.Thread(Cut.GetCutStart,(update,context))
             elif res == "CutEnd":Thread.Thread(Cut.Cut,(update, context))
+            elif res == "Confirm":Thread.Thread(Book.UploadBook, (update, context))
         elif "погода" == update.message.text.lower():
             Thread.Thread(weather.CurrentWeather,(update, context))
         elif update.message.text.lower() == "котик":

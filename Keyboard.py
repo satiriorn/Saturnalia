@@ -62,8 +62,9 @@ def button(update,context):
         Thread.Thread(Cut.CutAudio,(update, context))
     elif query.data == "Скачати та Обрізати":
         Thread.Thread(Cut.GetCutStart,(update, context))
-    elif query.data=="Завантажування книги":
+    elif query.data=="Завантажування книги" or query.data=="Так все вірно" or query.data=="Мені потрібна ще спроба":
         Thread.Thread(Book.UploadBook, (update, context))
+
     else:
         Thread.Thread(Setting.ExistentialResponse,(update, context))
     return query
