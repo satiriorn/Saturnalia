@@ -40,6 +40,15 @@ class DataBase:
                 print(x[0])
                 self.Insert(first_name,username, chat_id, language_code, type)
 
+    def CheckNameBook(self, name):
+        sql = "SELECT * FROM heroku_c93f6b06b535bb4.book WHERE Name = '%s'" % name
+        self.GetCursor()
+        self.cursor.execute(sql)
+        for x in self.cursor:
+            if int(x[0]) == 0:
+                print(x[0])
+
+
     def Insert(self, first_name, username, chat_id, language_code, type):
         s = "INSERT INTO heroku_c93f6b06b535bb4.user(Name, Username, chatID, TypeChat) VALUES(%s, %s, %s, %s);"
         val = (first_name,  username, chat_id, type)
