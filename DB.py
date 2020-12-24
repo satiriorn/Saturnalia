@@ -48,6 +48,8 @@ class DataBase:
             if int(x[0]) == 0:
                 print(x[0])
 
+    def InsertBook(self):
+        pass
 
     def Insert(self, first_name, username, chat_id, language_code, type):
         s = "INSERT INTO heroku_c93f6b06b535bb4.user(Name, Username, chatID, TypeChat) VALUES(%s, %s, %s, %s);"

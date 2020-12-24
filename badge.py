@@ -1,6 +1,7 @@
 UseCommand = {}
 CutFile = {}
 jobchat = {}
+Book = {}
 DB = None
 job = None
 translator = None
@@ -105,4 +106,4 @@ LanguageBot = ["Belarusian", "Ukrainian", "English"]
 YoutubeKeyboard = ["Скачати Відео", "Скачати Аудіо", "Скачати та Обрізати"]
 CutKeyboard = ["Обрізати Відео", "Обрізати Аудіо", "Скачати та Обрізати"]
 MenuBookKeyboard = ["Завантажування книги", "Пошук по автору", "Пошук по назві", "Пошук по жанру"]
-ConfirmKeyboard = ["Так все вірно", "Мені потрібна ще спроба"]
+ConfirmKeyboard = ["Так", "Мені потрібна ще спроба"]
