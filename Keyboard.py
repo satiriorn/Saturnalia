@@ -42,6 +42,7 @@ def button(update,context):
         elif res == "SettingTranslate": Thread.Thread(Setting.SettingTranslate,(update, context))
         elif res == "Dologusha": Thread.Thread(Dologusha.start,(update, context))
         elif res == "LangBot": Thread.Thread(Setting.LanguageBot,(update, context))
+        elif res == "Confirm" or res == "Check"or res == "BookLang":  Thread.Thread(Book.UploadBook, (update, context))
     elif query.data == "0":
         Thread.Thread(Setting.SettingTranslate,(update ,context))
     elif query.data =="1":
@@ -62,9 +63,8 @@ def button(update,context):
         Thread.Thread(Cut.CutAudio,(update, context))
     elif query.data == "Скачати та Обрізати":
         Thread.Thread(Cut.GetCutStart,(update, context))
-    elif query.data=="Завантажування книги" or query.data=="Так все вірно" or query.data=="Мені потрібна ще спроба":
+    elif query.data == "Завантажування книги":
         Thread.Thread(Book.UploadBook, (update, context))
-
     else:
         Thread.Thread(Setting.ExistentialResponse,(update, context))
     return query
