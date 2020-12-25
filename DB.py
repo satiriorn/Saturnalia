@@ -40,13 +40,27 @@ class DataBase:
                 print(x[0])
                 self.Insert(first_name,username, chat_id, language_code, type)
 
-    def CheckNameBook(self, name):
-        sql = "SELECT * FROM heroku_c93f6b06b535bb4.book WHERE Name = '%s'" % name
+    def BookSystem(self, Book):
+        print("BOOKSYSTEM")
+        self.CheckAuthor(Book)
+        sql = "SELECT * FROM heroku_c93f6b06b535bb4.book WHERE Name = '%s'" % Book.Name
         self.GetCursor()
         self.cursor.execute(sql)
         for x in self.cursor:
-            if int(x[0]) == 0:
+            if len(x)>0:
+                return False
+            else:
+                pass
+
+
+    def CheckAuthor(self, Book):
+        sql = "SELECT * FROM heroku_c93f6b06b535bb4.author WHERE Name = '%s'" % Book.Author
+        self.GetCursor()
+        self.cursor.execute(sql)
+        for x in self.cursor:
+            if len(x) > 0:
                 print(x[0])
+                print(len(x))
 
     def InsertBook(self):
         pass
