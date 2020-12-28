@@ -41,46 +41,41 @@ class DataBase:
                 self.Insert(first_name,username, chat_id, language_code, type)
 
     def BookSystem(self, Book):
-        print("BOOKSYSTEM")
-        idAuthor = self.CheckAuthor(Book)
-        print("jopa"+str(idAuthor))
-        sql = "SELECT * FROM heroku_c93f6b06b535bb4.book WHERE Name = '%s'" % Book.Name
+        Book.Author = int(self.CheckAuthor(Book))
+        sql = "SELECT count(*) FROM heroku_c93f6b06b535bb4.book WHERE Name = '%s'" % Book.Name
         self.GetCursor()
         self.cursor.execute(sql)
         for x in self.cursor:
-            if len(x)>0:
+            if int(x[0]) != 0:
                 return False
             else:
-                return self.InsertBook(Book, idAuthor)
+                self.InsertBook(Book)
+                return True
 
     def CheckAuthor(self, Book):
+        print("jopaCheckAuthor")
         sql = "SELECT * FROM heroku_c93f6b06b535bb4.author WHERE Name = '%s'" % Book.Author
         self.GetCursor()
         self.cursor.execute(sql)
-        for x in self.cursor:
-            print(len(x))
-            if len(x) > 0:
-                print("sadasf"+str(x))
-                return x[0]
-            else:
-                print("sdaf")
-                return self.InsertAuthor(Book)
+        x = self.GetValue()
+        if x == None:
+            self.InsertAuthor(Book)
+            return self.CheckAuthor(Book)
+        else:
+            return x
 
     def InsertAuthor(self, Book):
         sql = "INSERT INTO heroku_c93f6b06b535bb4.author(Name) VALUES('%s');" % Book.Author
         self.GetCursor()
         self.cursor.execute(sql)
-        return self.CheckAuthor(Book)
+        self.db.commit()
 
-    def InsertBook(self, Book,idAuthor):
+    def InsertBook(self, Book):
         sql = "INSERT INTO heroku_c93f6b06b535bb4.book(Name, file_id, id_author, book_lang) VALUES(%s, %s, %s, %s);"
-        val = (Book.Name, Book.file_id, idAuthor, Book.book_lang)
+        val = (Book.Name, Book.file_id, Book.Author, Book.book_lang)
         self.cursor.execute(sql, val)
         self.db.commit()
         return True
-
-    def InsertBook(self):
-        pass
 
     def Insert(self, first_name, username, chat_id, language_code, type):
         s = "INSERT INTO heroku_c93f6b06b535bb4.user(Name, Username, chatID, TypeChat) VALUES(%s, %s, %s, %s);"
