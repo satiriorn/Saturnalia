@@ -42,7 +42,8 @@ class DataBase:
 
     def BookSystem(self, Book):
         print("BOOKSYSTEM")
-        self.CheckAuthor(Book)
+        idAuthor = self.CheckAuthor(Book)
+        print("jopa"+str(idAuthor))
         sql = "SELECT * FROM heroku_c93f6b06b535bb4.book WHERE Name = '%s'" % Book.Name
         self.GetCursor()
         self.cursor.execute(sql)
@@ -50,17 +51,33 @@ class DataBase:
             if len(x)>0:
                 return False
             else:
-                pass
-
+                return self.InsertBook(Book, idAuthor)
 
     def CheckAuthor(self, Book):
         sql = "SELECT * FROM heroku_c93f6b06b535bb4.author WHERE Name = '%s'" % Book.Author
         self.GetCursor()
         self.cursor.execute(sql)
         for x in self.cursor:
+            print(len(x))
             if len(x) > 0:
-                print(x[0])
-                print(len(x))
+                print("sadasf"+str(x))
+                return x[0]
+            else:
+                print("sdaf")
+                return self.InsertAuthor(Book)
+
+    def InsertAuthor(self, Book):
+        sql = "INSERT INTO heroku_c93f6b06b535bb4.author(Name) VALUES('%s');" % Book.Author
+        self.GetCursor()
+        self.cursor.execute(sql)
+        return self.CheckAuthor(Book)
+
+    def InsertBook(self, Book,idAuthor):
+        sql = "INSERT INTO heroku_c93f6b06b535bb4.book(Name, file_id, id_author, book_lang) VALUES(%s, %s, %s, %s);"
+        val = (Book.Name, Book.file_id, idAuthor, Book.book_lang)
+        self.cursor.execute(sql, val)
+        self.db.commit()
+        return True
 
     def InsertBook(self):
         pass
