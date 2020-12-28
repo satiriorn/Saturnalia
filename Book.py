@@ -48,6 +48,8 @@ def UploadBook(update, context):
             badge.Book[str(chat_id)].file_id = update.message.document.file_id
             print(badge.Book[str(chat_id)].file_id)
             DB.DataBase.BookSystem(badge.DB, badge.Book[str(chat_id)])
+            badge.UseCommand.pop(str(chat_id))
+            badge.Book.pop(str(chat_id))
 
     else:
         context.bot.edit_message_text(chat_id=chat_id, text=answer["41"], message_id=update.callback_query.message.message_id)
