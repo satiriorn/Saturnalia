@@ -35,11 +35,21 @@ class DataBase:
         sql = "SELECT Name FROM heroku_c93f6b06b535bb4.book WHERE Name LIKE '%{0}%'".format(Name)
         self.GetCursor()
         self.cursor.execute(sql)
-        val = ""
-        for x in self.cursor:
-            for j in range(len(x)):
-                val += str(x[j])+"\n"
-        return val
+        return self.cursor
+
+    def GetIdBook(self, Name):
+        sql = "SELECT id_book FROM heroku_c93f6b06b535bb4.book WHERE Name = {0};".format(Name)
+        self.GetCursor()
+        self.cursor.execute(sql)
+        return self.GetValue()
+
+    def AddBookInListRead(self, chat_id, NameBook):
+        id_user = self.GetIdUser(chat_id)
+        id_book = self.GetIdBook(NameBook)
+        sql = "INSERT INTO heroku_c93f6b06b535bb4.list_read_book(id_user, id_book) VALUES({0},{1});".format(id_user, id_book)
+        self.GetCursor()
+        self.cursor.execute(sql)
+        self.db.commit()
 
     def CheckUser(self, first_name, username, chat_id, language_code, type):
         sql = "SELECT count(*) FROM heroku_c93f6b06b535bb4.user WHERE chatID = '%s'"   % chat_id
