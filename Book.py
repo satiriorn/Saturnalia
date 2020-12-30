@@ -12,9 +12,21 @@ def SearchBook(update,context):
     answer = DB.DataBase.GetJsonLanguageBot(badge.DB, chat_id)
     if str(chat_id) in badge.UseCommand.keys():
         if badge.UseCommand[str(chat_id)] == "SearchViaName":
-            print("jopa")
             result = DB.DataBase.SearchBook(badge.DB, update.message.text)
-            context.bot.send_message(chat_id, answer["48"]+result)
+            value = []
+            val = ""
+            for x in result:
+                for j in range(len(x)):
+                    value.append(str(x[j]))
+            if len(value)==1:
+                context.bot.send_message(chat_id, answer["48"] + value[0],
+                                         reply_markup=Keyboard.InlineKeyboard(badge.BookStateKeyboard, False))
+            else:
+                for x in result:
+                    val +=str(x)+"\n"
+                context.bot.send_message(chat_id, answer["49"] + val,
+                                         reply_markup=Keyboard.InlineKeyboard(value, False))
+
     else:
         context.bot.edit_message_text(chat_id=chat_id, text=answer["47"],
                                       message_id=update.callback_query.message.message_id)
@@ -76,7 +88,6 @@ def MonitorDoc(update, context):
     if str(update.message.chat_id) in badge.UseCommand.keys():
         res = badge.UseCommand[str(update.message.chat_id)]
         if res == "UploadFile": Thread.Thread(UploadBook, (update, context))
-    print("jopa"+str(update))
 
 def GetChatID(update):
     try:
