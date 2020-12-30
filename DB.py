@@ -37,7 +37,6 @@ class DataBase:
         self.cursor.execute(sql)
         for x in self.cursor:
             if int(x[0]) == 0:
-                print(x[0])
                 self.Insert(first_name,username, chat_id, language_code, type)
 
     def BookSystem(self, Book):
@@ -46,14 +45,9 @@ class DataBase:
         self.GetCursor()
         self.cursor.execute(sql)
         for x in self.cursor:
-            if int(x[0]) != 0:
-                return False
-            else:
-                self.InsertBook(Book)
-                return True
+            return (lambda x: int(x[0]) != 0 if False else self.InsertBook(Book))(x)
 
     def CheckAuthor(self, Book):
-        print("jopaCheckAuthor")
         sql = "SELECT * FROM heroku_c93f6b06b535bb4.author WHERE Name = '%s'" % Book.Author
         self.GetCursor()
         self.cursor.execute(sql)
