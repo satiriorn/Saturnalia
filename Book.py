@@ -47,15 +47,16 @@ def UploadBook(update, context):
         elif badge.UseCommand[str(chat_id)] == "UploadFile":
             badge.Book[str(chat_id)].file_id = update.message.document.file_id
             print(badge.Book[str(chat_id)].file_id)
-            DB.DataBase.BookSystem(badge.DB, badge.Book[str(chat_id)])
+            result = DB.DataBase.BookSystem(badge.DB, badge.Book[str(chat_id)])
+            if result:
+                context.bot.send_message(chat_id, text=answer["45"])
+            else:
+                context.bot.send_message(chat_id, text=answer["46"])
             badge.UseCommand.pop(str(chat_id))
             badge.Book.pop(str(chat_id))
-
     else:
         context.bot.edit_message_text(chat_id=chat_id, text=answer["41"], message_id=update.callback_query.message.message_id)
         badge.UseCommand[str(chat_id)] = "Check"
-
-
 
 def MenuBook(update, context):
     answer = DB.DataBase.GetJsonLanguageBot(badge.DB, update.message.chat_id)

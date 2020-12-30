@@ -7,9 +7,9 @@ def InitKeyboard(NameButton):
     LevelThree = []
     Button = []
     for i in range(len(NameButton)):
-        if i<5:
+        if i<6:
             LevelOne.append(KeyboardButton(NameButton[i]))
-        elif (i>=5) and (i<8):
+        elif (i>=6) and (i<9):
             LevelTwo.append(KeyboardButton(NameButton[i]))
         else:
             LevelThree.append(KeyboardButton(NameButton[i]))
