@@ -63,6 +63,8 @@ def button(update,context):
         Thread.Thread(Cut.CutAudio,(update, context))
     elif query.data == "Скачати та Обрізати":
         Thread.Thread(Cut.GetCutStart,(update, context))
+    elif query.data == "Пошук по назві":
+        Thread.Thread(Book.SearchBook,(update,context))
     elif query.data == "Завантажування книги":
         Thread.Thread(Book.UploadBook, (update, context))
     else:
