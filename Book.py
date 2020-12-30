@@ -7,8 +7,18 @@ class Book:
         self.book_lang = None
         self.file_id = None
 
-def SearchBook():
-    pass
+def SearchBook(update,context):
+    chat_id = GetChatID(update)
+    answer = DB.DataBase.GetJsonLanguageBot(badge.DB, chat_id)
+    if str(chat_id) in badge.UseCommand.keys():
+        if badge.UseCommand[str(chat_id)] == "SearchViaName":
+            print("jopa")
+            result = DB.DataBase.SearchBook(badge.DB, update.message.text)
+            context.bot.send_message(chat_id, answer["48"]+result)
+    else:
+        context.bot.edit_message_text(chat_id=chat_id, text=answer["47"],
+                                      message_id=update.callback_query.message.message_id)
+        badge.UseCommand[str(chat_id)] = "SearchViaName"
 
 def UploadBook(update, context):
     chat_id = GetChatID(update)
