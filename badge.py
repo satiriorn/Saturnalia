@@ -2,6 +2,7 @@ UseCommand = {}
 CutFile = {}
 jobchat = {}
 Book = {}
+ResultSearch = {}
 DB = None
 job = None
 translator = None

@@ -32,13 +32,19 @@ class DataBase:
         return self.GetValue()
 
     def SearchBook(self, Name):
-        sql = "SELECT Name FROM heroku_c93f6b06b535bb4.book WHERE Name LIKE '%{0}%'".format(Name)
+        sql = "SELECT Name FROM heroku_c93f6b06b535bb4.book WHERE Name LIKE '%{0}%';".format(Name)
         self.GetCursor()
         self.cursor.execute(sql)
         return self.cursor
+    
+    def GetFile(self, Name):
+        sql = "SELECT file_id FROM heroku_c93f6b06b535bb4.book WHERE Name = '%s';" %Name
+        self.GetCursor()
+        self.cursor.execute(sql)
+        return self.GetValue()
 
     def GetIdBook(self, Name):
-        sql = "SELECT id_book FROM heroku_c93f6b06b535bb4.book WHERE Name = {0};".format(Name)
+        sql = "SELECT id_book FROM heroku_c93f6b06b535bb4.book WHERE Name = '%s';"% Name
         self.GetCursor()
         self.cursor.execute(sql)
         return self.GetValue()
