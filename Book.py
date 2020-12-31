@@ -7,6 +7,24 @@ class Book:
         self.book_lang = None
         self.file_id = None
 
+def GetFile(update, context):
+    chat_id = GetChatID(update)
+    fileID = DB.DataBase.GetFile(badge.DB, badge.ResultSearch[str(chat_id)])
+    file = context.bot.getFile(fileID)
+    title = ("{0}").format(str(badge.ResultSearch[str(chat_id)]))
+    file.download(title)
+    context.bot.send_document(chat_id, open(title, 'rb'))
+    badge.ResultSearch.pop(str(chat_id))
+
+def AddBookInReadList(update, context):
+    chat_id = GetChatID(update)
+    answer = DB.DataBase.GetJsonLanguageBot(badge.DB, chat_id)
+    print(badge.ResultSearch[str(chat_id)])
+    DB.DataBase.AddBookInListRead(badge.DB, chat_id, badge.ResultSearch[str(chat_id)])
+    context.bot.edit_message_text(chat_id=chat_id, text=answer["50"],
+                                  message_id=update.callback_query.message.message_id)
+    badge.ResultSearch.pop(str(chat_id))
+
 def SearchBook(update,context):
     chat_id = GetChatID(update)
     answer = DB.DataBase.GetJsonLanguageBot(badge.DB, chat_id)
@@ -21,12 +39,23 @@ def SearchBook(update,context):
             if len(value)==1:
                 context.bot.send_message(chat_id, answer["48"] + value[0],
                                          reply_markup=Keyboard.InlineKeyboard(badge.BookStateKeyboard, False))
+                badge.UseCommand.pop(str(chat_id))
+                badge.ResultSearch[str(chat_id)] = value[0]
             else:
                 for x in result:
                     val +=str(x)+"\n"
                 context.bot.send_message(chat_id, answer["49"] + val,
                                          reply_markup=Keyboard.InlineKeyboard(value, False))
+                badge.UseCommand.pop(str(chat_id))
+                badge.UseCommand[str(chat_id)] = "SeveralResult"
 
+        elif badge.UseCommand[str(chat_id)] == "SeveralResult":
+            badge.ResultSearch[str(chat_id)] = str(update.callback_query.data)
+            badge.UseCommand.pop(str(chat_id))
+            context.bot.edit_message_text(chat_id=chat_id, text=answer["44"],
+                                          message_id=update.callback_query.message.message_id)
+            context.bot.send_message(chat_id, answer["48"] + update.callback_query.data,
+                                     reply_markup=Keyboard.InlineKeyboard(badge.BookStateKeyboard, False))
     else:
         context.bot.edit_message_text(chat_id=chat_id, text=answer["47"],
                                       message_id=update.callback_query.message.message_id)
