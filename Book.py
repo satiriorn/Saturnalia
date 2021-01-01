@@ -1,4 +1,4 @@
-import badge, Thread, DB, Keyboard
+import badge, Thread, DB, Keyboard, os
 
 class Book:
     def __init__(self, Name, Author):
@@ -6,6 +6,7 @@ class Book:
         self.Author = Author
         self.book_lang = None
         self.file_id = None
+        self.format = None
 
 def GetFile(update, context):
     chat_id = GetChatID(update)
@@ -15,6 +16,7 @@ def GetFile(update, context):
     file.download(title)
     context.bot.send_document(chat_id, open(title, 'rb'))
     badge.ResultSearch.pop(str(chat_id))
+    os.remove(os.path.join(os.path.abspath(os.path.dirname(__file__)), title))
 
 def AddBookInReadList(update, context):
     chat_id = GetChatID(update)
@@ -73,7 +75,6 @@ def UploadBook(update, context):
             print(badge.Book[str(chat_id)].Name)
             badge.UseCommand.pop(str(chat_id))
             badge.UseCommand[str(chat_id)] = "Confirm"
-
         elif badge.UseCommand[str(chat_id)] == "Confirm":
             if(str(update.callback_query.data) =="Так"):
                 badge.UseCommand.pop(str(chat_id))
@@ -83,18 +84,23 @@ def UploadBook(update, context):
                                          reply_markup=Keyboard.InlineKeyboard(badge.TranslateKeyboard, False))
                 badge.UseCommand[str(chat_id)] = "BookLang"
             else:
-                print("R")
                 badge.UseCommand.pop(str(chat_id))
                 badge.Book.pop(str(chat_id))
                 UploadBook(update, context)
-
         elif badge.UseCommand[str(chat_id)] == "BookLang":
             badge.Book[str(chat_id)].book_lang = badge.b[update.callback_query.data]
+            badge.UseCommand.pop(str(chat_id))
+            badge.UseCommand[str(chat_id)] = "FormatBook"
+            context.bot.edit_message_text(chat_id=chat_id, text=answer["37"],
+                                          message_id=update.callback_query.message.message_id)
+            context.bot.send_message(chat_id, text=answer["51"], reply_markup = Keyboard.InlineKeyboard(badge.FormatBookKeyboard, False))
+        elif badge.UseCommand[str(chat_id)] == "FormatBook":
+            badge.Book[str(chat_id)].format = str(update.callback_query.data)
             badge.UseCommand.pop(str(chat_id))
             badge.UseCommand[str(chat_id)] = "UploadFile"
             context.bot.edit_message_text(chat_id=chat_id, text=answer["42"],
                                           message_id=update.callback_query.message.message_id)
-            print(badge.Book[str(chat_id)].book_lang)
+            context.bot.send_message(chat_id, text = answer["52"], reply_markup = Keyboard.InlineKeyboard(badge.CancelButton, False))
         elif badge.UseCommand[str(chat_id)] == "UploadFile":
             badge.Book[str(chat_id)].file_id = update.message.document.file_id
             print(badge.Book[str(chat_id)].file_id)
@@ -109,14 +115,23 @@ def UploadBook(update, context):
         context.bot.edit_message_text(chat_id=chat_id, text=answer["41"], message_id=update.callback_query.message.message_id)
         badge.UseCommand[str(chat_id)] = "Check"
 
+def Cancel(update, context):
+    chat_id = GetChatID(update)
+    answer = DB.DataBase.GetJsonLanguageBot(badge.DB, chat_id)
+    badge.UseCommand.pop(str(chat_id))
+    badge.Book.pop(str(chat_id))
+    context.bot.edit_message_text(chat_id=chat_id, text=answer["53"],
+                                  message_id=update.callback_query.message.message_id)
 def MenuBook(update, context):
     answer = DB.DataBase.GetJsonLanguageBot(badge.DB, update.message.chat_id)
     context.bot.send_message(update.message.chat_id, answer["39"], reply_markup=Keyboard.InlineKeyboard(badge.MenuBookKeyboard, False))
 
 def MonitorDoc(update, context):
+    print(update)
     if str(update.message.chat_id) in badge.UseCommand.keys():
         res = badge.UseCommand[str(update.message.chat_id)]
         if res == "UploadFile": Thread.Thread(UploadBook, (update, context))
+
 
 def GetChatID(update):
     try:
