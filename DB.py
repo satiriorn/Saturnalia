@@ -1,4 +1,4 @@
-import mysql.connector, os, json
+import mysql.connector, os, json, badge
 
 class DataBase:
     def __init__(self):
@@ -71,7 +71,23 @@ class DataBase:
         self.GetCursor()
         self.cursor.execute(sql)
         for x in self.cursor:
-            return (lambda x: int(x[0]) != 0 if False else self.InsertBook(Book))(x)
+            return (lambda x: int(x[0]) != 0 if self.CheckTypeFile(Book) else self.InsertBook(Book))(x)
+
+    def CheckTypeFile(self, Book):
+        sql = "SELECT {0} FROM heroku_c93f6b06b535bb4.book WHERE Name = '%s'".format(badge.fileformat[Book.format]) %Book.Name
+        self.GetCursor()
+        self.cursor.execute(sql)
+        x = self.GetValue()
+        return (lambda x: x=="" if self.UpdateFileId(Book)else False)(x)
+
+    def UpdateFileId(self, Book):
+        print("Update")
+        sql = "UPDATE heroku_c93f6b06b535bb4.book SET {0} =(%s)WHERE id_book =%s;".format(str(badge.fileformat[Book.format]))
+        val = (Book.file_id, self.GetIdBook(Book.Name))
+        self.GetCursor()
+        self.cursor.execute(sql,val)
+        self.db.commit()
+        return True
 
     def CheckAuthor(self, Book):
         sql = "SELECT * FROM heroku_c93f6b06b535bb4.author WHERE Name = '%s'" % Book.Author
@@ -91,8 +107,9 @@ class DataBase:
         self.db.commit()
 
     def InsertBook(self, Book):
-        sql = "INSERT INTO heroku_c93f6b06b535bb4.book(Name, file_id, id_author, book_lang) VALUES(%s, %s, %s, %s);"
-        val = (Book.Name, Book.file_id, Book.Author, Book.book_lang)
+        format = badge.fileformat[Book.format]
+        sql = "INSERT INTO heroku_c93f6b06b535bb.book(Name, {0}, id_author, book_lang) VALUES(%s, %s, %s, %s);".format(str(format))
+        val = (Book.Name, str(Book.file_id), Book.Author, Book.book_lang)
         self.cursor.execute(sql, val)
         self.db.commit()
         return True
