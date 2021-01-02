@@ -71,14 +71,15 @@ class DataBase:
         self.GetCursor()
         self.cursor.execute(sql)
         for x in self.cursor:
-            return (lambda x: int(x[0]) != 0 if self.CheckTypeFile(Book) else self.InsertBook(Book))(x)
+            return (lambda x: self.CheckTypeFile(Book) if int(x[0]) != 0 else self.InsertBook(Book))(x)
 
     def CheckTypeFile(self, Book):
         sql = "SELECT {0} FROM heroku_c93f6b06b535bb4.book WHERE Name = '%s'".format(badge.fileformat[Book.format]) %Book.Name
         self.GetCursor()
         self.cursor.execute(sql)
         x = self.GetValue()
-        return (lambda x: x=="" if self.UpdateFileId(Book)else False)(x)
+        print(x)
+        return (lambda x: self.UpdateFileId(Book) if x == "" else False)(x)
 
     def UpdateFileId(self, Book):
         print("Update")
