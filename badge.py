@@ -3,6 +3,7 @@ CutFile = {}
 jobchat = {}
 Book = {}
 ResultSearch = {}
+fileformat = {".epub":"file_id_epub",".fb2":"file_id_fb2",".pdf":"file_id_pdf"}
 DB = None
 job = None
 translator = None

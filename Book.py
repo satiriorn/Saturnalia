@@ -7,6 +7,7 @@ class Book:
         self.book_lang = None
         self.file_id = None
         self.format = None
+        self.full_file_name = ""
 
 def GetFile(update, context):
     chat_id = GetChatID(update)
@@ -103,9 +104,10 @@ def UploadBook(update, context):
             context.bot.send_message(chat_id, text = answer["52"], reply_markup = Keyboard.InlineKeyboard(badge.CancelButton, False))
         elif badge.UseCommand[str(chat_id)] == "UploadFile":
             badge.Book[str(chat_id)].file_id = update.message.document.file_id
+            badge.Book[str(chat_id)].full_file_name = update.message.document.file_name
             print(badge.Book[str(chat_id)].file_id)
             result = DB.DataBase.BookSystem(badge.DB, badge.Book[str(chat_id)])
-            if result:
+            if result:# and update.message.document.file_name in badge.Book[str(chat_id)].format:
                 context.bot.send_message(chat_id, text=answer["45"])
             else:
                 context.bot.send_message(chat_id, text=answer["46"])

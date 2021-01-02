@@ -42,8 +42,9 @@ def button(update,context):
         elif res == "SettingTranslate": Thread.Thread(Setting.SettingTranslate,(update, context))
         elif res == "Dologusha": Thread.Thread(Dologusha.start,(update, context))
         elif res == "LangBot": Thread.Thread(Setting.LanguageBot,(update, context))
-        elif res == "Confirm" or res == "Check"or res == "BookLang"or res =="FormatBook":  Thread.Thread(Book.UploadBook, (update, context))
+        elif res == "Confirm" or res == "Check"or res == "BookLang"or res == "FormatBook":  Thread.Thread(Book.UploadBook, (update, context))
         elif res == "SeveralResult":Thread.Thread(Book.SearchBook,(update,context))
+        elif query.data == badge.CancelButton[0]: Thread.Thread(Book.Cancel, (update, context))
     elif query.data == "0":
         Thread.Thread(Setting.SettingTranslate,(update ,context))
     elif query.data =="1":
@@ -64,6 +65,8 @@ def button(update,context):
         Thread.Thread(Cut.CutAudio,(update, context))
     elif query.data == "Скачати та Обрізати":
         Thread.Thread(Cut.GetCutStart,(update, context))
+    elif query.data == badge.CancelButton[0]:
+        Thread.Thread(Book.Cancel,(update,context))
     elif query.data == "Пошук по назві":
         Thread.Thread(Book.SearchBook,(update,context))
     elif query.data == "Завантажування книги":
@@ -72,8 +75,6 @@ def button(update,context):
         Thread.Thread(Book.AddBookInReadList, (update,context))
     elif query.data == "Отримати файл книги":
         Thread.Thread(Book.GetFile,(update,context))
-    elif query.data == badge.CancelButton[0]:
-        Thread.Thread(Book.Cancel,(update,context))
     else:
         Thread.Thread(Setting.ExistentialResponse,(update, context))
     return query
