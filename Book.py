@@ -79,10 +79,10 @@ def UploadBook(update, context):
         elif badge.UseCommand[str(chat_id)] == "Confirm":
             if(str(update.callback_query.data) =="Так"):
                 badge.UseCommand.pop(str(chat_id))
-                context.bot.edit_message_text(chat_id=chat_id,text=answer["44"],
+                context.bot.edit_message_text(chat_id=chat_id,text=answer["40"],
                                               message_id=update.callback_query.message.message_id)
-                context.bot.send_message(chat_id,text=answer["40"],
-                                         reply_markup=Keyboard.InlineKeyboard(badge.TranslateKeyboard, False))
+                context.bot.edit_message_reply_markup(chat_id, reply_markup=Keyboard.InlineKeyboard(badge.TranslateKeyboard, False),
+                                                      message_id=update.callback_query.message.message_id )
                 badge.UseCommand[str(chat_id)] = "BookLang"
             else:
                 badge.UseCommand.pop(str(chat_id))
@@ -91,20 +91,14 @@ def UploadBook(update, context):
         elif badge.UseCommand[str(chat_id)] == "BookLang":
             badge.Book[str(chat_id)].book_lang = badge.b[update.callback_query.data]
             badge.UseCommand.pop(str(chat_id))
-            badge.UseCommand[str(chat_id)] = "FormatBook"
-            context.bot.edit_message_text(chat_id=chat_id, text=answer["37"],
-                                          message_id=update.callback_query.message.message_id)
-            context.bot.send_message(chat_id, text=answer["51"], reply_markup = Keyboard.InlineKeyboard(badge.FormatBookKeyboard, False))
-        elif badge.UseCommand[str(chat_id)] == "FormatBook":
-            badge.Book[str(chat_id)].format = str(update.callback_query.data)
-            badge.UseCommand.pop(str(chat_id))
             badge.UseCommand[str(chat_id)] = "UploadFile"
             context.bot.edit_message_text(chat_id=chat_id, text=answer["42"],
                                           message_id=update.callback_query.message.message_id)
-            context.bot.send_message(chat_id, text = answer["52"], reply_markup = Keyboard.InlineKeyboard(badge.CancelButton, False))
+            context.bot.edit_message_reply_markup(chat_id, reply_markup = Keyboard.InlineKeyboard(badge.CancelButton, False),message_id=update.callback_query.message.message_id)
         elif badge.UseCommand[str(chat_id)] == "UploadFile":
             badge.Book[str(chat_id)].file_id = update.message.document.file_id
             badge.Book[str(chat_id)].full_file_name = update.message.document.file_name
+            DetectFormat(update, context)
             print(badge.Book[str(chat_id)].file_id)
             result = DB.DataBase.BookSystem(badge.DB, badge.Book[str(chat_id)])
             if result and  badge.Book[str(chat_id)].format in update.message.document.file_name:
@@ -122,7 +116,7 @@ def Cancel(update, context):
     answer = DB.DataBase.GetJsonLanguageBot(badge.DB, chat_id)
     badge.UseCommand.pop(str(chat_id))
     badge.Book.pop(str(chat_id))
-    context.bot.edit_message_text(chat_id=chat_id, text=answer["53"],
+    context.bot.edit_message_text(chat_id=chat_id, text=answer["52"],
                                   message_id=update.callback_query.message.message_id)
 def MenuBook(update, context):
     answer = DB.DataBase.GetJsonLanguageBot(badge.DB, update.message.chat_id)
@@ -133,6 +127,15 @@ def MonitorDoc(update, context):
     if str(update.message.chat_id) in badge.UseCommand.keys():
         res = badge.UseCommand[str(update.message.chat_id)]
         if res == "UploadFile": Thread.Thread(UploadBook, (update, context))
+
+def DetectFormat(update, context):
+    chat_id = GetChatID(update)
+    if ".epub" in badge.Book[str(chat_id)].full_file_name:
+        badge.Book[str(chat_id)].format = ".epub"
+    elif ".pdf"in badge.Book[str(chat_id)].full_file_name:
+        badge.Book[str(chat_id)].format = ".pdf"
+    elif ".fb2"in badge.Book[str(chat_id)].full_file_name:
+        badge.Book[str(chat_id)].format = ".fb2"
 
 
 def GetChatID(update):
