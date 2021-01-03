@@ -109,8 +109,9 @@ class DataBase:
 
     def InsertBook(self, Book):
         format = badge.fileformat[Book.format]
-        sql = "INSERT INTO heroku_c93f6b06b535bb.book(Name, {0}, id_author, book_lang) VALUES(%s, %s, %s, %s);".format(str(format))
-        val = (Book.Name, str(Book.file_id), Book.Author, Book.book_lang)
+        print(str(Book.Name) + "\n" + str(Book.file_id) + "\n" + str(Book.Author) + "\n" + str(format))
+        sql = "INSERT INTO heroku_c93f6b06b535bb4.book(Name,{0}, id_author, book_lang) VALUES(%s, %s, %s, %s);".format(str(format))
+        val = (Book.Name, Book.file_id, Book.Author, Book.book_lang)
         self.cursor.execute(sql, val)
         self.db.commit()
         return True
