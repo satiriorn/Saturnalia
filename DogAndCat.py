@@ -21,11 +21,13 @@ def StartSysAnimal():
     for x in cursor:
         for y in range(len(x)):
             if y + 1 < len(x) and x[y + 1] == True:
-                for i in range(3):
+                for i in range(4):
                     if i==0:
                         target_time = datetime.time(hour=9, minute=00, second=25).replace(tzinfo=target_tzinfo)
                     elif i == 1:
-                        target_time = datetime.time(hour=15, minute=00, second=25).replace(tzinfo=target_tzinfo)
+                        target_time = datetime.time(hour=13, minute=00, second=25).replace(tzinfo=target_tzinfo)
+                    elif i == 2:
+                        target_time = datetime.time(hour=18, minute=00, second=25).replace(tzinfo=target_tzinfo)
                     else:
                         target_time = datetime.time(hour=22, minute=00, second=25).replace(tzinfo=target_tzinfo)
                     badge.jobchat[str(x[y])] = badge.job.run_daily(AnimalJob, target_time, context=x[y])

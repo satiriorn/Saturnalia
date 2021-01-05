@@ -44,6 +44,7 @@ def WeatherNow(chat_id):
     text = description_weather + '. ' + temp + '. \n' + wind+'\n\n'
     target_tzinfo = datetime.timezone(datetime.timedelta(hours=2))
     now = datetime.datetime.now().replace(tzinfo=target_tzinfo)
+    print(now)
     if "10:00" in str(now):
         text += answer["38"]+PrognosisWeather(answer, True)
     return text
