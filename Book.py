@@ -14,6 +14,8 @@ def GetFile(update, context):
     answer = DB.DataBase.GetJsonLanguageBot(badge.DB, chat_id)
     if str(chat_id) in badge.UseCommand.keys():
         if badge.UseCommand[str(chat_id)] == "ConfirmTypeFile":
+            context.bot.edit_message_text(chat_id=chat_id, text=answer["53"],
+                                          message_id=update.callback_query.message.message_id)
             DownloadBook(update, context, badge.KeyboardFormat[str(chat_id)][update.callback_query.data], update.callback_query.data)
             badge.UseCommand.pop(str(chat_id))
             badge.KeyboardFormat.pop(str(chat_id))
@@ -27,6 +29,8 @@ def GetFile(update, context):
 
         keys = list(badge.KeyboardFormat[str(chat_id)].keys())
         if len(keys) == 1:
+            context.bot.edit_message_text(chat_id=chat_id, text=answer["53"],
+                                          message_id=update.callback_query.message.message_id)
             DownloadBook(update, context, badge.KeyboardFormat[str(chat_id)][keys[0]], keys[0])
             badge.KeyboardFormat.pop(str(chat_id))
         else:
