@@ -36,7 +36,25 @@ class DataBase:
         self.GetCursor()
         self.cursor.execute(sql)
         return self.cursor
-    
+
+    def GetAnswerSystem(self, chat_id):
+        user_id = self.GetIdUser(chat_id)
+        sql = "SELECT SystemOfAnswer FROM heroku_c93f6b06b535bb4.bot WHERE id_user = '%s'" % user_id
+        self.GetCursor()
+        self.cursor.execute(sql)
+        return self.GetValue()
+
+    def ChangeAnswerSystem(self, chat_id):
+        user_id = self.GetIdUser(chat_id)
+        value = self.GetAnswerSystem(chat_id)
+        sql = "UPDATE heroku_c93f6b06b535bb4.bot SET SystemOfAnswer =(%s)WHERE id_user =%s;"
+        v = (lambda x: False if x else True)(value)
+        print(v)
+        val = (v, user_id)
+        self.GetCursor()
+        self.cursor.execute(sql,val)
+        self.db.commit()
+
     def GetFile(self, Name):
         sql = "SELECT file_id_epub, file_id_fb2, file_id_pdf FROM heroku_c93f6b06b535bb4.book WHERE Name = '%s';" %Name
         self.GetCursor()

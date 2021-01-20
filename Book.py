@@ -174,4 +174,3 @@ def GetChatID(update):
         return update.callback_query.message.chat_id
     except Exception:
         return update.message.chat_id
-

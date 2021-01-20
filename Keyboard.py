@@ -56,6 +56,8 @@ def button(update,context):
         Thread.Thread(DogAndCat.SysAnimal, (update,context))
     elif query.data == "4":
         Thread.Thread(Meme.CountMem,(update, context))
+    elif query.data == "5":
+        Thread.Thread(Setting.SettingAnswer,(update, context))
     elif query.data == "Скачати Відео":
         Thread.Thread(Youtube.Get_Video,(update, context))
     elif query.data == "Скачати Аудіо":
