@@ -3,13 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="f6037ee2-592e-4cb2-8437-4e80876bfeba" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Book.py" beforeDir="false" afterPath="$PROJECT_DIR$/Book.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DB.py" beforeDir="false" afterPath="$PROJECT_DIR$/DB.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Keyboard.py" beforeDir="false" afterPath="$PROJECT_DIR$/Keyboard.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Setting.py" beforeDir="false" afterPath="$PROJECT_DIR$/Setting.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UkrainianGame.py" beforeDir="false" afterPath="$PROJECT_DIR$/UkrainianGame.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/badge.py" beforeDir="false" afterPath="$PROJECT_DIR$/badge.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/languages/uk.json" beforeDir="false" afterPath="$PROJECT_DIR$/languages/uk.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,7 +73,7 @@
       <updated>1611045535557</updated>
       <workItem from="1611045537691" duration="1118000" />
       <workItem from="1611066550225" duration="3383000" />
-      <workItem from="1611135414753" duration="8050000" />
+      <workItem from="1611135414753" duration="14238000" />
     </task>
     <servers />
   </component>
@@ -98,6 +93,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/IMafina$Main.coverage" NAME="Main Coverage Results" MODIFIED="1611154955427" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/IMafina$Main.coverage" NAME="Main Coverage Results" MODIFIED="1611167451814" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
