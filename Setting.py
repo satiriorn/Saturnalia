@@ -33,6 +33,14 @@ def LanguageBot(update, context):
                                       reply_markup=Keyboard.InlineKeyboard(badge.LanguageBot, False),
                                       message_id=update.callback_query.message.message_id)
         badge.UseCommand[str(update.callback_query.message.chat_id)] = "LangBot"
+def SettingAnswer(update, context):
+    chat_id = update.callback_query.message.chat_id
+    answer = DB.DataBase.GetJsonLanguageBot(badge.DB, update.callback_query.message.chat_id)
+    DB.DataBase.ChangeAnswerSystem(badge.DB, chat_id)
+    context.bot.edit_message_text(chat_id=update.callback_query.message.chat_id,
+                                  text=answer["37"],
+                                  message_id=update.callback_query.message.message_id)
+
 
 def ExistentialResponse(update, context):
     answer = DB.DataBase.GetJsonLanguageBot(badge.DB, update.callback_query.message.chat_id)
