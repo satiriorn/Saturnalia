@@ -72,7 +72,7 @@ def button(update,context):
         Thread.Thread(Book.Cancel,(update,context))
     elif query.data == "Пошук по назві":
         Thread.Thread(Book.SearchBook,(update,context))
-    elif query.data == "Завантажування книги":
+    elif query.data == "Додати книгу":
         Thread.Thread(Book.UploadBook, (update, context))
     elif query.data == "Додати книгу до прочитаних":
         Thread.Thread(Book.AddBookInReadList, (update,context))

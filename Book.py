@@ -104,8 +104,7 @@ def UploadBook(update, context):
             context.bot.send_message(chat_id, answer["43"],
                                      reply_markup=Keyboard.InlineKeyboard(badge.ConfirmKeyboard , False))
             data = (update.message.text).split('\n')
-            badge.Book[str(chat_id)] = Book(Name=data[0], Author=data[1])
-            print(badge.Book[str(chat_id)].Name)
+            badge.Book[str(chat_id)] = Book(Name=Str(data[0]), Author=Str(data[1]))
             badge.UseCommand.pop(str(chat_id))
             badge.UseCommand[str(chat_id)] = "Confirm"
         elif badge.UseCommand[str(chat_id)] == "Confirm":
@@ -121,17 +120,16 @@ def UploadBook(update, context):
                 badge.Book.pop(str(chat_id))
                 UploadBook(update, context)
         elif badge.UseCommand[str(chat_id)] == "BookLang":
-            badge.Book[str(chat_id)].book_lang = badge.b[update.callback_query.data]
+            badge.Book[str(chat_id)].book_lang = Str(badge.b[update.callback_query.data])
             badge.UseCommand.pop(str(chat_id))
             badge.UseCommand[str(chat_id)] = "UploadFile"
             context.bot.edit_message_text(chat_id=chat_id, text=answer["42"],
                                           message_id=update.callback_query.message.message_id)
             context.bot.edit_message_reply_markup(chat_id, reply_markup = Keyboard.InlineKeyboard(badge.CancelButton, False),message_id=update.callback_query.message.message_id)
         elif badge.UseCommand[str(chat_id)] == "UploadFile":
-            badge.Book[str(chat_id)].file_id = update.message.document.file_id
+            badge.Book[str(chat_id)].file_id = Str(update.message.document.file_id)
             badge.Book[str(chat_id)].full_file_name = update.message.document.file_name
             DetectFormat(update, context)
-            print(badge.Book[str(chat_id)].file_id)
             result = DB.DataBase.BookSystem(badge.DB, badge.Book[str(chat_id)])
             if result and  badge.Book[str(chat_id)].format in update.message.document.file_name:
                 context.bot.send_message(chat_id, text=answer["45"])
@@ -142,6 +140,10 @@ def UploadBook(update, context):
     else:
         context.bot.edit_message_text(chat_id=chat_id, text=answer["41"], message_id=update.callback_query.message.message_id)
         badge.UseCommand[str(chat_id)] = "Check"
+
+def Str(string):
+    x = '"'+string+'"'
+    return str(x)
 
 def Cancel(update, context):
     chat_id = GetChatID(update)
@@ -162,11 +164,11 @@ def MonitorDoc(update, context):
 
 def DetectFormat(update, context):
     chat_id = GetChatID(update)
-    if ".epub" in badge.Book[str(chat_id)].full_file_name:
+    if ".epub" in badge.Book[str(chat_id)].full_file_name.lower():
         badge.Book[str(chat_id)].format = ".epub"
-    elif ".pdf"in badge.Book[str(chat_id)].full_file_name:
+    elif ".pdf"in badge.Book[str(chat_id)].full_file_name.lower():
         badge.Book[str(chat_id)].format = ".pdf"
-    elif ".fb2"in badge.Book[str(chat_id)].full_file_name:
+    elif ".fb2"in badge.Book[str(chat_id)].full_file_name.lower():
         badge.Book[str(chat_id)].format = ".fb2"
 
 def GetChatID(update):
