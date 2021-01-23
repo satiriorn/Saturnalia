@@ -150,7 +150,7 @@ def Cancel(update, context):
     answer = DB.DataBase.GetJsonLanguageBot(badge.DB, chat_id)
     badge.UseCommand.pop(str(chat_id))
     badge.Book.pop(str(chat_id))
-    context.bot.edit_message_text(chat_id=chat_id, text=answer["52"],
+    context.bot.edit_message_text(chat_id=chat_id, text=answer["51"],
                                   message_id=update.callback_query.message.message_id)
 def MenuBook(update, context):
     answer = DB.DataBase.GetJsonLanguageBot(badge.DB, update.message.chat_id)
