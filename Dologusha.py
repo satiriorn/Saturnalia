@@ -4,14 +4,8 @@ AnswerOne = ["Увімкнула", "Мені ліньки"]
 AnswerTwo = ["Продовжити"]
 AnswerThree = ["Гіфки з котиками", "Гіфки з собаками", "Продовження історії", "Відео вбиства того хто вас бісить"]
 
-def GetChatID(update):
-    try:
-        return update.callback_query.message.chat_id
-    except Exception:
-        return update.message.chat_id
-
 def start(update, context):
-    chat_id = GetChatID(update)
+    chat_id = badge.GetChatID(update)
     if str(chat_id) in badge.UseCommand.keys():
         if badge.UseCommand[str(chat_id)] == "Dologusha":
             if update.callback_query.data == "0":

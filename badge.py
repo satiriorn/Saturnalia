@@ -114,3 +114,9 @@ ConfirmKeyboard = ["Так", "Ні"]
 BookStateKeyboard = ["Додати до прочитаних", "Отримати файл", "Нічого не треба"]
 FormatBookKeyboard = [".epub", ".fb2", ".pdf"]
 CancelButton = ["Вбий все що зробив"]
+
+def GetChatID(update):
+    try:
+        return update.callback_query.message.chat_id
+    except Exception:
+        return update.message.chat_id

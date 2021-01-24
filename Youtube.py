@@ -6,7 +6,7 @@ def Start(update, context):
     context.bot.send_message(update.message.chat_id, answer["34"], reply_markup=Keyboard.InlineKeyboard(badge.YoutubeKeyboard, False))
 
 def Get_Audio(update,context):
-    chat_id = GetChatID(update)
+    chat_id = badge.GetChatID(update)
     answer = DB.DataBase.GetJsonLanguageBot(badge.DB, chat_id)
     file, NameMusic = "", ""
     try:
@@ -46,7 +46,7 @@ def Get_Audio(update,context):
         DeletePath(file)
 
 def Get_Video(update, context):
-    chat_id = GetChatID(update)
+    chat_id = badge.GetChatID(update)
     answer = DB.DataBase.GetJsonLanguageBot(badge.DB, chat_id)
     file = ""
     try:
@@ -71,12 +71,6 @@ def GetFormat(format = '.mp3'):
     NameMusic = [f for f in os.listdir(os.getcwd()) if f.endswith(format)]
     if format == '.mp3':NameMusic.remove("voice.mp3")
     return NameMusic
-
-def GetChatID(update):
-    try:
-        return update.callback_query.message.chat_id
-    except Exception:
-        return update.message.chat_id
 
 def DeletePath(NameMusic):
     os.remove(os.path.join(os.path.abspath(os.path.dirname(__file__)), NameMusic))
