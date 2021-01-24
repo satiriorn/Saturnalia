@@ -10,7 +10,7 @@ class Book:
         self.full_file_name = ""
 
 def GetFile(update, context):
-    chat_id = GetChatID(update)
+    chat_id = badge.GetChatID(update)
     answer = DB.DataBase.GetJsonLanguageBot(badge.DB, chat_id)
     if str(chat_id) in badge.UseCommand.keys():
         if badge.UseCommand[str(chat_id)] == "ConfirmTypeFile":
@@ -41,7 +41,7 @@ def GetFile(update, context):
             badge.UseCommand[str(chat_id)] = "ConfirmTypeFile"
 
 def DownloadBook(update, context, fileID, format):
-    chat_id = GetChatID(update)
+    chat_id = badge.GetChatID(update)
     file = context.bot.getFile(fileID)
     title = ("{0}{1}").format(str(badge.ResultSearch[str(chat_id)]), format)
     file.download(title)
@@ -50,7 +50,7 @@ def DownloadBook(update, context, fileID, format):
     os.remove(os.path.join(os.path.abspath(os.path.dirname(__file__)), title))
 
 def AddBookInReadList(update, context):
-    chat_id = GetChatID(update)
+    chat_id = badge.GetChatID(update)
     answer = DB.DataBase.GetJsonLanguageBot(badge.DB, chat_id)
     print(badge.ResultSearch[str(chat_id)])
     DB.DataBase.AddBookInListRead(badge.DB, chat_id, badge.ResultSearch[str(chat_id)])
@@ -59,7 +59,7 @@ def AddBookInReadList(update, context):
     badge.ResultSearch.pop(str(chat_id))
 
 def SearchBook(update,context):
-    chat_id = GetChatID(update)
+    chat_id = badge.GetChatID(update)
     answer = DB.DataBase.GetJsonLanguageBot(badge.DB, chat_id)
     if str(chat_id) in badge.UseCommand.keys():
         if badge.UseCommand[str(chat_id)] == "SearchViaName":
@@ -97,7 +97,7 @@ def SearchBook(update,context):
         badge.UseCommand[str(chat_id)] = "SearchViaName"
 
 def UploadBook(update, context):
-    chat_id = GetChatID(update)
+    chat_id = badge.GetChatID(update)
     answer = DB.DataBase.GetJsonLanguageBot(badge.DB, chat_id)
     if str(chat_id) in badge.UseCommand.keys():
         if badge.UseCommand[str(chat_id)] == "Check":
@@ -146,7 +146,7 @@ def Str(string):
     return str(x)
 
 def Cancel(update, context):
-    chat_id = GetChatID(update)
+    chat_id = badge.GetChatID(update)
     answer = DB.DataBase.GetJsonLanguageBot(badge.DB, chat_id)
     badge.UseCommand.pop(str(chat_id))
     badge.Book.pop(str(chat_id))
@@ -163,16 +163,10 @@ def MonitorDoc(update, context):
         if res == "UploadFile": Thread.Thread(UploadBook, (update, context))
 
 def DetectFormat(update, context):
-    chat_id = GetChatID(update)
+    chat_id = badge.GetChatID(update)
     if ".epub" in badge.Book[str(chat_id)].full_file_name.lower():
         badge.Book[str(chat_id)].format = ".epub"
     elif ".pdf"in badge.Book[str(chat_id)].full_file_name.lower():
         badge.Book[str(chat_id)].format = ".pdf"
     elif ".fb2"in badge.Book[str(chat_id)].full_file_name.lower():
         badge.Book[str(chat_id)].format = ".fb2"
-
-def GetChatID(update):
-    try:
-        return update.callback_query.message.chat_id
-    except Exception:
-        return update.message.chat_id

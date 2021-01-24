@@ -1,4 +1,4 @@
-import Quotes, start, help, weather, Evtuh, text,  CreateVoice, DogAndCat, InlineQuery, os, Meme, Youtube, Translate, DB, badge, Keyboard, Setting, Rest, Cut, File, Book
+import Quotes, start, help, weather, Evtuh, text,  CreateVoice, DogAndCat, InlineQuery, os, Meme, Youtube, Translate, DB, badge, Keyboard, Setting, Rest, Cut, File, Book, Convert
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, InlineQueryHandler, CallbackQueryHandler
 
 def main():
@@ -24,6 +24,7 @@ def main():
     rest_command_handler = CommandHandler("Rest",Rest.Rest)
     cute_command_handler = CommandHandler("Cut", Cut.CutStart)
     book_command_handler = CommandHandler("Book", Book.MenuBook)
+    convert_command_handler = CommandHandler("Convert", Convert.convert)
     callback_query_handler = CallbackQueryHandler(Keyboard.button)
     text_message_handler = MessageHandler(Filters.text, text.text)
     file_message_handler = MessageHandler(Filters.audio | Filters.video | Filters.animation, File.file)
@@ -44,6 +45,7 @@ def main():
     dispatcher.add_handler(youtube_command_handler)
     dispatcher.add_handler(translate_command_handler)
     dispatcher.add_handler(settingtranslate_command_handler)
+    dispatcher.add_handler(convert_command_handler)
     dispatcher.add_handler(callback_query_handler)
     dispatcher.add_handler(text_message_handler)
     dispatcher.add_handler(file_message_handler)
