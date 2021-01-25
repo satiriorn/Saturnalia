@@ -69,6 +69,10 @@ def SearchBook(update,context):
             for x in result:
                 for j in range(len(x)):
                     value.append(str(x[j]))
+            if len(value) == 0:
+                context.bot.send_message(chat_id, answer["48"] + value[0],
+                                         reply_markup=Keyboard.InlineKeyboard(badge.MenuBookKeyboard, False))
+                badge.UseCommand.pop(str(chat_id))
             if len(value)==1:
                 context.bot.send_message(chat_id, answer["48"] + value[0],
                                          reply_markup=Keyboard.InlineKeyboard(badge.BookStateKeyboard, False))
