@@ -1,4 +1,4 @@
-import badge, Cut, DB, os
+import badge, Cut, DB, os, Convert, Thread
 
 def file(update, context):
     print(update)
@@ -9,8 +9,9 @@ def file(update, context):
             DB.DataBase.InsertFile(badge.DB, update.message.video.file_id)
     if str(update.message.chat_id) in badge.UseCommand.keys():
         res = badge.UseCommand[str(update.message.chat_id)]
-        if res == "CutAudio": Cut.CutAudio(update, context)
-        elif res == "CutVideo": Cut.CutVideo(update, context)
+        if res == "CutAudio": Thread.Thread(Cut.CutAudio,(update, context))
+        elif res == "CutVideo": Thread.Thread(Cut.CutVideo,(update, context))
+        elif res == "ConfirmSendVideo": Thread.Thread(Convert.convert,(update,context))
 
 def SendFile(update, context):
     fileID = DB.DataBase.GetFileId(badge.DB, update.message.chat_id)

@@ -1,5 +1,5 @@
 from pydub import AudioSegment
-import badge, DB, Youtube, os, pytube, Keyboard
+import badge, DB, os, pytube, Keyboard
 from mutagen.easyid3 import EasyID3
 from datetime import timedelta, datetime
 
@@ -8,7 +8,7 @@ def CutStart(update, context):
     context.bot.send_message(update.message.chat_id, answer["35"], reply_markup=Keyboard.InlineKeyboard(badge.CutKeyboard, False))
 
 def CutAudio(update, context):
-    chat_id = Youtube.GetChatID(update)
+    chat_id = badge.GetChatID(update)
     answer = DB.DataBase.GetJsonLanguageBot(badge.DB, chat_id)
     NameMusic, ExtractName = "", ""
     try:
@@ -57,7 +57,7 @@ def CutAudio(update, context):
         context.bot.send_message(chat_id, answer["2"])
 
 def CutVideo(update, context):
-    chat_id = Youtube.GetChatID(update)
+    chat_id = badge.GetChatID(update)
     answer = DB.DataBase.GetJsonLanguageBot(badge.DB, chat_id)
     try:
         if str(chat_id) in badge.UseCommand.keys() and update.message.text == None:
@@ -75,7 +75,7 @@ def CutVideo(update, context):
         delete(update, chat_id)
 
 def GetCutStart(update, context):
-    chat_id = Youtube.GetChatID(update)
+    chat_id = badge.GetChatID(update)
     answer = DB.DataBase.GetJsonLanguageBot(badge.DB, chat_id)
     file, name = "",""
     youtube = None
@@ -105,7 +105,7 @@ def GetCutStart(update, context):
         context.bot.send_message(chat_id, answer["2"])
 
 def GetCutEnd(update, context):
-    chat_id = Youtube.GetChatID(update)
+    chat_id = badge.GetChatID(update)
     answer = DB.DataBase.GetJsonLanguageBot(badge.DB, chat_id)
     try:
         if str(chat_id) in badge.UseCommand.keys():
@@ -116,7 +116,7 @@ def GetCutEnd(update, context):
         context.bot.send_message(chat_id, answer["2"])
 
 def Cut(update, context):
-    chat_id = Youtube.GetChatID(update)
+    chat_id = badge.GetChatID(update)
     time = str(update.message.text).split('-')
     start = GetDataTime(time[0])
     finish = GetDataTime(time[1])
