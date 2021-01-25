@@ -5,17 +5,21 @@ def InitKeyboard(NameButton):
     LevelOne = []
     LevelTwo = []
     LevelThree = []
+    LevelFour = []
     Button = []
     for i in range(len(NameButton)):
         if i<5:
             LevelOne.append(KeyboardButton(NameButton[i]))
-        elif (i>=5) and (i<9):
+        elif (i>=5) and (i<8):
             LevelTwo.append(KeyboardButton(NameButton[i]))
-        else:
+        elif (i >= 8) and (i < 12):
             LevelThree.append(KeyboardButton(NameButton[i]))
+        else:
+            LevelFour.append(KeyboardButton(NameButton[i]))
     Button.append(LevelOne)
     Button.append(LevelTwo)
     Button.append(LevelThree)
+    Button.append(LevelFour)
     return ReplyKeyboardMarkup(Button, resize_keyboard=True)
 
 def InlineKeyboard(NameButton, Status=True):
