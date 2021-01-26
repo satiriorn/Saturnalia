@@ -32,7 +32,11 @@ class DataBase:
         return self.GetValue()
 
     def SearchBook(self, Name):
-        sql = "SELECT Name FROM heroku_c93f6b06b535bb4.book WHERE Name LIKE '%{0}%';".format(Name)
+        sql = """SELECT b.Name, aut.Name FROM heroku_c93f6b06b535bb4.book b 
+                 JOIN heroku_c93f6b06b535bb4.author aut 
+                 ON aut.id_author=b.id_author
+                 WHERE b.Name LIKE '%{0}%';""".format(Name)
+
         self.GetCursor()
         self.cursor.execute(sql)
         return self.cursor

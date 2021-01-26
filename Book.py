@@ -70,24 +70,22 @@ def SearchBook(update,context):
                 for j in range(len(x)):
                     value.append(str(x[j]))
             if len(value) == 0:
-                context.bot.send_message(chat_id, answer["48"] + value[0],
+                context.bot.send_message(chat_id, answer["54"],
                                          reply_markup=Keyboard.InlineKeyboard(badge.MenuBookKeyboard, False))
                 badge.UseCommand.pop(str(chat_id))
-            if len(value)==1:
+            elif len(value) == 1:
                 context.bot.send_message(chat_id, answer["48"] + value[0],
                                          reply_markup=Keyboard.InlineKeyboard(badge.BookStateKeyboard, False))
                 badge.UseCommand.pop(str(chat_id))
                 badge.ResultSearch[str(chat_id)] = value[0]
             else:
-                for x in result:
+                for x in value:
                     val +=str(x)+"\n"
-
-                context.bot.send_message(chat_id, answer["49"] + val,
-                                         reply_markup=Keyboard.InlineKeyboard(value, False))
+                context.bot.send_message(chat_id, str(answer["49"]+"\n"+val))
+                                         #reply_markup=Keyboard.InlineKeyboard(value, False))
                 print(value)
                 badge.UseCommand.pop(str(chat_id))
                 badge.UseCommand[str(chat_id)] = "SeveralResult"
-
         elif badge.UseCommand[str(chat_id)] == "SeveralResult":
             badge.ResultSearch[str(chat_id)] = str(update.callback_query.data)
             badge.UseCommand.pop(str(chat_id))
