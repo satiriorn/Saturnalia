@@ -12,6 +12,7 @@ class Book:
 def GetFile(update, context):
     chat_id = badge.GetChatID(update)
     answer = DB.DataBase.GetJsonLanguageBot(badge.DB, chat_id)
+    print("GETFILE")
     if str(chat_id) in badge.UseCommand.keys():
         if badge.UseCommand[str(chat_id)] == "ConfirmTypeFile":
             context.bot.edit_message_text(chat_id=chat_id, text=answer["53"],
@@ -66,9 +67,14 @@ def SearchBook(update,context):
             result = DB.DataBase.SearchBook(badge.DB, update.message.text)
             value = []
             val = ""
+            key = []
+            count = 1
             for x in result:
-                for j in range(len(x)):
-                    value.append(str(x[j]))
+                val += str(count)+") "+x[0]+" — "+x[1]
+                key.append(str(count))
+                value.append(val)
+                count += 1
+                val = ""
             if len(value) == 0:
                 context.bot.send_message(chat_id, answer["54"],
                                          reply_markup=Keyboard.InlineKeyboard(badge.MenuBookKeyboard, False))
@@ -81,17 +87,21 @@ def SearchBook(update,context):
             else:
                 for x in value:
                     val +=str(x)+"\n"
-                context.bot.send_message(chat_id, str(answer["49"]+"\n"+val))
-                                         #reply_markup=Keyboard.InlineKeyboard(value, False))
+                context.bot.send_message(chat_id, str(answer["49"]+"\n"+val), reply_markup=Keyboard.InlineKeyboard(key, False))
+                badge.ResultSearch[str(chat_id)] = value
                 print(value)
                 badge.UseCommand.pop(str(chat_id))
                 badge.UseCommand[str(chat_id)] = "SeveralResult"
         elif badge.UseCommand[str(chat_id)] == "SeveralResult":
-            badge.ResultSearch[str(chat_id)] = str(update.callback_query.data)
+            val = badge.ResultSearch[str(chat_id)][int(update.callback_query.data)-1]
+            badge.ResultSearch.pop(str(chat_id))
+            print(val)
+            v = val.split("—")
+            badge.ResultSearch[str(chat_id)] = str(v[0])[3:]
             badge.UseCommand.pop(str(chat_id))
             context.bot.edit_message_text(chat_id=chat_id, text=answer["44"],
                                           message_id=update.callback_query.message.message_id)
-            context.bot.send_message(chat_id, answer["48"] + update.callback_query.data,
+            context.bot.send_message(chat_id, answer["48"] + str(val)[3:],
                                      reply_markup=Keyboard.InlineKeyboard(badge.BookStateKeyboard, False))
     else:
         context.bot.edit_message_text(chat_id=chat_id, text=answer["47"],

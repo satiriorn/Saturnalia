@@ -36,7 +36,6 @@ class DataBase:
                  JOIN heroku_c93f6b06b535bb4.author aut 
                  ON aut.id_author=b.id_author
                  WHERE b.Name LIKE '%{0}%';""".format(Name)
-
         self.GetCursor()
         self.cursor.execute(sql)
         return self.cursor
@@ -216,7 +215,7 @@ class DataBase:
         return self.GetValue()
 
     def GetFileId(self, x):
-        sql = "SELECT TelegramFileID FROM heroku_c93f6b06b535bb4.file  WHERE fileID ='%s';"%x
+        sql = "SELECT TelegramFileID FROM heroku_c93f6b06b535bb4.file  WHERE fileID ={0};".format(x)
         self.GetCursor()
         self.cursor.execute(sql)
         self.db.commit()

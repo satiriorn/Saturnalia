@@ -80,7 +80,7 @@ def button(update,context):
         Thread.Thread(Book.UploadBook, (update, context))
     elif query.data == "Додати книгу до прочитаних":
         Thread.Thread(Book.AddBookInReadList, (update,context))
-    elif query.data == "Отримати файл книги":
+    elif query.data == "Отримати файл":
         Thread.Thread(Book.GetFile,(update,context))
     else:
         Thread.Thread(Setting.ExistentialResponse,(update, context))

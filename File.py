@@ -14,7 +14,7 @@ def file(update, context):
         elif res == "ConfirmSendVideo": Thread.Thread(Convert.convert,(update,context))
 
 def SendFile(update, context):
-    fileID = DB.DataBase.GetFileId(badge.DB, update.message.chat_id)
+    fileID = DB.DataBase.GetFileId(badge.DB, str(155))
     print(fileID)
     file = context.bot.getFile(fileID)
     title =("{0}.gif").format(update.message.chat_id)
