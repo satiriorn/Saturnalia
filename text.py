@@ -14,6 +14,7 @@ def text(update,context):
             elif res == "CutEnd":Thread.Thread(Cut.Cut,(update, context))
             elif res == "Check":Thread.Thread(Book.UploadBook, (update, context))
             elif res == "SearchViaName":Thread.Thread(Book.SearchBook, (update, context))
+            elif res == "SearchViaAuthor":Thread.Thread(Book.SearchAuthor, (update, context))
         elif "погода" == update.message.text.lower():
             Thread.Thread(weather.CurrentWeather,(update, context))
         elif update.message.text.lower() == "котик":
