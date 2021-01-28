@@ -40,6 +40,12 @@ class DataBase:
         self.cursor.execute(sql)
         return self.cursor
 
+    def SearchAuthor(self, Name):
+        sql = "SELECT Name FROM heroku_c93f6b06b535bb4.author WHERE Name LIKE '%{0}%';".format(Name)
+        self.GetCursor()
+        self.cursor.execute(sql)
+        return self.cursor
+
     def GetAnswerSystem(self, chat_id):
         user_id = self.GetIdUser(chat_id)
         sql = "SELECT SystemOfAnswer FROM heroku_c93f6b06b535bb4.bot WHERE id_user = '%s'" % user_id
