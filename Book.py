@@ -35,6 +35,7 @@ def GetFile(update, context):
             DownloadBook(update, context, badge.KeyboardFormat[str(chat_id)][keys[0]], keys[0])
             badge.KeyboardFormat.pop(str(chat_id))
         else:
+            print("jopa")
             context.bot.edit_message_text(chat_id=chat_id, text=answer["52"], message_id=update.callback_query.message.message_id)
             context.bot.edit_message_reply_markup(chat_id,
                                                   reply_markup=Keyboard.InlineKeyboard(keys, False),
@@ -116,10 +117,25 @@ def SearchAuthor(update, context):
                 badge.UseCommand[str(chat_id)] = "SeveralAuthor"
         elif badge.UseCommand[str(chat_id)] == "SeveralAuthor":
             val = badge.ResultSearch[str(chat_id)][int(update.callback_query.data) - 1]
+            result = DB.DataBase.GetBookViaAuthor(badge.DB, str(val)[3:])
+            value, key, val = RefactoringData(result)
+            if len(value) == 1:
+                context.bot.send_message(chat_id, answer["58"] + "\n" + value[0][3:], reply_markup=Keyboard.InlineKeyboard(badge.BookStateKeyboard, False))
+                badge.UseCommand.pop(str(chat_id))
+                badge.ResultSearch[str(chat_id)] = str(value[0][3:])
+                print(badge.ResultSearch[str(chat_id)])
+            else:
+                context.bot.send_message(chat_id, str(answer["49"]+"\n"+val), reply_markup=Keyboard.InlineKeyboard(key, False))
+                badge.UseCommand.pop(str(chat_id))
+                badge.ResultSearch[str(chat_id)] = value
+                badge.UseCommand.pop(str(chat_id))
+                badge.UseCommand[str(chat_id)] = "SeveralBookByAuthor"
+            """
             badge.ResultSearch.pop(str(chat_id))
-            badge.ResultSearch[str(chat_id)] = str(val)[3:]
+            badge.ResultSearch[str(chat_id)] =
             context.bot.edit_message_text(chat_id=chat_id, text=answer["44"], message_id=update.callback_query.message.message_id)
             context.bot.send_message(chat_id, answer["48"] + str(val)[3:], reply_markup=Keyboard.InlineKeyboard(badge.BookStateKeyboard, False))
+            """
     else:
         context.bot.edit_message_text(chat_id=chat_id, text=answer["55"], message_id=update.callback_query.message.message_id)
         badge.UseCommand[str(chat_id)] = "SearchViaAuthor"

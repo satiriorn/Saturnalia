@@ -27,7 +27,12 @@ class DataBase:
         return self.cursor
 
     def GetIdUser(self, chat_id):
-        sql = "SELECT id_user FROM heroku_c93f6b06b535bb4.user WHERE chatID = '%s'" % chat_id
+        sql = "SELECT id_user FROM heroku_c93f6b06b535bb4.user WHERE chatID = '%s';" % chat_id
+        self.cursor.execute(sql)
+        return self.GetValue()
+
+    def GetIDAuthor(self, Name):
+        sql = "SELECT id_author FROM heroku_c93f6b06b535bb4.author WHERE Name = '{0}';".format(Name)
         self.cursor.execute(sql)
         return self.GetValue()
 
@@ -36,6 +41,13 @@ class DataBase:
                  JOIN heroku_c93f6b06b535bb4.author aut 
                  ON aut.id_author=b.id_author
                  WHERE b.Name LIKE '%{0}%';""".format(Name)
+        self.GetCursor()
+        self.cursor.execute(sql)
+        return self.cursor
+
+    def GetBookViaAuthor(self, Name):
+        id = self.GetIDAuthor(Name)
+        sql = "SELECT Name FROM heroku_c93f6b06b535bb4.book WHERE id_author={0};".format(id)
         self.GetCursor()
         self.cursor.execute(sql)
         return self.cursor
@@ -109,7 +121,6 @@ class DataBase:
         return (lambda x: self.UpdateFileId(Book) if x == "" else False)(x)
 
     def UpdateFileId(self, Book):
-        print("Update")
         sql = "UPDATE heroku_c93f6b06b535bb4.book SET {0} =({1})WHERE id_book ={2};".format(str(badge.fileformat[Book.format]),str(Book.file_id), str(self.GetIdBook(Book.Name)))
         self.GetCursor()
         self.cursor.execute(sql)
