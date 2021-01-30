@@ -117,6 +117,6 @@ CancelButton = ["Вбий все що зробив"]
 
 def GetChatID(update):
     try:
-        return update.callback_query.message.chat_id
+        return str(update.callback_query.message.chat_id)
     except Exception:
-        return update.message.chat_id
+        return str(update.message.chat_id)
