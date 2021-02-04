@@ -35,7 +35,6 @@ def GetFile(update, context):
             DownloadBook(update, context, badge.KeyboardFormat[str(chat_id)][keys[0]], keys[0])
             badge.KeyboardFormat.pop(str(chat_id))
         else:
-            print("jopa")
             context.bot.edit_message_text(chat_id=chat_id, text=answer["52"], message_id=update.callback_query.message.message_id)
             context.bot.edit_message_reply_markup(chat_id,
                                                   reply_markup=Keyboard.InlineKeyboard(keys, False),
@@ -77,13 +76,10 @@ def SearchBook(update,context):
             else:
                 context.bot.send_message(chat_id, str(answer["49"]+"\n"+val), reply_markup=Keyboard.InlineKeyboard(key, False))
                 badge.ResultSearch[str(chat_id)] = value
-                badge.UseCommand.pop(str(chat_id))
                 badge.UseCommand[str(chat_id)] = "SeveralResult"
 
         elif badge.UseCommand[str(chat_id)] == "SeveralResult":
             val = badge.ResultSearch[str(chat_id)][int(update.callback_query.data)-1]
-            badge.ResultSearch.pop(str(chat_id))
-            print(val)
             v = val.split("—")
             badge.ResultSearch[str(chat_id)] = str(v[0])[3:]
             badge.UseCommand.pop(str(chat_id))
@@ -104,52 +100,27 @@ def SearchAuthor(update, context):
             if len(value) == 0:
                 context.bot.send_message(chat_id, answer["57"], reply_markup=Keyboard.InlineKeyboard(badge.MenuBookKeyboard, False))
                 badge.UseCommand.pop(chat_id)
-            elif len(value) == 1:
-                print("s1")
-                badge.UseCommand.pop(chat_id)
-                badge.ResultSearch[chat_id] = str(value[0])[3:]
-                badge.UseCommand[chat_id] = "GetBookViaAuthor"
-                SearchAuthor(update, context)
             else:
                 context.bot.send_message(chat_id, str(answer["56"]+"\n"+val), reply_markup=Keyboard.InlineKeyboard(key, False))
                 badge.ResultSearch[chat_id] = value
-                badge.UseCommand.pop(chat_id)
-                badge.UseCommand[chat_id] = "SeveralAuthor"
+                badge.UseCommand[chat_id] = "GetBookViaAuthor"
         elif badge.UseCommand[chat_id] == "GetBookViaAuthor":
             val = badge.ResultSearch[str(chat_id)][int(update.callback_query.data) - 1]
+            print(val+"jopa")
             result = DB.DataBase.GetBookViaAuthor(badge.DB, str(val)[3:])
             value, key, val = RefactoringData(result)
-            if len(value) == 1:
-                print("s2")
-                badge.UseCommand.pop(chat_id)
-                badge.ResultSearch[chat_id] = str(value[0][3:])
-                context.bot.send_message(chat_id, str(answer["49"] + "\n" + val), reply_markup=Keyboard.InlineKeyboard(badge.BookStateKeyboard, False))
-            else:
-                context.bot.send_message(chat_id, str(answer["49"]+"\n"+val), reply_markup=Keyboard.InlineKeyboard(key, False))
-                badge.UseCommand.pop(chat_id)
-                badge.ResultSearch[chat_id] = str(value[0][3:])
-                badge.UseCommand[chat_id] = "SeveralBookByAuthor"
-                print(badge.ResultSearch[chat_id])
+            context.bot.edit_message_text(chat_id=chat_id, text=str(answer["49"] + "\n" + val), message_id = update.callback_query.message.message_id)
+            context.bot.edit_message_reply_markup(chat_id=chat_id, reply_markup= Keyboard.InlineKeyboard(key, False), message_id =update.callback_query.message.message_id)
+            badge.ResultSearch[chat_id] = str(value[0][3:])
+            badge.UseCommand[chat_id] = "SelectBookByAuthor"
+            print(badge.ResultSearch[chat_id])
         elif badge.UseCommand[chat_id] == "SelectBookByAuthor":
-            val = badge.ResultSearch[str(chat_id)][int(update.callback_query.data) - 1]
-            """
-            result = DB.DataBase.GetBookViaAuthor(badge.DB, update.callback_query.data)
-            value, key, val = RefactoringData(result)
-            if len(value) == 1:
-                context.bot.send_message(chat_id, answer["48"] + value[0][3:], reply_markup=Keyboard.InlineKeyboard(badge.BookStateKeyboard, False))
-                badge.UseCommand.pop(str(chat_id))
-                badge.ResultSearch[str(chat_id)] = value[0][3:]
-            else:
-                context.bot.send_message(chat_id, str(answer["56"]+"\n"+val), reply_markup=Keyboard.InlineKeyboard(key, False))
-                badge.ResultSearch[str(chat_id)] = value
-                badge.UseCommand.pop(str(chat_id))
-                badge.UseCommand[str(chat_id)] = "SeveralAuthor"
-            
-            badge.ResultSearch.pop(str(chat_id))
-            badge.ResultSearch[str(chat_id)] =
-            context.bot.edit_message_text(chat_id=chat_id, text=answer["44"], message_id=update.callback_query.message.message_id)
-            context.bot.send_message(chat_id, answer["48"] + str(val)[3:], reply_markup=Keyboard.InlineKeyboard(badge.BookStateKeyboard, False))
-            """
+            val = badge.ResultSearch[str(chat_id)]
+            print(val+"result")
+            badge.UseCommand.pop(str(chat_id))
+            context.bot.edit_message_text(chat_id=chat_id, text=str(answer["48"] + "\n" + val),message_id=update.callback_query.message.message_id)
+            context.bot.edit_message_reply_markup(chat_id=chat_id, reply_markup=Keyboard.InlineKeyboard(badge.BookStateKeyboard, False),
+                                                  message_id=update.callback_query.message.message_id)
     else:
         context.bot.edit_message_text(chat_id=chat_id, text=answer["55"], message_id=update.callback_query.message.message_id)
         badge.UseCommand[str(chat_id)] = "SearchViaAuthor"
@@ -163,6 +134,7 @@ def RefactoringData(result):
         key.append(str(count))
         val += str(count) + ". " + x[0] + "\n"
         count += 1
+    key.append("Відміна пошуку")
     return value, key, val
 
 def UploadBook(update, context):

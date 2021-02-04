@@ -132,8 +132,10 @@ def Cut(update, context):
     delete(update, chat_id)
 
 def get_name(update):
-    return (lambda x: x == 'private' if update.message.chat.username else DB.DataBase.GetIdUser(badge.DB, Youtube.GetChatID(update)))(
+    x =(lambda x: x == 'private' if update.message.chat.username else DB.DataBase.GetIdUser(badge.DB, badge.GetChatID(update)))(
         update.message.chat.type)
+    print(x)
+    return x
 
 def delete(update, chat_id):
     badge.UseCommand.pop(str(chat_id))
