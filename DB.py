@@ -45,6 +45,11 @@ class DataBase:
         self.cursor.execute(sql)
         return self.cursor
 
+    def CountBook(self):
+        sql = "SELECT count(*) FROM book;"
+        self.cursor.execute(sql)
+        return self.GetValue()
+
     def GetBookViaAuthor(self, Name):
         id = self.GetIDAuthor(Name)
         sql = "SELECT Name FROM heroku_c93f6b06b535bb4.book WHERE id_author={0};".format(id)
