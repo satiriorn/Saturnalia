@@ -106,19 +106,17 @@ def SearchAuthor(update, context):
                 badge.UseCommand[chat_id] = "GetBookViaAuthor"
         elif badge.UseCommand[chat_id] == "GetBookViaAuthor":
             val = badge.ResultSearch[str(chat_id)][int(update.callback_query.data) - 1]
-            print(val+"jopa")
             result = DB.DataBase.GetBookViaAuthor(badge.DB, str(val)[3:])
             value, key, val = RefactoringData(result)
+            badge.ResultSearch[chat_id] = value
             context.bot.edit_message_text(chat_id=chat_id, text=str(answer["49"] + "\n" + val), message_id = update.callback_query.message.message_id)
             context.bot.edit_message_reply_markup(chat_id=chat_id, reply_markup= Keyboard.InlineKeyboard(key, False), message_id =update.callback_query.message.message_id)
-            badge.ResultSearch[chat_id] = str(value[0][3:])
             badge.UseCommand[chat_id] = "SelectBookByAuthor"
-            print(badge.ResultSearch[chat_id])
         elif badge.UseCommand[chat_id] == "SelectBookByAuthor":
-            val = badge.ResultSearch[str(chat_id)]
-            print(val+"result")
+            val = badge.ResultSearch[chat_id][int(update.callback_query.data) - 1]
+            badge.ResultSearch[chat_id] = val[3:]
             badge.UseCommand.pop(str(chat_id))
-            context.bot.edit_message_text(chat_id=chat_id, text=str(answer["48"] + "\n" + val),message_id=update.callback_query.message.message_id)
+            context.bot.edit_message_text(chat_id=chat_id, text=str(answer["60"] + "\n" +val),message_id=update.callback_query.message.message_id)
             context.bot.edit_message_reply_markup(chat_id=chat_id, reply_markup=Keyboard.InlineKeyboard(badge.BookStateKeyboard, False),
                                                   message_id=update.callback_query.message.message_id)
     else:
@@ -127,9 +125,10 @@ def SearchAuthor(update, context):
 
 def RefactoringData(result):
     count = 1
-    value, key = [], []
+    value, key, v = [], [], []
     val = ""
     for x in result:
+        v.append(x[0])
         value.append(str(count) + ". " + x[0])
         key.append(str(count))
         val += str(count) + ". " + x[0] + "\n"
