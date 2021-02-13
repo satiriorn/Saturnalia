@@ -114,7 +114,7 @@ def SearchAuthor(update, context):
             badge.UseCommand[chat_id] = "SelectBookByAuthor"
         elif badge.UseCommand[chat_id] == "SelectBookByAuthor":
             val = badge.ResultSearch[chat_id][int(update.callback_query.data) - 1]
-            badge.ResultSearch[chat_id] = val[3:]
+            badge.ResultSearch[chat_id] = str(val)[3:]
             badge.UseCommand.pop(str(chat_id))
             context.bot.edit_message_text(chat_id=chat_id, text=str(answer["60"] + "\n" +val),message_id=update.callback_query.message.message_id)
             context.bot.edit_message_reply_markup(chat_id=chat_id, reply_markup=Keyboard.InlineKeyboard(badge.BookStateKeyboard, False),
@@ -122,6 +122,10 @@ def SearchAuthor(update, context):
     else:
         context.bot.edit_message_text(chat_id=chat_id, text=answer["55"], message_id=update.callback_query.message.message_id)
         badge.UseCommand[str(chat_id)] = "SearchViaAuthor"
+def CountBookInDB(update, context):
+    chat_id = badge.GetChatID(update)
+    val = DB.DataBase.CountBook(badge.DB)
+    context.bot.edit_message_text(chat_id=chat_id, text=val, message_id=update.callback_query.message.message_id)
 
 def RefactoringData(result):
     count = 1

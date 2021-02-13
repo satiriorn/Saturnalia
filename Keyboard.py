@@ -85,6 +85,8 @@ def button(update,context):
         Thread.Thread(Book.GetFile,(update,context))
     elif query.data == "Пошук по автору":
         Thread.Thread(Book.SearchAuthor,(update,context))
+    elif query.data == "Кількість книг":
+        Thread.Thread(Book.CountBookInDB,(update, context))
     else:
         Thread.Thread(Setting.ExistentialResponse,(update, context))
     return query
