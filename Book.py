@@ -105,6 +105,8 @@ def SearchAuthor(update, context):
                 badge.ResultSearch[chat_id] = value
                 badge.UseCommand[chat_id] = "GetBookViaAuthor"
         elif badge.UseCommand[chat_id] == "GetBookViaAuthor":
+            if update.callback_query.data == "Відміна пошуку":
+                Cancel(update, context)
             val = badge.ResultSearch[str(chat_id)][int(update.callback_query.data) - 1]
             result = DB.DataBase.GetBookViaAuthor(badge.DB, str(val)[3:])
             value, key, val = RefactoringData(result)
@@ -113,6 +115,8 @@ def SearchAuthor(update, context):
             context.bot.edit_message_reply_markup(chat_id=chat_id, reply_markup= Keyboard.InlineKeyboard(key, False), message_id =update.callback_query.message.message_id)
             badge.UseCommand[chat_id] = "SelectBookByAuthor"
         elif badge.UseCommand[chat_id] == "SelectBookByAuthor":
+            if update.callback_query.data == "Відміна пошуку":
+                Cancel(update, context)
             val = badge.ResultSearch[chat_id][int(update.callback_query.data) - 1]
             badge.ResultSearch[chat_id] = str(val)[3:]
             badge.UseCommand.pop(str(chat_id))
@@ -196,6 +200,7 @@ def Cancel(update, context):
     badge.Book.pop(str(chat_id))
     context.bot.edit_message_text(chat_id=chat_id, text=answer["51"],
                                   message_id=update.callback_query.message.message_id)
+
 def MenuBook(update, context):
     answer = DB.DataBase.GetJsonLanguageBot(badge.DB, update.message.chat_id)
     context.bot.send_message(update.message.chat_id, answer["39"], reply_markup=Keyboard.InlineKeyboard(badge.MenuBookKeyboard, False))
