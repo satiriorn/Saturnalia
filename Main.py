@@ -16,7 +16,7 @@ def main():
     voice_command_handler = CommandHandler("Voice", CreateVoice.voice)
     cat_command_handler = CommandHandler('Cat', DogAndCat.Cat_photo)
     dog_command_handler = CommandHandler('Dog', DogAndCat.Dog_photo)
-    sheva_command_handler = CommandHandler('ShevchenkoStyle', Quotes.ShevchenkoStyle)
+    sheva_command_handler = CommandHandler('Sheva', Quotes.ShevchenkoStyle)
     meme_command_handler = CommandHandler('Meme', Meme.Get_meme)
     youtube_command_handler = CommandHandler("Youtube", Youtube.Start)
     settingtranslate_command_handler = CommandHandler("SettingBot", Setting.ShowSetting)
