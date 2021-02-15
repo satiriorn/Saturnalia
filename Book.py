@@ -36,7 +36,7 @@ def GetFile(update, context):
             badge.KeyboardFormat.pop(str(chat_id))
         else:
             context.bot.edit_message_text(chat_id=chat_id, text=answer["52"], message_id=update.callback_query.message.message_id)
-            context.bot.edit_message_reply_markup(chat_id,
+            context.bot.edit_message_reply_markup(chat_id=chat_id,
                                                   reply_markup=Keyboard.InlineKeyboard(keys, False),
                                                   message_id=update.callback_query.message.message_id)
             badge.UseCommand[str(chat_id)] = "ConfirmTypeFile"
@@ -108,7 +108,7 @@ def SearchAuthor(update, context):
             if update.callback_query.data == "Відміна пошуку":
                 Cancel(update, context)
             val = badge.ResultSearch[str(chat_id)][int(update.callback_query.data) - 1]
-            result = DB.DataBase.GetBookViaAuthor(badge.DB, str(val)[3:])
+            result = DB.DataBase.GetBookViaAuthor(badge.DB, Str(val[3:]))
             value, key, val = RefactoringData(result)
             badge.ResultSearch[chat_id] = value
             context.bot.edit_message_text(chat_id=chat_id, text=str(answer["49"] + "\n" + val), message_id = update.callback_query.message.message_id)
@@ -126,6 +126,7 @@ def SearchAuthor(update, context):
     else:
         context.bot.edit_message_text(chat_id=chat_id, text=answer["55"], message_id=update.callback_query.message.message_id)
         badge.UseCommand[str(chat_id)] = "SearchViaAuthor"
+
 def CountBookInDB(update, context):
     chat_id = badge.GetChatID(update)
     val = DB.DataBase.CountBook(badge.DB)
@@ -139,7 +140,8 @@ def RefactoringData(result):
         v.append(x[0])
         value.append(str(count) + ". " + x[0])
         key.append(str(count))
-        val += str(count) + ". " + x[0] + "\n"
+        if len(x)>1: val += str(count) + ". " + x[0]+"\nАвтор: "+x[1]+"\nМова: "+badge.d[x[2]] + "\n\n"
+        else: val += str(count) + ". " + x[0]+"\n"
         count += 1
     key.append("Відміна пошуку")
     return value, key, val
