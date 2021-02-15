@@ -72,7 +72,7 @@ def SearchBook(update,context):
             elif len(value) == 1:
                 context.bot.send_message(chat_id, answer["48"] + value[0], reply_markup=Keyboard.InlineKeyboard(badge.BookStateKeyboard, False))
                 badge.UseCommand.pop(str(chat_id))
-                badge.ResultSearch[str(chat_id)] = value[0]
+                badge.ResultSearch[str(chat_id)] = str(value[0])[3:]
             else:
                 context.bot.send_message(chat_id, str(answer["49"]+"\n"+val), reply_markup=Keyboard.InlineKeyboard(key, False))
                 badge.ResultSearch[str(chat_id)] = value
@@ -108,7 +108,7 @@ def SearchAuthor(update, context):
             if update.callback_query.data == "Відміна пошуку":
                 Cancel(update, context)
             val = badge.ResultSearch[str(chat_id)][int(update.callback_query.data) - 1]
-            result = DB.DataBase.GetBookViaAuthor(badge.DB, Str(val[3:]))
+            result = DB.DataBase.GetBookViaAuthor(badge.DB, val[3:])
             value, key, val = RefactoringData(result)
             badge.ResultSearch[chat_id] = value
             context.bot.edit_message_text(chat_id=chat_id, text=str(answer["49"] + "\n" + val), message_id = update.callback_query.message.message_id)
@@ -154,7 +154,7 @@ def UploadBook(update, context):
             context.bot.send_message(chat_id, answer["43"],
                                      reply_markup=Keyboard.InlineKeyboard(badge.ConfirmKeyboard , False))
             data = (update.message.text).split('\n')
-            badge.Book[str(chat_id)] = Book(Name=Str(data[0]), Author=Str(data[1]))
+            badge.Book[str(chat_id)] = Book(Name=data[0], Author=data[1])
             badge.UseCommand.pop(str(chat_id))
             badge.UseCommand[str(chat_id)] = "Confirm"
         elif badge.UseCommand[str(chat_id)] == "Confirm":
@@ -170,14 +170,14 @@ def UploadBook(update, context):
                 badge.Book.pop(str(chat_id))
                 UploadBook(update, context)
         elif badge.UseCommand[str(chat_id)] == "BookLang":
-            badge.Book[str(chat_id)].book_lang = Str(badge.b[update.callback_query.data])
+            badge.Book[str(chat_id)].book_lang = badge.b[update.callback_query.data]
             badge.UseCommand.pop(str(chat_id))
             badge.UseCommand[str(chat_id)] = "UploadFile"
             context.bot.edit_message_text(chat_id=chat_id, text=answer["42"],
                                           message_id=update.callback_query.message.message_id)
             context.bot.edit_message_reply_markup(chat_id, reply_markup = Keyboard.InlineKeyboard(badge.CancelButton, False),message_id=update.callback_query.message.message_id)
         elif badge.UseCommand[str(chat_id)] == "UploadFile":
-            badge.Book[str(chat_id)].file_id = Str(update.message.document.file_id)
+            badge.Book[str(chat_id)].file_id = update.message.document.file_id
             badge.Book[str(chat_id)].full_file_name = update.message.document.file_name
             DetectFormat(update, context)
             result = DB.DataBase.BookSystem(badge.DB, badge.Book[str(chat_id)])
@@ -190,10 +190,6 @@ def UploadBook(update, context):
     else:
         context.bot.edit_message_text(chat_id=chat_id, text=answer["41"], message_id=update.callback_query.message.message_id)
         badge.UseCommand[str(chat_id)] = "Check"
-
-def Str(string):
-    x = '"'+string+'"'
-    return str(x)
 
 def Cancel(update, context):
     chat_id = badge.GetChatID(update)
