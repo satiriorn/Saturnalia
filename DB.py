@@ -37,7 +37,7 @@ class DataBase:
         return self.GetValue()
 
     def SearchBook(self, Name):
-        sql = """SELECT b.Name, aut.Name FROM heroku_c93f6b06b535bb4.book b 
+        sql = """SELECT b.Name, aut.Name, b.book_lang FROM heroku_c93f6b06b535bb4.book b 
                  JOIN heroku_c93f6b06b535bb4.author aut 
                  ON aut.id_author=b.id_author
                  WHERE b.Name LIKE '%{0}%';""".format(Name)
@@ -45,14 +45,24 @@ class DataBase:
         self.cursor.execute(sql)
         return self.cursor
 
+    def BookSystem(self, Book):
+        Book.Author = int(self.CheckAuthor(Book))
+        sql = "SELECT count(*) FROM heroku_c93f6b06b535bb4.book WHERE Name = {0}".format(Book.Name)
+        self.GetCursor()
+        self.cursor.execute(sql)
+        for x in self.cursor:
+            return (lambda x: self.CheckTypeFile(Book) if int(x[0]) != 0 else self.InsertBook(Book))(x)
+
     def CountBook(self):
         sql = "SELECT count(*) FROM book;"
         self.cursor.execute(sql)
         return self.GetValue()
 
     def GetBookViaAuthor(self, Name):
-        id = self.GetIDAuthor(Name)
-        sql = "SELECT Name FROM heroku_c93f6b06b535bb4.book WHERE id_author={0};".format(id)
+        sql = """SELECT b.Name, aut.Name, b.book_lang FROM heroku_c93f6b06b535bb4.book b 
+                 JOIN heroku_c93f6b06b535bb4.author aut 
+                 ON aut.id_author=b.id_author
+                 WHERE aut.Name = {0};""".format(Name)
         self.GetCursor()
         self.cursor.execute(sql)
         return self.cursor
@@ -108,14 +118,6 @@ class DataBase:
         for x in self.cursor:
             if int(x[0]) == 0:
                 self.Insert(first_name,username, chat_id, language_code, type)
-
-    def BookSystem(self, Book):
-        Book.Author = int(self.CheckAuthor(Book))
-        sql = "SELECT count(*) FROM heroku_c93f6b06b535bb4.book WHERE Name = {0}".format(Book.Name)
-        self.GetCursor()
-        self.cursor.execute(sql)
-        for x in self.cursor:
-            return (lambda x: self.CheckTypeFile(Book) if int(x[0]) != 0 else self.InsertBook(Book))(x)
 
     def CheckTypeFile(self, Book):
         sql = "SELECT {0} FROM heroku_c93f6b06b535bb4.book WHERE Name = {1}".format(badge.fileformat[Book.format], Book.Name)
