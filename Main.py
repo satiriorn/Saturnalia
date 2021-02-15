@@ -28,7 +28,7 @@ def main():
     callback_query_handler = CallbackQueryHandler(Keyboard.button)
     text_message_handler = MessageHandler(Filters.text, text.text)
     file_message_handler = MessageHandler(Filters.audio | Filters.video | Filters.animation, File.file)
-    document_message_handler = MessageHandler(Filters.document, Book.MonitorDoc)
+    document_message_handler = MessageHandler(Filters.document, Book.FileStream)
 
     dispatcher.add_handler(evtuh_command_handler)
     dispatcher.add_handler(rest_command_handler)
