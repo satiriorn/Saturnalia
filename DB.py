@@ -47,7 +47,10 @@ class DataBase:
 
     def BookSystem(self, Book):
         Book.Author = int(self.CheckAuthor(Book))
-        sql = """SELECT count(*) FROM heroku_c93f6b06b535bb4.book WHERE Name = "{0}";""".format(Book.Name)
+        sql = """SELECT count(*) FROM heroku_c93f6b06b535bb4.book b 
+                 JOIN heroku_c93f6b06b535bb4.author a 
+                 ON a.id_author=b.id_author
+                 WHERE b.Name = "{0}" and a.Name = "{1}";""".format(Book.Name, Book.Author)
         self.GetCursor()
         self.cursor.execute(sql)
         for x in self.cursor:
