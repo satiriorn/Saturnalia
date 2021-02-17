@@ -46,14 +46,16 @@ class DataBase:
         return self.cursor
 
     def BookSystem(self, Book):
-        Book.Author = int(self.CheckAuthor(Book))
         sql = """SELECT count(*) FROM heroku_c93f6b06b535bb4.book b 
                  JOIN heroku_c93f6b06b535bb4.author a 
                  ON a.id_author=b.id_author
                  WHERE b.Name = "{0}" and a.Name = "{1}";""".format(Book.Name, Book.Author)
+        Book.Author = int(self.CheckAuthor(Book))
         self.GetCursor()
         self.cursor.execute(sql)
+        print(sql)
         for x in self.cursor:
+            print(x[0])
             return (lambda x: self.CheckTypeFile(Book) if int(x[0]) != 0 else self.InsertBook(Book))(x)
 
     def CountBook(self):
@@ -101,7 +103,7 @@ class DataBase:
         return self.cursor
 
     def GetIdBook(self, Name):
-        sql = "SELECT id_book FROM heroku_c93f6b06b535bb4.book WHERE Name = {0};".format(Name)
+        sql = """SELECT id_book FROM heroku_c93f6b06b535bb4.book WHERE Name = "{0}";""".format(Name)
         self.GetCursor()
         self.cursor.execute(sql)
         return self.GetValue()
@@ -131,7 +133,7 @@ class DataBase:
         return (lambda x: self.UpdateFileId(Book) if x == "" else False)(x)
 
     def UpdateFileId(self, Book):
-        sql = "UPDATE heroku_c93f6b06b535bb4.book SET {0} =({1})WHERE id_book ={2};".format(str(badge.fileformat[Book.format]),str(Book.file_id), str(self.GetIdBook(Book.Name)))
+        sql = """UPDATE heroku_c93f6b06b535bb4.book SET {0} =("{1}")WHERE id_book ="{2}";""".format(str(badge.fileformat[Book.format]),str(Book.file_id), str(self.GetIdBook(Book.Name)))
         self.GetCursor()
         self.cursor.execute(sql)
         self.db.commit()
