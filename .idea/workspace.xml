@@ -85,7 +85,8 @@
       <workItem from="1613201899654" duration="15618000" />
       <workItem from="1613295732735" duration="20284000" />
       <workItem from="1613378061382" duration="8155000" />
-      <workItem from="1613417283137" duration="16008000" />
+      <workItem from="1613417283137" duration="16356000" />
+      <workItem from="1613548205434" duration="8998000" />
     </task>
     <task id="LOCAL-00001" summary="fix search by author">
       <created>1613223385038</created>
@@ -136,7 +137,14 @@
       <option name="project" value="LOCAL" />
       <updated>1613425398928</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="refactoring add book in database">
+      <created>1613512340438</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1613512340438</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -160,9 +168,10 @@
     <MESSAGE value="fix sheva&amp;book" />
     <MESSAGE value="fix book" />
     <MESSAGE value="refactoring book&amp;DB" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactoring book&amp;DB" />
+    <MESSAGE value="refactoring add book in database" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactoring add book in database" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/IMafina$Main.coverage" NAME="Main Coverage Results" MODIFIED="1613511990181" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/IMafina$Main.coverage" NAME="Main Coverage Results" MODIFIED="1613558180242" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
