@@ -59,6 +59,22 @@ def AddBookInReadList(update, context):
                                   message_id=update.callback_query.message.message_id)
     badge.ResultSearch.pop(str(chat_id))
 
+def SendListReadBooks(update, context):
+    chat_id = badge.GetChatID(update)
+    answer = DB.DataBase.GetJsonLanguageBot(badge.DB, chat_id)
+    result = DB.DataBase.GetBookInReadList(badge.DB, chat_id)
+    value, key, val = RefactoringData(result)
+    if len(value) == 0:
+        context.bot.send_message(chat_id, answer["62"],
+                                 reply_markup=Keyboard.InlineKeyboard(badge.MenuBookKeyboard, False))
+        badge.UseCommand.pop(str(chat_id))
+    else:
+        context.bot.edit_message_text(chat_id=chat_id, text=str(answer["56"] + "\n" + val),
+                                      message_id=update.callback_query.message.message_id)
+        context.bot.edit_message_reply_markup(chat_id=chat_id, reply_markup=Keyboard.InlineKeyboard(key, False),
+                                              message_id=update.callback_query.message.message_id)
+        badge.ResultSearch[chat_id] = value
+        #badge.UseCommand[chat_id] = "GetBookViaAuthor"
 def SearchBook(update,context):
     chat_id = badge.GetChatID(update)
     answer = DB.DataBase.GetJsonLanguageBot(badge.DB, chat_id)

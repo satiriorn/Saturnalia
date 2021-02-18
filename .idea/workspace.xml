@@ -3,7 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="f6037ee2-592e-4cb2-8437-4e80876bfeba" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Book.py" beforeDir="false" afterPath="$PROJECT_DIR$/Book.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DB.py" beforeDir="false" afterPath="$PROJECT_DIR$/DB.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Keyboard.py" beforeDir="false" afterPath="$PROJECT_DIR$/Keyboard.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/languages/uk.json" beforeDir="false" afterPath="$PROJECT_DIR$/languages/uk.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,6 +22,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
@@ -86,7 +90,9 @@
       <workItem from="1613295732735" duration="20284000" />
       <workItem from="1613378061382" duration="8155000" />
       <workItem from="1613417283137" duration="16356000" />
-      <workItem from="1613548205434" duration="8998000" />
+      <workItem from="1613548205434" duration="9666000" />
+      <workItem from="1613635642131" duration="3300000" />
+      <workItem from="1613666260751" duration="10325000" />
     </task>
     <task id="LOCAL-00001" summary="fix search by author">
       <created>1613223385038</created>
@@ -144,7 +150,14 @@
       <option name="project" value="LOCAL" />
       <updated>1613512340438</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="refactoring request for add book in database">
+      <created>1613597654330</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1613597654330</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -169,9 +182,10 @@
     <MESSAGE value="fix book" />
     <MESSAGE value="refactoring book&amp;DB" />
     <MESSAGE value="refactoring add book in database" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactoring add book in database" />
+    <MESSAGE value="refactoring request for add book in database" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactoring request for add book in database" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/IMafina$Main.coverage" NAME="Main Coverage Results" MODIFIED="1613558180242" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/IMafina$Main.coverage" NAME="Main Coverage Results" MODIFIED="1613683783047" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
