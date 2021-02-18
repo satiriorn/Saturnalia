@@ -41,52 +41,55 @@ def button(update,context):
     print(query.data)
     if str(update.callback_query.message.chat_id) in badge.UseCommand.keys():
         res = badge.UseCommand[str(update.callback_query.message.chat_id)]
-        if res == "Rest": Thread.Thread(Rest.Rest,(update, context, False))
-        elif res == "MemeChange": Thread.Thread(Meme.MoreMeme,(update, context))
-        elif res == "SettingTranslate": Thread.Thread(Setting.SettingTranslate,(update, context))
-        elif res == "Dologusha": Thread.Thread(Dologusha.start,(update, context))
-        elif res == "LangBot": Thread.Thread(Setting.LanguageBot,(update, context))
-        elif res == "Confirm" or res == "Check"or res == "BookLang"or res == "FormatBook":  Thread.Thread(Book.UploadBook, (update, context))
-        elif res == "SeveralResult":Thread.Thread(Book.SearchBook,(update,context))
-        elif res == "ConfirmTypeFile":Thread.Thread(Book.GetFile,(update,context))
-        elif res == "GetBookViaAuthor"or res == "SelectBookByAuthor":Thread.Thread(Book.SearchAuthor,(update,context))
+        if res == "Rest": Thread.Thread(Rest.Rest, (update, context, False))
+        elif res == "MemeChange": Thread.Thread(Meme.MoreMeme, (update, context))
+        elif res == "SettingTranslate": Thread.Thread(Setting.SettingTranslate, (update, context))
+        elif res == "Dologusha": Thread.Thread(Dologusha.start, (update, context))
+        elif res == "LangBot": Thread.Thread(Setting.LanguageBot, (update, context))
+        elif res == "Confirm" or res == "Check"or res == "BookLang"or res == "FormatBook": Thread.Thread(Book.UploadBook, (update, context))
+        elif res == "SeveralResult":Thread.Thread(Book.SearchBook, (update, context))
+        elif res == "ConfirmTypeFile":Thread.Thread(Book.GetFile, (update, context))
+        elif res == "GetBookViaAuthor"or res == "SelectBookByAuthor": Thread.Thread(Book.SearchAuthor, (update, context))
         elif query.data == badge.CancelButton[0]: Thread.Thread(Book.Cancel, (update, context))
     elif query.data == "0":
-        Thread.Thread(Setting.SettingTranslate,(update ,context))
+        Thread.Thread(Setting.SettingTranslate, (update, context))
     elif query.data =="1":
-        Thread.Thread(Setting.LanguageBot, (update,context))
+        Thread.Thread(Setting.LanguageBot, (update, context))
     elif query.data == "2":
-        Thread.Thread(weather.StateWeather, (update,context))
+        Thread.Thread(weather.StateWeather, (update, context))
     elif query.data == "3":
-        Thread.Thread(DogAndCat.SysAnimal, (update,context))
+        Thread.Thread(DogAndCat.SysAnimal, (update, context))
     elif query.data == "4":
         Thread.Thread(Meme.CountMem,(update, context))
     elif query.data == "5":
-        Thread.Thread(Setting.SettingAnswer,(update, context))
+        Thread.Thread(Setting.SettingAnswer, (update, context))
     elif query.data == "Скачати Відео":
-        Thread.Thread(Youtube.Get_Video,(update, context))
+        Thread.Thread(Youtube.Get_Video, (update, context))
     elif query.data == "Скачати Аудіо":
-        Thread.Thread(Youtube.Get_Audio,(update, context))
+        Thread.Thread(Youtube.Get_Audio, (update, context))
     elif query.data == "Обрізати Відео":
-        Thread.Thread(Cut.CutVideo,(update, context))
+        Thread.Thread(Cut.CutVideo, (update, context))
     elif query.data == "Обрізати Аудіо":
-        Thread.Thread(Cut.CutAudio,(update, context))
+        Thread.Thread(Cut.CutAudio, (update, context))
     elif query.data == "Скачати та Обрізати":
-        Thread.Thread(Cut.GetCutStart,(update, context))
+        Thread.Thread(Cut.GetCutStart, (update, context))
     elif query.data == badge.CancelButton[0]:
-        Thread.Thread(Book.Cancel,(update,context))
+        Thread.Thread(Book.Cancel, (update, context))
     elif query.data == "Пошук по назві":
-        Thread.Thread(Book.SearchBook,(update,context))
+        Thread.Thread(Book.SearchBook, (update, context))
     elif query.data == "Додати книгу":
         Thread.Thread(Book.UploadBook, (update, context))
-    elif query.data == "Додати книгу до прочитаних":
-        Thread.Thread(Book.AddBookInReadList, (update,context))
     elif query.data == "Отримати файл":
-        Thread.Thread(Book.GetFile,(update,context))
+        Thread.Thread(Book.GetFile, (update, context))
     elif query.data == "Пошук по автору":
-        Thread.Thread(Book.SearchAuthor,(update,context))
+        Thread.Thread(Book.SearchAuthor, (update, context))
     elif query.data == "Кількість книг":
-        Thread.Thread(Book.CountBookInDB,(update, context))
+        Thread.Thread(Book.CountBookInDB, (update, context))
+    elif query.data == "Додати до прочитаних":
+        Thread.Thread(Book.AddBookInReadList, (update, context))
+    elif query.data == "Cписок прочитаних книг":
+        print("jipa")
+        Thread.Thread(Book.SendListReadBooks, (update, context))
     else:
-        Thread.Thread(Setting.ExistentialResponse,(update, context))
+        Thread.Thread(Setting.ExistentialResponse, (update, context))
     return query
