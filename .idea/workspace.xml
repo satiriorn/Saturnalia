@@ -4,9 +4,6 @@
     <list default="true" id="f6037ee2-592e-4cb2-8437-4e80876bfeba" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Book.py" beforeDir="false" afterPath="$PROJECT_DIR$/Book.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DB.py" beforeDir="false" afterPath="$PROJECT_DIR$/DB.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Keyboard.py" beforeDir="false" afterPath="$PROJECT_DIR$/Keyboard.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/languages/uk.json" beforeDir="false" afterPath="$PROJECT_DIR$/languages/uk.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -92,7 +89,7 @@
       <workItem from="1613417283137" duration="16356000" />
       <workItem from="1613548205434" duration="9666000" />
       <workItem from="1613635642131" duration="3300000" />
-      <workItem from="1613666260751" duration="10325000" />
+      <workItem from="1613666260751" duration="11269000" />
     </task>
     <task id="LOCAL-00001" summary="fix search by author">
       <created>1613223385038</created>
@@ -157,7 +154,14 @@
       <option name="project" value="LOCAL" />
       <updated>1613597654330</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="list read v1.0">
+      <created>1613684680244</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1613684680244</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -183,9 +187,10 @@
     <MESSAGE value="refactoring book&amp;DB" />
     <MESSAGE value="refactoring add book in database" />
     <MESSAGE value="refactoring request for add book in database" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactoring request for add book in database" />
+    <MESSAGE value="list read v1.0" />
+    <option name="LAST_COMMIT_MESSAGE" value="list read v1.0" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/IMafina$Main.coverage" NAME="Main Coverage Results" MODIFIED="1613683783047" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/IMafina$Main.coverage" NAME="Main Coverage Results" MODIFIED="1613685503923" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

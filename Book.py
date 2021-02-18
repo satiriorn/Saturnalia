@@ -62,19 +62,32 @@ def AddBookInReadList(update, context):
 def SendListReadBooks(update, context):
     chat_id = badge.GetChatID(update)
     answer = DB.DataBase.GetJsonLanguageBot(badge.DB, chat_id)
-    result = DB.DataBase.GetBookInReadList(badge.DB, chat_id)
-    value, key, val = RefactoringData(result)
-    if len(value) == 0:
-        context.bot.send_message(chat_id, answer["62"],
-                                 reply_markup=Keyboard.InlineKeyboard(badge.MenuBookKeyboard, False))
-        badge.UseCommand.pop(str(chat_id))
+    if str(chat_id) in badge.UseCommand.keys():
+        if badge.UseCommand[chat_id] == "GetBook":
+            if update.callback_query.data == "Відміна пошуку":
+                Cancel(update, context)
+            val = badge.ResultSearch[str(chat_id)][int(update.callback_query.data) - 1]
+            badge.ResultSearch[chat_id] = str(val)[3:]
+            badge.UseCommand.pop(str(chat_id))
+            context.bot.edit_message_text(chat_id=chat_id, text=str(answer["60"] + "\n" +val),message_id=update.callback_query.message.message_id)
+            context.bot.edit_message_reply_markup(chat_id=chat_id, reply_markup=Keyboard.InlineKeyboard(badge.BookStateKeyboard, False),
+                                                  message_id=update.callback_query.message.message_id)
     else:
-        context.bot.edit_message_text(chat_id=chat_id, text=str(answer["56"] + "\n" + val),
-                                      message_id=update.callback_query.message.message_id)
-        context.bot.edit_message_reply_markup(chat_id=chat_id, reply_markup=Keyboard.InlineKeyboard(key, False),
-                                              message_id=update.callback_query.message.message_id)
-        badge.ResultSearch[chat_id] = value
-        #badge.UseCommand[chat_id] = "GetBookViaAuthor"
+        result = DB.DataBase.GetBookInReadList(badge.DB, chat_id)
+        value, key, val = RefactoringData(result)
+        if len(value) == 0:
+            context.bot.send_message(chat_id, answer["62"],
+                                     reply_markup=Keyboard.InlineKeyboard(badge.MenuBookKeyboard, False))
+            badge.UseCommand.pop(str(chat_id))
+        else:
+            context.bot.edit_message_text(chat_id=chat_id, text=str(answer["56"] + "\n" + val),
+                                          message_id=update.callback_query.message.message_id)
+            context.bot.edit_message_reply_markup(chat_id=chat_id, reply_markup=Keyboard.InlineKeyboard(key, False),
+                                                  message_id=update.callback_query.message.message_id)
+            badge.ResultSearch[chat_id] = value
+            badge.UseCommand[chat_id] = "GetBook"
+
+
 def SearchBook(update,context):
     chat_id = badge.GetChatID(update)
     answer = DB.DataBase.GetJsonLanguageBot(badge.DB, chat_id)

@@ -50,6 +50,7 @@ def button(update,context):
         elif res == "SeveralResult":Thread.Thread(Book.SearchBook, (update, context))
         elif res == "ConfirmTypeFile":Thread.Thread(Book.GetFile, (update, context))
         elif res == "GetBookViaAuthor"or res == "SelectBookByAuthor": Thread.Thread(Book.SearchAuthor, (update, context))
+        elif res == "GetBook":Thread.Thread(Book.SendListReadBooks, (update, context))
         elif query.data == badge.CancelButton[0]: Thread.Thread(Book.Cancel, (update, context))
     elif query.data == "0":
         Thread.Thread(Setting.SettingTranslate, (update, context))
