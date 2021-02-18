@@ -111,7 +111,8 @@ YoutubeKeyboard = ["Скачати Відео", "Скачати Аудіо", "С
 CutKeyboard = ["Обрізати Відео", "Обрізати Аудіо", "Скачати та Обрізати"]
 MenuBookKeyboard = ["Додати книгу", "Пошук по автору", "Пошук по назві", "Кількість книг", "Cписок прочитаних книг"]
 ConfirmKeyboard = ["Так", "Ні"]
-BookStateKeyboard = ["Додати до прочитаних", "Отримати файл", "Нічого не треба"]
+BookStateKeyboard = ["Додати до списку", "Отримати файл", "Нічого не треба"]
+BookStateKeyboardDelete = ["Видалити зі списку", BookStateKeyboard[1], BookStateKeyboard[2]]
 FormatBookKeyboard = [".epub", ".fb2", ".pdf"]
 CancelButton = ["Вбий все що зробив"]
 

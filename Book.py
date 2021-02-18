@@ -70,7 +70,7 @@ def SendListReadBooks(update, context):
             badge.ResultSearch[chat_id] = str(val)[3:]
             badge.UseCommand.pop(str(chat_id))
             context.bot.edit_message_text(chat_id=chat_id, text=str(answer["60"] + "\n" +val),message_id=update.callback_query.message.message_id)
-            context.bot.edit_message_reply_markup(chat_id=chat_id, reply_markup=Keyboard.InlineKeyboard(badge.BookStateKeyboard, False),
+            context.bot.edit_message_reply_markup(chat_id=chat_id, reply_markup=Keyboard.InlineKeyboard(badge.BookStateKeyboardDelete, False),
                                                   message_id=update.callback_query.message.message_id)
     else:
         result = DB.DataBase.GetBookInReadList(badge.DB, chat_id)
@@ -247,3 +247,10 @@ def DetectFormat(update, context):
         badge.Book[str(chat_id)].format = ".pdf"
     elif ".fb2"in badge.Book[str(chat_id)].full_file_name.lower():
         badge.Book[str(chat_id)].format = ".fb2"
+
+def DeleteInReadList(update, context):
+    chat_id = badge.GetChatID(update)
+    answer = DB.DataBase.GetJsonLanguageBot(badge.DB, chat_id)
+    DB.DataBase.DeleteBookInReadList(badge.DB, chat_id, badge.ResultSearch[chat_id])
+    context.bot.edit_message_text(chat_id=chat_id, text=answer["63"],
+                                  message_id=update.callback_query.message.message_id)

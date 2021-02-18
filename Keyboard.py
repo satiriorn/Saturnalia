@@ -86,11 +86,12 @@ def button(update,context):
         Thread.Thread(Book.SearchAuthor, (update, context))
     elif query.data == "Кількість книг":
         Thread.Thread(Book.CountBookInDB, (update, context))
-    elif query.data == "Додати до прочитаних":
+    elif query.data == "Додати до списку":
         Thread.Thread(Book.AddBookInReadList, (update, context))
     elif query.data == "Cписок прочитаних книг":
-        print("jipa")
         Thread.Thread(Book.SendListReadBooks, (update, context))
+    elif query.data == "Видалити зі списку":
+        Thread.Thread(Book.DeleteInReadList, (update, context))
     else:
         Thread.Thread(Setting.ExistentialResponse, (update, context))
     return query
