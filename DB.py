@@ -84,8 +84,16 @@ class DataBase:
         self.cursor.execute(sql)
         return self.cursor
 
+    def DeleteBookInReadList(self, chat_id, Name):
+        user_id = self.GetIdUser(chat_id)
+        id_book = self.GetIdBook(Name)
+        sql = """DELETE FROM heroku_c93f6b06b535bb4.list_read_book WHERE id_book = "{0}" and id_user = "{1}";""".format(id_book, user_id)
+        self.GetCursor()
+        self.cursor.execute(sql)
+        self.db.commit()
+
     def SearchAuthor(self, Name):
-        sql = "SELECT Name FROM heroku_c93f6b06b535bb4.author WHERE Name LIKE '%{0}%';".format(Name)
+        sql = """SELECT Name FROM heroku_c93f6b06b535bb4.author WHERE Name LIKE "%{0}%";""".format(Name)
         self.GetCursor()
         self.cursor.execute(sql)
         return self.cursor
@@ -102,7 +110,6 @@ class DataBase:
         value = self.GetAnswerSystem(chat_id)
         sql = "UPDATE heroku_c93f6b06b535bb4.bot SET SystemOfAnswer =(%s)WHERE id_user =%s;"
         v = (lambda x: False if x else True)(value)
-        print(v)
         val = (v, user_id)
         self.GetCursor()
         self.cursor.execute(sql,val)
