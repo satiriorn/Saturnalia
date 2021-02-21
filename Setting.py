@@ -1,11 +1,11 @@
 import badge, Keyboard, DB
 
 def ShowSetting(update, context):
-    answer = DB.DataBase.GetJsonLanguageBot(badge.DB, update.message.chat_id)
-    context.bot.send_message(update.message.chat_id,answer["9"], reply_markup=Keyboard.InlineKeyboard(badge.Setting))
+    answer, lang = DB.DataBase.GetJsonLanguageBot(badge.DB, update.message.chat_id)
+    context.bot.send_message(update.message.chat_id,answer["9"], reply_markup=Keyboard.InlineKeyboard(badge.Setting[lang]))
 
 def SettingTranslate(update,context):
-    answer = DB.DataBase.GetJsonLanguageBot(badge.DB, update.callback_query.message.chat_id)
+    answer, lang = DB.DataBase.GetJsonLanguageBot(badge.DB, update.callback_query.message.chat_id)
     if str(update.callback_query.message.chat_id) in badge.UseCommand.keys():
         if badge.UseCommand[str(update.callback_query.message.chat_id)] == "SettingTranslate":
             DB.DataBase.VerificationLanguage(badge.DB, update.callback_query.message.chat_id,
@@ -19,7 +19,7 @@ def SettingTranslate(update,context):
         badge.UseCommand[str(update.callback_query.message.chat_id)] = "SettingTranslate"
 
 def LanguageBot(update, context):
-    answer = DB.DataBase.GetJsonLanguageBot(badge.DB, update.callback_query.message.chat_id)
+    answer, lang = DB.DataBase.GetJsonLanguageBot(badge.DB, update.callback_query.message.chat_id)
     if str(update.callback_query.message.chat_id) in badge.UseCommand.keys():
         if badge.UseCommand[str(update.callback_query.message.chat_id)] == "LangBot":
             DB.DataBase.VerificationLanguage(badge.DB, update.callback_query.message.chat_id,
@@ -35,7 +35,7 @@ def LanguageBot(update, context):
         badge.UseCommand[str(update.callback_query.message.chat_id)] = "LangBot"
 def SettingAnswer(update, context):
     chat_id = update.callback_query.message.chat_id
-    answer = DB.DataBase.GetJsonLanguageBot(badge.DB, update.callback_query.message.chat_id)
+    answer, lang = DB.DataBase.GetJsonLanguageBot(badge.DB, update.callback_query.message.chat_id)
     DB.DataBase.ChangeAnswerSystem(badge.DB, chat_id)
     context.bot.edit_message_text(chat_id=update.callback_query.message.chat_id,
                                   text=answer["37"],
@@ -43,7 +43,7 @@ def SettingAnswer(update, context):
 
 
 def ExistentialResponse(update, context):
-    answer = DB.DataBase.GetJsonLanguageBot(badge.DB, update.callback_query.message.chat_id)
+    answer, lang = DB.DataBase.GetJsonLanguageBot(badge.DB, update.callback_query.message.chat_id)
     context.bot.edit_message_text(chat_id=update.callback_query.message.chat_id,
                                   text=answer["13"],
                                   message_id=update.callback_query.message.message_id)

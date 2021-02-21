@@ -3,7 +3,7 @@ import badge, DB, CreateVoice
 
 def translate(update, context):
     chat_id = update.message.chat_id
-    answer = DB.DataBase.GetJsonLanguageBot(badge.DB, chat_id)
+    answer, lang = DB.DataBase.GetJsonLanguageBot(badge.DB, chat_id)
     try:
         if str(update.message.chat_id) in badge.UseCommand.keys():
             if badge.UseCommand[str(update.message.chat_id)] == "Translate":

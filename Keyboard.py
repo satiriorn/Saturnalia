@@ -51,7 +51,7 @@ def button(update,context):
         elif res == "ConfirmTypeFile":Thread.Thread(Book.GetFile, (update, context))
         elif res == "GetBookViaAuthor"or res == "SelectBookByAuthor": Thread.Thread(Book.SearchAuthor, (update, context))
         elif res == "GetBook":Thread.Thread(Book.SendListReadBooks, (update, context))
-        elif query.data == badge.CancelButton[0]: Thread.Thread(Book.Cancel, (update, context))
+        elif query.data == badge.CancelButton["uk"][0] or query.data == badge.CancelButton["en"][0]or query.data == badge.CancelButton["be"][0]: Thread.Thread(Book.Cancel, (update, context))
     elif query.data == "0":
         Thread.Thread(Setting.SettingTranslate, (update, context))
     elif query.data =="1":
@@ -64,33 +64,33 @@ def button(update,context):
         Thread.Thread(Meme.CountMem,(update, context))
     elif query.data == "5":
         Thread.Thread(Setting.SettingAnswer, (update, context))
-    elif query.data == "Скачати Відео":
+    elif query.data == badge.YoutubeKeyboard["uk"][0] or query.data == badge.YoutubeKeyboard["en"][0] or query.data == badge.YoutubeKeyboard["be"][0]:
         Thread.Thread(Youtube.Get_Video, (update, context))
-    elif query.data == "Скачати Аудіо":
+    elif query.data == badge.YoutubeKeyboard["uk"][1] or query.data == badge.YoutubeKeyboard["en"][1] or query.data == badge.YoutubeKeyboard["be"][1]:
         Thread.Thread(Youtube.Get_Audio, (update, context))
-    elif query.data == "Обрізати Відео":
+    elif query.data == badge.CutKeyboard["uk"][0] or query.data == badge.CutKeyboard["en"][0] or query.data == badge.CutKeyboard["be"][0]:
         Thread.Thread(Cut.CutVideo, (update, context))
-    elif query.data == "Обрізати Аудіо":
+    elif query.data == badge.CutKeyboard["uk"][1] or query.data == badge.CutKeyboard["en"][1] or query.data == badge.CutKeyboard["be"][1]:
         Thread.Thread(Cut.CutAudio, (update, context))
-    elif query.data == "Скачати та Обрізати":
+    elif query.data == badge.YoutubeKeyboard["uk"][2] or query.data == badge.YoutubeKeyboard["en"][2] or query.data == badge.YoutubeKeyboard["be"][2]:
         Thread.Thread(Cut.GetCutStart, (update, context))
-    elif query.data == badge.CancelButton[0]:
+    elif query.data == badge.CancelButton["uk"][0] or query.data == badge.CancelButton["en"][0]or query.data == badge.CancelButton["be"][0]:
         Thread.Thread(Book.Cancel, (update, context))
-    elif query.data == "Пошук по назві":
+    elif query.data == badge.MenuBookKeyboard["uk"][2] or query.data == badge.MenuBookKeyboard["en"][2] or query.data == badge.MenuBookKeyboard["be"][2]:
         Thread.Thread(Book.SearchBook, (update, context))
-    elif query.data == "Додати книгу":
+    elif query.data == badge.MenuBookKeyboard["uk"][0] or query.data == badge.MenuBookKeyboard["en"][0] or query.data == badge.MenuBookKeyboard["be"][0]:
         Thread.Thread(Book.UploadBook, (update, context))
-    elif query.data == "Отримати файл":
+    elif query.data == badge.BookStateKeyboard["uk"][1] or query.data == badge.BookStateKeyboard["en"][1] or query.data == badge.BookStateKeyboard["be"][1]:
         Thread.Thread(Book.GetFile, (update, context))
-    elif query.data == "Пошук по автору":
+    elif query.data == badge.MenuBookKeyboard["uk"][1] or query.data == badge.MenuBookKeyboard["en"][1] or query.data == badge.MenuBookKeyboard["be"][1]:
         Thread.Thread(Book.SearchAuthor, (update, context))
-    elif query.data == "Кількість книг":
+    elif query.data == badge.MenuBookKeyboard["uk"][3] or query.data == badge.MenuBookKeyboard["en"][3] or query.data == badge.MenuBookKeyboard["be"][3]:
         Thread.Thread(Book.CountBookInDB, (update, context))
-    elif query.data == "Додати до списку":
+    elif query.data == badge.BookStateKeyboard["uk"][0] or query.data == badge.BookStateKeyboard["en"][0] or query.data == badge.BookStateKeyboard["be"][0]:
         Thread.Thread(Book.AddBookInReadList, (update, context))
-    elif query.data == "Cписок прочитаних книг":
+    elif query.data == badge.MenuBookKeyboard["uk"][4] or query.data == badge.MenuBookKeyboard["en"][4] or query.data == badge.MenuBookKeyboard["be"][4]:
         Thread.Thread(Book.SendListReadBooks, (update, context))
-    elif query.data == "Видалити зі списку":
+    elif query.data == badge.BookStateKeyboardDelete["uk"][0] or query.data == badge.BookStateKeyboardDelete["en"][0] or query.data == badge.BookStateKeyboardDelete["be"][0]:
         Thread.Thread(Book.DeleteInReadList, (update, context))
     else:
         Thread.Thread(Setting.ExistentialResponse, (update, context))

@@ -25,7 +25,7 @@ def _patch_faulty_function(self):
 Token._get_token_key = _patch_faulty_function
 
 def voice(update,context):
-    answer = DB.DataBase.GetJsonLanguageBot(badge.DB, update.message.chat_id)
+    answer, lang = DB.DataBase.GetJsonLanguageBot(badge.DB, update.message.chat_id)
     mp3_name = str(update.message.chat_id)+'.mp3'
     file = shutil.copy(r'voice.mp3', mp3_name)
     try:

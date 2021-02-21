@@ -1,15 +1,16 @@
 import badge, DB, telegram.ext, Keyboard, Url, datetime
 
 def Get_meme(update, context):
-    answer = DB.DataBase.GetJsonLanguageBot(badge.DB, update.message.chat_id)
+    answer, lang = DB.DataBase.GetJsonLanguageBot(badge.DB, update.message.chat_id)
     try:
         Url.Photo(Url.get_url('https://meme-api.herokuapp.com/gimme'), update, context)
     except Exception:
         context.bot.send_message(update.message.chat_id, answer["3"])
 
 def CountMem(update, context):
-    context.bot.edit_message_text(chat_id=update.callback_query.message.chat_id, text="Оберіть кількість мемів:",
-                                  reply_markup=Keyboard.InlineKeyboard(badge.CountMeme),
+    answer, lang = DB.DataBase.GetJsonLanguageBot(badge.DB, update.message.chat_id)
+    context.bot.edit_message_text(chat_id=update.callback_query.message.chat_id, text=answer["64"],
+                                  reply_markup=Keyboard.InlineKeyboard(badge.CountMeme[lang]),
                                   message_id=update.callback_query.message.message_id)
     badge.UseCommand[str(update.callback_query.message.chat_id)] = "MemeChange"
 
