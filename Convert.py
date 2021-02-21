@@ -3,7 +3,7 @@ import badge, DB, os
 
 def convert(update,context):
     chat_id = badge.GetChatID(update)
-    answer = DB.DataBase.GetJsonLanguageBot(badge.DB, chat_id)
+    answer, lang = DB.DataBase.GetJsonLanguageBot(badge.DB, chat_id)
     if str(chat_id) in badge.UseCommand.keys():
         if badge.UseCommand[str(chat_id)] == "ConfirmSendVideo":
             file = context.bot.getFile(update.message.video.file_id)

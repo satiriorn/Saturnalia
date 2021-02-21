@@ -4,12 +4,12 @@ from mutagen.easyid3 import EasyID3
 from datetime import timedelta, datetime
 
 def CutStart(update, context):
-    answer = DB.DataBase.GetJsonLanguageBot(badge.DB, update.message.chat_id)
-    context.bot.send_message(update.message.chat_id, answer["35"], reply_markup=Keyboard.InlineKeyboard(badge.CutKeyboard, False))
+    answer, lang = DB.DataBase.GetJsonLanguageBot(badge.DB, update.message.chat_id)
+    context.bot.send_message(update.message.chat_id, answer["35"], reply_markup=Keyboard.InlineKeyboard(badge.CutKeyboard[lang], False))
 
 def CutAudio(update, context):
     chat_id = badge.GetChatID(update)
-    answer = DB.DataBase.GetJsonLanguageBot(badge.DB, chat_id)
+    answer, lang = DB.DataBase.GetJsonLanguageBot(badge.DB, chat_id)
     NameMusic, ExtractName = "", ""
     try:
         if str(chat_id) in badge.UseCommand.keys() and update.message.text == None:
@@ -58,7 +58,7 @@ def CutAudio(update, context):
 
 def CutVideo(update, context):
     chat_id = badge.GetChatID(update)
-    answer = DB.DataBase.GetJsonLanguageBot(badge.DB, chat_id)
+    answer, lang = DB.DataBase.GetJsonLanguageBot(badge.DB, chat_id)
     try:
         if str(chat_id) in badge.UseCommand.keys() and update.message.text == None:
             if badge.UseCommand[str(chat_id)] == "CutVideo":
@@ -76,8 +76,8 @@ def CutVideo(update, context):
 
 def GetCutStart(update, context):
     chat_id = badge.GetChatID(update)
-    answer = DB.DataBase.GetJsonLanguageBot(badge.DB, chat_id)
-    file, name = "",""
+    answer, lang = DB.DataBase.GetJsonLanguageBot(badge.DB, chat_id)
+    file, name = "", ""
     youtube = None
     try:
         if str(chat_id) in badge.UseCommand.keys():
@@ -106,7 +106,7 @@ def GetCutStart(update, context):
 
 def GetCutEnd(update, context):
     chat_id = badge.GetChatID(update)
-    answer = DB.DataBase.GetJsonLanguageBot(badge.DB, chat_id)
+    answer, lang = DB.DataBase.GetJsonLanguageBot(badge.DB, chat_id)
     try:
         if str(chat_id) in badge.UseCommand.keys():
             if badge.UseCommand[str(chat_id)] == "CutEnd":

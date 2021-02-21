@@ -1,14 +1,14 @@
 import DB, badge, Url, telegram.ext, datetime, os
 
 def Cat_photo(update, context):
-    answer = DB.DataBase.GetJsonLanguageBot(badge.DB, update.message.chat_id)
+    answer, lang = DB.DataBase.GetJsonLanguageBot(badge.DB, update.message.chat_id)
     try:
         Url.Photo(Url.get_url('https://api.thecatapi.com/v1/images/search'), update, context)
     except Exception:
         context.bot.send_message(context.bot_data[update.poll_answer.poll_id], answer["6"])
 
 def Dog_photo(update, context):
-    answer = DB.DataBase.GetJsonLanguageBot(badge.DB, update.message.from_user.first_name)
+    answer, lang = DB.DataBase.GetJsonLanguageBot(badge.DB, update.message.from_user.first_name)
     try:
         Url.Photo(Url.get_url('https://random.dog/woof.json'), update, context)
     except Exception:
@@ -34,7 +34,7 @@ def StartSysAnimal():
 
 def SysAnimal(update,context):
     chat_id = update.callback_query.message.chat_id
-    answer = DB.DataBase.GetJsonLanguageBot(badge.DB, chat_id)
+    answer, lang = DB.DataBase.GetJsonLanguageBot(badge.DB, chat_id)
     cursor = DB.DataBase.UsersSysAnimal(badge.DB)
     target_tzinfo = datetime.timezone(datetime.timedelta(hours=2))
     target_time = datetime.time(hour=9, minute=00, second=25).replace(tzinfo=target_tzinfo)

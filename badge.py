@@ -102,20 +102,65 @@ b = {"Afrikaans":"af", "Akan":"ak", "Albanian":"sq", "Amharic":"am", "Arabic":"a
      "Portuguese (Portugal)":"pt-PT","Romanian":"ro","Russian":"ru","Serbian":"sr","Slovak":"sk","Slovenian":"sl","Spanish":"es","Swahili":"sw",
      "Swedish":"sv","Tatar":"tt","Turkish":"tr","Turkmen":"tk","Ukrainian":"uk"}
 
+
+
 MainKeyboard = ["/Help", "/Cut", "/Rest", "/Voice", "/Book", "/Evtuh", "/Sheva", "/Meme", "/Weather", "/Convert", "/Youtube", "/SettingBot","/Dog","/Cat"]
 TranslateKeyboard = ["Azerbaijani", "Belarusian", "Bulgarian", "Croatian", "Czech", "English","Estonian", "French", "Finnish", "Georgian", "German", "Italian", "Latvian", "Polish","Romanian", "Russian","Serbian","Slovak","Slovenian", "Spanish", "Ukrainian" ]
-Setting=["Мова перекладу", "Мова бота", "Увм\Вимк погоду", "Увм\Вимк котиків","Кількість мемів", "Увм\Вимк відповіді","Не треба нічого змінювати"]
-CountMeme = ["Не треба мені твоїх мемів", "1 мем у 15 хвилин","1 мем у 30 хвилин","1 мем у 60 хвилин", "1 мем у 120 хвилин"]
 LanguageBot = ["Belarusian", "Ukrainian", "English"]
-YoutubeKeyboard = ["Скачати Відео", "Скачати Аудіо", "Скачати та Обрізати"]
-CutKeyboard = ["Обрізати Відео", "Обрізати Аудіо", "Скачати та Обрізати"]
-MenuBookKeyboard = ["Додати книгу", "Пошук по автору", "Пошук по назві", "Кількість книг", "Cписок прочитаних книг"]
-ConfirmKeyboard = ["Так", "Ні"]
-BookStateKeyboard = ["Додати до списку", "Отримати файл", "Нічого не треба"]
-BookStateKeyboardDelete = ["Видалити зі списку", BookStateKeyboard[1], BookStateKeyboard[2]]
 FormatBookKeyboard = [".epub", ".fb2", ".pdf"]
-CancelButton = ["Вбий все що зробив"]
-
+CountMeme = {
+    "uk": ["Вимкнення", "1 мем у 15 хвилин", "1 мем у 30 хвилин", "1 мем у 60 хвилин", "1 мем у 120 хвилин"],
+    "be": ["Адключэнне", "1 мем за 15 хвілін", "1 мем за 30 хвілін", "1 мем за 60 хвілін", "1 мем за 120 хвілін"],
+    "en": ["Off meme", "1 meme in 15 minutes", "1 meme in 30 minutes", "1 meme in 60 minutes", "1 meme in 120 minutes"]
+    }
+Setting = {
+    "uk": ["Мова перекладу", "Мова бота", "Увм/Вимк погоду", "Увм/Вимк котиків", "Кількість мемів",
+                  "Увм/Вимк відповіді", "Не треба нічого змінювати"],
+    "be": ["Мова перакладу", "Мова бота", "Укл/вык надвор'я",
+                "Укл/вык като́ў", "Колькасць мемаў", "Укл/вык адказа́ў", "Нічога мяняць не трэба"],
+    "en": ["Translation language", "Bot language", "On/Off weather", "On/Off cats", "Quantity of memes",
+                   "On/Off response", "No need to change anything"]
+    }
+YoutubeKeyboard = {
+    "uk": ["Скачати Відео", "Скачати Аудіо", "Скачати та Обрізати"],
+    "be": ["Загрузка відэа", "Загрузка аўдыя", "Загрузка і абрэзка"],
+    "en":["Download Video", "Download Audio", "Download and Cut"]
+    }
+CutKeyboard ={
+    "uk": ["Обрізати Відео", "Обрізати Аудіо", "Скачати та Обрізати"],
+    "be": ["Абрэзка відэа", "Загрузка аўдыя", "Загрузка і абрэзка"],
+    "en": ["Cut Video", "Cut Audio", "Download and Cut"]
+    }
+MenuBookKeyboard = {
+    "uk": ["Додати книгу", "Пошук по автору", "Пошук по назві", "Кількість книг", "Cписок прочитаних книг"],
+    "be": ["Дадаць кнігу", "Пошук па аўтару", "Пошук па назве", "Колькасць кніг", "Спіс прачытаных кніг"],
+    "en": ["Add a book", "Search by author", "Search by title", "Number of books", "List of books read"]
+}
+ConfirmKeyboard = {
+    "uk": ["Так", "Ні"],
+    "be": ["Так", "Не"],
+    "en": ["Yes", "No"]
+    }
+BookStateKeyboard = {
+    "uk": ["Додати до списку", "Отримати файл", "Нічого не треба"],
+    "be": ["Дадаць у спіс", "Атрымаць файл", "Нічога не трэба"],
+    "en": ["Add to list", "Get file", "Nothing needed"]
+    }
+BookStateKeyboardDelete = {
+    "uk": ["Видалити зі списку", BookStateKeyboard["uk"][1], BookStateKeyboard["uk"][2]],
+    "be": ["Выдаліць са спісу", BookStateKeyboard["be"][1], BookStateKeyboard["be"][2]],
+    "en": ["Remove from list", BookStateKeyboard["en"][1], BookStateKeyboard["en"][2]]
+}
+CancelButton = {
+    "uk": ["Закінчити процес"],
+    "be": ["Завяршыць працэс"],
+    "en": ["Finish the process"]
+    }
+RestButton = {
+    "uk": ["Занурюємося"],
+    "be": ["Пачнем"],
+    "en": ["Start"]
+}
 def GetChatID(update):
     try:
         return str(update.callback_query.message.chat_id)

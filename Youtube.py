@@ -2,12 +2,12 @@ import os, badge, DB, pytube, Keyboard, subprocess
 from mutagen.easyid3 import EasyID3
 
 def Start(update, context):
-    answer = DB.DataBase.GetJsonLanguageBot(badge.DB, update.message.chat_id)
-    context.bot.send_message(update.message.chat_id, answer["34"], reply_markup=Keyboard.InlineKeyboard(badge.YoutubeKeyboard, False))
+    answer, lang = DB.DataBase.GetJsonLanguageBot(badge.DB, update.message.chat_id)
+    context.bot.send_message(update.message.chat_id, answer["34"], reply_markup=Keyboard.InlineKeyboard(badge.YoutubeKeyboard[lang], False))
 
 def Get_Audio(update,context):
     chat_id = badge.GetChatID(update)
-    answer = DB.DataBase.GetJsonLanguageBot(badge.DB, chat_id)
+    answer, lang = DB.DataBase.GetJsonLanguageBot(badge.DB, chat_id)
     file, NameMusic = "", ""
     try:
         if str(chat_id) in badge.UseCommand.keys():
@@ -47,7 +47,7 @@ def Get_Audio(update,context):
 
 def Get_Video(update, context):
     chat_id = badge.GetChatID(update)
-    answer = DB.DataBase.GetJsonLanguageBot(badge.DB, chat_id)
+    answer, lang = DB.DataBase.GetJsonLanguageBot(badge.DB, chat_id)
     file = ""
     try:
         if str(chat_id) in badge.UseCommand.keys():

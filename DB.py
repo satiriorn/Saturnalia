@@ -53,9 +53,7 @@ class DataBase:
         Book.Author = int(self.CheckAuthor(Book))
         self.GetCursor()
         self.cursor.execute(sql)
-        print(sql)
         for x in self.cursor:
-            print(x[0])
             return (lambda x: self.CheckTypeFile(Book) if int(x[0]) != 0 else self.InsertBook(Book))(x)
 
     def CountBook(self):
@@ -309,4 +307,4 @@ class DataBase:
         with open(patch, "r", encoding="utf-8") as json_file:
             data = json.load(json_file)
             json_file.close()
-        return data
+        return data, lang

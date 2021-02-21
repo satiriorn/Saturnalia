@@ -1,24 +1,18 @@
-import Keyboard, time, badge
+import Keyboard, time, badge, DB
 
 def Rest(update, context, status = True):
-    try:
-        chat_id = update.callback_query.message.chat_id
-    except Exception:
-        chat_id = update.message.chat_id
+    chat_id = badge.GetChatID(update)
+    answer, lang = DB.DataBase.GetJsonLanguageBot(badge.DB, chat_id)
     badge.UseCommand[str(chat_id)] = "Rest"
     if status:
-        context.bot.send_message(chat_id=chat_id,
-                                 text="""Запоскійливе у 6 циклів на 1 хвилину. Знайдіть місце де вас не буде ніхто торбувати цілу хвилину, або абстрагуйте свої думки. Відчуйте темп. Також ви можете використовувати вібро задля того, щоб відчувати темп дихання(не забудьте увімкнути вібро на телефоні))""",
-                                 reply_markup=Keyboard.InlineKeyboard(["Занурюємося"], False))
+        context.bot.send_message(chat_id=chat_id, text=answer["65"], reply_markup=Keyboard.InlineKeyboard(badge.RestButton[lang], False))
     else:
-        context.bot.edit_message_text(chat_id=update.callback_query.message.chat_id, text="Починаємо", message_id=update.callback_query.message.message_id)
+        context.bot.edit_message_text(chat_id=update.callback_query.message.chat_id, text=badge.RestButton[lang][0], message_id=update.callback_query.message.message_id)
         for i in range(6):
-            if i == 0:
-                time.sleep(5)
-            context.bot.send_message(chat_id=chat_id,text="""Вдих""")
+            if i == 0: time.sleep(5)
+            context.bot.send_message(chat_id=chat_id, text=answer["66"])
             time.sleep(5)
-            context.bot.send_message(chat_id=chat_id,text="""Видих""")
+            context.bot.send_message(chat_id=chat_id, text=answer["67"])
             time.sleep(5)
-        context.bot.send_message(chat_id=update.callback_query.message.chat_id, text="Втягніть в себе максимум спокію")
+        context.bot.send_message(chat_id=update.callback_query.message.chat_id, text=answer["68"])
         badge.UseCommand.pop(str(chat_id))
-

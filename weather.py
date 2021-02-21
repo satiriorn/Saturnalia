@@ -1,14 +1,14 @@
 import requests, os, badge, DB, telegram.ext, datetime
 
 def weather(update, context):
-    answer = DB.DataBase.GetJsonLanguageBot(badge.DB, update.message.chat.id)
+    answer, lang = DB.DataBase.GetJsonLanguageBot(badge.DB, update.message.chat.id)
     try:
         context.bot.send_message(update.message.chat_id, PrognosisWeather(answer))
     except Exception:
         context.bot.send_message(update.message.chat_id, answer["27"])
 
 def CurrentWeather(update, context):
-    answer = DB.DataBase.GetJsonLanguageBot(badge.DB, update.message.chat.id)
+    answer, lang = DB.DataBase.GetJsonLanguageBot(badge.DB, update.message.chat.id)
     try:
         text = WeatherNow(update.message.chat.id)
         context.bot.send_message(update.message.chat.id, text)
@@ -34,7 +34,7 @@ def PrognosisWeather(answer, OneDay = True):
     return text
 
 def WeatherNow(chat_id):
-    answer = DB.DataBase.GetJsonLanguageBot(badge.DB, chat_id)
+    answer, lang = DB.DataBase.GetJsonLanguageBot(badge.DB, chat_id)
     res = requests.get("http://api.openweathermap.org/data/2.5/weather",
                        params={'q': 'Kharkiv', 'units': 'metric', 'lang': 'uk', 'APPID': os.getenv("WeatherToken")})
     data = res.json()
@@ -67,7 +67,7 @@ def StartSysWeather():
 
 def StateWeather(update, context):
     chat_id = update.callback_query.message.chat_id
-    answer = DB.DataBase.GetJsonLanguageBot(badge.DB, chat_id)
+    answer, lang = DB.DataBase.GetJsonLanguageBot(badge.DB, chat_id)
     cursor = DB.DataBase.UsersSysWeather(badge.DB)
     target_tzinfo = datetime.timezone(datetime.timedelta(hours=2))
     target_time = datetime.time(hour=9, minute=00, second=00).replace(tzinfo=target_tzinfo)

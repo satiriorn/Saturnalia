@@ -1,7 +1,7 @@
 import random, badge, DB
 
 def question(update, context):
-    answer = DB.DataBase.GetJsonLanguageBot(badge.DB, update.message.chat.id)
+    answer, lang = DB.DataBase.GetJsonLanguageBot(badge.DB, update.message.chat.id)
     r = random.randint(0, 100)
     state_sys_answer = DB.DataBase.GetAnswerSystem(badge.DB, update.message.chat.id)
     if state_sys_answer==True:
