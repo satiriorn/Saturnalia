@@ -5,7 +5,7 @@ Book = {}
 ResultSearch = {}
 KeyboardFormat = {}
 NameFormat = [".epub", ".fb2", ".pdf"]
-fileformat = {".epub":"file_id_epub",".fb2":"file_id_fb2",".pdf":"file_id_pdf"}
+fileformat = {".epub": "file_id_epub", ".fb2": "file_id_fb2", ".pdf": "file_id_pdf"}
 DB = None
 job = None
 translator = None
@@ -102,8 +102,6 @@ b = {"Afrikaans":"af", "Akan":"ak", "Albanian":"sq", "Amharic":"am", "Arabic":"a
      "Portuguese (Portugal)":"pt-PT","Romanian":"ro","Russian":"ru","Serbian":"sr","Slovak":"sk","Slovenian":"sl","Spanish":"es","Swahili":"sw",
      "Swedish":"sv","Tatar":"tt","Turkish":"tr","Turkmen":"tk","Ukrainian":"uk"}
 
-
-
 MainKeyboard = ["/Help", "/Cut", "/Rest", "/Voice", "/Book", "/Evtuh", "/Sheva", "/Meme", "/Weather", "/Convert", "/Youtube", "/SettingBot","/Dog","/Cat"]
 TranslateKeyboard = ["Azerbaijani", "Belarusian", "Bulgarian", "Croatian", "Czech", "English","Estonian", "French", "Finnish", "Georgian", "German", "Italian", "Latvian", "Polish","Romanian", "Russian","Serbian","Slovak","Slovenian", "Spanish", "Ukrainian" ]
 LanguageBot = ["Belarusian", "Ukrainian", "English"]
@@ -111,7 +109,8 @@ FormatBookKeyboard = [".epub", ".fb2", ".pdf"]
 CountMeme = {
     "uk": ["Вимкнення", "1 мем у 15 хвилин", "1 мем у 30 хвилин", "1 мем у 60 хвилин", "1 мем у 120 хвилин"],
     "be": ["Адключэнне", "1 мем за 15 хвілін", "1 мем за 30 хвілін", "1 мем за 60 хвілін", "1 мем за 120 хвілін"],
-    "en": ["Off meme", "1 meme in 15 minutes", "1 meme in 30 minutes", "1 meme in 60 minutes", "1 meme in 120 minutes"]
+    "en": ["Off meme", "1 meme in 15 minutes", "1 meme in 30 minutes", "1 meme in 60 minutes", "1 meme in 120 minutes"],
+    "fr": ["Fermer", "1 mème en 15 minutes", "1 mème en 30 minutes", "1 mème en 60 minutes", "1 mème en 120 minutes"]
     }
 Setting = {
     "uk": ["Мова перекладу", "Мова бота", "Увм/Вимк погоду", "Увм/Вимк котиків", "Кількість мемів",
@@ -119,47 +118,57 @@ Setting = {
     "be": ["Мова перакладу", "Мова бота", "Укл/вык надвор'я",
                 "Укл/вык като́ў", "Колькасць мемаў", "Укл/вык адказа́ў", "Нічога мяняць не трэба"],
     "en": ["Translation language", "Bot language", "On/Off weather", "On/Off cats", "Quantity of memes",
+                   "On/Off response", "No need to change anything"],
+    "fr": ["Langue de translation", "Langue du bot", "Allumer/éteindre le temps", "Allumer/éteindre les chats", "Quantité de mèmes",
                    "On/Off response", "No need to change anything"]
     }
 YoutubeKeyboard = {
     "uk": ["Скачати Відео", "Скачати Аудіо", "Скачати та Обрізати"],
     "be": ["Загрузка відэа", "Загрузка аўдыя", "Загрузка і абрэзка"],
-    "en":["Download Video", "Download Audio", "Download and Cut"]
+    "en":["Download Video", "Download Audio", "Download and Cut"],
+    "fr":["Télécharger la Video", "Télécharger l'Audio", "Télécharger et Сouper"]
     }
 CutKeyboard ={
     "uk": ["Обрізати Відео", "Обрізати Аудіо", "Скачати та Обрізати"],
     "be": ["Абрэзка відэа", "Загрузка аўдыя", "Загрузка і абрэзка"],
-    "en": ["Cut Video", "Cut Audio", "Download and Cut"]
+    "en": ["Cut Video", "Cut Audio", "Download and Cut"],
+    "fr": ["Couper le Video", "Couper l'Audio", "Télécharger et Сouper"]
     }
 MenuBookKeyboard = {
     "uk": ["Додати книгу", "Пошук по автору", "Пошук по назві", "Кількість книг", "Cписок прочитаних книг"],
     "be": ["Дадаць кнігу", "Пошук па аўтару", "Пошук па назве", "Колькасць кніг", "Спіс прачытаных кніг"],
-    "en": ["Add a book", "Search by author", "Search by title", "Number of books", "List of books read"]
+    "en": ["Add a book", "Search by author", "Search by title", "Number of books", "List of books read"],
+    "fr": ["Ajouter le livre", "Recherche par auteur", "Rechercher par title", "Nombre des livres", "Liste des livres lus"]
 }
 ConfirmKeyboard = {
     "uk": ["Так", "Ні"],
     "be": ["Так", "Не"],
-    "en": ["Yes", "No"]
+    "en": ["Yes", "No"],
+    "fr": ["Oui", "Non"]
     }
 BookStateKeyboard = {
     "uk": ["Додати до списку", "Отримати файл", "Нічого не треба"],
     "be": ["Дадаць у спіс", "Атрымаць файл", "Нічога не трэба"],
-    "en": ["Add to list", "Get file", "Nothing needed"]
+    "en": ["Add to list", "Get file", "Nothing needed"],
+    "fr": ["Ajouter a la liste", "Obtenir le fichier", "Rien nécessaire"]
     }
 BookStateKeyboardDelete = {
     "uk": ["Видалити зі списку", BookStateKeyboard["uk"][1], BookStateKeyboard["uk"][2]],
     "be": ["Выдаліць са спісу", BookStateKeyboard["be"][1], BookStateKeyboard["be"][2]],
-    "en": ["Remove from list", BookStateKeyboard["en"][1], BookStateKeyboard["en"][2]]
+    "en": ["Remove from list", BookStateKeyboard["en"][1], BookStateKeyboard["en"][2]],
+    "fr": ["Retirer de la liste", BookStateKeyboard["fr"][1], BookStateKeyboard["fr"][2]]
 }
 CancelButton = {
     "uk": ["Закінчити процес"],
     "be": ["Завяршыць працэс"],
-    "en": ["Finish the process"]
+    "en": ["Finish the process"],
+    "fr": ["Terminez le processus"]
     }
 RestButton = {
     "uk": ["Занурюємося"],
     "be": ["Пачнем"],
-    "en": ["Start"]
+    "en": ["Start"],
+    "fr": ["Commencer"]
 }
 def GetChatID(update):
     try:
