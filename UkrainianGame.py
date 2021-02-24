@@ -1,9 +1,9 @@
-import random, badge, DB
+import random, Mafina, DB
 
 def question(update, context):
-    answer, lang = DB.DataBase.GetJsonLanguageBot(badge.DB, update.message.chat.id)
+    answer, lang = DB.DataBase.GetJsonLanguageBot(Mafina.Mafina.DB, update.message.chat.id)
     r = random.randint(0, 100)
-    state_sys_answer = DB.DataBase.GetAnswerSystem(badge.DB, update.message.chat.id)
+    state_sys_answer = DB.DataBase.GetAnswerSystem(Mafina.Mafina.DB, update.message.chat.id)
     if state_sys_answer==True:
         if(r<=10):
             context.bot.send_message(update.message.chat_id, answer["16"])

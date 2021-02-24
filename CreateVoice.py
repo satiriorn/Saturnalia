@@ -1,4 +1,4 @@
-import requests, badge, re, math, time, calendar, DB, os, shutil
+import requests, Mafina, re, math, time, calendar, DB, os, shutil
 from gtts import gTTS
 from gtts_token.gtts_token import Token
 from langdetect import detect
@@ -25,23 +25,23 @@ def _patch_faulty_function(self):
 Token._get_token_key = _patch_faulty_function
 
 def voice(update,context):
-    answer, lang = DB.DataBase.GetJsonLanguageBot(badge.DB, update.message.chat_id)
+    answer, lang = DB.DataBase.GetJsonLanguageBot(Mafina.Mafina.DB, update.message.chat_id)
     mp3_name = str(update.message.chat_id)+'.mp3'
     file = shutil.copy(r'voice.mp3', mp3_name)
     try:
-        if str(update.message.chat_id) in badge.UseCommand.keys():
-            if badge.UseCommand[str(update.message.chat_id)] == "CreateVoice":
+        if str(update.message.chat_id) in Mafina.Mafina.UseCommand.keys():
+            if Mafina.Mafina.UseCommand[str(update.message.chat_id)] == "CreateVoice":
                 mes = update.message.text
                 gTTS(text=mes, lang=detect(mes)).save(file)
                 context.bot.send_voice(update.message.chat_id,open(file, 'rb'))
                 os.remove(os.path.join(os.path.abspath(os.path.dirname(__file__)), file))
         else:
-            badge.UseCommand[str(update.message.chat_id)] = "CreateVoice"
+            Mafina.Mafina.UseCommand[str(update.message.chat_id)] = "CreateVoice"
             context.bot.send_message(update.message.chat_id, answer["4"])
-        badge.UseCommand.pop(str(update.message.chat_id))
+        Mafina.Mafina.UseCommand.pop(str(update.message.chat_id))
     except Exception:
         context.bot.send_message(update.message.chat_id, answer["5"])
-        badge.UseCommand.pop(str(update.message.chat_id))
+        Mafina.Mafina.UseCommand.pop(str(update.message.chat_id))
         os.remove(os.path.join(os.path.abspath(os.path.dirname(__file__)), file))
 
 def TranslateVoice(update, context, mes, lang):
@@ -52,8 +52,8 @@ def TranslateVoice(update, context, mes, lang):
         context.bot.send_voice(update.message.chat_id, open(file, 'rb'))
         context.bot.send_message(update.message.chat.id, mes)
         os.remove(os.path.join(os.path.abspath(os.path.dirname(__file__)), file))
-        badge.UseCommand.pop(str(update.message.chat_id))
+        Mafina.Mafina.UseCommand.pop(str(update.message.chat_id))
     except Exception:
         context.bot.send_message(update.message.chat_id, mes)
-        badge.UseCommand.pop(str(update.message.chat_id))
+        Mafina.Mafina.UseCommand.pop(str(update.message.chat_id))
         os.remove(os.path.join(os.path.abspath(os.path.dirname(__file__)), file))
