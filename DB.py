@@ -1,4 +1,4 @@
-import mysql.connector, os, json, badge
+import mysql.connector, os, json, Mafina
 
 class DataBase:
     def __init__(self):
@@ -142,7 +142,7 @@ class DataBase:
                 self.Insert(first_name,username, chat_id, language_code, type)
 
     def CheckTypeFile(self, Book):
-        sql = """SELECT {0} FROM heroku_c93f6b06b535bb4.book WHERE Name = "{1}"; """.format(badge.fileformat[Book.format], Book.Name)
+        sql = """SELECT {0} FROM heroku_c93f6b06b535bb4.book WHERE Name = "{1}"; """.format(Mafina.Mafina.fileformat[Book.format], Book.Name)
         self.GetCursor()
         self.cursor.execute(sql)
         x = self.GetValue()
@@ -150,7 +150,7 @@ class DataBase:
         return (lambda x: self.UpdateFileId(Book) if x == "" else False)(x)
 
     def UpdateFileId(self, Book):
-        sql = """UPDATE heroku_c93f6b06b535bb4.book SET {0} =("{1}")WHERE id_book ="{2}";""".format(str(badge.fileformat[Book.format]),str(Book.file_id), str(self.GetIdBook(Book.Name)))
+        sql = """UPDATE heroku_c93f6b06b535bb4.book SET {0} =("{1}")WHERE id_book ="{2}";""".format(str(Mafina.Mafina.fileformat[Book.format]),str(Book.file_id), str(self.GetIdBook(Book.Name)))
         self.GetCursor()
         self.cursor.execute(sql)
         self.db.commit()
@@ -174,7 +174,7 @@ class DataBase:
         self.db.commit()
 
     def InsertBook(self, Book):
-        format = badge.fileformat[Book.format]
+        format = Mafina.Mafina.fileformat[Book.format]
         sql = """INSERT INTO heroku_c93f6b06b535bb4.book(Name,{0}, id_author, book_lang) VALUES("{1}", "{2}", "{3}", "{4}");""".format(str(format), Book.Name, Book.file_id, Book.Author, Book.book_lang)
         self.cursor.execute(sql)
         self.db.commit()

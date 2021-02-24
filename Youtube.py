@@ -1,17 +1,14 @@
-import os, badge, DB, pytube, Keyboard, subprocess
+import os, Mafina, DB, pytube, Keyboard, subprocess
 from mutagen.easyid3 import EasyID3
 
-def Start(update, context):
-    answer, lang = DB.DataBase.GetJsonLanguageBot(badge.DB, update.message.chat_id)
-    context.bot.send_message(update.message.chat_id, answer["34"], reply_markup=Keyboard.InlineKeyboard(badge.YoutubeKeyboard[lang], False))
+def Start(update, context, answer, lang):
+    context.bot.send_message(update.message.chat_id, answer["34"], reply_markup=Keyboard.InlineKeyboard(Mafina.Mafina.YoutubeKeyboard[lang], False))
 
-def Get_Audio(update,context):
-    chat_id = badge.GetChatID(update)
-    answer, lang = DB.DataBase.GetJsonLanguageBot(badge.DB, chat_id)
+def Get_Audio(update,context, answer, chat_id):
     file, NameMusic = "", ""
     try:
-        if str(chat_id) in badge.UseCommand.keys():
-            if badge.UseCommand[str(chat_id)] == "Audio":
+        if str(chat_id) in Mafina.Mafina.UseCommand.keys():
+            if Mafina.Mafina.UseCommand[str(chat_id)] == "Audio":
                 url=update.message.text
                 print(url)
                 try:
@@ -33,37 +30,35 @@ def Get_Audio(update,context):
                 audio['artist'] = details['author']
                 audio.save()
                 context.bot.send_audio(chat_id, open(NameMusic, 'rb'))
-                badge.UseCommand.pop(str(chat_id))
+                Mafina.Mafina.UseCommand.pop(str(chat_id))
                 DeletePath(NameMusic)
                 DeletePath(file)
         else:
             context.bot.edit_message_text(chat_id=chat_id, text=answer["1"], message_id=update.callback_query.message.message_id)
-            badge.UseCommand[str(chat_id)] = "Audio"
+            Mafina.Mafina.UseCommand[str(chat_id)] = "Audio"
     except Exception:
-        badge.UseCommand.pop(str(chat_id))
+        Mafina.Mafina.UseCommand.pop(str(chat_id))
         context.bot.send_message(chat_id, answer["2"])
         DeletePath(NameMusic)
         DeletePath(file)
 
-def Get_Video(update, context):
-    chat_id = badge.GetChatID(update)
-    answer, lang = DB.DataBase.GetJsonLanguageBot(badge.DB, chat_id)
+def Get_Video(update, context, answer, chat_id):
     file = ""
     try:
-        if str(chat_id) in badge.UseCommand.keys():
-            if badge.UseCommand[str(chat_id)] == "Video":
+        if str(chat_id) in Mafina.Mafina.UseCommand.keys():
+            if Mafina.Mafina.UseCommand[str(chat_id)] == "Video":
                 video_url = update.message.text
                 youtube = pytube.YouTube(video_url).streams.first()
                 file = youtube.download()
                 context.bot.send_video(update.message.chat_id,open(file, 'rb'))
-                badge.UseCommand.pop(str(chat_id))
+                Mafina.Mafina.UseCommand.pop(str(chat_id))
                 DeletePath(file)
         else:
             context.bot.edit_message_text(chat_id=update.callback_query.message.chat_id, text=answer["1"],
                                           message_id=update.callback_query.message.message_id)
-            badge.UseCommand[str(chat_id)] = "Video"
+            Mafina.Mafina.UseCommand[str(chat_id)] = "Video"
     except Exception:
-        badge.UseCommand.pop(str(chat_id))
+        Mafina.Mafina.UseCommand.pop(str(chat_id))
         context.bot.send_message(chat_id, answer["2"])
         DeletePath(file)
 

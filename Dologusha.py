@@ -1,13 +1,13 @@
-import base64, Keyboard, badge, time, Rest
+import base64, Keyboard, Mafina, time, Rest
 
 AnswerOne = ["Увімкнула", "Мені ліньки"]
 AnswerTwo = ["Продовжити"]
 AnswerThree = ["Гіфки з котиками", "Гіфки з собаками", "Продовження історії", "Відео вбиства того хто вас бісить"]
 
 def start(update, context):
-    chat_id = badge.GetChatID(update)
-    if str(chat_id) in badge.UseCommand.keys():
-        if badge.UseCommand[str(chat_id)] == "Dologusha":
+    chat_id = Mafina.Mafina.GetChatID(update)
+    if str(chat_id) in Mafina.Mafina.UseCommand.keys():
+        if Mafina.Mafina.UseCommand[str(chat_id)] == "Dologusha":
             if update.callback_query.data == "0":
                 first(update, context)
             elif update.callback_query.data == "1":
@@ -43,10 +43,10 @@ def start(update, context):
                                          dec(
                                              """0JLQuCDQv9GA0L7QudGI0LvQuCDRgdCy0ZbQuSDRhtC40LrQuywg0YnQvtCxINC/0YDQvtC50YLQuCDQt9C90L7QstGDINGA0L7Qt9C80L7QstGDINC3INGW0L3RiNC40LzQuCDQstGW0LTQv9C+0LLRltC00Y/QvNC4INC90LDRgtC40YHQvdGW0YLRjCAvc3RhcnQsINGP0LrRidC+INGF0L7Rh9C10YLQtSDQv9C10YDQtdC50YLQuCDRgyDQs9C+0LvQvtCy0L3QtSDQvNC10L3RjiDQsdC+0YLQsCDQvdCw0YLQuNGB0L3RltGC0YwgL0hlbHA=""")).decode(
                     "UTF-8")
-            badge.UseCommand.pop(str(update.message.chat_id))
+            Mafina.Mafina.UseCommand.pop(str(update.message.chat_id))
     else:
         context.bot.send_message(update.message.chat_id, dec("0JTQvtCx0YDQuNC00LXQvdGMLCDQktCw0YjQsCDQktC10LvQuNGH0L3RltGB0YLRjArQryDRgdGC0LLQvtGA0LXQvdC40Lkg0LfQsNC00LvRjyDRgtC+0LPQviDRidC+0LEg0LfQsNGH0LDRgNGD0LLQsNGC0Lgg0LLQsNGIINGC0LXQu9C10YTQvtC9LiDQryDQstGW0LTRh9GD0LLQsNGOINGP0Log0LLQuCDRgtGA0LjQvNCw0ZTRgtC1INC80ZbQutGA0L7RgdGF0LXQvNGDINGB0LLQvtCz0L4g0YLQtdC70LXRhNC+0L3Rgywg0ZYg0LnQvtC80YMg0YHRgtCw0ZQg0YLQtdC/0LvRltGI0LUg0LLRltC0INGG0YzQvtCz0L4uINCi0LDQuiDQvtGB0YwsINGPINCz0YDRg9C00LrQsCDQtdC90LXRgNCz0ZbRlywg0YHQtdC90YEg0Y/QutC+0Zcg0L/QtdGA0LXRgtCy0L7RgNGO0LLQsNGC0Lgg0YbQtSDRgtC10L/Qu9C+INGWINC/0LXRgNC10LTQsNCy0LDRgtC4INCy0LDQvC4g0JLQt9Cw0LPQsNC70ZYg0LHRg9C00LUg0LLQtdC70YzQvNC4INC60YPQvNC10LTQvdC+INGP0LrRidC+INCS0LDRiNCwINCS0LXQu9C40YfQvdGW0YHRgtGMINGB0LjQtNC40YLRjCDQtyDQutC+0LzQv9GD0LrRgtC10YDQvtC8LCDQsCDRjyDRgtGD0YIg0YDQvtC30L/QvtCy0ZbQtNCw0Y4g0L/RgNC+INGC0LXQu9C10YTQvtC9LiDQlNC70Y8g0L/QvtCy0L3QvtGXINC/0LXRgNC10LTQsNGH0ZYg0YLQtdC/0LvQvtGXINC10L3QtdGA0LPRltC5INGD0LLRltC80LrQvdGW0YLRjCDRgdCy0L7RlCDRg9GP0LLQu9C10L3QvdGPLiDQo9Cy0ZbQvNC60L3Rg9C70Lg/").decode("UTF-8"), reply_markup =Keyboard.InlineKeyboard(AnswerOne))
-        badge.UseCommand[str(chat_id)] = "Dologusha"
+        Mafina.Mafina.UseCommand[str(chat_id)] = "Dologusha"
 
 def finish(update, context):
     context.bot.send_message(update.callback_query.message.chat_id,
