@@ -2,7 +2,9 @@ from telegram import InlineKeyboardButton, InlineKeyboardMarkup, KeyboardButton,
 import Setting, Mafina, Dologusha, Meme, Rest, Youtube, Cut, Thread, weather, DogAndCat, Book, DB
 
 class Keyboard:
-    def InitKeyboard(self, NameButton):
+
+    @staticmethod
+    def InitKeyboard(NameButton):
         LevelOne, LevelTwo, LevelThree, LevelFour, Button = [], [], [], [], []
         for i in range(len(NameButton)):
             if i<5:
@@ -18,8 +20,8 @@ class Keyboard:
         Button.append(LevelThree)
         Button.append(LevelFour)
         return ReplyKeyboardMarkup(Button, resize_keyboard=True)
-
-    def InlineKeyboard(self, NameButton, Status=True):
+    @staticmethod
+    def InlineKeyboard(NameButton, Status=True):
         keyboard = []
         i = 0
         data = lambda NameButton, Status, i: i if Status == True else NameButton[i]
