@@ -1,5 +1,5 @@
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, KeyboardButton, ReplyKeyboardMarkup
-import Setting, Mafina, Dologusha, Meme, Rest, Youtube, Cut, Thread, weather, DogAndCat, Book, DB
+import Setting, Mafina, Dologusha, Meme, Youtube, Cut, Thread, weather, DogAndCat, Book, DB
 
 class Keyboard:
 

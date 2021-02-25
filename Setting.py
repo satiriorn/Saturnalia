@@ -1,38 +1,48 @@
-def ShowSetting(update, context, answer, lang, Mafina):
-    context.bot.send_message(update.message.chat_id, answer["9"], reply_markup=Mafina.Keyboard.InlineKeyboard(Mafina.Keyboard.Setting[lang]))
+class SettingMafina:
+    _instance, _mafina = None, None
+    def __new__(cls, M):
+        if not hasattr(cls, '_inst'):
+            SettingMafina._instance = super(SettingMafina, cls).__new__(cls)
+            SettingMafina._mafina = M
+            return SettingMafina._instance
 
-def SettingTranslate(update, context, answer, Mafina, chat_id):
-    if chat_id in Mafina.mafina.UseCommand.keys():
-        if Mafina.Mafina.UseCommand[str(update.callback_query.message.chat_id)] == "SettingTranslate":
-            Mafina.DB.DataBase.VerificationLanguage(Mafina.mafina.DB, update.callback_query.message.chat_id,
-                                             Mafina.Keyboard.b[update.callback_query.data])
-            context.bot.edit_message_text(chat_id=update.callback_query.message.chat_id, text=answer["11"],
-                                      message_id=update.callback_query.message.message_id)
-            Mafina.Mafina.UseCommand.pop(str(update.callback_query.message.chat_id))
-    else:
-        context.bot.edit_message_text(chat_id=update.callback_query.message.chat_id, text=answer["10"],
-        reply_markup = Mafina.Keyboard.InlineKeyboard(Mafina.Keyboard.TranslateKeyboard, False),message_id=update.callback_query.message.message_id)
-        Mafina.mafina.UseCommand[str(update.callback_query.message.chat_id)] = "SettingTranslate"
+    @classmethod
+    def ShowSetting(self, update, context, answer, chat_id, lang):
+        context.bot.send_message(chat_id, answer["9"],
+                                 reply_markup=self._mafina._keyboard.InlineKeyboard(self._mafina._keyboard.Setting[lang]))
 
-def LanguageBot(update, context, answer):
-    if str(update.callback_query.message.chat_id) in Mafina.Mafina.UseCommand.keys():
-        if Mafina.Mafina.UseCommand[str(update.callback_query.message.chat_id)] == "LangBot":
-            DB.DataBase.VerificationLanguage(Mafina.Mafina.DB, update.callback_query.message.chat_id,
-                                             Mafina.Mafina.b[update.callback_query.data], False)
-            context.bot.edit_message_text(chat_id=update.callback_query.message.chat_id, text=answer["11"],
+    @classmethod
+    def SettingTranslate(self, update, context, answer, Mafina, chat_id):
+        if chat_id in self._mafina.UseCommand.keys():
+            if self._mafina.UseCommand[chat_id] == "SettingTranslate":
+                self._mafina._DB.VerificationLanguage(chat_id, self._mafina._keyboard.b[update.callback_query.data])
+                context.bot.edit_message_text(chat_id=chat_id, text=answer["11"],
                                           message_id=update.callback_query.message.message_id)
-            Mafina.Mafina.UseCommand.pop(str(update.callback_query.message.chat_id))
-    else:
-        context.bot.edit_message_text(chat_id=update.callback_query.message.chat_id,
-                                      text=answer["12"],
-                                      reply_markup=Keyboard.InlineKeyboard(Mafina.Mafina.LanguageBot, False),
-                                      message_id=update.callback_query.message.message_id)
-        Mafina.Mafina.UseCommand[str(update.callback_query.message.chat_id)] = "LangBot"
+                self._mafina.UseCommand.pop(chat_id)
+        else:
+            context.bot.edit_message_text(chat_id=update.callback_query.message.chat_id, text=answer["10"],
+            reply_markup = self._mafina._keyboard.InlineKeyboard(self._mafina._keyboard.TranslateKeyboard, False),message_id=update.callback_query.message.message_id)
+            Mafina.mafina.UseCommand[chat_id] = "SettingTranslate"
 
-def SettingAnswer(update, context, answer):
-    chat_id = update.callback_query.message.chat_id
-    DB.DataBase.ChangeAnswerSystem(Mafina.Mafina.DB, chat_id)
-    context.bot.edit_message_text(chat_id=update.callback_query.message.chat_id, text=answer["37"], message_id=update.callback_query.message.message_id)
+    @classmethod
+    def LanguageBot(self, update, context, answer, chat_id):
+        if chat_id in self._mafina.UseCommand.keys():
+            if self._mafina.UseCommand[str(update.callback_query.message.chat_id)] == "LangBot":
+                self._mafina._DB.VerificationLanguage(chat_id, self._mafina._keyboard.b[update.callback_query.data], False)
+                context.bot.edit_message_text(chat_id=update.callback_query.message.chat_id, text=answer["11"],
+                                              message_id=update.callback_query.message.message_id)
+                self._mafina.UseCommand.pop(chat_id)
+        else:
+            context.bot.edit_message_text(chat_id=update.callback_query.message.chat_id,
+                                          text=answer["12"],
+                                          reply_markup=self._mafina._keyboard.InlineKeyboard(self._mafina._keyboard.LanguageBot, False),
+                                          message_id=update.callback_query.message.message_id)
+            self._mafina.UseCommand[chat_id] = "LangBot"
 
-def ExistentialResponse(update, context, answer):
-    context.bot.edit_message_text(chat_id=update.callback_query.message.chat_id, text=answer["13"], message_id=update.callback_query.message.message_id)
+    @classmethod
+    def SettingAnswer(self, update, context, answer, chat_id):
+        self._mafina._DB.ChangeAnswerSystem(chat_id)
+        context.bot.edit_message_text(chat_id=chat_id, text=answer["37"], message_id=update.callback_query.message.message_id)
+    @staticmethod
+    def ExistentialResponse(update, context, answer, chat_id):
+        context.bot.edit_message_text(chat_id=chat_id, text=answer["13"], message_id=update.callback_query.message.message_id)
