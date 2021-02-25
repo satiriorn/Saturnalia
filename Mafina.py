@@ -40,15 +40,32 @@ class Mafina(object):
 
     @classmethod
     def Dispatcher(self, update, context):
+        print(update)
         chat_id =self._instance.GetChatID(update)
-        if str(chat_id) in self._instance.Users.keys():
+        if chat_id in self._instance.Users.keys():
             answer, lang =self._instance.Users[chat_id].answer, self._instance.Users[chat_id].lang
             text = str(update.message.text).lower()
+
             if text == "/start": Thread.Thread(self._std.start(update, context, answer, chat_id))
             elif text == "/help": Thread.Thread(self._std.help, (update, context, answer))
             elif text == "/weather": Thread.Thread(self._weather.weather, (update, context, answer))
-            elif text == "/evtuh": Thread.Thread(Evtuh.Evtuh,(update, context))
-            elif text == "/voice": self._voice.voice(update, context)
+            elif text == "/evtuh": Thread.Thread(Evtuh.Evtuh, (update, context))
+            elif text == "/voice": Thread.Thread(self._voice.voice, (update, context, answer, chat_id))
+            print(self._instance.UseCommand.keys())
+            if chat_id in self._instance.UseCommand.keys():
+                res = self._instance.UseCommand[chat_id]
+                print(res)
+                if res == "Audio":Thread.Thread(Youtube.Get_Audio, (update, context))
+                elif res == "Video":Thread.Thread(Youtube.Get_Video, (update, context))
+                elif res == "CutAudio":Thread.Thread(Cut.CutAudio, (update, context))
+                elif res == "CutVideo":Thread.Thread(Cut.CutVideo, (update, context))
+                elif res == "CreateVoice":Thread.Thread(self._voice.voice, (update, context, answer, chat_id))
+                elif res == "Translate":Thread.Thread(Translate.translate, (update, context))
+                elif res == "GetCutVideo":Thread.Thread(Cut.GetCutStart, (update, context))
+                elif res == "CutEnd":Thread.Thread(Cut.Cut, (update, context))
+                elif res == "Check":Thread.Thread(Book.UploadBook, (update, context))
+                elif res == "SearchViaName":Thread.Thread(Book.SearchBook, (update, context))
+                elif res == "SearchViaAuthor":Thread.Thread(Book.SearchAuthor, (update, context))
 
                    #"/Cat": DogAndCat.Cat_photo(update, context), "/Dog": DogAndCat.Dog_photo(update, context), "/Sheva": Quotes.ShevchenkoStyle(update, context),
                    #"/Meme": Meme.Get_meme(update, context), "/Youtube": Youtube.Start(update, context, answer, lang), "/SettingBot": Setting.ShowSetting(update, context, answer, lang),
