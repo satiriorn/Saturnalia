@@ -1,4 +1,4 @@
-import requests, os, Mafina, DB, telegram.ext, datetime
+import requests, os, telegram.ext, datetime
 
 def weather(update, context, answer):
     try:
@@ -6,8 +6,7 @@ def weather(update, context, answer):
     except Exception:
         context.bot.send_message(update.message.chat_id, answer["27"])
 
-def CurrentWeather(update, context):
-    answer, lang = DB.DataBase.GetJsonLanguageBot(Mafina.Mafina.DB, update.message.chat.id)
+def CurrentWeather(update, context, answer):
     try:
         text = WeatherNow(update.message.chat.id)
         context.bot.send_message(update.message.chat.id, text)
@@ -32,8 +31,7 @@ def PrognosisWeather(answer, OneDay = True):
                 count += 1
     return text
 
-def WeatherNow(chat_id):
-    answer, lang = DB.DataBase.GetJsonLanguageBot(Mafina.Mafina.DB, chat_id)
+def WeatherNow(chat_id, answer):
     res = requests.get("http://api.openweathermap.org/data/2.5/weather",
                        params={'q': 'Kharkiv', 'units': 'metric', 'lang': 'uk', 'APPID': os.getenv("WeatherToken")})
     data = res.json()
@@ -48,8 +46,8 @@ def WeatherNow(chat_id):
         text += answer["38"]+PrognosisWeather(answer, True)
     return text
 
-def StartSysWeather():
-    cursor = DB.DataBase.UsersSysWeather(Mafina.Mafina.DB)
+def StartSysWeather(Mafina):
+    cursor = Mafina.DB.UsersSysWeather()
     target_tzinfo = datetime.timezone(datetime.timedelta(hours=2))
     target_time = datetime.time(hour=9, minute=00, second=20).replace(tzinfo=target_tzinfo)
     for x in cursor:
@@ -62,11 +60,11 @@ def StartSysWeather():
                         target_time = datetime.time(hour=15, minute=00, second=00).replace(tzinfo=target_tzinfo)
                     else:
                         target_time = datetime.time(hour=18, minute=00, second=00).replace(tzinfo=target_tzinfo)
-                    Mafina.Mafina.jobchat[str(x[y])] = Mafina.Mafina.job.run_daily(WeatherJob, target_time, context=x[y])
+                    Mafina.jobchat[str(x[y])] = Mafina.job.run_daily(WeatherJob, target_time, context=x[y])
 
-def StateWeather(update, context, answer):
+def StateWeather(update, context, answer, Mafina):
     chat_id = update.callback_query.message.chat_id
-    cursor = DB.DataBase.UsersSysWeather(Mafina.Mafina.DB)
+    cursor = Mafina.DB.UsersSysWeather()
     target_tzinfo = datetime.timezone(datetime.timedelta(hours=2))
     target_time = datetime.time(hour=9, minute=00, second=00).replace(tzinfo=target_tzinfo)
     NewUser = True
@@ -74,23 +72,23 @@ def StateWeather(update, context, answer):
         for y in range(len(x)):
             if str(x[y]) == str(chat_id):
                 state = (lambda x, y: True if x[y+1] == False else False) (x,y)
-                DB.DataBase.UpdateSysWeather(Mafina.Mafina.DB, chat_id, state)
+                Mafina.DB.UpdateSysWeather(chat_id, state)
                 if str(chat_id) in Mafina.Mafina.jobchat.keys() and state==False:
-                    Mafina.Mafina.jobchat[str(chat_id)].schedule_removal()
-                    Mafina.Mafina.jobchat.pop(str(chat_id))
+                    Mafina.jobchat[str(chat_id)].schedule_removal()
+                    Mafina.jobchat.pop(str(chat_id))
                     context.bot.edit_message_text(chat_id=chat_id, text=answer["37"],
                                                   message_id=update.callback_query.message.message_id)
                     NewUser = False
                     break
                 else:
-                    Mafina.Mafina.jobchat[str(chat_id)] = Mafina.Mafina.job.run_daily(WeatherJob, target_time, context=chat_id)
+                    Mafina.jobchat[str(chat_id)] = Mafina.job.run_daily(WeatherJob, target_time, context=chat_id)
                     context.bot.edit_message_text(chat_id=chat_id, text=answer["37"],
                                                   message_id=update.callback_query.message.message_id)
                     NewUser = False
                 break
     if NewUser:
-        DB.DataBase.InsertSysWeather(Mafina.Mafina.DB, update.callback_query.message.chat_id, True)
-        Mafina.Mafina.jobchat[str(chat_id)] = Mafina.Mafina.job.run_daily(WeatherJob, target_time, context=chat_id)
+        Mafina.DB.InsertSysWeather(update.callback_query.message.chat_id, True)
+        Mafina.jobchat[str(chat_id)] = Mafina.job.run_daily(WeatherJob, target_time, context=chat_id)
         context.bot.edit_message_text(chat_id=chat_id, text=answer["37"],
                                       message_id=update.callback_query.message.message_id)
 

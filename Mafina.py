@@ -39,7 +39,7 @@ class Mafina(object):
 
     def run(self):
         #Meme.StartSystemMeme()
-        #weather.StartSysWeather()
+        weather.StartSysWeather(self)
         #DogAndCat.StartSysAnimal()
         self.updater.start_polling(timeout=99000, poll_interval=3)
         self.updater.idle()
@@ -52,7 +52,7 @@ class Mafina(object):
             text = str(update.message.text).lower()
             if text == "/start": Thread.Thread(StandartCommand.start(update, context, answer, Mafina, chat_id))
             elif text == "/help": Thread.Thread(StandartCommand.help, (update, context, answer, Mafina))
-
+            elif text == "/weather": Thread.Thread(weather.weather, (update, context, answer))
 
                    #"/Weather": weather.weather(update, context, answer), "/Evtuh": Evtuh.Evtuh(update, context), "/Voice": CreateVoice.voice(update, context),
                    #"/Cat": DogAndCat.Cat_photo(update, context), "/Dog": DogAndCat.Dog_photo(update, context), "/Sheva": Quotes.ShevchenkoStyle(update, context),
