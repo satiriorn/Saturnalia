@@ -38,7 +38,7 @@ class Weather(object):
         res = requests.get("http://api.openweathermap.org/data/2.5/weather",
                            params={'q': 'Kharkiv', 'units': 'metric', 'lang': 'uk', 'APPID': os.getenv("WeatherToken")})
         data = res.json()
-        answer, lang = self._mafina.DB.GetJsonLanguageBot(chat_id)
+        answer, lang = self._mafina._DB.GetJsonLanguageBot(chat_id)
         description_weather = answer["28"] + data['weather'][0]['description']
         temp = answer["29"] + str(data['main']['temp'])
         wind = answer["30"] + str(data['wind']['speed']) + 'м/с'
@@ -60,7 +60,7 @@ class Weather(object):
 
     @classmethod
     def StartSysWeather(self):
-        cursor = self._mafina.DB.UsersSysWeather()
+        cursor = self._mafina._DB.UsersSysWeather()
         target_tzinfo = datetime.timezone(datetime.timedelta(hours=2))
         target_time = datetime.time(hour=9, minute=00, second=20).replace(tzinfo=target_tzinfo)
         for x in cursor:
@@ -81,7 +81,7 @@ class Weather(object):
 
     @classmethod
     def StateWeather(self, update, context, answer, chat_id):
-        cursor = self._mafina.DB.UsersSysWeather()
+        cursor = self._mafina._DB.UsersSysWeather()
         target_tzinfo = datetime.timezone(datetime.timedelta(hours=2))
         target_time = datetime.time(hour=9, minute=00, second=00).replace(tzinfo=target_tzinfo)
         NewUser = True
@@ -89,7 +89,7 @@ class Weather(object):
             for y in range(len(x)):
                 if str(x[y]) == str(chat_id):
                     state = (lambda x, y: True if x[y + 1] == False else False)(x, y)
-                    self._mafina.DB.UpdateSysWeather(chat_id, state)
+                    self._mafina._DB.UpdateSysWeather(chat_id, state)
                     if str(chat_id) in self._mafina.jobchat.keys() and state == False:
                         self._mafina.jobchat[str(chat_id)].schedule_removal()
                         self._mafina.jobchat.pop(str(chat_id))
@@ -104,7 +104,7 @@ class Weather(object):
                         NewUser = False
                     break
         if NewUser:
-            self._mafina.DB.InsertSysWeather(update.callback_query.message.chat_id, True)
+            self._mafina._DB.InsertSysWeather(update.callback_query.message.chat_id, True)
             self._mafina.jobchat[str(chat_id)] = self._mafina.job.run_daily(self.WeatherJob, target_time, context=chat_id)
             context.bot.edit_message_text(chat_id=chat_id, text=answer["37"],
                                           message_id=update.callback_query.message.message_id)

@@ -1,4 +1,4 @@
-import mysql.connector, os, json, Mafina
+import mysql.connector, os, json
 
 class DataBase:
     def __init__(self):
