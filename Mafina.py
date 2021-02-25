@@ -2,7 +2,7 @@ import Thread, Quotes, StandartCommand, weather, Evtuh,  CreateVoice, DogAndCat,
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, InlineQueryHandler, CallbackQueryHandler
 
 class Mafina(object):
-    _instance, _DB, job, _translator, _keyboard, _weather, _voice, _std, _animal = None, None, None, None, None, None, None, None, None
+    _instance, _DB, job, _translator, _keyboard, _weather, _voice, _std, _animal, _meme = None, None, None, None, None, None, None, None, None, None
     UseCommand, CutFile, jobchat, Book, ResultSearch, KeyboardFormat, Users = {}, {}, {}, {}, {}, {}, {}
     NameFormat = [".epub", ".fb2", ".pdf"]
     fileformat = {".epub": "file_id_epub", ".fb2": "file_id_fb2", ".pdf": "file_id_pdf"}
@@ -16,6 +16,7 @@ class Mafina(object):
         self.updater = Updater(os.getenv("TOKEN"), use_context=True)
         Mafina.job, Mafina._DB, Mafina._keyboard, Mafina._weather = self.updater.job_queue, DB.DataBase(), Keyboard.Keyboard(), weather.Weather(self)
         Mafina._voice, Mafina._std, Mafina._animal = CreateVoice.Voice(self), StandartCommand.StandartCommand(self), DogAndCat.Animal(self)
+        Mafina._meme = Meme.Meme(self)
         self.dispatcher = self.updater.dispatcher
         self.CreateHandler()
         self.run()
@@ -32,9 +33,9 @@ class Mafina(object):
         #self.dispatcher.add_handler(InlineQueryHandler(InlineQuery.inlinequery))
 
     def run(self):
-        #Meme.StartSystemMeme()
+        self._meme.StartSystemMeme()
         self._weather.StartSysWeather()
-        #DogAndCat.StartSysAnimal()
+        self._animal.StartSysAnimal()
         self.updater.start_polling(timeout=99000, poll_interval=3)
         self.updater.idle()
 
@@ -52,6 +53,8 @@ class Mafina(object):
             elif text == "/voice": Thread.Thread(self._voice.voice, (update, context, answer, chat_id))
             elif text == "/dog": Thread.Thread(self._animal.Dog_photo, (update, context, answer))
             elif text == "/cat": Thread.Thread(self._animal.Cat_photo, (update, context, answer))
+            elif text == "/sheva": Thread.Thread(Quotes.ShevchenkoStyle, (update, context))
+            elif text == "/meme": Thread.Thread(self._meme.Get_meme, (update, context,  answer))
             print(self._instance.UseCommand.keys())
             if chat_id in self._instance.UseCommand.keys():
                 res = self._instance.UseCommand[chat_id]
@@ -68,8 +71,8 @@ class Mafina(object):
                 elif res == "SearchViaName":Thread.Thread(Book.SearchBook, (update, context))
                 elif res == "SearchViaAuthor":Thread.Thread(Book.SearchAuthor, (update, context))
 
-                   #" "/Sheva": Quotes.ShevchenkoStyle(update, context),
-                   #"/Meme": Meme.Get_meme(update, context), "/Youtube": Youtube.Start(update, context, answer, lang), "/SettingBot": Setting.ShowSetting(update, context, answer, lang),
+                   #" ,
+                   # "/Youtube": Youtube.Start(update, context, answer, lang), "/SettingBot": Setting.ShowSetting(update, context, answer, lang),
                    #"/Translate": Translate.translate(update, context, answer, chat_id), "/Rest": Rest.Rest(update, context, answer, lang, chat_id),
                    #"/Cut": Cut.CutStart(update, context, answer, lang), "/Book": Book.MenuBook(update, context, answer, lang),
                    #"/Convert": Convert.convert(update, context, answer, chat_id)}
