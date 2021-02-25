@@ -45,7 +45,7 @@ class Youtube:
                     self.DeletePath(file)
             else:
                 context.bot.edit_message_text(chat_id=chat_id, text=answer["1"], message_id=update.callback_query.message.message_id)
-                Mafina.Mafina.UseCommand[str(chat_id)] = "Audio"
+                self._mafina.UseCommand[str(chat_id)] = "Audio"
         except Exception:
             self._mafina.UseCommand.pop(str(chat_id))
             context.bot.send_message(chat_id, answer["2"])
@@ -56,18 +56,18 @@ class Youtube:
     def Get_Video(self, update, context, answer, chat_id):
         file = ""
         try:
-            if str(chat_id) in Mafina.Mafina.UseCommand.keys():
-                if Mafina.Mafina.UseCommand[str(chat_id)] == "Video":
+            if chat_id in self._mafina.UseCommand.keys():
+                if self._mafina.UseCommand[chat_id] == "Video":
                     video_url = update.message.text
                     youtube = pytube.YouTube(video_url).streams.first()
                     file = youtube.download()
-                    context.bot.send_video(update.message.chat_id,open(file, 'rb'))
-                    Mafina.Mafina.UseCommand.pop(str(chat_id))
+                    context.bot.send_video(update.message.chat_id, open(file, 'rb'))
+                    self._mafina.UseCommand.pop(str(chat_id))
                     self.DeletePath(file)
             else:
                 context.bot.edit_message_text(chat_id=update.callback_query.message.chat_id, text=answer["1"],
                                               message_id=update.callback_query.message.message_id)
-                Mafina.Mafina.UseCommand[str(chat_id)] = "Video"
+                self._mafina.UseCommand[str(chat_id)] = "Video"
         except Exception:
             self._mafina.UseCommand.pop(str(chat_id))
             context.bot.send_message(chat_id, answer["2"])

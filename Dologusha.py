@@ -1,4 +1,4 @@
-import base64, Keyboard, Mafina, time, Rest
+import base64, Keyboard, Mafina, time
 
 AnswerOne = ["Увімкнула", "Мені ліньки"]
 AnswerTwo = ["Продовжити"]
