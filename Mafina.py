@@ -2,7 +2,7 @@ import Thread, Quotes, StandartCommand, weather, Evtuh,  CreateVoice, DogAndCat,
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, InlineQueryHandler, CallbackQueryHandler
 
 class Mafina(object):
-    _instance, DB, job, translator, keyboard = None, None, None, None, None
+    _instance, DB, job, translator, keyboard, Weather = None, None, None, None, None, None
     UseCommand, CutFile, jobchat, Book, ResultSearch, KeyboardFormat, Users = {}, {}, {}, {}, {}, {}, {}
     NameFormat = [".epub", ".fb2", ".pdf"]
     fileformat = {".epub": "file_id_epub", ".fb2": "file_id_fb2", ".pdf": "file_id_pdf"}
@@ -15,7 +15,7 @@ class Mafina(object):
     def __init__(self):
         Mafina.DB = DB.DataBase()
         self.updater = Updater(os.getenv("TOKEN"), use_context=True)
-        Mafina.job, Mafina.DB, Mafina.keyboard = self.updater.job_queue, DB.DataBase(), Keyboard.Keyboard()
+        Mafina.job, Mafina.DB, Mafina.keyboard, Mafina.Weather = self.updater.job_queue, DB.DataBase(), Keyboard.Keyboard(), weather.Weather(self)
         self.dispatcher = self.updater.dispatcher
         self.command = {"start":StandartCommand.start, "Help":StandartCommand.help}#,# "Weather":weather.weather, "Evtuh":Evtuh.Evtuh, "Voice":CreateVoice.voice,
                         #"Cat": DogAndCat.Cat_photo, "Dog":DogAndCat.Dog_photo, "Sheva":Quotes.ShevchenkoStyle,"Meme":Meme.Get_meme, "Youtube":Youtube.Start,
@@ -39,7 +39,7 @@ class Mafina(object):
 
     def run(self):
         #Meme.StartSystemMeme()
-        weather.StartSysWeather(self)
+        self.Weather.StartSysWeather()
         #DogAndCat.StartSysAnimal()
         self.updater.start_polling(timeout=99000, poll_interval=3)
         self.updater.idle()
@@ -52,7 +52,7 @@ class Mafina(object):
             text = str(update.message.text).lower()
             if text == "/start": Thread.Thread(StandartCommand.start(update, context, answer, Mafina, chat_id))
             elif text == "/help": Thread.Thread(StandartCommand.help, (update, context, answer, Mafina))
-            elif text == "/weather": Thread.Thread(weather.weather, (update, context, answer))
+            elif text == "/weather": Thread.Thread(self.Weather.weather, (update, context, answer))
 
                    #"/Weather": weather.weather(update, context, answer), "/Evtuh": Evtuh.Evtuh(update, context), "/Voice": CreateVoice.voice(update, context),
                    #"/Cat": DogAndCat.Cat_photo(update, context), "/Dog": DogAndCat.Dog_photo(update, context), "/Sheva": Quotes.ShevchenkoStyle(update, context),
