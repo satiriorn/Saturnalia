@@ -5,13 +5,9 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Book.py" beforeDir="false" afterPath="$PROJECT_DIR$/Book.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DB.py" beforeDir="false" afterPath="$PROJECT_DIR$/DB.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DogAndCat.py" beforeDir="false" afterPath="$PROJECT_DIR$/DogAndCat.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Keyboard.py" beforeDir="false" afterPath="$PROJECT_DIR$/Keyboard.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Mafina.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mafina.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Meme.py" beforeDir="false" afterPath="$PROJECT_DIR$/Meme.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Setting.py" beforeDir="false" afterPath="$PROJECT_DIR$/Setting.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StandartCommand.py" beforeDir="false" afterPath="$PROJECT_DIR$/StandartCommand.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UkrainianGame.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/languages/be.json" beforeDir="false" afterPath="$PROJECT_DIR$/languages/be.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -112,7 +108,7 @@
       <workItem from="1614152913737" duration="8710000" />
       <workItem from="1614179183446" duration="14159000" />
       <workItem from="1614233485051" duration="29197000" />
-      <workItem from="1614322367149" duration="13931000" />
+      <workItem from="1614322367149" duration="20282000" />
     </task>
     <task id="LOCAL-00001" summary="fix search by author">
       <created>1613223385038</created>
@@ -275,7 +271,14 @@
       <option name="project" value="LOCAL" />
       <updated>1614337181124</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="v1.1.3 fix">
+      <created>1614342282873</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1614342282873</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -315,10 +318,11 @@
     <MESSAGE value="v1.1.0 Youtube" />
     <MESSAGE value="v1.1.1 Rest&amp;SetiingMafina&amp;STD" />
     <MESSAGE value="v1.1.2 Book&amp;Cut" />
-    <option name="LAST_COMMIT_MESSAGE" value="v1.1.2 Book&amp;Cut" />
+    <MESSAGE value="v1.1.3 fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="v1.1.3 fix" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/IMafina$Mafina.coverage" NAME="Mafina Coverage Results" MODIFIED="1614341871610" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/IMafina$Mafina.coverage" NAME="Mafina Coverage Results" MODIFIED="1614379280587" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/IMafina$Main.coverage" NAME="Mafina Coverage Results" MODIFIED="1614114525645" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

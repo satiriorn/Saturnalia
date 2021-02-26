@@ -15,7 +15,7 @@ class Mafina(object):
 
     def __init__(self):
         self.updater = Updater(os.getenv("TOKEN"), use_context=True)
-        Mafina.job, Mafina._DB, Mafina._keyboard, Mafina._weather = self.updater.job_queue, DB.DataBase(), Keyboard.Keyboard(), weather.Weather(self)
+        Mafina.job, Mafina._DB, Mafina._keyboard, Mafina._weather = self.updater.job_queue, DB.DataBase(self), Keyboard.Keyboard(), weather.Weather(self)
         Mafina._voice, Mafina._std, Mafina._animal = CreateVoice.Voice(self), StandartCommand.StandartCommand(self), DogAndCat.Animal(self)
         Mafina._meme, Mafina._youtube, Mafina._setting, Mafina._cut = Meme.Meme(self), Youtube.Youtube(self), Setting.SettingMafina(self), Cut.Cut(self)
         Mafina._book = Book.Book(self)
@@ -82,7 +82,11 @@ class Mafina(object):
                 elif res == "MemeChange": Thread.Thread(self._meme.MoreMeme, (update, context, lang, chat_id))
                 elif res == "SettingTranslate": Thread.Thread(self._setting.SettingTranslate, (update, context, answer, chat_id))
                 #elif res == "Dologusha": Thread.Thread(Dologusha.start, (update, context))
-                elif res == "LangBot": Thread.Thread(self._setting.LanguageBot, (update, context, answer, chat_id))
+                elif res == "LangBot":
+                    Thread.Thread(self._setting.LanguageBot, (update, context, answer, chat_id))
+                    del self._instance.Users[chat_id]
+                    self._instance.Users.pop(chat_id)
+                    self._instance.Dispatcher(update, context)
                 elif res == "SeveralResult": Thread.Thread(self._book.SearchBook, (update, context, answer, lang, chat_id))
                 elif res == "ConfirmTypeFile": Thread.Thread(self._book.GetFile, (update, context, answer, chat_id))
                 elif res == "GetBookViaAuthor" or res == "SelectBookByAuthor":
@@ -95,9 +99,7 @@ class Mafina(object):
             elif text == "animal": Thread.Thread(File.SendFile, (update, context))
             elif '?' in text: Thread.Thread(self._std.question, (update, context, answer))
             elif text == "0": Thread.Thread(Thread.Thread(self._setting.SettingTranslate, (update, context, answer, chat_id)))
-            elif text == "1":
-                Thread.Thread(self._setting.LanguageBot, (update, context, answer, chat_id))
-                self._instance.Users.pop(chat_id)
+            elif text == "1":Thread.Thread(self._setting.LanguageBot, (update, context, answer, chat_id))
             elif text == "2": Thread.Thread(self._weather.StateWeather, (update, context, answer, chat_id))
             elif text == "3": Thread.Thread(self._animal.SysAnimal, (update, context,answer, chat_id))
             elif text == "4": Thread.Thread(self._meme.CountMem, (update, context, answer, lang))

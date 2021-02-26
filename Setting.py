@@ -43,6 +43,7 @@ class SettingMafina:
     def SettingAnswer(self, update, context, answer, chat_id):
         self._mafina._DB.ChangeAnswerSystem(chat_id)
         context.bot.edit_message_text(chat_id=chat_id, text=answer["37"], message_id=update.callback_query.message.message_id)
+
     @staticmethod
     def ExistentialResponse(update, context, answer, chat_id):
         context.bot.edit_message_text(chat_id=chat_id, text=answer["13"], message_id=update.callback_query.message.message_id)
