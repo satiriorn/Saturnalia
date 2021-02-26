@@ -1,9 +1,9 @@
 import mysql.connector, os, json
 
 class DataBase:
-    def __init__(self):
-        self.cursor = None
-        self.db = None
+    def __init__(self, M):
+        self._mafina = M
+        self.cursor, self.db = None, None
 
     def GetValue(self):
         value = None
@@ -114,7 +114,7 @@ class DataBase:
         self.db.commit()
 
     def GetFile(self, Name):
-        sql = "SELECT file_id_epub, file_id_fb2, file_id_pdf FROM heroku_c93f6b06b535bb4.book WHERE Name = '%s';" %Name
+        sql = """SELECT file_id_epub, file_id_fb2, file_id_pdf FROM heroku_c93f6b06b535bb4.book WHERE Name = trim("{0}");""".format(Name)
         self.GetCursor()
         self.cursor.execute(sql)
         return self.cursor
@@ -142,7 +142,7 @@ class DataBase:
                 self.Insert(first_name,username, chat_id, language_code, type)
 
     def CheckTypeFile(self, Book):
-        sql = """SELECT {0} FROM heroku_c93f6b06b535bb4.book WHERE Name = "{1}"; """.format(Mafina.Mafina.fileformat[Book.format], Book.Name)
+        sql = """SELECT {0} FROM heroku_c93f6b06b535bb4.book WHERE Name = "{1}"; """.format(self._mafina.fileformat[Book.format], Book.Name)
         self.GetCursor()
         self.cursor.execute(sql)
         x = self.GetValue()
@@ -150,7 +150,7 @@ class DataBase:
         return (lambda x: self.UpdateFileId(Book) if x == "" else False)(x)
 
     def UpdateFileId(self, Book):
-        sql = """UPDATE heroku_c93f6b06b535bb4.book SET {0} =("{1}")WHERE id_book ="{2}";""".format(str(Mafina.Mafina.fileformat[Book.format]),str(Book.file_id), str(self.GetIdBook(Book.Name)))
+        sql = """UPDATE heroku_c93f6b06b535bb4.book SET {0} =("{1}")WHERE id_book ="{2}";""".format(str(self._mafina.fileformat[Book.format]),str(Book.file_id), str(self.GetIdBook(Book.Name)))
         self.GetCursor()
         self.cursor.execute(sql)
         self.db.commit()
@@ -174,7 +174,7 @@ class DataBase:
         self.db.commit()
 
     def InsertBook(self, Book):
-        format = Mafina.Mafina.fileformat[Book.format]
+        format = self._mafina.fileformat[Book.format]
         sql = """INSERT INTO heroku_c93f6b06b535bb4.book(Name,{0}, id_author, book_lang) VALUES("{1}", "{2}", "{3}", "{4}");""".format(str(format), Book.Name, Book.file_id, Book.Author, Book.book_lang)
         self.cursor.execute(sql)
         self.db.commit()

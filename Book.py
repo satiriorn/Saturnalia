@@ -21,10 +21,11 @@ class Book:
             if self._mafina.UseCommand[chat_id] == "ConfirmTypeFile":
                 context.bot.edit_message_text(chat_id=chat_id, text=answer["53"],
                                               message_id=update.callback_query.message.message_id)
-                self.DownloadBook(update, context, self._mafina.KeyboardFormat[chat_id][update.callback_query.data], update.callback_query.data)
+                self.DownloadBook(update, context, self._mafina.KeyboardFormat[chat_id][update.callback_query.data], update.callback_query.data, chat_id)
                 self._mafina.UseCommand.pop(chat_id)
                 self._mafina.KeyboardFormat.pop(chat_id)
         else:
+            print(self._mafina.ResultSearch[chat_id])
             fileID = self._mafina._DB.GetFile(self._mafina.ResultSearch[chat_id])
             self._mafina.KeyboardFormat[chat_id] = {}
             for x in fileID:
@@ -32,6 +33,7 @@ class Book:
                     if str(x[y]) != "":
                         self._mafina.KeyboardFormat[chat_id][self._mafina.NameFormat[y]] = x[y]
             keys = list(self._mafina.KeyboardFormat[chat_id].keys())
+            print(keys[0])
             if len(keys) == 1:
                 context.bot.edit_message_text(chat_id=chat_id, text=answer["53"],
                                               message_id=update.callback_query.message.message_id)
@@ -170,14 +172,14 @@ class Book:
             v.append(x[0])
             value.append(str(count) + ". " + x[0])
             key.append(str(count))
-            if len(x)>1: val += str(count) + ". " + x[0]+"\nАвтор: "+x[1]+"\nМова: "+self._mafina.d[x[2]] + "\n\n"
+            if len(x)>1: val += str(count) + ". " + x[0]+"\nАвтор: "+x[1]+"\nМова: "+self._mafina._keyboard.d[x[2]] + "\n\n"
             else: val += str(count) + ". " + x[0]+"\n"
             count += 1
         key.append("Відміна пошуку")
         return value, key, val
     @classmethod
     def UploadBook(self, update, context, answer, lang, chat_id):
-        if chat_id in self._mafina.Mafina.UseCommand.keys():
+        if chat_id in self._mafina.UseCommand.keys():
             if self._mafina.UseCommand[chat_id] == "Check":
                 context.bot.send_message(chat_id, answer["43"],
                                          reply_markup=self._mafina._keyboard.InlineKeyboard(self._mafina._keyboard.ConfirmKeyboard[lang], False))
@@ -209,7 +211,7 @@ class Book:
             elif self._mafina.UseCommand[str(chat_id)] == "UploadFile":
                 self._mafina.Book[str(chat_id)].file_id = update.message.document.file_id
                 self._mafina.Book[str(chat_id)].full_file_name = update.message.document.file_name
-                self.DetectFormat(update, context)
+                self.DetectFormat(chat_id)
                 result = self._mafina._DB.BookSystem(self._mafina.Book[str(chat_id)])
                 if result and self._mafina.Book[str(chat_id)].format in update.message.document.file_name:
                     context.bot.send_message(chat_id, text=answer["45"])
