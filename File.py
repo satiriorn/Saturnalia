@@ -1,4 +1,4 @@
-import Mafina, Cut, DB, os, Convert, Thread
+import Mafina, Cut, DB, os, Thread
 
 def file(update, context):
     print(update)
