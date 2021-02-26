@@ -161,6 +161,7 @@ class Book:
         val = self._mafina._DB.CountBook()
         context.bot.edit_message_text(chat_id=chat_id, text=val, message_id=update.callback_query.message.message_id)
 
+    @classmethod
     def RefactoringData(self, result):
         count = 1
         value, key, v = [], [], []
@@ -229,6 +230,8 @@ class Book:
     def MenuBook(self, update, context, answer, lang):
         context.bot.send_message(update.message.chat_id, answer["39"],
                                  reply_markup=self._mafina._keyboard.InlineKeyboard(self._mafina._keyboard.MenuBookKeyboard[lang], False))
+
+    @classmethod
     def DetectFormat(self, chat_id):
         if ".epub" in self._mafina.Book[str(chat_id)].full_file_name.lower():
             self._mafina.Book[str(chat_id)].format = ".epub"

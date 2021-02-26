@@ -30,9 +30,8 @@ class Meme:
                                         context=int(x[y]))
 
     @classmethod
-    def MoreMeme(self, update, context):
+    def MoreMeme(self, update, context, lang, chat_id):
         value = {"0":"0","1":"900","2":"1800", "3":"3600", "4":"7200"}
-        chat_id = update.callback_query.message.chat_id
         cursor = self._mafina._DB.UsersSysMeme()
         NewUser = True
         for x in cursor:
@@ -42,9 +41,9 @@ class Meme:
                         x[y]
                         NewUser = False
         if value[str(update.callback_query.data)] != "0":
-            if str(chat_id) in Mafina.Mafina.jobchat.keys():
-                Mafina.Mafina.jobchat[str(chat_id)].schedule_removal()
-                Mafina.Mafina.jobchat[str(chat_id)] = Mafina.Mafina.job.run_repeating(self.MemeChatGroup, interval=int(value[str(update.callback_query.data)]), first=datetime.datetime.now(),
+            if chat_id in self._mafina.jobchat.keys():
+                self._mafina.jobchat[str(chat_id)].schedule_removal()
+                self._mafina.jobchat[str(chat_id)] = self._mafina.job.run_repeating(self.MemeChatGroup, interval=int(value[str(update.callback_query.data)]), first=datetime.datetime.now(),
                                         context=chat_id)
                 self._mafina._DB.UpdateSysMeme(chat_id, True, int(value[str(update.callback_query.data)]))
             elif NewUser == True:
@@ -55,7 +54,7 @@ class Meme:
             self._mafina.jobchat[str(chat_id)].schedule_removal()
             self._mafina._DB.UpdateSysMeme(chat_id, False, 0)
             self._mafina.jobchat.pop(str(chat_id))
-        context.bot.edit_message_text(chat_id=chat_id, text=self._mafina._keyboard.CountMeme[int(update.callback_query.data)], message_id=update.callback_query.message.message_id)
+        context.bot.edit_message_text(chat_id=chat_id, text=self._mafina._keyboard.CountMeme[lang][int(update.callback_query.data)], message_id=update.callback_query.message.message_id)
         self._mafina.UseCommand.pop(str(chat_id))
     @staticmethod
     def MemeChatGroup(context: telegram.ext.CallbackContext):

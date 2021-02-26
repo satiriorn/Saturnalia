@@ -1,5 +1,4 @@
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, KeyboardButton, ReplyKeyboardMarkup
-import Setting, Mafina, Dologusha, Meme, Youtube, Cut, Thread, weather, DogAndCat, Book, DB
 
 class Keyboard:
 
@@ -34,67 +33,6 @@ class Keyboard:
                 keyboard.append([InlineKeyboardButton(NameButton[i], callback_data= data(NameButton,Status,i))])
                 i += 1
         return InlineKeyboardMarkup(keyboard)
-
-    def button(update, context):
-        print(update)
-        query = update.callback_query
-        answer, lang = DB.DataBase.GetJsonLanguageBot(Mafina.Mafina.DB, update.callback_query.message.chat_id)
-        if str(update.callback_query.message.chat_id) in Mafina.Mafina.UseCommand.keys():
-            res = Mafina.Mafina.UseCommand[str(update.callback_query.message.chat_id)]
-            if res == "Rest": Thread.Thread(Rest.Rest, (update, context, answer, lang, False))
-            elif res == "MemeChange": Thread.Thread(Meme.MoreMeme, (update, context))
-            elif res == "SettingTranslate": Thread.Thread(Setting.SettingTranslate, (update, context, answer))
-            elif res == "Dologusha": Thread.Thread(Dologusha.start, (update, context))
-            elif res == "LangBot": Thread.Thread(Setting.LanguageBot, (update, context, answer))
-            elif res == "Confirm" or res == "Check"or res == "BookLang"or res == "FormatBook": Thread.Thread(Book.UploadBook, (update, context))
-            elif res == "SeveralResult":Thread.Thread(Book.SearchBook, (update, context, answer, lang))
-            elif res == "ConfirmTypeFile":Thread.Thread(Book.GetFile, (update, context, answer))
-            elif res == "GetBookViaAuthor"or res == "SelectBookByAuthor": Thread.Thread(Book.SearchAuthor, (update, context, answer, lang))
-            elif res == "GetBook":Thread.Thread(Book.SendListReadBooks, (update, context, answer, lang))
-            elif query.data == Mafina.Mafina.CancelButton[lang][0]: Thread.Thread(Book.Cancel, (update, context, answer))
-        elif query.data == "0":
-            Thread.Thread(Setting.SettingTranslate, (update, context, answer))
-        elif query.data =="1":
-            Thread.Thread(Setting.LanguageBot, (update, context, answer))
-        elif query.data == "2":
-            Thread.Thread(weather.StateWeather, (update, context, answer))
-        elif query.data == "3":
-            Thread.Thread(DogAndCat.SysAnimal, (update, context))
-        elif query.data == "4":
-            Thread.Thread(Meme.CountMem,(update, context))
-        elif query.data == "5":
-            Thread.Thread(Setting.SettingAnswer, (update, context))
-        elif query.data == Mafina.Mafina.YoutubeKeyboard[lang][0]:
-            Thread.Thread(Youtube.Get_Video, (update, context))
-        elif query.data == Mafina.Mafina.YoutubeKeyboard[lang][1]:
-            Thread.Thread(Youtube.Get_Audio, (update, context))
-        elif query.data == Mafina.Mafina.CutKeyboard[lang][0]:
-            Thread.Thread(Cut.CutVideo, (update, context))
-        elif query.data == Mafina.Mafina.CutKeyboard[lang][1] :
-            Thread.Thread(Cut.CutAudio, (update, context))
-        elif query.data == Mafina.Mafina.YoutubeKeyboard[lang][2]:
-            Thread.Thread(Cut.GetCutStart, (update, context))
-        elif query.data == Mafina.Mafina.CancelButton[lang][0]:
-            Thread.Thread(Book.Cancel, (update, context))
-        elif query.data == Mafina.Mafina.MenuBookKeyboard[lang][2]:
-            Thread.Thread(Book.SearchBook, (update, context))
-        elif query.data == Mafina.Mafina.MenuBookKeyboard[lang][0]:
-            Thread.Thread(Book.UploadBook, (update, context))
-        elif query.data == Mafina.Mafina.BookStateKeyboard[lang][1]:
-            Thread.Thread(Book.GetFile, (update, context))
-        elif query.data == Mafina.Mafina.MenuBookKeyboard[lang][1]:
-            Thread.Thread(Book.SearchAuthor, (update, context))
-        elif query.data == Mafina.Mafina.MenuBookKeyboard[lang][3]:
-            Thread.Thread(Book.CountBookInDB, (update, context))
-        elif query.data == Mafina.Mafina.BookStateKeyboard[lang][0]:
-            Thread.Thread(Book.AddBookInReadList, (update, context))
-        elif query.data == Mafina.Mafina.MenuBookKeyboard[lang][4]:
-            Thread.Thread(Book.SendListReadBooks, (update, context))
-        elif query.data == Mafina.Mafina.BookStateKeyboardDelete[lang][0]:
-            Thread.Thread(Book.DeleteInReadList, (update, context))
-        else:
-            Thread.Thread(Setting.ExistentialResponse, (update, context))
-        return query
 
     d = {"af":"Afrikaans", "ak":"Akan", "sq":"Albanian", "am":"Amharic", "ar":"Arabic","hy":"Armenian","az":"Azerbaijani","eu":"Basque",
          "be":"Belarusian","bem":"Bemba","bn":"Bengali","bh":"Bihari","bs":"Bosnian","br":"Breton","bg":"Bulgarian","km":"Cambodian","ca":"Catalan",

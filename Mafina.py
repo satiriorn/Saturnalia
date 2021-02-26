@@ -25,10 +25,10 @@ class Mafina(object):
 
     def CreateHandler(self):
         dispatchermafina_handler = MessageHandler(Filters.command|Filters.text|Filters.document, Mafina.Dispatcher)
-        #callback_query_handler = CallbackQueryHandler(Keyboard.button)
+        callback_query_handler = CallbackQueryHandler(Mafina.Dispatcher)
         file_message_handler = MessageHandler(Filters.audio | Filters.video | Filters.animation, File.file)
         self.dispatcher.add_handler(dispatchermafina_handler)
-        #self.dispatcher.add_handler(callback_query_handler)
+        self.dispatcher.add_handler(callback_query_handler)
         self.dispatcher.add_handler(file_message_handler)
         #self.dispatcher.add_handler(InlineQueryHandler(InlineQuery.inlinequery))
 
@@ -45,7 +45,8 @@ class Mafina(object):
         chat_id =self._instance.GetChatID(update)
         if chat_id in self._instance.Users.keys():
             answer, lang = self._instance.Users[chat_id].answer, self._instance.Users[chat_id].lang
-            text = str(update.message.text).lower()
+            text = self._instance.data(update)
+            print(text)
             if text == "/start": Thread.Thread(self._std.start(update, context, answer, chat_id))
             elif text == "/help": Thread.Thread(self._std.help, (update, context, answer))
             elif text == "/weather": Thread.Thread(self._weather.weather, (update, context, answer))
@@ -65,33 +66,66 @@ class Mafina(object):
             if chat_id in self._instance.UseCommand.keys():
                 res = self._instance.UseCommand[chat_id]
                 print(res)
-                if res == "Audio":Thread.Thread(self._youtube.Get_Audio, (update, context, answer, chat_id))
-                elif res == "Video":Thread.Thread(self._youtube.Get_Video, (update, context, answer, chat_id))
-                elif res == "CutAudio":Thread.Thread(self._cut.CutAudio, (update, context, answer, chat_id))
-                elif res == "CutVideo":Thread.Thread(self._cut.CutVideo, (update, context, answer, chat_id))
-                elif res == "CreateVoice":Thread.Thread(self._voice.voice, (update, context, answer, chat_id))
-                elif res == "Translate":Thread.Thread(Translate.translate, (update, context))
-                elif res == "GetCutVideo":Thread.Thread(self._cut.GetCutStart, (update, context, answer, chat_id))
-                elif res == "CutEnd":Thread.Thread(self._cut.Cut, (update, context, chat_id))
-                elif res == "Check" or res == "UploadFile":Thread.Thread(self._book.UploadBook, (update, context, answer, lang, chat_id))
-                elif res == "SearchViaName":Thread.Thread(self._book.SearchBook, (update, context, answer, lang, chat_id))
-                elif res == "SearchViaAuthor":Thread.Thread(self._book.SearchAuthor, (update, context, answer, lang, chat_id))
-            elif "погода" == text:Thread.Thread(self._weather.CurrentWeather, (update, context, answer))
+                if res == "Audio": Thread.Thread(self._youtube.Get_Audio, (update, context, answer, chat_id))
+                elif res == "Video": Thread.Thread(self._youtube.Get_Video, (update, context, answer, chat_id))
+                elif res == "CutAudio": Thread.Thread(self._cut.CutAudio, (update, context, answer, chat_id))
+                elif res == "CutVideo": Thread.Thread(self._cut.CutVideo, (update, context, answer, chat_id))
+                elif res == "CreateVoice": Thread.Thread(self._voice.voice, (update, context, answer, chat_id))
+                elif res == "Translate": Thread.Thread(Translate.translate, (update, context))
+                elif res == "GetCutVideo": Thread.Thread(self._cut.GetCutStart, (update, context, answer, chat_id))
+                elif res == "CutEnd": Thread.Thread(self._cut.Cut, (update, context, chat_id))
+                elif res == "Check" or res == "UploadFile" or res == "Confirm" or res == "BookLang" or res == "FormatBook":
+                    Thread.Thread(self._book.UploadBook, (update, context, answer, lang, chat_id))
+                elif res == "SearchViaName": Thread.Thread(self._book.SearchBook, (update, context, answer, lang, chat_id))
+                elif res == "SearchViaAuthor": Thread.Thread(self._book.SearchAuthor, (update, context, answer, lang, chat_id))
+                elif res == "Rest": Thread.Thread(self._std.Rest, (update, context, answer, lang, chat_id, False))
+                elif res == "MemeChange": Thread.Thread(self._meme.MoreMeme, (update, context, lang, chat_id))
+                elif res == "SettingTranslate": Thread.Thread(self._setting.SettingTranslate, (update, context, answer, chat_id))
+                #elif res == "Dologusha": Thread.Thread(Dologusha.start, (update, context))
+                elif res == "LangBot": Thread.Thread(self._setting.LanguageBot, (update, context, answer, chat_id))
+                elif res == "SeveralResult": Thread.Thread(self._book.SearchBook, (update, context, answer, lang, chat_id))
+                elif res == "ConfirmTypeFile": Thread.Thread(self._book.GetFile, (update, context, answer, chat_id))
+                elif res == "GetBookViaAuthor" or res == "SelectBookByAuthor":
+                    Thread.Thread(self._book.SearchAuthor, (update, context, answer, lang, chat_id))
+                elif res == "GetBook": Thread.Thread(self._book.SendListReadBooks, (update, context, answer, lang, chat_id))
+                elif text == self._book.CancelButton[lang][0]:Thread.Thread(self._book.Cancel, (update, context, answer, chat_id))
+            elif text == "погода":Thread.Thread(self._weather.CurrentWeather, (update, context, answer))
             elif text == "котик": Thread.Thread(self._animal.Cat_photo, (update, context, answer))
-            elif "мем" == text: Thread.Thread(self._meme.Get_meme, (update, context,  answer))
-            elif "animal" == text:Thread.Thread(File.SendFile, (update, context))
-            elif '?' in text:
-                pass
-                #Thread.Thread(UkrainianGame.question, (update, context))
-
-                   #" ,
-                   # , ,
+            elif text == "мем": Thread.Thread(self._meme.Get_meme, (update, context,  answer))
+            elif text == "animal": Thread.Thread(File.SendFile, (update, context))
+            elif '?' in text: Thread.Thread(self._std.question, (update, context, answer))
+            elif text == "0": Thread.Thread(Thread.Thread(self._setting.SettingTranslate, (update, context, answer, chat_id)))
+            elif text == "1":
+                Thread.Thread(self._setting.LanguageBot, (update, context, answer, chat_id))
+                self._instance.Users.pop(chat_id)
+            elif text == "2": Thread.Thread(self._weather.StateWeather, (update, context, answer, chat_id))
+            elif text == "3": Thread.Thread(self._animal.SysAnimal, (update, context,answer, chat_id))
+            elif text == "4": Thread.Thread(self._meme.CountMem, (update, context, answer, lang))
+            elif text == "5": Thread.Thread(self._setting.SettingAnswer, (update, context, answer, chat_id))
+            elif text == self._keyboard.YoutubeKeyboard[lang][0]: Thread.Thread(self._youtube.Get_Video, (update, context, answer, chat_id))
+            elif text == self._keyboard.YoutubeKeyboard[lang][1]: Thread.Thread(self._youtube.Get_Audio, (update, context, answer, chat_id))
+            elif text == self._keyboard.CutKeyboard[lang][0]: Thread.Thread(self._cut.CutVideo, (update, context, answer, chat_id))
+            elif text == self._keyboard.CutKeyboard[lang][1]: Thread.Thread(self._cut.CutAudio, (update, context, answer, chat_id))
+            elif text ==self._keyboard.YoutubeKeyboard[lang][2]: Thread.Thread(self._cut.GetCutStart, ( update, context, answer, chat_id))
+            elif text == self._keyboard.CancelButton[lang][0]: Thread.Thread(self._book.Book.Cancel, (update, context, answer, chat_id))
+            elif text == self._keyboard.MenuBookKeyboard[lang][2]: Thread.Thread(self._book.SearchBook, (update, context, answer, lang, chat_id))
+            elif text == self._keyboard.MenuBookKeyboard[lang][0]: Thread.Thread(self._book.UploadBook, (update, context, answer, lang, chat_id))
+            elif text == self._keyboard.BookStateKeyboard[lang][1]: Thread.Thread(self._book.GetFile, (update, context, answer, chat_id))
+            elif text == self._keyboard.MenuBookKeyboard[lang][1]: Thread.Thread(self._book.SearchAuthor, (update, context, answer, lang, chat_id))
+            elif text == self._keyboard.MenuBookKeyboard[lang][3]: Thread.Thread(self._book.CountBookInDB, (update, context, chat_id))
+            elif text == self._keyboard.BookStateKeyboard[lang][0]: Thread.Thread(self._book.AddBookInReadList, (update, context, answer, chat_id))
+            elif text == self._keyboard.MenuBookKeyboard[lang][4]: Thread.Thread(self._book.SendListReadBooks, (update, context, answer, lang, chat_id))
+            elif text == self._keyboard.BookStateKeyboardDelete[lang][0]:Thread.Thread(self._book.DeleteInReadList, (update, context, answer, chat_id))
+            else: Thread.Thread(self._setting.ExistentialResponse, (update, context, answer, chat_id))
                    #"/Translate": Translate.translate(update, context, answer, chat_id), ,
-                   #,
-                   #}
         else:
             self._instance.Users[chat_id] = User(chat_id, self._instance)
             self._instance.Dispatcher(update, context)
+    def data(self, update):
+        try:
+            return str(update.message.text).lower()
+        except Exception:
+            return str(update.callback_query.data)
     def GetChatID(self, update):
         try:
             return str(update.callback_query.message.chat_id)

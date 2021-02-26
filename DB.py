@@ -303,6 +303,7 @@ class DataBase:
 
     def GetJsonLanguageBot(self, chat_id):
         lang = self.GetLanguageBot(chat_id)
+        print(lang)
         patch ="languages/{0}.json".format(lang)
         with open(patch, "r", encoding="utf-8") as json_file:
             data = json.load(json_file)

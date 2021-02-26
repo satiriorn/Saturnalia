@@ -40,7 +40,7 @@ class Animal:
                             target_time = datetime.time(hour=22, minute=00, second=25).replace(tzinfo=target_tzinfo)
                         self._mafina.jobchat[str(x[y])] = self._mafina.job.run_daily(self.AnimalJob, target_time, context=x[y])
     @classmethod
-    def SysAnimal(self, update, context,answer, chat_id):
+    def SysAnimal(self, update, context, answer, chat_id):
         cursor = self._mafina._DB.UsersSysAnimal()
         target_tzinfo = datetime.timezone(datetime.timedelta(hours=2))
         target_time = datetime.time(hour=9, minute=00, second=25).replace(tzinfo=target_tzinfo)
