@@ -1,5 +1,6 @@
-import base64, time, os
+import base64, time, os, random
 from ffmpy import FFmpeg
+
 class StandartCommand:
     _instance, _mafina = None, None
     def __new__(cls, M):
@@ -62,6 +63,32 @@ class StandartCommand:
         else:
             context.bot.send_message(chat_id, answer["36"])
             self._mafina.UseCommand[chat_id] = "ConfirmSendVideo"
+
+    @classmethod
+    def question(self, update, context, answer):
+        r = random.randint(0, 100)
+        state_sys_answer = self._mafina._DB.GetAnswerSystem(update.message.chat.id)
+        if state_sys_answer == True:
+            if (r <= 10):
+                context.bot.send_message(update.message.chat_id, answer["16"])
+            elif (r <= 20):
+                context.bot.send_message(update.message.chat_id, answer["17"])
+            elif (r <= 30):
+                context.bot.send_message(update.message.chat_id, answer["18"])
+            elif (r <= 40):
+                context.bot.send_message(update.message.chat_id, answer["19"])
+            elif (r <= 50):
+                context.bot.send_message(update.message.chat_id, answer["20"])
+            elif (r <= 60):
+                context.bot.send_message(update.message.chat_id, answer["21"])
+            elif (r <= 70):
+                context.bot.send_message(update.message.chat_id, answer["22"])
+            elif (r <= 80):
+                context.bot.send_message(update.message.chat_id, answer["23"])
+            elif (r <= 90):
+                context.bot.send_message(update.message.chat_id, answer["24"])
+            elif (r <= 100):
+                context.bot.send_message(update.message.chat_id, answer["25"])
 
     @staticmethod
     def DeletePath(file):
