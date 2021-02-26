@@ -1,4 +1,5 @@
-import base64, time
+import base64, time, os
+from ffmpy import FFmpeg
 class StandartCommand:
     _instance, _mafina = None, None
     def __new__(cls, M):
@@ -28,7 +29,7 @@ class StandartCommand:
 
     @classmethod
     def Rest(self, update, context, answer, lang, chat_id, status=True):
-        self._mafina.Mafina.UseCommand[chat_id] = "Rest"
+        self._mafina.UseCommand[chat_id] = "Rest"
         if status:
             context.bot.send_message(chat_id=chat_id, text=answer["65"],
                                      reply_markup=self._mafina._keyboard.InlineKeyboard(self._mafina._keyboard.RestButton[lang], False))
@@ -44,6 +45,27 @@ class StandartCommand:
                 time.sleep(5)
             context.bot.send_message(chat_id=update.callback_query.message.chat_id, text=answer["68"])
             self._mafina.UseCommand.pop(chat_id)
+    @classmethod
+    def convert(self, update, context, answer, chat_id):
+        if chat_id in self._mafina.UseCommand.keys():
+            if self._mafina.UseCommand[chat_id] == "ConfirmSendVideo":
+                file = context.bot.getFile(update.message.video.file_id)
+                titlemp4 = ("{0}.mp4").format(chat_id)
+                titlegif = ("{0}.gif").format(chat_id)
+                file.download(titlemp4)
+                ff = FFmpeg(inputs={titlemp4: None}, outputs={titlegif: '-vf scale=1280:720'})
+                ff.run()
+                context.bot.send_animation(chat_id, open(titlegif, 'rb'))
+                self._mafina.UseCommand.pop(chat_id)
+                self.DeletePath(titlemp4)
+                self.DeletePath(titlegif)
+        else:
+            context.bot.send_message(chat_id, answer["36"])
+            self._mafina.UseCommand[chat_id] = "ConfirmSendVideo"
+
+    @staticmethod
+    def DeletePath(file):
+        os.remove(os.path.join(os.path.abspath(os.path.dirname(__file__)), file))
 
     @staticmethod
     def dec(s):
