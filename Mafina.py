@@ -24,9 +24,9 @@ class Mafina(object):
         self.run()
 
     def CreateHandler(self):
-        dispatchermafina_handler = MessageHandler(Filters.command|Filters.text|Filters.document, Mafina.Dispatcher)
+        dispatchermafina_handler = MessageHandler(Filters.command|Filters.text, Mafina.Dispatcher)
         callback_query_handler = CallbackQueryHandler(Mafina.Dispatcher)
-        file_message_handler = MessageHandler(Filters.audio | Filters.video | Filters.animation, Mafina.DispatcherFile)
+        file_message_handler = MessageHandler(Filters.audio | Filters.video | Filters.animation | Filters.document, Mafina.DispatcherFile)
         self.dispatcher.add_handler(dispatchermafina_handler)
         self.dispatcher.add_handler(callback_query_handler)
         self.dispatcher.add_handler(file_message_handler)
@@ -38,15 +38,16 @@ class Mafina(object):
         self._animal.StartSysAnimal()
         self.updater.start_polling(timeout=99000, poll_interval=3)
         self.updater.idle()
+
     @classmethod
     def DispatcherFile(self, update, context):
         chat_id = self._instance.GetChatID(update)
         if chat_id in self._instance.Users.keys():
             answer, lang = self._instance.Users[chat_id].answer, self._instance.Users[chat_id].lang
-            self._file.file(update, context, answer, chat_id)
+            self._file.file(update, context, answer, lang, chat_id)
         else:
             self._instance.Users[chat_id] = User(chat_id, self._instance)
-            self._instance.Dispatcher(update, context)
+            self._instance.DispatcherFile(update, context)
 
     @classmethod
     def Dispatcher(self, update, context):
@@ -83,7 +84,7 @@ class Mafina(object):
                 elif res == "Translate": Thread.Thread(Translate.translate, (update, context))
                 elif res == "GetCutVideo": Thread.Thread(self._cut.GetCutStart, (update, context, answer, chat_id))
                 elif res == "CutEnd": Thread.Thread(self._cut.Cut, (update, context, chat_id))
-                elif res == "Check" or res == "UploadFile" or res == "Confirm" or res == "BookLang" or res == "FormatBook":
+                elif res == "Check" or res == "Confirm" or res == "BookLang" or res == "FormatBook":
                     Thread.Thread(self._book.UploadBook, (update, context, answer, lang, chat_id))
                 elif res == "SearchViaName": Thread.Thread(self._book.SearchBook, (update, context, answer, lang, chat_id))
                 elif res == "SearchViaAuthor": Thread.Thread(self._book.SearchAuthor, (update, context, answer, lang, chat_id))
@@ -110,7 +111,7 @@ class Mafina(object):
             elif text == "0": Thread.Thread(Thread.Thread(self._setting.SettingTranslate, (update, context, answer, chat_id)))
             elif text == "1":Thread.Thread(self._setting.LanguageBot, (update, context, answer, chat_id))
             elif text == "2": Thread.Thread(self._weather.StateWeather, (update, context, answer, chat_id))
-            elif text == "3": Thread.Thread(self._animal.SysAnimal, (update, context,answer, chat_id))
+            elif text == "3": Thread.Thread(self._animal.SysAnimal, (update, context, answer, chat_id))
             elif text == "4": Thread.Thread(self._meme.CountMem, (update, context, answer, lang))
             elif text == "5": Thread.Thread(self._setting.SettingAnswer, (update, context, answer, chat_id))
             elif text == self._keyboard.YoutubeKeyboard[lang][0]: Thread.Thread(self._youtube.Get_Video, (update, context, answer, chat_id))
@@ -132,16 +133,13 @@ class Mafina(object):
         else:
             self._instance.Users[chat_id] = User(chat_id, self._instance)
             self._instance.Dispatcher(update, context)
+
     def data(self, update):
-        try:
-            return str(update.message.text).lower()
-        except Exception:
-            return str(update.callback_query.data)
+        try: return str(update.message.text).lower()
+        except Exception: return str(update.callback_query.data)
     def GetChatID(self, update):
-        try:
-            return str(update.callback_query.message.chat_id)
-        except Exception:
-            return str(update.message.chat_id)
+        try: return str(update.callback_query.message.chat_id)
+        except Exception:  return str(update.message.chat_id)
 
 class User():
     def __init__(self, chat_id, mafina):
