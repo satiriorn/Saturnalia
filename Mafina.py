@@ -3,7 +3,7 @@ from telegram.ext import Updater, MessageHandler, Filters, InlineQueryHandler, C
 
 class Mafina(object):
     _instance, _DB, job, _translator, _keyboard, _weather, _voice, _std, _animal, _meme, = None, None, None, None, None, None, None, None, None, None
-    _youtube, _setting, _cut, _book = None, None, None, None
+    _youtube, _setting, _cut, _book, _file = None, None, None, None, None
     UseCommand, CutFile, jobchat, Book, ResultSearch, KeyboardFormat, Users = {}, {}, {}, {}, {}, {}, {}
     NameFormat = [".epub", ".fb2", ".pdf"]
     fileformat = {".epub": "file_id_epub", ".fb2": "file_id_fb2", ".pdf": "file_id_pdf"}
@@ -18,7 +18,7 @@ class Mafina(object):
         Mafina.job, Mafina._DB, Mafina._keyboard, Mafina._weather = self.updater.job_queue, DB.DataBase(self), Keyboard.Keyboard(), weather.Weather(self)
         Mafina._voice, Mafina._std, Mafina._animal = CreateVoice.Voice(self), StandartCommand.StandartCommand(self), DogAndCat.Animal(self)
         Mafina._meme, Mafina._youtube, Mafina._setting, Mafina._cut = Meme.Meme(self), Youtube.Youtube(self), Setting.SettingMafina(self), Cut.Cut(self)
-        Mafina._book = Book.Book(self)
+        Mafina._book, Mafina._file = Book.Book(self), File.File(self)
         self.dispatcher = self.updater.dispatcher
         self.CreateHandler()
         self.run()
@@ -26,7 +26,7 @@ class Mafina(object):
     def CreateHandler(self):
         dispatchermafina_handler = MessageHandler(Filters.command|Filters.text|Filters.document, Mafina.Dispatcher)
         callback_query_handler = CallbackQueryHandler(Mafina.Dispatcher)
-        file_message_handler = MessageHandler(Filters.audio | Filters.video | Filters.animation, File.file)
+        file_message_handler = MessageHandler(Filters.audio | Filters.video | Filters.animation, Mafina.DispatcherFile)
         self.dispatcher.add_handler(dispatchermafina_handler)
         self.dispatcher.add_handler(callback_query_handler)
         self.dispatcher.add_handler(file_message_handler)
@@ -38,6 +38,15 @@ class Mafina(object):
         self._animal.StartSysAnimal()
         self.updater.start_polling(timeout=99000, poll_interval=3)
         self.updater.idle()
+    @classmethod
+    def DispatcherFile(self, update, context):
+        chat_id = self._instance.GetChatID(update)
+        if chat_id in self._instance.Users.keys():
+            answer, lang = self._instance.Users[chat_id].answer, self._instance.Users[chat_id].lang
+            self._file.file(update, context, answer, chat_id)
+        else:
+            self._instance.Users[chat_id] = User(chat_id, self._instance)
+            self._instance.Dispatcher(update, context)
 
     @classmethod
     def Dispatcher(self, update, context):
@@ -96,7 +105,7 @@ class Mafina(object):
             elif text == "погода":Thread.Thread(self._weather.CurrentWeather, (update, context, answer))
             elif text == "котик": Thread.Thread(self._animal.Cat_photo, (update, context, answer))
             elif text == "мем": Thread.Thread(self._meme.Get_meme, (update, context,  answer))
-            elif text == "animal": Thread.Thread(File.SendFile, (update, context))
+            elif text == "animal": Thread.Thread(self._file.SendFile, (update, context))
             elif '?' in text: Thread.Thread(self._std.question, (update, context, answer))
             elif text == "0": Thread.Thread(Thread.Thread(self._setting.SettingTranslate, (update, context, answer, chat_id)))
             elif text == "1":Thread.Thread(self._setting.LanguageBot, (update, context, answer, chat_id))

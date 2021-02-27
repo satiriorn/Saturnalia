@@ -235,12 +235,12 @@ class Book:
 
     @classmethod
     def DetectFormat(self, chat_id):
-        if ".epub" in self._mafina.Book[str(chat_id)].full_file_name.lower():
-            self._mafina.Book[str(chat_id)].format = ".epub"
-        elif ".pdf"in self._mafina.Book[str(chat_id)].full_file_name.lower():
-            self._mafina.Book[str(chat_id)].format = ".pdf"
-        elif ".fb2"in self._mafina.Book[str(chat_id)].full_file_name.lower():
-            self._mafina.Book[str(chat_id)].format = ".fb2"
+        if ".epub" in self._mafina.Book[chat_id].full_file_name.lower():
+            self._mafina.Book[chat_id].format = ".epub"
+        elif ".pdf"in self._mafina.Book[chat_id].full_file_name.lower():
+            self._mafina.Book[chat_id].format = ".pdf"
+        elif ".fb2"in self._mafina.Book[chat_id].full_file_name.lower():
+            self._mafina.Book[chat_id].format = ".fb2"
 
     @classmethod
     def DeleteInReadList(self, update, context, answer, chat_id):
