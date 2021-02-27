@@ -136,10 +136,11 @@ class Cut:
             update.message.chat.type)
         print(x)
         return x
+
     @classmethod
     def delete(self, update, chat_id):
         self._mafina.UseCommand.pop(chat_id)
-        file = Mafina.Mafina.CutFile[chat_id]
+        file = self._mafina.CutFile[chat_id]
         self._mafina.CutFile.pop(chat_id)
         self.remove(('{}.mp4').format(str(self.get_name(update))))
         self.remove(os.path.join(file))
@@ -147,6 +148,7 @@ class Cut:
     @staticmethod
     def remove(name):
         os.remove(os.path.join(os.path.abspath(os.path.dirname(__file__)), name))
+
     @staticmethod
     def GetDataTime(time):
         if str(time).count(':') > 1:
