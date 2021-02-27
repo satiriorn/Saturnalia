@@ -7,8 +7,9 @@ class File:
             File._mafina = M
             return File._instance
     @classmethod
-    def file(self, update, context, answer, chat_id):
+    def file(self, update, context, answer, lang, chat_id):
         print(update)
+        print(chat_id)
         if chat_id == "1243553196":
             try:
                 self._mafina._DB.InsertFile(update.message.document.file_id)
@@ -19,6 +20,8 @@ class File:
             if res == "CutAudio": Thread.Thread(self._mafina._cut.CutAudio, (update, context, answer, chat_id))
             elif res == "CutVideo": Thread.Thread(self._mafina._cut.CutVideo, (update, context, answer, chat_id))
             elif res == "ConfirmSendVideo": Thread.Thread(self._mafina._std.convert, (update, context, answer, chat_id))
+            elif res == "Check" or res == "UploadFile" or res == "Confirm" or res == "BookLang" or res == "FormatBook":
+                Thread.Thread(self._mafina._book.UploadBook, (update, context, answer, lang, chat_id))
 
     @classmethod
     def SendFile(self, update, context):
