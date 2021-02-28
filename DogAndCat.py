@@ -38,28 +38,24 @@ class Animal:
     @classmethod
     def SysAnimal(self, update, context, answer, lang, chat_id):
         if chat_id in self._mafina.UseCommand.keys():
-            cursor = self._mafina._DB.UsersSysAnimal()
+            cursor = self._mafina._DB.CheckUserInJob(chat_id)
             target_tzinfo = datetime.timezone(datetime.timedelta(hours=2))
             target_time = datetime.time(hour=9, minute=00, second=25).replace(tzinfo=target_tzinfo)
             NewUser = True
             for x in cursor:
-                for y in range(len(x)):
-                    if str(x[y]) == str(chat_id):
-                        state = (lambda x, y: True if x[y+1] == False else False) (x,y)
-                        self._mafina._DB.UpdateSysAnimal(chat_id, state)
+                    if str(x[0]) == str(chat_id):
+                        #self._mafina._DB.UpdateSysAnimal(chat_id, state)
                         if str(chat_id) in self._mafina.jobchat.keys() and state==False:
                             self._mafina.jobchat[str(chat_id)].schedule_removal()
                             self._mafina.jobchat.pop(str(chat_id))
                             context.bot.edit_message_text(chat_id=chat_id, text=answer["37"],
                                                           message_id=update.callback_query.message.message_id)
                             NewUser = False
-                            break
                         else:
                             self._mafina.jobchat[str(chat_id)] = self._mafina.job.run_daily(self.AnimalJob, target_time, context=chat_id)
                             context.bot.edit_message_text(chat_id=chat_id, text=answer["37"],
                                                           message_id=update.callback_query.message.message_id)
                             NewUser = False
-                        break
             if NewUser:
                 self._mafina._DB.InsertSysAnimal(update.callback_query.message.chat_id, True)
                 self._mafina.jobchat[str(chat_id)] = self._mafina.job.run_daily(self.AnimalJob, target_time, context=chat_id)

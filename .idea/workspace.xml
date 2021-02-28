@@ -5,8 +5,6 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DB.py" beforeDir="false" afterPath="$PROJECT_DIR$/DB.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DogAndCat.py" beforeDir="false" afterPath="$PROJECT_DIR$/DogAndCat.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Keyboard.py" beforeDir="false" afterPath="$PROJECT_DIR$/Keyboard.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Mafina.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mafina.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -109,7 +107,7 @@
       <workItem from="1614233485051" duration="29197000" />
       <workItem from="1614322367149" duration="20583000" />
       <workItem from="1614412544556" duration="14658000" />
-      <workItem from="1614499128297" duration="13555000" />
+      <workItem from="1614499128297" duration="14634000" />
     </task>
     <task id="LOCAL-00001" summary="fix search by author">
       <created>1613223385038</created>
@@ -300,7 +298,14 @@
       <option name="project" value="LOCAL" />
       <updated>1614449326090</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="v1.1.9 animal frequency">
+      <created>1614550396701</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1614550396701</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -319,7 +324,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix search by author" />
     <MESSAGE value="add count book in database" />
     <MESSAGE value="fix sheva&amp;book" />
     <MESSAGE value="fix book" />
@@ -344,10 +348,11 @@
     <MESSAGE value="v1.1.5 fix" />
     <MESSAGE value="v1.1.6 stable version" />
     <MESSAGE value="v1.1.7 stable version" />
-    <option name="LAST_COMMIT_MESSAGE" value="v1.1.7 stable version" />
+    <MESSAGE value="v1.1.9 animal frequency" />
+    <option name="LAST_COMMIT_MESSAGE" value="v1.1.9 animal frequency" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/IMafina$Mafina.coverage" NAME="Mafina Coverage Results" MODIFIED="1614549969917" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/IMafina$Mafina.coverage" NAME="Mafina Coverage Results" MODIFIED="1614550245219" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/IMafina$Main.coverage" NAME="Mafina Coverage Results" MODIFIED="1614114525645" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
