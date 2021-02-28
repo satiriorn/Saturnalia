@@ -1,3 +1,4 @@
+"""
 from googletrans import Translator
 import Mafina, DB, CreateVoice
 
@@ -18,3 +19,4 @@ def translate(update, context, answer, chat_id):
         Mafina.Mafina.translator = Translator()
         context.bot.send_message(update.message.chat.id, answer["15"])
         Mafina.Mafina.UseCommand.pop(str(update.message.chat_id))
+"""

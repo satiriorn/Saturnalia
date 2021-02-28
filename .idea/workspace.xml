@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f6037ee2-592e-4cb2-8437-4e80876bfeba" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DB.py" beforeDir="false" afterPath="$PROJECT_DIR$/DB.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DogAndCat.py" beforeDir="false" afterPath="$PROJECT_DIR$/DogAndCat.py" afterDir="false" />
-    </list>
+    <list default="true" id="f6037ee2-592e-4cb2-8437-4e80876bfeba" name="Default Changelist" comment="v1.1.9 animal frequency" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -107,7 +103,7 @@
       <workItem from="1614233485051" duration="29197000" />
       <workItem from="1614322367149" duration="20583000" />
       <workItem from="1614412544556" duration="14658000" />
-      <workItem from="1614499128297" duration="14634000" />
+      <workItem from="1614499128297" duration="14969000" />
     </task>
     <task id="LOCAL-00001" summary="fix search by author">
       <created>1613223385038</created>
@@ -305,7 +301,14 @@
       <option name="project" value="LOCAL" />
       <updated>1614550396701</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="v1.1.9 animal frequency">
+      <created>1614551362959</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1614551362959</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -352,7 +355,7 @@
     <option name="LAST_COMMIT_MESSAGE" value="v1.1.9 animal frequency" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/IMafina$Mafina.coverage" NAME="Mafina Coverage Results" MODIFIED="1614550245219" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/IMafina$Mafina.coverage" NAME="Mafina Coverage Results" MODIFIED="1614551307181" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/IMafina$Main.coverage" NAME="Mafina Coverage Results" MODIFIED="1614114525645" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

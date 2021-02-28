@@ -1,3 +1,4 @@
+"""
 from uuid import uuid4
 import DogAndCat,Evtuh, weather, CreateVoice, Meme
 from telegram import InlineQueryResultArticle, InputMediaPhoto, ParseMode, InputTextMessageContent, \
@@ -75,4 +76,4 @@ def inlinequery(update, context):
     except:
         u = 'update.inline_query.from.id'
         #bot.send_message(u, 'Вибач, мої мікросхеми згоріли, пиши пізніше...')
-
+"""
