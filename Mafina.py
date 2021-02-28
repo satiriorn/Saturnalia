@@ -111,7 +111,7 @@ class Mafina(object):
             elif text == "0": Thread.Thread(Thread.Thread(self._setting.SettingTranslate, (update, context, answer, chat_id)))
             elif text == "1":Thread.Thread(self._setting.LanguageBot, (update, context, answer, chat_id))
             elif text == "2": Thread.Thread(self._weather.StateWeather, (update, context, answer, chat_id))
-            elif text == "3": Thread.Thread(self._animal.SysAnimal, (update, context, answer, chat_id))
+            elif text == "3": Thread.Thread(self._animal.SysAnimal, (update, context, answer, lang, chat_id))
             elif text == "4": Thread.Thread(self._meme.CountMem, (update, context, answer, lang))
             elif text == "5": Thread.Thread(self._setting.SettingAnswer, (update, context, answer, chat_id))
             elif text == self._keyboard.YoutubeKeyboard[lang][0]: Thread.Thread(self._youtube.Get_Video, (update, context, answer, chat_id))

@@ -26,55 +26,57 @@ class Animal:
         cursor = self._mafina._DB.UsersSysAnimal()
         target_tzinfo = datetime.timezone(datetime.timedelta(hours=2))
         target_time = None
+        times = [12, 9, 22, 18]
         for x in cursor:
             for y in range(len(x)):
-                if y + 1 < len(x) and x[y + 1] == True:
-                    for i in range(4):
-                        if i==0:
-                            target_time = datetime.time(hour=9, minute=00, second=25).replace(tzinfo=target_tzinfo)
-                        elif i == 1:
-                            target_time = datetime.time(hour=13, minute=00, second=25).replace(tzinfo=target_tzinfo)
-                        elif i == 2:
-                            target_time = datetime.time(hour=18, minute=00, second=25).replace(tzinfo=target_tzinfo)
-                        else:
-                            target_time = datetime.time(hour=22, minute=00, second=25).replace(tzinfo=target_tzinfo)
-                        self._mafina.jobchat[str(x[y])] = self._mafina.job.run_daily(self.AnimalJob, target_time, context=x[y])
+                if y + 2 < len(x):
+                    for i in range(x[y+2]):
+                            target_time = datetime.time(hour=times[i], minute=00, second=25).replace(tzinfo=target_tzinfo)
+                            self._mafina.jobchat[str(x[y])] = self._mafina.job.run_daily(self.AnimalJob, target_time,
+                                                                                 context=x[y])
+
     @classmethod
-    def SysAnimal(self, update, context, answer, chat_id):
-        cursor = self._mafina._DB.UsersSysAnimal()
-        target_tzinfo = datetime.timezone(datetime.timedelta(hours=2))
-        target_time = datetime.time(hour=9, minute=00, second=25).replace(tzinfo=target_tzinfo)
-        NewUser = True
-        for x in cursor:
-            for y in range(len(x)):
-                if str(x[y]) == str(chat_id):
-                    state = (lambda x, y: True if x[y+1] == False else False) (x,y)
-                    self._mafina._DB.UpdateSysAnimal(chat_id, state)
-                    if str(chat_id) in self._mafina.jobchat.keys() and state==False:
-                        self._mafina.jobchat[str(chat_id)].schedule_removal()
-                        self._mafina.jobchat.pop(str(chat_id))
-                        context.bot.edit_message_text(chat_id=chat_id, text=answer["37"],
-                                                      message_id=update.callback_query.message.message_id)
-                        NewUser = False
+    def SysAnimal(self, update, context, answer, lang, chat_id):
+        if chat_id in self._mafina.UseCommand.keys():
+            cursor = self._mafina._DB.UsersSysAnimal()
+            target_tzinfo = datetime.timezone(datetime.timedelta(hours=2))
+            target_time = datetime.time(hour=9, minute=00, second=25).replace(tzinfo=target_tzinfo)
+            NewUser = True
+            for x in cursor:
+                for y in range(len(x)):
+                    if str(x[y]) == str(chat_id):
+                        state = (lambda x, y: True if x[y+1] == False else False) (x,y)
+                        self._mafina._DB.UpdateSysAnimal(chat_id, state)
+                        if str(chat_id) in self._mafina.jobchat.keys() and state==False:
+                            self._mafina.jobchat[str(chat_id)].schedule_removal()
+                            self._mafina.jobchat.pop(str(chat_id))
+                            context.bot.edit_message_text(chat_id=chat_id, text=answer["37"],
+                                                          message_id=update.callback_query.message.message_id)
+                            NewUser = False
+                            break
+                        else:
+                            self._mafina.jobchat[str(chat_id)] = self._mafina.job.run_daily(self.AnimalJob, target_time, context=chat_id)
+                            context.bot.edit_message_text(chat_id=chat_id, text=answer["37"],
+                                                          message_id=update.callback_query.message.message_id)
+                            NewUser = False
                         break
-                    else:
-                        self._mafina.jobchat[str(chat_id)] = self._mafina.job.run_daily(self.AnimalJob, target_time, context=chat_id)
-                        context.bot.edit_message_text(chat_id=chat_id, text=answer["37"],
-                                                      message_id=update.callback_query.message.message_id)
-                        NewUser = False
-                    break
-        if NewUser:
-            self._mafina._DB.InsertSysAnimal(update.callback_query.message.chat_id, True)
-            self._mafina.jobchat[str(chat_id)] = self._mafina.job.run_daily(self.AnimalJob, target_time, context=chat_id)
-            context.bot.edit_message_text(chat_id=chat_id, text=answer["37"],
+            if NewUser:
+                self._mafina._DB.InsertSysAnimal(update.callback_query.message.chat_id, True)
+                self._mafina.jobchat[str(chat_id)] = self._mafina.job.run_daily(self.AnimalJob, target_time, context=chat_id)
+                context.bot.edit_message_text(chat_id=chat_id, text=answer["37"],
+                                              message_id=update.callback_query.message.message_id)
+        else:
+            context.bot.edit_message_text(chat_id=chat_id, text=answer["56"],
                                           message_id=update.callback_query.message.message_id)
+            context.bot.edit_message_reply_markup(chat_id, reply_markup=self._mafina._keyboard.InlineKeyboard(
+                self._mafina._keyboard.AnimalButton[lang], False),
+                                                  message_id=update.callback_query.message.message_id)
+            self._mafina.UseCommand[str(chat_id)] = "ChangeSysAnimal"
 
     @staticmethod
     def AnimalJob(context: telegram.ext.CallbackContext):
         x = Animal._mafina._DB.GetCountAnimal(context.job.context)
         fileID = Animal._mafina._DB.GetFileId(x)
-        if x==1:
-            context.bot.send_message(context.job.context,"Увімкнута система котиків.\nКотики будуть надсилатися у заданий час два рази на день, якщо вони вам не потрібні або заважають, можете вимкнути через налаштування бота.\n Якщо немає клавіатури бота -> /Help.\n Якщо клавіатура не потрібна-> /SettingBot.\n Кількість котиків на даний момент вистачає на півроку.\n Насолоджуйтесь.\n Якщо у вас є непогана кількість унікальних мімімішних котиків пишіть @Satiriorn.")
         file = context.bot.getFile(fileID)
         title = ("{0}.gif").format(context.job.context)
         file.download(title)

@@ -61,13 +61,13 @@ class Keyboard:
         "fr": ["Fermer", "1 mème en 15 minutes", "1 mème en 30 minutes", "1 mème en 60 minutes", "1 mème en 120 minutes"]
         }
     Setting = {
-        "uk": ["Мова перекладу", "Мова бота", "Увм/Вимк погоду", "Увм/Вимк котиків", "Кількість мемів",
+        "uk": ["Мова перекладу", "Мова бота", "Увм/Вимк погоду", "Налаштування котиків", "Кількість мемів",
                       "Увм/Вимк відповіді", "Не треба нічого змінювати"],
         "be": ["Мова перакладу", "Мова бота", "Укл/вык надвор'я",
-                    "Укл/вык като́ў", "Колькасць мемаў", "Укл/вык адказа́ў", "Нічога мяняць не трэба"],
-        "en": ["Translation language", "Bot language", "On/Off weather", "On/Off cats", "Quantity of memes",
+                    "Налады като́ў", "Колькасць мемаў", "Укл/вык адказа́ў", "Нічога мяняць не трэба"],
+        "en": ["Translation language", "Bot language", "On/Off weather", "Settings cats", "Quantity of memes",
                        "On/Off response", "No need to change anything"],
-        "fr": ["Langue de translation", "Langue du bot", "Allumer/éteindre le temps", "Allumer/éteindre les chats", "Quantité de mèmes",
+        "fr": ["Langue de translation", "Langue du bot", "Allumer/éteindre le temps", "Réglages les chats", "Quantité de mèmes",
                        "On/Off response", "No need to change anything"]
         }
     YoutubeKeyboard = {
@@ -111,10 +111,17 @@ class Keyboard:
         "be": ["Завяршыць працэс"],
         "en": ["Finish the process"],
         "fr": ["Terminez le processus"]
-        }
+    }
     RestButton = {
         "uk": ["Занурюємося"],
         "be": ["Пачнем"],
         "en": ["Start"],
         "fr": ["Commencer"]
+    }
+
+    AnimalButton = {
+        "uk": ["Вимкнути", "12:00", "09:00, 12:00", "09:00, 12:00, 22:00", "09:00, 12:00, 18:00, 22:00"],
+        "be": ["Выключыць", "12:00", "09:00, 12:00", "09:00, 12:00, 22:00", "09:00, 12:00, 18:00, 22:00"],
+        "en": ["Disable", "12:00", "09:00, 12:00", "09:00, 12:00, 22:00", "09:00, 12:00, 18:00, 22:00"],
+        "fr": ["Éteindre", "12:00", "09:00, 12:00", "09:00, 12:00, 22:00", "09:00, 12:00, 18:00, 22:00"]
     }
