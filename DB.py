@@ -240,7 +240,7 @@ class DataBase:
         return self.cursor
 
     def UsersSysAnimal(self):
-        sql="SELECT chatID, j.status_sys_sweet_animal FROM heroku_c93f6b06b535bb4.user u, heroku_c93f6b06b535bb4.job_queue j WHERE u.id_user = j.id_user;"
+        sql="SELECT chatID, j.status_sys_sweet_animal, animal_frequency FROM heroku_c93f6b06b535bb4.user u, heroku_c93f6b06b535bb4.job_queue j WHERE u.id_user = j.id_user and j.status_sys_sweet_animal = 1;"
         self.GetCursor()
         self.cursor.execute(sql)
         self.db.commit()
