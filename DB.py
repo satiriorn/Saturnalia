@@ -246,6 +246,13 @@ class DataBase:
         self.db.commit()
         return self.cursor
 
+    def CheckUserInJob(self, chat_id):
+        sql = """SELECT chatID FROM heroku_c93f6b06b535bb4.user u, heroku_c93f6b06b535bb4.job_queue j WHERE u.id_user = {0};""".format(chat_id)
+        self.GetCursor()
+        self.cursor.execute(sql)
+        self.db.commit()
+        return self.cursor
+
     def UsersSysWeather(self):
         sql="SELECT chatID, j.status_sys_weather FROM heroku_c93f6b06b535bb4.user u, heroku_c93f6b06b535bb4.job_queue j WHERE u.id_user = j.id_user;"
         self.GetCursor()
