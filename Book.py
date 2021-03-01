@@ -64,7 +64,7 @@ class Book:
         if chat_id in self._mafina.UseCommand.keys():
             if self._mafina.UseCommand[chat_id] == "GetBook":
                 if update.callback_query.data == "Відміна пошуку":
-                    self.Cancel(update, context)
+                    self.Cancel(update, context, answer, chat_id)
                 val = self._mafina.ResultSearch[chat_id][int(update.callback_query.data) - 1]
                 self._mafina.ResultSearch[chat_id] = str(val)[3:]
                 self._mafina.UseCommand.pop(str(chat_id))
@@ -135,7 +135,7 @@ class Book:
                     self._mafina.UseCommand[chat_id] = "GetBookViaAuthor"
             elif self._mafina.UseCommand[chat_id] == "GetBookViaAuthor":
                 if update.callback_query.data == "Відміна пошуку":
-                    self.Cancel(update, context)
+                    self.Cancel(update, context, answer, chat_id)
                 val = self._mafina.ResultSearch[chat_id][int(update.callback_query.data) - 1]
                 result =self._mafina._DB.GetBookViaAuthor(val[3:])
                 value, key, val = self.RefactoringData(result)
@@ -147,7 +147,7 @@ class Book:
                 self._mafina.UseCommand[chat_id] = "SelectBookByAuthor"
             elif self._mafina.UseCommand[chat_id] == "SelectBookByAuthor":
                 if update.callback_query.data == "Відміна пошуку":
-                    self.Cancel(update, context)
+                    self.Cancel(update, context, answer, chat_id)
                 val = self._mafina.ResultSearch[chat_id][int(update.callback_query.data) - 1]
                 self._mafina.ResultSearch[chat_id] = str(val)[3:]
                 self._mafina.UseCommand.pop(str(chat_id))

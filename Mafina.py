@@ -33,6 +33,7 @@ class Mafina(object):
         #self.dispatcher.add_handler(InlineQueryHandler(InlineQuery.inlinequery))
 
     def run(self):
+        self._animal.DayX()
         self._meme.StartSystemMeme()
         self._weather.StartSysWeather()
         self._animal.StartSysAnimal()
