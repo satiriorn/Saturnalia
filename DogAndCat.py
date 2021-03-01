@@ -41,26 +41,24 @@ class Animal:
             cursor = self._mafina._DB.CheckUserInJob(chat_id)
             target_tzinfo = datetime.timezone(datetime.timedelta(hours=2))
             target_time = datetime.time(hour=9, minute=00, second=25).replace(tzinfo=target_tzinfo)
-            NewUser = True
             for x in cursor:
-                    if str(x[0]) == str(chat_id):
-                        #self._mafina._DB.UpdateSysAnimal(chat_id, state)
-                        if str(chat_id) in self._mafina.jobchat.keys() and state==False:
-                            self._mafina.jobchat[str(chat_id)].schedule_removal()
-                            self._mafina.jobchat.pop(str(chat_id))
-                            context.bot.edit_message_text(chat_id=chat_id, text=answer["37"],
-                                                          message_id=update.callback_query.message.message_id)
-                            NewUser = False
-                        else:
-                            self._mafina.jobchat[str(chat_id)] = self._mafina.job.run_daily(self.AnimalJob, target_time, context=chat_id)
-                            context.bot.edit_message_text(chat_id=chat_id, text=answer["37"],
-                                                          message_id=update.callback_query.message.message_id)
-                            NewUser = False
-            if NewUser:
-                self._mafina._DB.InsertSysAnimal(update.callback_query.message.chat_id, True)
-                self._mafina.jobchat[str(chat_id)] = self._mafina.job.run_daily(self.AnimalJob, target_time, context=chat_id)
-                context.bot.edit_message_text(chat_id=chat_id, text=answer["37"],
-                                              message_id=update.callback_query.message.message_id)
+                if str(x[0]) == str(chat_id):
+                    print("j")
+                    for y in range(len(self._mafina._keyboard.AnimalButton[lang])):
+                        if update.callback_query.data == self._mafina._keyboard.AnimalButton[lang][0]:
+                            self._mafina._DB.UpdateSysAnimal(chat_id, False)
+                            break
+                        elif update.callback_query.data == self._mafina._keyboard.AnimalButton[lang][y]:
+                            print(y)
+                            self._mafina._DB.UpdateFrequency(y, chat_id)
+                            if x[1] == False:
+                                self._mafina._DB.UpdateSysAnimal(chat_id, True)
+                else:
+                    self._mafina._DB.InsertSysAnimal(chat_id, True)
+                    self._mafina.jobchat[chat_id] = self._mafina.job.run_daily(self.AnimalJob, target_time, context=chat_id)
+            context.bot.edit_message_text(chat_id=chat_id, text=answer["37"],
+                                          message_id=update.callback_query.message.message_id)
+            self._mafina.UseCommand.pop(chat_id)
         else:
             context.bot.edit_message_text(chat_id=chat_id, text=answer["56"],
                                           message_id=update.callback_query.message.message_id)

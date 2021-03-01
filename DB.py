@@ -246,8 +246,16 @@ class DataBase:
         self.db.commit()
         return self.cursor
 
+    def UpdateFrequency(self, val, chat_id):
+        id_user = self.GetIdUser(chat_id)
+        sql ="""UPDATE job_queue SET animal_frequency =({0}) WHERE id_user = {1};""".format(val, id_user)
+        self.GetCursor()
+        self.cursor.execute(sql)
+        self.db.commit()
+
     def CheckUserInJob(self, chat_id):
-        sql = """SELECT chatID FROM heroku_c93f6b06b535bb4.user u, heroku_c93f6b06b535bb4.job_queue j WHERE u.id_user = {0};""".format(chat_id)
+        id_user = self.GetIdUser(chat_id)
+        sql = """SELECT chatID, status_sys_sweet_animal, animal_frequency FROM heroku_c93f6b06b535bb4.user u, heroku_c93f6b06b535bb4.job_queue j WHERE u.id_user = {0};""".format(id_user)
         self.GetCursor()
         self.cursor.execute(sql)
         self.db.commit()
