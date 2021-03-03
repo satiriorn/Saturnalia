@@ -104,7 +104,7 @@ class Mafina(object):
                     Thread.Thread(self._book.SearchAuthor, (update, context, answer, lang, chat_id))
                 elif res == "GetBook": Thread.Thread(self._book.SendListReadBooks, (update, context, answer, lang, chat_id))
                 elif res == "ChangeSysAnimal": Thread.Thread(self._animal.SysAnimal, (update, context, answer, lang, chat_id))
-                elif text == self._book.CancelButton[lang][0]:Thread.Thread(self._book.Cancel, (update, context, answer, chat_id))
+                elif text == self._keyboard.CancelButton[lang][0]:Thread.Thread(self._book.Cancel, (update, context, answer, chat_id))
             elif text == "погода":Thread.Thread(self._weather.CurrentWeather, (update, context, answer))
             elif text == "котик": Thread.Thread(self._animal.Cat_photo, (update, context, answer))
             elif text == "мем": Thread.Thread(self._meme.Get_meme, (update, context,  answer))
