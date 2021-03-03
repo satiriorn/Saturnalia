@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="f6037ee2-592e-4cb2-8437-4e80876bfeba" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DogAndCat.py" beforeDir="false" afterPath="$PROJECT_DIR$/DogAndCat.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -117,7 +116,7 @@
       <workItem from="1614499128297" duration="14969000" />
       <workItem from="1614584450226" duration="17500000" />
       <workItem from="1614712213284" duration="673000" />
-      <workItem from="1614758068329" duration="1304000" />
+      <workItem from="1614758068329" duration="3197000" />
     </task>
     <task id="LOCAL-00001" summary="fix search by author">
       <created>1613223385038</created>
@@ -336,7 +335,14 @@
       <option name="project" value="LOCAL" />
       <updated>1614593537582</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="v1.2.3 stable version">
+      <created>1614769111140</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1614769111140</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
