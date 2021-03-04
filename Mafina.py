@@ -1,9 +1,10 @@
 import Thread, Quotes, StandartCommand, weather, Evtuh,  CreateVoice, DogAndCat, InlineQuery, os, Meme, Youtube, Translate, DB, Keyboard, Setting,  Cut, File, Book
 from telegram.ext import Updater, MessageHandler, Filters, InlineQueryHandler, CallbackQueryHandler
+from googletrans import Translator
 
 class Mafina(object):
     _instance, _DB, job, _translator, _keyboard, _weather, _voice, _std, _animal, _meme, = None, None, None, None, None, None, None, None, None, None
-    _youtube, _setting, _cut, _book, _file = None, None, None, None, None
+    _youtube, _setting, _cut, _book, _file, _translate = None, None, None, None, None, None
     UseCommand, CutFile, jobchat, Book, ResultSearch, KeyboardFormat, Users = {}, {}, {}, {}, {}, {}, {}
     NameFormat = [".epub", ".fb2", ".pdf"]
     fileformat = {".epub": "file_id_epub", ".fb2": "file_id_fb2", ".pdf": "file_id_pdf"}
@@ -18,7 +19,8 @@ class Mafina(object):
         Mafina.job, Mafina._DB, Mafina._keyboard, Mafina._weather = self.updater.job_queue, DB.DataBase(self), Keyboard.Keyboard(), weather.Weather(self)
         Mafina._voice, Mafina._std, Mafina._animal = CreateVoice.Voice(self), StandartCommand.StandartCommand(self), DogAndCat.Animal(self)
         Mafina._meme, Mafina._youtube, Mafina._setting, Mafina._cut = Meme.Meme(self), Youtube.Youtube(self), Setting.SettingMafina(self), Cut.Cut(self)
-        Mafina._book, Mafina._file = Book.Book(self), File.File(self)
+        Mafina._book, Mafina._file, Mafina._translate = Book.Book(self), File.File(self), Translate.Translate(self)
+        Mafina._translator = Translator()
         self.dispatcher = self.updater.dispatcher
         self.CreateHandler()
         self.run()
@@ -72,7 +74,7 @@ class Mafina(object):
             elif text == "/cut": Thread.Thread(self._cut.CutStart, (update, context, answer, lang))
             elif text == "/convert": Thread.Thread(self._std.convert, (update, context, answer, chat_id))
             elif text == "/book": Thread.Thread(self._book.MenuBook, (update, context, answer, lang))
-            print(self._instance.UseCommand.keys())
+            elif text == "/translate": Thread.Thread(self._translate.translate, (update, context, answer, chat_id))
             if chat_id in self._instance.UseCommand.keys():
                 res = self._instance.UseCommand[chat_id]
                 print(res)
@@ -81,7 +83,7 @@ class Mafina(object):
                 elif res == "CutAudio": Thread.Thread(self._cut.CutAudio, (update, context, answer, chat_id))
                 elif res == "CutVideo": Thread.Thread(self._cut.CutVideo, (update, context, answer, chat_id))
                 elif res == "CreateVoice": Thread.Thread(self._voice.voice, (update, context, answer, chat_id))
-                elif res == "Translate": Thread.Thread(Translate.translate, (update, context))
+                elif res == "Translate": Thread.Thread(self._translate.translate, (update, context, answer, chat_id))
                 elif res == "GetCutVideo": Thread.Thread(self._cut.GetCutStart, (update, context, answer, chat_id))
                 elif res == "CutEnd": Thread.Thread(self._cut.Cut, (update, context, chat_id))
                 elif res == "Check" or res == "Confirm" or res == "BookLang" or res == "FormatBook":

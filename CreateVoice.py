@@ -30,18 +30,18 @@ class Voice:
             context.bot.send_message(chat_id, answer["5"])
             self._mafina.UseCommand.pop(chat_id)
             os.remove(os.path.join(os.path.abspath(os.path.dirname(__file__)), file))
-    """
-    def TranslateVoice(update, context, mes, lang):
-        mp3_name = str(update.message.chat_id) + '.mp3'
+
+    @classmethod
+    def TranslateVoice(self, update, context, mes, lang, chat_id):
+        mp3_name = chat_id + '.mp3'
         file = shutil.copy(r'voice.mp3', mp3_name)
         try:
             gTTS(text=mes.lower(), lang=lang).save(file)
-            context.bot.send_voice(update.message.chat_id, open(file, 'rb'))
-            context.bot.send_message(update.message.chat.id, mes)
+            context.bot.send_voice(chat_id, open(file, 'rb'))
+            context.bot.send_message(chat_id, mes)
             os.remove(os.path.join(os.path.abspath(os.path.dirname(__file__)), file))
-            Mafina.Mafina.UseCommand.pop(str(update.message.chat_id))
+            self._mafina.UseCommand.pop(chat_id)
         except Exception:
-            context.bot.send_message(update.message.chat_id, mes)
-            Mafina.Mafina.UseCommand.pop(str(update.message.chat_id))
+            context.bot.send_message(chat_id, mes)
+            self._mafina.UseCommand.pop(chat_id)
             os.remove(os.path.join(os.path.abspath(os.path.dirname(__file__)), file))
-    """
