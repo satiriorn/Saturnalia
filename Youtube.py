@@ -1,5 +1,6 @@
 import os, pytube, subprocess
 from mutagen.easyid3 import EasyID3
+from youtube_search import YoutubeSearch
 class Youtube:
     _instance, _mafina = None, None
     def __new__(cls, M):
@@ -82,3 +83,10 @@ class Youtube:
     @staticmethod
     def DeletePath(NameMusic):
         os.remove(os.path.join(os.path.abspath(os.path.dirname(__file__)), NameMusic))
+
+    @staticmethod
+    def YoutubeSearch(Name):
+        results = YoutubeSearch(Name, max_results=5).to_dict()
+        print(results)
+        return results
+        #results = YoutubeSearch('Знову подивився тренди YouTube: шок', max_results=10).to_dict()

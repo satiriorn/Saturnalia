@@ -1,10 +1,10 @@
 import Thread, Quotes, StandartCommand, weather, Evtuh,  CreateVoice, DogAndCat, InlineQuery, os, Meme, Youtube, Translate, DB, Keyboard, Setting,  Cut, File, Book
-from telegram.ext import Updater, MessageHandler, Filters, InlineQueryHandler, CallbackQueryHandler
+from telegram.ext import Updater, MessageHandler, Filters, InlineQueryHandler, CallbackQueryHandler, ChosenInlineResultHandler
 from googletrans import Translator
 
 class Mafina(object):
     _instance, _DB, job, _translator, _keyboard, _weather, _voice, _std, _animal, _meme, = None, None, None, None, None, None, None, None, None, None
-    _youtube, _setting, _cut, _book, _file, _translate = None, None, None, None, None, None
+    _youtube, _setting, _cut, _book, _file, _translate, _inline = None, None, None, None, None, None, None
     UseCommand, CutFile, jobchat, Book, ResultSearch, KeyboardFormat, Users = {}, {}, {}, {}, {}, {}, {}
     NameFormat = [".epub", ".fb2", ".pdf"]
     fileformat = {".epub": "file_id_epub", ".fb2": "file_id_fb2", ".pdf": "file_id_pdf"}
@@ -19,7 +19,7 @@ class Mafina(object):
         Mafina.job, Mafina._DB, Mafina._keyboard, Mafina._weather = self.updater.job_queue, DB.DataBase(self), Keyboard.Keyboard(), weather.Weather(self)
         Mafina._voice, Mafina._std, Mafina._animal = CreateVoice.Voice(self), StandartCommand.StandartCommand(self), DogAndCat.Animal(self)
         Mafina._meme, Mafina._youtube, Mafina._setting, Mafina._cut = Meme.Meme(self), Youtube.Youtube(self), Setting.SettingMafina(self), Cut.Cut(self)
-        Mafina._book, Mafina._file, Mafina._translate = Book.Book(self), File.File(self), Translate.Translate(self)
+        Mafina._book, Mafina._file, Mafina._translate, Mafina._inline = Book.Book(self), File.File(self), Translate.Translate(self), InlineQuery.Inline(self)
         Mafina._translator = Translator()
         self.dispatcher = self.updater.dispatcher
         self.CreateHandler()
@@ -29,10 +29,13 @@ class Mafina(object):
         dispatchermafina_handler = MessageHandler(Filters.command|Filters.text, Mafina.Dispatcher)
         callback_query_handler = CallbackQueryHandler(Mafina.Dispatcher)
         file_message_handler = MessageHandler(Filters.audio | Filters.video | Filters.animation | Filters.document, Mafina.DispatcherFile)
+        result_chosen_handler = ChosenInlineResultHandler(Mafina.DispatcherInline)
         self.dispatcher.add_handler(dispatchermafina_handler)
         self.dispatcher.add_handler(callback_query_handler)
         self.dispatcher.add_handler(file_message_handler)
-        #self.dispatcher.add_handler(InlineQueryHandler(InlineQuery.inlinequery))
+        self.dispatcher.add_handler(result_chosen_handler)
+        self.dispatcher.add_handler(InlineQueryHandler(Mafina._inline.inlinequery))
+
 
     def run(self):
         self._meme.StartSystemMeme()
@@ -50,6 +53,18 @@ class Mafina(object):
         else:
             self._instance.Users[chat_id] = User(chat_id, self._instance)
             self._instance.DispatcherFile(update, context)
+
+    @classmethod
+    def DispatcherInline(self, update, context):
+        print(update.to_dict())
+        result = update.chosen_inline_result
+        result_id = result.result_id
+        query = result.query
+        user = result.from_user.id
+        print(result_id)
+        print(user)
+        print(query)
+        print(result.inline_message_id)
 
     @staticmethod
     def multi_key_dict_get(d, k):
