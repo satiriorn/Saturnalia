@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f6037ee2-592e-4cb2-8437-4e80876bfeba" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Book.py" beforeDir="false" afterPath="$PROJECT_DIR$/Book.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Mafina.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mafina.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -123,7 +125,7 @@
       <workItem from="1615028833344" duration="23193000" />
       <workItem from="1615100630600" duration="9592000" />
       <workItem from="1615213328299" duration="2901000" />
-      <workItem from="1615269178415" duration="2329000" />
+      <workItem from="1615269178415" duration="9414000" />
     </task>
     <task id="LOCAL-00001" summary="fix search by author">
       <created>1613223385038</created>
@@ -405,7 +407,14 @@
       <option name="project" value="LOCAL" />
       <updated>1615296269078</updated>
     </task>
-    <option name="localTasksCounter" value="41" />
+    <task id="LOCAL-00041" summary="v1.3.2 fix">
+      <created>1615297135121</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1615297135121</updated>
+    </task>
+    <option name="localTasksCounter" value="42" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -424,7 +433,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="list read v2.0 with delete" />
     <MESSAGE value="global update v1.0.0" />
     <MESSAGE value="v1.0.1" />
     <MESSAGE value="v1.0.2 weather" />
@@ -449,10 +457,11 @@
     <MESSAGE value="v1.2.9 InlineQuery" />
     <MESSAGE value="v1.2.9 fix insert author" />
     <MESSAGE value="v1.3.1 youtube search" />
-    <option name="LAST_COMMIT_MESSAGE" value="v1.3.1 youtube search" />
+    <MESSAGE value="v1.3.2 fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="v1.3.2 fix" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/IMafina$Mafina.coverage" NAME="Mafina Coverage Results" MODIFIED="1615118546676" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/IMafina$Mafina.coverage" NAME="Mafina Coverage Results" MODIFIED="1615321242220" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/IMafina$Main.coverage" NAME="Mafina Coverage Results" MODIFIED="1614114525645" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
