@@ -110,7 +110,7 @@ class Mafina(object):
                 self._keyboard.CutKeyboard[lang][0]: lambda: Thread.Thread(self._cut.CutVideo,(update, context, answer, chat_id)),
                 self._keyboard.CutKeyboard[lang][1]: lambda: Thread.Thread(self._cut.CutAudio,(update, context, answer, chat_id)),
                 self._keyboard.YoutubeKeyboard[lang][2]: lambda: Thread.Thread(self._cut.GetCutStart,(update, context, answer, chat_id)),
-                self._keyboard.CancelButton[lang][0]: lambda: Thread.Thread(self._book.Book.Cancel,(update, context, answer, chat_id)),
+                self._keyboard.CancelButton[lang][0]: lambda: Thread.Thread(self._book.Cancel,(update, context, answer, chat_id)),
                 self._keyboard.MenuBookKeyboard[lang][2]: lambda: Thread.Thread(self._book.SearchBook, (update, context, answer, lang, chat_id)),
                 self._keyboard.MenuBookKeyboard[lang][0]: lambda: Thread.Thread(self._book.UploadBook, (update, context, answer, lang, chat_id)),
                 self._keyboard.BookStateKeyboard[lang][1]: lambda: Thread.Thread(self._book.GetFile,(update, context, answer, chat_id)),
