@@ -108,6 +108,7 @@ class Book:
                     self._mafina.UseCommand[chat_id] = "SeveralResult"
 
             elif self._mafina.UseCommand[chat_id] == "SeveralResult":
+                if update.callback_query.data == "Відміна пошуку":self.Cancel(update, context, answer, chat_id)
                 val = self._mafina.ResultSearch[chat_id][int(update.callback_query.data)-1]
                 v = val.split("—")
                 self._mafina.ResultSearch[chat_id] = str(v[0])[3:]
@@ -199,34 +200,34 @@ class Book:
                     self._mafina.UseCommand.pop(chat_id)
                     self._mafina.Book.pop(chat_id)
                     self.UploadBook(update, context, answer, lang, chat_id)
-            elif self._mafina.UseCommand[str(chat_id)] == "BookLang":
-                self._mafina.Book[str(chat_id)].book_lang =self._mafina._keyboard.b[update.callback_query.data]
-                self._mafina.UseCommand.pop(str(chat_id))
-                self._mafina.UseCommand[str(chat_id)] = "UploadFile"
+            elif self._mafina.UseCommand[chat_id] == "BookLang":
+                self._mafina.Book[chat_id].book_lang =self._mafina._keyboard.b[update.callback_query.data]
+                self._mafina.UseCommand.pop(chat_id)
+                self._mafina.UseCommand[chat_id] = "UploadFile"
                 context.bot.edit_message_text(chat_id=chat_id, text=answer["42"],
                                               message_id=update.callback_query.message.message_id)
                 context.bot.edit_message_reply_markup(chat_id,
                                               reply_markup = self._mafina._keyboard.InlineKeyboard(self._mafina._keyboard.CancelButton[lang], False),
                                               message_id=update.callback_query.message.message_id)
-            elif self._mafina.UseCommand[str(chat_id)] == "UploadFile":
-                self._mafina.Book[str(chat_id)].file_id = update.message.document.file_id
-                self._mafina.Book[str(chat_id)].full_file_name = update.message.document.file_name
+            elif self._mafina.UseCommand[chat_id] == "UploadFile":
+                self._mafina.Book[chat_id].file_id = update.message.document.file_id
+                self._mafina.Book[chat_id].full_file_name = update.message.document.file_name
                 self.DetectFormat(chat_id)
-                result = self._mafina._DB.BookSystem(self._mafina.Book[str(chat_id)])
-                if result and self._mafina.Book[str(chat_id)].format in update.message.document.file_name:
+                result = self._mafina._DB.BookSystem(self._mafina.Book[chat_id])
+                if result and self._mafina.Book[chat_id].format in update.message.document.file_name:
                     context.bot.send_message(chat_id, text=answer["45"])
                 else:
                     context.bot.send_message(chat_id, text=answer["46"])
-                self._mafina.UseCommand.pop(str(chat_id))
-                self._mafina.Book.pop(str(chat_id))
+                self._mafina.UseCommand.pop(chat_id)
+                self._mafina.Book.pop(chat_id)
         else:
             context.bot.edit_message_text(chat_id=chat_id, text=answer["41"], message_id=update.callback_query.message.message_id)
             self._mafina.UseCommand[str(chat_id)] = "Check"
     @classmethod
     def Cancel(self, update, context, answer, chat_id):
         context.bot.edit_message_text(chat_id=chat_id, text=answer["51"], message_id=update.callback_query.message.message_id)
-        self._mafina.UseCommand.pop(str(chat_id))
-        self._mafina.Book.pop(str(chat_id))
+        self._mafina.UseCommand.pop(chat_id)
+        self._mafina.Book.pop(chat_id)
 
     @classmethod
     def MenuBook(self, update, context, answer, lang):
