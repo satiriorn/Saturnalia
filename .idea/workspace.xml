@@ -123,7 +123,10 @@
       <workItem from="1614844007728" duration="3762000" />
       <workItem from="1614873146882" duration="4648000" />
       <workItem from="1614934654667" duration="19034000" />
-      <workItem from="1615028833344" duration="20112000" />
+      <workItem from="1615028833344" duration="23193000" />
+      <workItem from="1615100630600" duration="9592000" />
+      <workItem from="1615213328299" duration="2901000" />
+      <workItem from="1615269178415" duration="845000" />
     </task>
     <task id="LOCAL-00001" summary="fix search by author">
       <created>1613223385038</created>
@@ -384,7 +387,14 @@
       <option name="project" value="LOCAL" />
       <updated>1614972920986</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="v1.2.9 InlineQuery">
+      <created>1615061723530</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1615061723530</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -403,7 +413,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="refactoring request for add book in database" />
     <MESSAGE value="list read v1.0" />
     <MESSAGE value="list read v1.1" />
     <MESSAGE value="list read v2.0 with delete" />
@@ -428,10 +437,11 @@
     <MESSAGE value="v1.2.4 fix" />
     <MESSAGE value="v1.2.6 fix" />
     <MESSAGE value="v1.2.7 Mafina refactoring" />
-    <option name="LAST_COMMIT_MESSAGE" value="v1.2.7 Mafina refactoring" />
+    <MESSAGE value="v1.2.9 InlineQuery" />
+    <option name="LAST_COMMIT_MESSAGE" value="v1.2.9 InlineQuery" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/IMafina$Mafina.coverage" NAME="Mafina Coverage Results" MODIFIED="1615060274985" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/IMafina$Mafina.coverage" NAME="Mafina Coverage Results" MODIFIED="1615118546676" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/IMafina$Main.coverage" NAME="Mafina Coverage Results" MODIFIED="1614114525645" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

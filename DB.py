@@ -168,7 +168,7 @@ class DataBase:
             return x
 
     def InsertAuthor(self, Book):
-        sql = """INSERT INTO heroku_c93f6b06b535bb4.author(Name) VALUES("{0}");""".format(Book.Author)
+        sql = """INSERT INTO heroku_c93f6b06b535bb4.author(Name) VALUES(trim("{0}"));""".format(Book.Author)
         self.GetCursor()
         self.cursor.execute(sql)
         self.db.commit()
