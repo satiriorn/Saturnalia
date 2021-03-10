@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f6037ee2-592e-4cb2-8437-4e80876bfeba" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Book.py" beforeDir="false" afterPath="$PROJECT_DIR$/Book.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/InlineQuery.py" beforeDir="false" afterPath="$PROJECT_DIR$/InlineQuery.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mafina.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mafina.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Youtube.py" beforeDir="false" afterPath="$PROJECT_DIR$/Youtube.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -124,7 +127,7 @@
       <workItem from="1615100630600" duration="9592000" />
       <workItem from="1615213328299" duration="2901000" />
       <workItem from="1615269178415" duration="9735000" />
-      <workItem from="1615362340739" duration="5112000" />
+      <workItem from="1615362340739" duration="13763000" />
     </task>
     <task id="LOCAL-00001" summary="fix search by author">
       <created>1613223385038</created>
@@ -434,7 +437,14 @@
       <option name="project" value="LOCAL" />
       <updated>1615375563820</updated>
     </task>
-    <option name="localTasksCounter" value="45" />
+    <task id="LOCAL-00045" summary="v1.3.4 stable version fix book">
+      <created>1615376192537</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1615376192537</updated>
+    </task>
+    <option name="localTasksCounter" value="46" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -453,7 +463,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="v1.0.2 weather" />
     <MESSAGE value="v1.0.3 weather" />
     <MESSAGE value="v1.0.4 StandartCommand&amp;CreateVoice" />
     <MESSAGE value="v1.0.5 Voice" />
@@ -478,10 +487,11 @@
     <MESSAGE value="v1.3.2 fix" />
     <MESSAGE value="v1.3.3 stable version" />
     <MESSAGE value="v1.3.4 stable version" />
-    <option name="LAST_COMMIT_MESSAGE" value="v1.3.4 stable version" />
+    <MESSAGE value="v1.3.4 stable version fix book" />
+    <option name="LAST_COMMIT_MESSAGE" value="v1.3.4 stable version fix book" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/IMafina$Mafina.coverage" NAME="Mafina Coverage Results" MODIFIED="1615366039752" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/IMafina$Mafina.coverage" NAME="Mafina Coverage Results" MODIFIED="1615399901038" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/IMafina$Main.coverage" NAME="Mafina Coverage Results" MODIFIED="1614114525645" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
