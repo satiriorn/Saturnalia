@@ -15,12 +15,12 @@ class Youtube:
                                  reply_markup=self._mafina._keyboard.InlineKeyboard(self._mafina._keyboard.YoutubeKeyboard[lang], False))
 
     @classmethod
-    def Get_Audio(self, update, context, answer, chat_id):
+    def Get_Audio(self, update, context, answer, chat_id, inline = False):
         file, NameMusic = "", ""
         try:
             if chat_id in self._mafina.UseCommand.keys():
                 if self._mafina.UseCommand[chat_id] == "Audio":
-                    url=update.message.text
+                    url= (lambda x: update.inline_query.query if x == True else update.message.text)(inline)
                     print(url)
                     try:
                         youtube = pytube.YouTube(url).streams.filter(only_audio=True).first()
@@ -40,10 +40,16 @@ class Youtube:
                     audio['title'] = details['title'].replace(details['author'], "").replace('- ','')
                     audio['artist'] = details['author']
                     audio.save()
-                    context.bot.send_audio(chat_id, open(NameMusic, 'rb'))
-                    self._mafina.UseCommand.pop(str(chat_id))
-                    self.DeletePath(NameMusic)
-                    self.DeletePath(file)
+                    if inline:
+                        infom = context.bot.send_audio("1243553196", open(NameMusic, 'rb'))
+                        self._mafina._youtube.DeletePath(NameMusic)
+                        self._mafina._youtube.DeletePath(file)
+                        return infom.audio.file_id
+                    else:
+                        context.bot.send_audio(chat_id, open(NameMusic, 'rb'))
+                        self._mafina.UseCommand.pop(chat_id)
+                        self.DeletePath(NameMusic)
+                        self.DeletePath(file)
             else:
                 context.bot.edit_message_text(chat_id=chat_id, text=answer["1"], message_id=update.callback_query.message.message_id)
                 self._mafina.UseCommand[str(chat_id)] = "Audio"

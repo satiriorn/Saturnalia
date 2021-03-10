@@ -40,7 +40,7 @@ class Mafina(object):
         self._meme.StartSystemMeme()
         self._weather.StartSysWeather()
         self._animal.StartSysAnimal()
-        self.updater.start_polling(timeout=99000, poll_interval=3)
+        self.updater.start_polling(timeout=199000, poll_interval=3)
         self.updater.idle()
 
     @classmethod
