@@ -37,7 +37,7 @@ class Book:
             if len(keys) == 1:
                 context.bot.edit_message_text(chat_id=chat_id, text=answer["53"],
                                               message_id=update.callback_query.message.message_id)
-                self.DownloadBook(update, context,self._mafina.KeyboardFormat[chat_id][keys[0]], keys[0])
+                self.DownloadBook(update, context, self._mafina.KeyboardFormat[chat_id][keys[0]], keys[0], chat_id)
                 self._mafina.KeyboardFormat.pop(chat_id)
             else:
                 context.bot.edit_message_text(chat_id=chat_id, text=answer["52"], message_id=update.callback_query.message.message_id)
