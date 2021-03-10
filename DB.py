@@ -157,7 +157,7 @@ class DataBase:
         return True
 
     def CheckAuthor(self, Book):
-        sql = """SELECT * FROM heroku_c93f6b06b535bb4.author WHERE Name = "{0}"; """ .format(Book.Author)
+        sql = """SELECT * FROM heroku_c93f6b06b535bb4.author WHERE Name = trim("{0}"); """ .format(Book.Author)
         self.GetCursor()
         self.cursor.execute(sql)
         x = self.GetValue()
