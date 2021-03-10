@@ -36,7 +36,6 @@ class Mafina(object):
         self.dispatcher.add_handler(result_chosen_handler)
         self.dispatcher.add_handler(InlineQueryHandler(Mafina._inline.inlinequery))
 
-
     def run(self):
         self._meme.StartSystemMeme()
         self._weather.StartSysWeather()
@@ -102,11 +101,12 @@ class Mafina(object):
                 "GetBook": lambda:Thread.Thread(self._book.SendListReadBooks, (update, context, answer, lang, chat_id)),
                 "ChangeSysAnimal": lambda:Thread.Thread(self._animal.SysAnimal, (update, context, answer, lang, chat_id)),
                 "LangBot": lambda:Thread.Thread(self._setting.LanguageBot, (update, context, answer, chat_id)),
-                self._keyboard.CancelButton[lang][0]:lambda:Thread.Thread(self._book.Cancel, (update, context, answer, chat_id)),
+                (self._keyboard.CancelButton[lang][0], self._keyboard.BookStateKeyboard[lang][2]):
+                    lambda: Thread.Thread(self._book.Cancel, (update, context, answer, chat_id))
                 }
                 self.multi_key_dict_get(Process, res)()
+                self.multi_key_dict_get(Process, text)()
                 return
-
             CommandTxtButton = {
                 "/help": lambda : Thread.Thread(self._std.help, (update, context, answer)),
                 "/evtuh": lambda : Thread.Thread(Evtuh.Evtuh, (update, context)),
@@ -137,7 +137,7 @@ class Mafina(object):
                 self._keyboard.CutKeyboard[lang][0]: lambda: Thread.Thread(self._cut.CutVideo,(update, context, answer, chat_id)),
                 self._keyboard.CutKeyboard[lang][1]: lambda: Thread.Thread(self._cut.CutAudio,(update, context, answer, chat_id)),
                 self._keyboard.YoutubeKeyboard[lang][2]: lambda: Thread.Thread(self._cut.GetCutStart,(update, context, answer, chat_id)),
-                self._keyboard.CancelButton[lang][0]: lambda: Thread.Thread(self._book.Cancel,(update, context, answer, chat_id)),
+                (self._keyboard.CancelButton[lang][0], self._keyboard.BookStateKeyboard[lang][2]):lambda: Thread.Thread(self._book.Cancel, (update, context, answer, chat_id)),
                 self._keyboard.MenuBookKeyboard[lang][2]: lambda: Thread.Thread(self._book.SearchBook, (update, context, answer, lang, chat_id)),
                 self._keyboard.MenuBookKeyboard[lang][0]: lambda: Thread.Thread(self._book.UploadBook, (update, context, answer, lang, chat_id)),
                 self._keyboard.BookStateKeyboard[lang][1]: lambda: Thread.Thread(self._book.GetFile,(update, context, answer, chat_id)),
@@ -146,7 +146,6 @@ class Mafina(object):
                 self._keyboard.BookStateKeyboard[lang][0]: lambda: Thread.Thread(self._book.AddBookInReadList, (update, context, answer, chat_id)),
                 self._keyboard.MenuBookKeyboard[lang][4]: lambda: Thread.Thread(self._book.SendListReadBooks, (update, context, answer, lang, chat_id)),
                 self._keyboard.BookStateKeyboardDelete[lang][0]: lambda: Thread.Thread(self._book.DeleteInReadList, (update, context, answer, chat_id)),
-                self._keyboard.BookStateKeyboard[lang][2]:lambda: Thread.Thread(self._book.Cancel, (update, context, answer, chat_id)),
                 self._keyboard.Setting[lang][6]: lambda: Thread.Thread(self._setting.ExistentialResponse, (update, context, answer, chat_id))
                 }
             if self.multi_key_dict_get(CommandTxtButton, text)() and '?' in text: Thread.Thread(self._std.question, (update, context, answer))

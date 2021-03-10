@@ -162,6 +162,7 @@ class Book:
     @classmethod
     def CountBookInDB(self, update, context, chat_id):
         val = self._mafina._DB.CountBook()
+        print(val)
         context.bot.edit_message_text(chat_id=chat_id, text=val, message_id=update.callback_query.message.message_id)
 
     @classmethod
