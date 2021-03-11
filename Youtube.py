@@ -90,3 +90,6 @@ class Youtube:
     def DeletePath(NameMusic):
         os.remove(os.path.join(os.path.abspath(os.path.dirname(__file__)), NameMusic))
         #results = YoutubeSearch('Знову подивився тренди YouTube: шок', max_results=10).to_dict()
+
+    @staticmethod
+    def YoutubeSearch(Name): return YoutubeSearch(Name, max_results=5).to_dict()
