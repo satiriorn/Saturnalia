@@ -20,7 +20,7 @@ class Youtube:
         try:
             if chat_id in self._mafina.UseCommand.keys():
                 if self._mafina.UseCommand[chat_id] == "Audio":
-                    url= (lambda x: update.inline_query.query if x == True else update.message.text)(inline)
+                    url= (lambda x: update if x == True else update.message.text)(inline)
                     print(url)
                     try:
                         youtube = pytube.YouTube(url).streams.filter(only_audio=True).first()
@@ -40,21 +40,15 @@ class Youtube:
                     audio['title'] = details['title'].replace(details['author'], "").replace('- ','')
                     audio['artist'] = details['author']
                     audio.save()
-                    if inline:
-                        infom = context.bot.send_audio("1243553196", open(NameMusic, 'rb'))
-                        self._mafina._youtube.DeletePath(NameMusic)
-                        self._mafina._youtube.DeletePath(file)
-                        return infom.audio.file_id
-                    else:
-                        context.bot.send_audio(chat_id, open(NameMusic, 'rb'))
-                        self._mafina.UseCommand.pop(chat_id)
-                        self.DeletePath(NameMusic)
-                        self.DeletePath(file)
+                    context.bot.send_audio(chat_id, open(NameMusic, 'rb'))
+                    self._mafina.UseCommand.pop(chat_id)
+                    self.DeletePath(NameMusic)
+                    self.DeletePath(file)
             else:
                 context.bot.edit_message_text(chat_id=chat_id, text=answer["1"], message_id=update.callback_query.message.message_id)
-                self._mafina.UseCommand[str(chat_id)] = "Audio"
+                self._mafina.UseCommand[chat_id] = "Audio"
         except Exception:
-            self._mafina.UseCommand.pop(str(chat_id))
+            self._mafina.UseCommand.pop(chat_id)
             context.bot.send_message(chat_id, answer["2"])
             self.DeletePath(NameMusic)
             self.DeletePath(file)
@@ -69,14 +63,14 @@ class Youtube:
                     youtube = pytube.YouTube(video_url).streams.first()
                     file = youtube.download()
                     context.bot.send_video(update.message.chat_id, open(file, 'rb'))
-                    self._mafina.UseCommand.pop(str(chat_id))
+                    self._mafina.UseCommand.pop(chat_id)
                     self.DeletePath(file)
             else:
                 context.bot.edit_message_text(chat_id=update.callback_query.message.chat_id, text=answer["1"],
                                               message_id=update.callback_query.message.message_id)
-                self._mafina.UseCommand[str(chat_id)] = "Video"
+                self._mafina.UseCommand[chat_id] = "Video"
         except Exception:
-            self._mafina.UseCommand.pop(str(chat_id))
+            self._mafina.UseCommand.pop(chat_id)
             context.bot.send_message(chat_id, answer["2"])
             self.DeletePath(file)
 
@@ -89,7 +83,6 @@ class Youtube:
     @staticmethod
     def DeletePath(NameMusic):
         os.remove(os.path.join(os.path.abspath(os.path.dirname(__file__)), NameMusic))
-        #results = YoutubeSearch('Знову подивився тренди YouTube: шок', max_results=10).to_dict()
 
     @staticmethod
     def YoutubeSearch(Name): return YoutubeSearch(Name, max_results=5).to_dict()
