@@ -40,7 +40,7 @@ class Mafina(object):
         self._meme.StartSystemMeme()
         self._weather.StartSysWeather()
         self._animal.StartSysAnimal()
-        self.updater.start_polling(timeout=199000, poll_interval=3)
+        self.updater.start_polling(timeout=1990000, poll_interval=3)
         self.updater.idle()
 
     @classmethod
@@ -56,9 +56,16 @@ class Mafina(object):
     @classmethod
     def DispatcherInline(self, update, context):
         result = update.chosen_inline_result
-        result_id = result.result_id
-        query = result.query
-        user = result.from_user.id
+        chat_id = result.from_user.id
+        if chat_id in self._instance.Users.keys():
+            answer, lang = self._instance.Users[chat_id].answer, self._instance.Users[chat_id].lang
+            print(result.result_id)
+            self._instance.UseCommand[chat_id] = "Audio"
+            self._youtube.Get_Audio(self._instance.ResultInline[chat_id][int(result.result_id)]['input_message_content']['message_text'],
+                                    context, answer, chat_id, inline=True)
+        else:
+            self._instance.Users[chat_id] = User(chat_id, self._instance)
+            self._instance.DispatcherInline(update, context)
 
     @staticmethod
     def multi_key_dict_get(d, k):
