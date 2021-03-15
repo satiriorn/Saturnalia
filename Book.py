@@ -120,6 +120,7 @@ class Book:
             context.bot.edit_message_text(chat_id=chat_id, text=answer["47"],
                                           message_id=update.callback_query.message.message_id)
             self._mafina.UseCommand[chat_id] = "SearchViaName"
+            
     @classmethod
     def SearchAuthor(self, update, context, answer, lang, chat_id):
         if chat_id in self._mafina.UseCommand.keys():
