@@ -31,9 +31,9 @@ class Animal:
             for y in range(len(x)):
                 if y + 2 < len(x):
                     for i in range(x[y+2]):
-                            target_time = datetime.time(hour=times[i], minute=00, second=25).replace(tzinfo=target_tzinfo)
-                            self._mafina.jobchat[str(x[y])] = self._mafina.job.run_daily(self.AnimalJob, target_time,
-                                                                                 context=x[y])
+                        target_time = datetime.time(hour=times[i], minute=00, second=25).replace(tzinfo=target_tzinfo)
+                        self._mafina.jobchat[str(x[y])] = self._mafina.job.run_daily(self.AnimalJob, target_time,
+                                                                             context=x[y])
 
     @classmethod
     def SysAnimal(self, update, context, answer, lang, chat_id):
@@ -69,14 +69,17 @@ class Animal:
 
     @staticmethod
     def AnimalJob(context: telegram.ext.CallbackContext):
-        x = Animal._mafina._DB.GetCountAnimal(context.job.context)
-        fileID = Animal._mafina._DB.GetFileId(x)
-        file = context.bot.getFile(fileID)
-        title = ("{0}.gif").format(context.job.context)
-        file.download(title)
         try:
-            context.bot.send_video(context.job.context, open(title, 'rb'))
+            x = Animal._mafina._DB.GetCountAnimal(context.job.context)
+            fileID = Animal._mafina._DB.GetFileId(x)
+            file = context.bot.getFile(fileID)
+            title = ("{0}.gif").format(context.job.context)
+            file.download(title)
+            try:
+                context.bot.send_video(context.job.context, open(title, 'rb'))
+            except Exception:
+                context.bot.send_animation(context.job.context, open(title, 'rb'))
+            Animal._mafina._DB.UpCountAnimal(context.job.context)
+            os.remove(os.path.join(os.path.abspath(os.path.dirname(__file__)), title))
         except Exception:
-            context.bot.send_animation(context.job.context, open(title, 'rb'))
-        Animal._mafina._DB.UpCountAnimal(context.job.context)
-        os.remove(os.path.join(os.path.abspath(os.path.dirname(__file__)), title))
+            Animal._mafina._DB.UpCountAnimal(context.job.context)
