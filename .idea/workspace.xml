@@ -1,14 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f6037ee2-592e-4cb2-8437-4e80876bfeba" name="Default Changelist" comment="v1.4.0 weather test">
-      <change beforePath="$PROJECT_DIR$/.idea/IMafina.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/IMafina.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+    <list default="true" id="f6037ee2-592e-4cb2-8437-4e80876bfeba" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/languages/be.json" beforeDir="false" afterPath="$PROJECT_DIR$/languages/be.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/languages/en.json" beforeDir="false" afterPath="$PROJECT_DIR$/languages/en.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/languages/uk.json" beforeDir="false" afterPath="$PROJECT_DIR$/languages/uk.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,6 +28,7 @@
     </file-type-list>
   </component>
   <component name="ProjectId" id="1nHSTsRoJDIhkDV5Cyjq5EeWrg9" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -44,7 +39,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../DogPower" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../ai-university-main" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
@@ -54,7 +49,7 @@
       <recent name="C:\Users\Satiriorn\PycharmProjects\DogPower" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.BlindDog">
+  <component name="RunManager" selected="Python.RobotVacuumCleaner">
     <configuration name="BlindDog" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="DogPower" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -127,13 +122,61 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="RobotVacuumCleaner" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="DogPower" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../DogPower" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../DogPower/RobotVacuumCleaner.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="ai-university-main" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../ai-university-main/hw1_dog" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../ai-university-main/hw1_dog/main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <list>
       <item itemvalue="Python.BlindDog" />
       <item itemvalue="Python.Mafina" />
       <item itemvalue="Python.DogDraw" />
+      <item itemvalue="Python.main" />
+      <item itemvalue="Python.RobotVacuumCleaner" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.RobotVacuumCleaner" />
+        <item itemvalue="Python.main" />
         <item itemvalue="Python.BlindDog" />
         <item itemvalue="Python.DogDraw" />
         <item itemvalue="Python.Mafina" />
@@ -203,14 +246,10 @@
       <workItem from="1616143540670" duration="11293000" />
       <workItem from="1616174649180" duration="1313000" />
       <workItem from="1616237780064" duration="12103000" />
-      <workItem from="1616315420901" duration="8609000" />
-    </task>
-    <task id="LOCAL-00002" summary="add count book in database">
-      <created>1613224027477</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1613224027478</updated>
+      <workItem from="1616315420901" duration="9271000" />
+      <workItem from="1616398723259" duration="17504000" />
+      <workItem from="1616480605566" duration="11555000" />
+      <workItem from="1616572250588" duration="644000" />
     </task>
     <task id="LOCAL-00003" summary="fix sheva&amp;book">
       <created>1613332285776</created>
@@ -548,7 +587,14 @@
       <option name="project" value="LOCAL" />
       <updated>1615995100913</updated>
     </task>
-    <option name="localTasksCounter" value="51" />
+    <task id="LOCAL-00051" summary="v1.4.0 refactor start text">
+      <created>1616353628103</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1616353628103</updated>
+    </task>
+    <option name="localTasksCounter" value="52" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -567,7 +613,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="v1.0.6 Cat&amp;Dog" />
     <MESSAGE value="v1.0.7 Meme" />
     <MESSAGE value="v1.1.0 Youtube" />
     <MESSAGE value="v1.1.1 Rest&amp;SetiingMafina&amp;STD" />
@@ -592,12 +637,15 @@
     <MESSAGE value="v1.3.5 test inline" />
     <MESSAGE value="v1.4.0 inline" />
     <MESSAGE value="v1.4.0 weather test" />
-    <option name="LAST_COMMIT_MESSAGE" value="v1.4.0 weather test" />
+    <MESSAGE value="v1.4.0 refactor start text" />
+    <option name="LAST_COMMIT_MESSAGE" value="v1.4.0 refactor start text" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/IMafina$Mafina.coverage" NAME="Mafina Coverage Results" MODIFIED="1615994917864" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/IMafina$SnakeTest.coverage" NAME="SnakeTest Coverage Results" MODIFIED="1616342254426" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../DogPower" />
-    <SUITE FILE_PATH="coverage/IMafina$BlindDog.coverage" NAME="BlindDog Coverage Results" MODIFIED="1616352562703" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../DogPower" />
+    <SUITE FILE_PATH="coverage/IMafina$RobotVacuumCleaner.coverage" NAME="RobotVacuumCleaner Coverage Results" MODIFIED="1616489707869" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../DogPower" />
+    <SUITE FILE_PATH="coverage/IMafina$BlindDog.coverage" NAME="BlindDog Coverage Results" MODIFIED="1616426020269" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../DogPower" />
+    <SUITE FILE_PATH="coverage/IMafina$main.coverage" NAME="main Coverage Results" MODIFIED="1616484293880" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../ai-university-main/hw1_dog" />
     <SUITE FILE_PATH="coverage/IMafina$Main.coverage" NAME="Mafina Coverage Results" MODIFIED="1614114525645" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
