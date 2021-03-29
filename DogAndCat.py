@@ -24,7 +24,7 @@ class Animal:
     @classmethod
     def StartSysAnimal(self):
         cursor = self._mafina._DB.UsersSysAnimal()
-        target_tzinfo = datetime.timezone(datetime.timedelta(hours=2))
+        target_tzinfo = datetime.timezone(datetime.timedelta(hours=3))
         target_time = None
         times = [12, 9, 22, 18]
         for x in cursor:
@@ -39,7 +39,7 @@ class Animal:
     def SysAnimal(self, update, context, answer, lang, chat_id):
         if chat_id in self._mafina.UseCommand.keys():
             cursor = self._mafina._DB.CheckUserInJob(chat_id)
-            target_tzinfo = datetime.timezone(datetime.timedelta(hours=2))
+            target_tzinfo = datetime.timezone(datetime.timedelta(hours=3))
             target_time = datetime.time(hour=9, minute=00, second=25).replace(tzinfo=target_tzinfo)
             for x in cursor:
                 if str(x[0]) == str(chat_id):
