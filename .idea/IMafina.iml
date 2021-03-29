@@ -7,5 +7,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="DogPower" />
+    <orderEntry type="module" module-name="MMDO" />
   </component>
 </module>

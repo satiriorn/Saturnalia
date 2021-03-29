@@ -61,7 +61,7 @@ class Weather(object):
     @classmethod
     def StartSysWeather(self):
         cursor = self._mafina._DB.UsersSysWeather()
-        target_tzinfo = datetime.timezone(datetime.timedelta(hours=2))
+        target_tzinfo = datetime.timezone(datetime.timedelta(hours=3))
         target_time = datetime.time(hour=9, minute=00, second=20).replace(tzinfo=target_tzinfo)
         for x in cursor:
             for y in range(len(x)):
@@ -82,7 +82,7 @@ class Weather(object):
     @classmethod
     def StateWeather(self, update, context, answer, chat_id):
         cursor = self._mafina._DB.UsersSysWeather()
-        target_tzinfo = datetime.timezone(datetime.timedelta(hours=2))
+        target_tzinfo = datetime.timezone(datetime.timedelta(hours=3))
         target_time = datetime.time(hour=9, minute=00, second=00).replace(tzinfo=target_tzinfo)
         NewUser = True
         for x in cursor:
