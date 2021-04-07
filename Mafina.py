@@ -140,6 +140,7 @@ class Mafina(object):
                 "3": lambda: Thread.Thread(self._animal.SysAnimal, (update, context, answer, lang, chat_id)),
                 "4": lambda: Thread.Thread(self._meme.CountMem, (update, context, answer, lang)),
                 "5": lambda: Thread.Thread(self._setting.SettingAnswer, (update, context, answer, chat_id)),
+                "6": lambda: Thread.Thread(self._meme.NightMode, (update, context, answer, chat_id)),
                 self._keyboard.YoutubeKeyboard[lang][0]: lambda: Thread.Thread(self._youtube.Get_Video,(update, context, answer, chat_id)),
                 self._keyboard.YoutubeKeyboard[lang][1]: lambda: Thread.Thread(self._youtube.Get_Audio,(update, context, answer, chat_id)),
                 self._keyboard.CutKeyboard[lang][0]: lambda: Thread.Thread(self._cut.CutVideo,(update, context, answer, chat_id)),
