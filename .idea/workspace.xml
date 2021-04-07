@@ -2,13 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f6037ee2-592e-4cb2-8437-4e80876bfeba" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Cancel.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.py" beforeDir="false" afterPath="$PROJECT_DIR$/DB.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Keyboard.py" beforeDir="false" afterPath="$PROJECT_DIR$/Keyboard.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Mafina.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mafina.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/languages/be.json" beforeDir="false" afterPath="$PROJECT_DIR$/languages/be.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/languages/en.json" beforeDir="false" afterPath="$PROJECT_DIR$/languages/en.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/languages/uk.json" beforeDir="false" afterPath="$PROJECT_DIR$/languages/uk.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Meme.py" beforeDir="false" afterPath="$PROJECT_DIR$/Meme.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -182,8 +180,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.Mafina" />
-        <item itemvalue="Python.SearchUkraine" />
         <item itemvalue="Python.RobotVacuumCleaner" />
+        <item itemvalue="Python.SearchUkraine" />
         <item itemvalue="Python.SimplexMethod" />
         <item itemvalue="Python.BlindDog" />
       </list>
@@ -267,14 +265,12 @@
       <workItem from="1617192306294" duration="5999000" />
       <workItem from="1617258399401" duration="12280000" />
       <workItem from="1617360493397" duration="2919000" />
-      <workItem from="1617433483346" duration="9599000" />
-    </task>
-    <task id="LOCAL-00004" summary="fix book">
-      <created>1613333143258</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1613333143258</updated>
+      <workItem from="1617433483346" duration="13298000" />
+      <workItem from="1617564337130" duration="3101000" />
+      <workItem from="1617610250541" duration="1991000" />
+      <workItem from="1617689732059" duration="5609000" />
+      <workItem from="1617719884541" duration="1947000" />
+      <workItem from="1617779676242" duration="8527000" />
     </task>
     <task id="LOCAL-00005" summary="fix book">
       <created>1613419693265</created>
@@ -612,7 +608,14 @@
       <option name="project" value="LOCAL" />
       <updated>1616575625471</updated>
     </task>
-    <option name="localTasksCounter" value="53" />
+    <task id="LOCAL-00053" summary="v1.4.1 Cancel">
+      <created>1617474547625</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1617474547626</updated>
+    </task>
+    <option name="localTasksCounter" value="54" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -631,7 +634,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="v1.1.0 Youtube" />
     <MESSAGE value="v1.1.1 Rest&amp;SetiingMafina&amp;STD" />
     <MESSAGE value="v1.1.2 Book&amp;Cut" />
     <MESSAGE value="v1.1.3 fix" />
@@ -656,13 +658,14 @@
     <MESSAGE value="v1.4.0 weather test" />
     <MESSAGE value="v1.4.0 refactor start text" />
     <MESSAGE value="v1.4.0 update lib" />
-    <option name="LAST_COMMIT_MESSAGE" value="v1.4.0 update lib" />
+    <MESSAGE value="v1.4.1 Cancel" />
+    <option name="LAST_COMMIT_MESSAGE" value="v1.4.1 Cancel" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/IMafina$SearchUkraine.coverage" NAME="SearchUkraine Coverage Results" MODIFIED="1617460823407" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../DogPower" />
-    <SUITE FILE_PATH="coverage/IMafina$Mafina.coverage" NAME="Mafina Coverage Results" MODIFIED="1617474450282" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/IMafina$Mafina.coverage" NAME="Mafina Coverage Results" MODIFIED="1617824362021" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/IMafina$SnakeTest.coverage" NAME="SnakeTest Coverage Results" MODIFIED="1616342254426" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../DogPower" />
-    <SUITE FILE_PATH="coverage/IMafina$RobotVacuumCleaner.coverage" NAME="RobotVacuumCleaner Coverage Results" MODIFIED="1617272427891" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../DogPower" />
+    <SUITE FILE_PATH="coverage/IMafina$RobotVacuumCleaner.coverage" NAME="RobotVacuumCleaner Coverage Results" MODIFIED="1617697170115" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../DogPower" />
     <SUITE FILE_PATH="coverage/IMafina$BlindDog.coverage" NAME="BlindDog Coverage Results" MODIFIED="1616686904009" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../DogPower" />
     <SUITE FILE_PATH="coverage/IMafina$main.coverage" NAME="main Coverage Results" MODIFIED="1616484293880" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../ai-university-main/hw1_dog" />
     <SUITE FILE_PATH="coverage/IMafina$Main.coverage" NAME="Mafina Coverage Results" MODIFIED="1614114525645" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

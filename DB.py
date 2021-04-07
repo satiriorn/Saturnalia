@@ -239,6 +239,20 @@ class DataBase:
         self.db.commit()
         return self.cursor
 
+    def CheckNightMeme(self, chat_id):
+        sql = "SELECT NightMeme from job_queue WHERE id_user = {0};".format(self.GetIdUser(chat_id))
+        self.GetCursor()
+        self.cursor.execute(sql)
+        self.db.commit()
+        return self.GetValue()
+
+    def UpdateNightMeme(self, chat_id):
+        state = (lambda: False if self.CheckNightMeme(chat_id) else True)()
+        sql = """UPDATE heroku_c93f6b06b535bb4.job_queue SET NightMeme={0} WHERE id_user ={1};""".format(state, self.GetIdUser(chat_id))
+        self.GetCursor()
+        self.cursor.execute(sql)
+        self.db.commit()
+
     def UsersSysAnimal(self):
         sql="SELECT chatID, j.status_sys_sweet_animal, animal_frequency FROM heroku_c93f6b06b535bb4.user u, heroku_c93f6b06b535bb4.job_queue j WHERE u.id_user = j.id_user and j.status_sys_sweet_animal = 1;"
         self.GetCursor()
