@@ -64,11 +64,11 @@ class Keyboard:
         "uk": ["Мова перекладу", "Мова бота", "Увм/Вимк погоду", "Налаштування котиків", "Кількість мемів",
                       "Увм/Вимк відповіді", "Нічний режим мемів", "Не треба нічого змінювати"],
         "be": ["Мова перакладу", "Мова бота", "Укл/вык надвор'я",
-                    "Налады като́ў", "Колькасць мемаў", "Укл/вык адказа́ў", "Нічога мяняць не трэба"],
+                    "Налады като́ў", "Колькасць мемаў", "Укл/вык адказа́ў", "Начны рэжым мемаў", "Нічога мяняць не трэба"],
         "en": ["Translation language", "Bot language", "On/Off weather", "Settings cats", "Quantity of memes",
-                       "On/Off response", "No need to change anything"],
+                       "On/Off response", "Night mode memes", "No need to change anything"],
         "fr": ["Langue de translation", "Langue du bot", "Allumer/éteindre le temps", "Réglages les chats", "Quantité de mèmes",
-                       "On/Off response", "No need to change anything"]
+                       "On/Off response","Mode nuit mèmes", "No need to change anything"]
         }
     YoutubeKeyboard = {
         "uk": ["Скачати Відео", "Скачати Аудіо", "Скачати та Обрізати"],
