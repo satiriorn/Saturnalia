@@ -52,7 +52,7 @@ class Keyboard:
 
     MainKeyboard = ["/Help", "/Cut", "/Rest", "/Voice", "/Book", "/Evtuh", "/Sheva", "/Meme", "/Weather", "/Convert", "/Youtube", "/SettingBot","/Dog","/Cat", "/Cancel"]
     TranslateKeyboard = ["Azerbaijani", "Belarusian", "Bulgarian", "Croatian", "Czech", "English","Estonian", "French", "Finnish", "Georgian", "German", "Italian", "Latvian", "Polish","Ukrainen", "Russian","Serbian","Slovak","Slovenian", "Spanish", "Ukrainian" ]
-    LanguageBot = ["Belarusian", "Ukrainian", "English"]
+    LanguageBot = ["Belarusian", "Ukrainian", "English", "Czech"]
     FormatBookKeyboard = [".epub", ".fb2", ".pdf"]
     CountMeme = {
         "uk": ["Вимкнення", "1 мем у 15 хвилин", "1 мем у 30 хвилин", "1 мем у 60 хвилин", "1 мем у 120 хвилин"],

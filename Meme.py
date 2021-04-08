@@ -32,12 +32,17 @@ class Meme:
     def MoreMeme(self, update, context, lang, chat_id):
         value = {"0": "0", "1": "900", "2": "1800", "3": "3600", "4": "7200"}
         cursor = self._mafina._DB.UsersSysMeme()
+        print(chat_id)
         NewUser = True
         for x in cursor:
             for y in range(len(x)):
+                print(x[y])
                 if y+2< len(x) and x[y+2]==1:
+                    print(x[y])
                     if str(x[y])==chat_id:
+                        print(NewUser)
                         NewUser = False
+        print(NewUser)
         if value[str(update.callback_query.data)] != "0":
             if chat_id in self._mafina.jobchat.keys():
                 self._mafina.jobchat[chat_id].schedule_removal()
