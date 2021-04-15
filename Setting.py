@@ -31,9 +31,9 @@ class SettingMafina:
                 self._mafina._DB.VerificationLanguage(chat_id, self._mafina._keyboard.b[update.callback_query.data], False)
                 context.bot.edit_message_text(chat_id=update.callback_query.message.chat_id, text=answer["11"],
                                               message_id=update.callback_query.message.message_id)
+                self._mafina.UseCommand.pop(chat_id)
                 del self._mafina.Users[chat_id]
                 self._mafina.Users.pop(chat_id)
-                self._mafina.UseCommand.pop(chat_id)
                 self._mafina.Dispatcher(update, context)
         else:
             context.bot.edit_message_text(chat_id=update.callback_query.message.chat_id,
