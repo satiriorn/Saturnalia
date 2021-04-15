@@ -58,7 +58,8 @@ class Keyboard:
         "uk": ["Вимкнення", "1 мем у 15 хвилин", "1 мем у 30 хвилин", "1 мем у 60 хвилин", "1 мем у 120 хвилин"],
         "be": ["Адключэнне", "1 мем за 15 хвілін", "1 мем за 30 хвілін", "1 мем за 60 хвілін", "1 мем за 120 хвілін"],
         "en": ["Off meme", "1 meme in 15 minutes", "1 meme in 30 minutes", "1 meme in 60 minutes", "1 meme in 120 minutes"],
-        "fr": ["Fermer", "1 mème en 15 minutes", "1 mème en 30 minutes", "1 mème en 60 minutes", "1 mème en 120 minutes"]
+        "fr": ["Fermer", "1 mème en 15 minutes", "1 mème en 30 minutes", "1 mème en 60 minutes", "1 mème en 120 minutes"],
+        "cs":  ["Vypnout", "1 mem za 15 minut", "1 mem za 30 minut", "1 mem za 60 minut", "1 mem za 120 minut"]
         }
     Setting = {
         "uk": ["Мова перекладу", "Мова бота", "Увм/Вимк погоду", "Налаштування котиків", "Кількість мемів",
@@ -68,60 +69,71 @@ class Keyboard:
         "en": ["Translation language", "Bot language", "On/Off weather", "Settings cats", "Quantity of memes",
                        "On/Off response", "Night mode memes", "No need to change anything"],
         "fr": ["Langue de translation", "Langue du bot", "Allumer/éteindre le temps", "Réglages les chats", "Quantité de mèmes",
-                       "On/Off response","Mode nuit mèmes", "No need to change anything"]
+                       "On/Off response","Mode nuit mèmes", "No need to change anything"],
+        "cs": ["Překladový jazyk", "Bot jazyk", "Počasí zapnuto/vypnuto", "Nastavení koček", "Počet memů",
+                       "Odezva zapnutí/vypnutí", "Memy v nočním režimu", "Není třeba nic měnit"]
         }
     YoutubeKeyboard = {
         "uk": ["Скачати Відео", "Скачати Аудіо", "Скачати та Обрізати"],
         "be": ["Загрузка відэа", "Загрузка аўдыя", "Загрузка і абрэзка"],
-        "en":["Download Video", "Download Audio", "Download and Cut"],
-        "fr":["Télécharger la Video", "Télécharger l'Audio", "Télécharger et Сouper"]
+        "en": ["Download Video", "Download Audio", "Download and Cut"],
+        "fr": ["Télécharger la Video", "Télécharger l'Audio", "Télécharger et Сouper"],
+        "cs": ["Stáhnout video", "Stáhnout Audio", "Stáhnout a vyjmout"],
         }
     CutKeyboard ={
         "uk": ["Обрізати Відео", "Обрізати Аудіо", "Скачати та Обрізати"],
         "be": ["Абрэзка відэа", "Загрузка аўдыя", "Загрузка і абрэзка"],
         "en": ["Cut Video", "Cut Audio", "Download and Cut"],
-        "fr": ["Couper le Video", "Couper l'Audio", "Télécharger et Сouper"]
+        "fr": ["Couper le Video", "Couper l'Audio", "Télécharger et Сouper"],
+        "cs": ["Vystřihnout video", "Vystřihnout audio", "Stáhnout a vyjmout"]
         }
     MenuBookKeyboard = {
         "uk": ["Додати книгу", "Пошук по автору", "Пошук по назві", "Кількість книг", "Cписок прочитаних книг"],
         "be": ["Дадаць кнігу", "Пошук па аўтару", "Пошук па назве", "Колькасць кніг", "Спіс прачытаных кніг"],
         "en": ["Add a book", "Search by author", "Search by title", "Number of books", "List of books read"],
-        "fr": ["Ajouter le livre", "Recherche par auteur", "Rechercher par title", "Nombre des livres", "Liste des livres lus"]
+        "fr": ["Ajouter le livre", "Recherche par auteur", "Rechercher par title", "Nombre des livres", "Liste des livres lus"],
+        "cs": ["Přidejte knihu", "Hledání podle autora", "Hledat podle názvu", "Počet knih", "Seznam přečtených knih"],
     }
     ConfirmKeyboard = {
         "uk": ["Так", "Ні"],
         "be": ["Так", "Не"],
         "en": ["Yes", "No"],
-        "fr": ["Oui", "Non"]
+        "fr": ["Oui", "Non"],
+        "cs": ["Ano", "Ne"]
         }
     BookStateKeyboard = {
         "uk": ["Додати до списку", "Отримати файл", "Нічого не треба"],
         "be": ["Дадаць у спіс", "Атрымаць файл", "Нічога не трэба"],
-        "en": ["Add to list", "Get file", "Nothing needed"],
-        "fr": ["Ajouter a la liste", "Obtenir le fichier", "Rien nécessaire"]
+        "en": ["Add to list", "Get the file", "Nothing needed"],
+        "fr": ["Ajouter a la liste", "Obtenir le fichier", "Rien nécessaire"],
+        "cs": ["Přidat do seznamu", "Získejte soubor", "Nic nepotřebuješ"],
         }
     BookStateKeyboardDelete = {
         "uk": ["Видалити зі списку", BookStateKeyboard["uk"][1], BookStateKeyboard["uk"][2]],
         "be": ["Выдаліць са спісу", BookStateKeyboard["be"][1], BookStateKeyboard["be"][2]],
         "en": ["Remove from list", BookStateKeyboard["en"][1], BookStateKeyboard["en"][2]],
-        "fr": ["Retirer de la liste", BookStateKeyboard["fr"][1], BookStateKeyboard["fr"][2]]
+        "fr": ["Retirer de la liste", BookStateKeyboard["fr"][1], BookStateKeyboard["fr"][2]],
+        "cs": ["Odstranit ze seznamu", BookStateKeyboard["cs"][1], BookStateKeyboard["cs"][2]]
     }
     CancelButton = {
         "uk": ["Закінчити процес"],
         "be": ["Завяршыць працэс"],
         "en": ["Finish the process"],
-        "fr": ["Terminez le processus"]
+        "fr": ["Terminez le processus"],
+        "cs": ["Dokončete proces"],
     }
     RestButton = {
         "uk": ["Занурюємося"],
         "be": ["Пачнем"],
         "en": ["Start"],
-        "fr": ["Commencer"]
+        "fr": ["Commencer"],
+        "cs": ["Začneme?"]
     }
 
     AnimalButton = {
         "uk": ["Вимкнути", "12:00", "09:00, 12:00", "09:00, 12:00, 22:00", "09:00, 12:00, 18:00, 22:00"],
         "be": ["Выключыць", "12:00", "09:00, 12:00", "09:00, 12:00, 22:00", "09:00, 12:00, 18:00, 22:00"],
         "en": ["Disable", "12:00", "09:00, 12:00", "09:00, 12:00, 22:00", "09:00, 12:00, 18:00, 22:00"],
-        "fr": ["Éteindre", "12:00", "09:00, 12:00", "09:00, 12:00, 22:00", "09:00, 12:00, 18:00, 22:00"]
+        "fr": ["Éteindre", "12:00", "09:00, 12:00", "09:00, 12:00, 22:00", "09:00, 12:00, 18:00, 22:00"],
+        "cs": ["Vypnout", "12:00", "09:00, 12:00", "09:00, 12:00, 22:00", "09:00, 12:00, 18:00, 22:00"],
     }
