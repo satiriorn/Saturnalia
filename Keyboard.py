@@ -82,7 +82,7 @@ class Keyboard:
         }
     CutKeyboard ={
         "uk": ["Обрізати Відео", "Обрізати Аудіо", "Скачати та Обрізати"],
-        "be": ["Абрэзка відэа", "Загрузка аўдыя", "Загрузка і абрэзка"],
+        "be": ["Абрэзка відэа", "Абрэзка аўдыя", "Загрузка і абрэзка"],
         "en": ["Cut Video", "Cut Audio", "Download and Cut"],
         "fr": ["Couper le Video", "Couper l'Audio", "Télécharger et Сouper"],
         "cs": ["Vystřihnout video", "Vystřihnout audio", "Stáhnout a vyjmout"]

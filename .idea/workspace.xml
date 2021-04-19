@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f6037ee2-592e-4cb2-8437-4e80876bfeba" name="Default Changelist" comment="" />
+    <list default="true" id="f6037ee2-592e-4cb2-8437-4e80876bfeba" name="Default Changelist" comment="v1.4.4 fix lang">
+      <change afterPath="$PROJECT_DIR$/languages/fr.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Meme.py" beforeDir="false" afterPath="$PROJECT_DIR$/Meme.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -38,7 +42,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../ai-university-main" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../DogPower" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -49,21 +53,21 @@
       <recent name="C:\Users\Satiriorn\PycharmProjects\DogPower" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.Mafina">
-    <configuration name="BlindDog" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Python.LRTA&amp;DFS_Agent">
+    <configuration name="LRTA&amp;DFS_Agent" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="DogPower" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="C:\Users\Satiriorn\PycharmProjects\IMafina\venv\Scripts\python.exe" />
+      <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../DogPower" />
-      <option name="IS_MODULE_SDK" value="false" />
+      <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../DogPower/BlindDog.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../DogPower/LRTA&amp;DFS_Agent.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -167,19 +171,19 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.BlindDog" />
       <item itemvalue="Python.RobotVacuumCleaner" />
       <item itemvalue="Python.SimplexMethod" />
       <item itemvalue="Python.Mafina" />
       <item itemvalue="Python.SearchUkraine" />
+      <item itemvalue="Python.LRTA&amp;DFS_Agent" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.LRTA&amp;DFS_Agent" />
         <item itemvalue="Python.Mafina" />
         <item itemvalue="Python.RobotVacuumCleaner" />
         <item itemvalue="Python.SearchUkraine" />
         <item itemvalue="Python.SimplexMethod" />
-        <item itemvalue="Python.BlindDog" />
       </list>
     </recent_temporary>
   </component>
@@ -275,14 +279,12 @@
       <workItem from="1618208014552" duration="602000" />
       <workItem from="1618231150853" duration="1071000" />
       <workItem from="1618289402824" duration="6455000" />
-      <workItem from="1618473725333" duration="3542000" />
-    </task>
-    <task id="LOCAL-00011" summary="list read v1.1">
-      <created>1613685804695</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1613685804695</updated>
+      <workItem from="1618473725333" duration="4609000" />
+      <workItem from="1618553009714" duration="3854000" />
+      <workItem from="1618560057571" duration="21000" />
+      <workItem from="1618560321953" duration="11198000" />
+      <workItem from="1618645875798" duration="2794000" />
+      <workItem from="1618731084664" duration="5006000" />
     </task>
     <task id="LOCAL-00012" summary="list read v2.0 with delete">
       <created>1613686828019</created>
@@ -620,7 +622,14 @@
       <option name="project" value="LOCAL" />
       <updated>1618519772294</updated>
     </task>
-    <option name="localTasksCounter" value="60" />
+    <task id="LOCAL-00060" summary="v1.4.4 fix lang">
+      <created>1618519868126</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1618519868126</updated>
+    </task>
+    <option name="localTasksCounter" value="61" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -673,6 +682,7 @@
     <SUITE FILE_PATH="coverage/IMafina$SimplexMethod.coverage" NAME="SimplexMethod Coverage Results" MODIFIED="1616922198628" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../MMDO" />
     <SUITE FILE_PATH="coverage/IMafina$SnakeTest.coverage" NAME="SnakeTest Coverage Results" MODIFIED="1616342254426" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../DogPower" />
     <SUITE FILE_PATH="coverage/IMafina$main.coverage" NAME="main Coverage Results" MODIFIED="1616484293880" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../ai-university-main/hw1_dog" />
+    <SUITE FILE_PATH="coverage/IMafina$LRTA_DFS_Agent.coverage" NAME="LRTA&amp;DFS_Agent Coverage Results" MODIFIED="1618746188371" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../DogPower" />
     <SUITE FILE_PATH="coverage/IMafina$BlindDog.coverage" NAME="BlindDog Coverage Results" MODIFIED="1616686904009" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../DogPower" />
     <SUITE FILE_PATH="coverage/IMafina$SearchUkraine.coverage" NAME="SearchUkraine Coverage Results" MODIFIED="1617460823407" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../DogPower" />
   </component>
