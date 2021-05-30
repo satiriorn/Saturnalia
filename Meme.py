@@ -55,21 +55,10 @@ class Meme:
         context.bot.edit_message_text(chat_id=chat_id, text=self._mafina._keyboard.CountMeme[lang][int(update.callback_query.data)], message_id=update.callback_query.message.message_id)
         self._mafina.UseCommand.pop(str(chat_id))
 
-    @classmethod
-    def NightMode(self, update, context, answer, chat_id):
-        self._mafina._DB.UpdateNightMeme(chat_id)
-        context.bot.edit_message_text(chat_id=chat_id, text=answer["37"], message_id=update.callback_query.message.message_id)
-
     @staticmethod
     def MemeChatGroup(context: telegram.ext.CallbackContext):
         url = Url.get_url('https://meme-api.herokuapp.com/gimme')
-        nm = Meme._mafina._DB.CheckNightMeme(context.job.context)
-        now = datetime.datetime.now().replace(tzinfo=None)
-        dt = datetime.datetime.strptime("22:00", "%H:%M")
-        if nm and now > dt:
-            return
-        else:
-            if Url.is_image(url):
-                context.bot.send_photo(context.job.context, url)
-            elif Url.is_animation(url):
-                context.bot.send_animation(context.job.context, url)
+        if Url.is_image(url):
+            context.bot.send_photo(context.job.context, url)
+        elif Url.is_animation(url):
+            context.bot.send_animation(context.job.context, url)
