@@ -18,3 +18,4 @@ mysql-connector-python==8.0.21
 mutagen==1.45.1
 pydub==0.24.1
 youtube-search==2.1.0
+python-binance==1.0.10
