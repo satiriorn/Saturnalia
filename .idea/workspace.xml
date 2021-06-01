@@ -2,9 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f6037ee2-592e-4cb2-8437-4e80876bfeba" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Cryptocurrency.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Book.py" beforeDir="false" afterPath="$PROJECT_DIR$/Book.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cryptocurrency.py" beforeDir="false" afterPath="$PROJECT_DIR$/Cryptocurrency.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.py" beforeDir="false" afterPath="$PROJECT_DIR$/DB.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Keyboard.py" beforeDir="false" afterPath="$PROJECT_DIR$/Keyboard.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mafina.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mafina.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/languages/uk.json" beforeDir="false" afterPath="$PROJECT_DIR$/languages/uk.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,6 +58,28 @@
     </key>
   </component>
   <component name="RunManager" selected="Python.Mafina">
+    <configuration name="Cryptocurrency" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="IMafina" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Cryptocurrency.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="Mafina" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="IMafina" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -76,28 +102,6 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Mafina.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="OFB" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Сiphers" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../Сiphers" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../Сiphers/OFB.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -180,19 +184,19 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.OFB" />
       <item itemvalue="Python.Symmetric" />
       <item itemvalue="Python.RLE" />
       <item itemvalue="Python.Mafina" />
       <item itemvalue="Python.atbash" />
+      <item itemvalue="Python.Cryptocurrency" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.atbash" />
         <item itemvalue="Python.Mafina" />
+        <item itemvalue="Python.Cryptocurrency" />
+        <item itemvalue="Python.atbash" />
         <item itemvalue="Python.RLE" />
         <item itemvalue="Python.Symmetric" />
-        <item itemvalue="Python.OFB" />
       </list>
     </recent_temporary>
   </component>
@@ -323,14 +327,9 @@
       <workItem from="1622197153921" duration="3880000" />
       <workItem from="1622267583075" duration="1570000" />
       <workItem from="1622295683012" duration="2409000" />
-      <workItem from="1622353476348" duration="8831000" />
-    </task>
-    <task id="LOCAL-00013" summary="global update v1.0.0">
-      <created>1613941162768</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1613941162768</updated>
+      <workItem from="1622353476348" duration="9166000" />
+      <workItem from="1622451259486" duration="9066000" />
+      <workItem from="1622529841405" duration="22912000" />
     </task>
     <task id="LOCAL-00014" summary="v1.0.1">
       <created>1614191591614</created>
@@ -668,7 +667,14 @@
       <option name="project" value="LOCAL" />
       <updated>1621601787985</updated>
     </task>
-    <option name="localTasksCounter" value="62" />
+    <task id="LOCAL-00062" summary="v1.4.5 Delete night mode meme &amp;&amp; Add cryptocurrency">
+      <created>1622402127708</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1622402127723</updated>
+    </task>
+    <option name="localTasksCounter" value="63" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -687,7 +693,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="v1.2.2 animal refactoring" />
     <MESSAGE value="v1.2.3 stable version" />
     <MESSAGE value="v1.2.4 fix" />
     <MESSAGE value="v1.2.6 fix" />
@@ -712,10 +717,11 @@
     <MESSAGE value="v1.4.4 keyboard cs" />
     <MESSAGE value="v1.4.4 fix lang" />
     <MESSAGE value="v1.4.4 update lib" />
-    <option name="LAST_COMMIT_MESSAGE" value="v1.4.4 update lib" />
+    <MESSAGE value="v1.4.5 Delete night mode meme &amp;&amp; Add cryptocurrency" />
+    <option name="LAST_COMMIT_MESSAGE" value="v1.4.5 Delete night mode meme &amp;&amp; Add cryptocurrency" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/IMafina$Mafina.coverage" NAME="Mafina Coverage Results" MODIFIED="1622363471565" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/IMafina$Mafina.coverage" NAME="Mafina Coverage Results" MODIFIED="1622570414318" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/IMafina$Trismus.coverage" NAME="Vigenere_cipher&amp;Single_permutation_ciphers Coverage Results" MODIFIED="1619111651654" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../Сiphers" />
     <SUITE FILE_PATH="coverage/IMafina$Gamma_cipher.coverage" NAME="Gamma_cipher Coverage Results" MODIFIED="1619112723202" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../Сiphers" />
     <SUITE FILE_PATH="coverage/IMafina$SimplexMethod.coverage" NAME="SimplexMethod Coverage Results" MODIFIED="1616922198628" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../MMDO" />
@@ -728,6 +734,7 @@
     <SUITE FILE_PATH="coverage/IMafina$Wumpus.coverage" NAME="Wumpus Coverage Results" MODIFIED="1621060668006" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../DogPower" />
     <SUITE FILE_PATH="coverage/IMafina$Main.coverage" NAME="Mafina Coverage Results" MODIFIED="1614114525645" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/IMafina$RobotVacuumCleaner.coverage" NAME="RobotVacuumCleaner Coverage Results" MODIFIED="1617697170115" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../DogPower" />
+    <SUITE FILE_PATH="coverage/IMafina$Cryptocurrency.coverage" NAME="Cryptocurrency Coverage Results" MODIFIED="1622466222343" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/IMafina$TranspositionCipher.coverage" NAME="TranspositionCipher Coverage Results" MODIFIED="1621004986995" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../Сiphers" />
     <SUITE FILE_PATH="coverage/IMafina$atbash.coverage" NAME="atbash Coverage Results" MODIFIED="1622365237933" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../Сiphers" />
     <SUITE FILE_PATH="coverage/IMafina$OFB.coverage" NAME="OFB Coverage Results" MODIFIED="1621270998894" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../Сiphers" />

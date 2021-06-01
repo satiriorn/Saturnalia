@@ -1,10 +1,10 @@
-import Thread, Quotes, StandartCommand, weather, Evtuh,  CreateVoice, DogAndCat, InlineQuery, os, Meme, Youtube, Translate, DB, Keyboard, Setting,  Cut, File, Book, Cancel
+import Thread, Cryptocurrency, Quotes, StandartCommand, weather, Evtuh,  CreateVoice, DogAndCat, InlineQuery, os, Meme, Youtube, Translate, DB, Keyboard, Setting,  Cut, File, Book, Cancel
 from telegram.ext import Updater, MessageHandler, Filters, InlineQueryHandler, CallbackQueryHandler, ChosenInlineResultHandler
 from googletrans import Translator
 
 class Mafina(object):
     _instance, _DB, job, _translator, _keyboard, _weather, _voice, _std, _animal, _meme = None, None, None, None, None, None, None, None, None, None
-    _youtube, _setting, _cut, _book, _file, _translate, _inline, _cancel = None, None, None, None, None, None, None, None
+    _youtube, _setting, _cut, _book, _file, _translate, _inline, _cancel, _binance = None, None, None, None, None, None, None, None, None
     UseCommand, CutFile, jobchat, Book, ResultSearch, KeyboardFormat, Users, ResultInline = {}, {}, {}, {}, {}, {}, {}, {}
     NameFormat = [".epub", ".fb2", ".pdf"]
     fileformat = {".epub": "file_id_epub", ".fb2": "file_id_fb2", ".pdf": "file_id_pdf"}
@@ -20,7 +20,7 @@ class Mafina(object):
         Mafina._voice, Mafina._std, Mafina._animal = CreateVoice.Voice(self), StandartCommand.StandartCommand(self), DogAndCat.Animal(self)
         Mafina._meme, Mafina._youtube, Mafina._setting, Mafina._cut = Meme.Meme(self), Youtube.Youtube(self), Setting.SettingMafina(self), Cut.Cut(self)
         Mafina._book, Mafina._file, Mafina._translate, Mafina._inline = Book.Book(self), File.File(self), Translate.Translate(self), InlineQuery.Inline(self)
-        Mafina._translator, Mafina._cancel = Translator(), Cancel.Cancel(self)
+        Mafina._translator, Mafina._cancel, Mafina._binance = Translator(), Cancel.Cancel(self), Cryptocurrency.Binance(self)
         self.dispatcher = self.updater.dispatcher
         self.CreateHandler()
         self.run()
@@ -109,6 +109,7 @@ class Mafina(object):
                 "GetBook": lambda:Thread.Thread(self._book.SendListReadBooks, (update, context, answer, lang, chat_id)),
                 "ChangeSysAnimal": lambda:Thread.Thread(self._animal.SysAnimal, (update, context, answer, lang, chat_id)),
                 "LangBot": lambda:Thread.Thread(self._setting.LanguageBot, (update, context, answer, chat_id)),
+                "GetPair": lambda: Thread.Thread(self._binance.Add_Pair, (update, context, answer, lang, chat_id)),
                 (self._keyboard.CancelButton[lang][0], self._keyboard.BookStateKeyboard[lang][2]):
                     lambda: Thread.Thread(self._book.Cancel, (update, context, answer, chat_id))
                 }
@@ -122,6 +123,7 @@ class Mafina(object):
                 "/weather": lambda :Thread.Thread(self._weather.weather, (update, context, answer)),
                 "/voice":lambda :Thread.Thread(self._voice.voice, (update, context, answer, chat_id)),
                 "/dog": lambda :Thread.Thread(self._animal.Dog_photo, (update, context, answer)),
+                "/binance": lambda :Thread.Thread(self._binance.Menu_Binance, (update, context, answer, lang)),
                 ("/cat", "котик"): lambda :Thread.Thread(self._animal.Cat_photo, (update, context, answer)),
                 "/sheva": lambda :Thread.Thread(Quotes.ShevchenkoStyle, (update, context)),
                 ("/meme", "мем"): lambda :Thread.Thread(self._meme.Get_meme, (update, context, answer)),
@@ -141,6 +143,7 @@ class Mafina(object):
                 "4": lambda: Thread.Thread(self._meme.CountMem, (update, context, answer, lang)),
                 "5": lambda: Thread.Thread(self._setting.SettingAnswer, (update, context, answer, chat_id)),
                 "6": lambda: Thread.Thread(self._meme.NightMode, (update, context, answer, chat_id)),
+                self._keyboard.MenuBinanceKeyboard[lang][0]: lambda: Thread.Thread(self._binance.Add_Pair, (update, context, answer, lang, chat_id)),
                 self._keyboard.YoutubeKeyboard[lang][0]: lambda: Thread.Thread(self._youtube.Get_Video,(update, context, answer, chat_id)),
                 self._keyboard.YoutubeKeyboard[lang][1]: lambda: Thread.Thread(self._youtube.Get_Audio,(update, context, answer, chat_id)),
                 self._keyboard.CutKeyboard[lang][0]: lambda: Thread.Thread(self._cut.CutVideo,(update, context, answer, chat_id)),
