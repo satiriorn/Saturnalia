@@ -23,7 +23,10 @@ class Binance:
             if self._mafina.UseCommand[chat_id] == "GetPair":
                 price = self._instance.client.get_symbol_ticker(symbol=update.message.text)
                 context.bot.send_message(chat_id, price['symbol']+ " "+ price['price'])
-                self._mafina._DB.InsertCrypto(price['symbol'], chat_id, price['price'])
+                if(self._mafina._DB.InsertCrypto(price['symbol'], chat_id, price['price'])):
+                    context.bot.send_message(chat_id, answer["72"])
+                else:
+                    self._mafina.UseCommand.pop(chat_id)
         else:
             context.bot.edit_message_text(chat_id=chat_id, text=answer["71"], message_id=update.callback_query.message.message_id)
             self._mafina.UseCommand[chat_id] = "GetPair"
@@ -31,6 +34,8 @@ class Binance:
     def Delete_Pair(self):
         pass
 
+    def Crypto_job(self):
+        pass
 #api_key = os.getenv('Binance_key')
 #api_secret = os.getenv('Binance_secret')
 #client = Client(api_key, api_secret)

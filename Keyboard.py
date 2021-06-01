@@ -96,7 +96,10 @@ class Keyboard:
     }
     MenuBinanceKeyboard ={
         "uk": ["Додати пару крипти", "Видалити пару", "Показати стан обраних криптовалют"],
-        "be": ["Дадаць крыптапару", "Выдаліць пару", "Паказаць стан выбраных криптовалют"]
+        "be": ["Дадаць крыптапару", "Выдаліць пару", "Паказаць стан выбраных криптовалют"],
+        "en": ["Add pair cryptocurrency", "Delete pair", "Show the status of selected cryptocurrencies"],
+        "cs": ["Přidat kryptoměny pár", "Odstranit pár"," Zobrazit stav vybraných kryptoměn"],
+        "fr": ["Ajouter une paire crypto-monnaie", "Supprimer la paire", "Afficher l'état des crypto-monnaies sélectionnées"]
     }
     ConfirmKeyboard = {
         "uk": ["Так", "Ні"],
