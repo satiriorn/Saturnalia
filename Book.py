@@ -224,7 +224,7 @@ class Book:
                 self._mafina.Book.pop(chat_id)
         else:
             context.bot.edit_message_text(chat_id=chat_id, text=answer["41"], message_id=update.callback_query.message.message_id)
-            self._mafina.UseCommand[str(chat_id)] = "Check"
+            self._mafina.UseCommand[chat_id] = "Check"
     @classmethod
     def Cancel(self, update, context, answer, chat_id):
         context.bot.edit_message_text(chat_id=chat_id, text=answer["51"], message_id=update.callback_query.message.message_id)

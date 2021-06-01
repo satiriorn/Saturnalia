@@ -149,13 +149,6 @@ class DataBase:
         print(x)
         return (lambda x: self.UpdateFileId(Book) if x == "" else False)(x)
 
-    def UpdateFileId(self, Book):
-        sql = """UPDATE heroku_c93f6b06b535bb4.book SET {0} =("{1}")WHERE id_book ="{2}";""".format(str(self._mafina.fileformat[Book.format]),str(Book.file_id), str(self.GetIdBook(Book.Name)))
-        self.GetCursor()
-        self.cursor.execute(sql)
-        self.db.commit()
-        return True
-
     def CheckAuthor(self, Book):
         sql = """SELECT * FROM heroku_c93f6b06b535bb4.author WHERE Name = trim("{0}"); """ .format(Book.Author)
         self.GetCursor()
@@ -166,6 +159,20 @@ class DataBase:
             return self.CheckAuthor(Book)
         else:
             return x
+
+    def CheckUserInJob(self, chat_id):
+        id_user = self.GetIdUser(chat_id)
+        sql = """SELECT chatID, status_sys_sweet_animal, animal_frequency FROM heroku_c93f6b06b535bb4.user u, heroku_c93f6b06b535bb4.job_queue j WHERE u.id_user = {0};""".format(id_user)
+        self.GetCursor()
+        self.cursor.execute(sql)
+        self.db.commit()
+        return self.cursor
+
+    def CheckCrypto(self, id, name):
+        sql = """SELECT count(*) FROM heroku_c93f6b06b535bb4.Cryptocurrency WHERE id_user = {0} AND pair_crypto = "{1}";""".format(id, name)
+        self.GetCursor()
+        self.cursor.execute(sql)
+        return self.GetValue()
 
     def InsertAuthor(self, Book):
         sql = """INSERT INTO heroku_c93f6b06b535bb4.author(Name) VALUES(trim("{0}"));""".format(Book.Author)
@@ -202,6 +209,15 @@ class DataBase:
         self.cursor.execute(sql)
         self.db.commit()
 
+    def InsertCrypto(self, name, chat_id, price):
+        id = self.GetIdUser(chat_id)
+        if (self.CheckCrypto(id, name)==0):
+            sql = """INSERT INTO heroku_c93f6b06b535bb4.Cryptocurrency(pair_crypto, id_user, price) VALUES("{0}", {1}, {2});""".format(name, id, price)
+            print(sql)
+            self.GetCursor()
+            self.cursor.execute(sql)
+            self.db.commit()
+
     def InsertSysWeather(self, chat_id, status):
         sql = "INSERT INTO heroku_c93f6b06b535bb4.job_queue(status_sys_weather, id_user)VALUES(%s, %s);"
         val = (status, self.GetIdUser(chat_id))
@@ -211,6 +227,13 @@ class DataBase:
         sql = "INSERT INTO heroku_c93f6b06b535bb4.job_queue(status_sys_sweet_animal, id_user)VALUES(%s, %s);"
         val = (status, self.GetIdUser(chat_id))
         self.UpdateSys(sql, val)
+
+    def UpdateFileId(self, Book):
+        sql = """UPDATE heroku_c93f6b06b535bb4.book SET {0} =("{1}")WHERE id_book ="{2}";""".format(str(self._mafina.fileformat[Book.format]),str(Book.file_id), str(self.GetIdBook(Book.Name)))
+        self.GetCursor()
+        self.cursor.execute(sql)
+        self.db.commit()
+        return True
 
     def UpdateSysWeather(self, chat_id, status):
         sql = "UPDATE heroku_c93f6b06b535bb4.job_queue SET status_sys_weather=%s WHERE id_user =%s;"
@@ -252,14 +275,6 @@ class DataBase:
         self.GetCursor()
         self.cursor.execute(sql)
         self.db.commit()
-
-    def CheckUserInJob(self, chat_id):
-        id_user = self.GetIdUser(chat_id)
-        sql = """SELECT chatID, status_sys_sweet_animal, animal_frequency FROM heroku_c93f6b06b535bb4.user u, heroku_c93f6b06b535bb4.job_queue j WHERE u.id_user = {0};""".format(id_user)
-        self.GetCursor()
-        self.cursor.execute(sql)
-        self.db.commit()
-        return self.cursor
 
     def UsersSysWeather(self):
         sql="SELECT chatID, j.status_sys_weather FROM heroku_c93f6b06b535bb4.user u, heroku_c93f6b06b535bb4.job_queue j WHERE u.id_user = j.id_user;"

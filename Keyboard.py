@@ -50,7 +50,7 @@ class Keyboard:
          "Portuguese (Portugal)":"pt-PT","Ukrainen":"ro","Russian":"ru","Serbian":"sr","Slovak":"sk","Slovenian":"sl","Spanish":"es","Swahili":"sw",
          "Swedish":"sv","Tatar":"tt","Turkish":"tr","Turkmen":"tk","Ukrainian":"uk"}
 
-    MainKeyboard = ["/Help", "/Cut", "/Rest", "/Voice", "/Book", "/Evtuh", "/Sheva", "/Meme", "/Weather", "/Convert", "/Youtube", "/SettingBot","/Dog","/Cat", "/Cancel"]
+    MainKeyboard = ["/Cut", "/Rest", "/Voice", "/Book", "/Evtuh", "/Sheva", "/Meme", "/Weather", "/Convert", "/Youtube", "/Binance", "/SettingBot","/Dog","/Cat", "/Cancel"]
     TranslateKeyboard = ["Azerbaijani", "Belarusian", "Bulgarian", "Croatian", "Czech", "English","Estonian", "French", "Finnish", "Georgian", "German", "Italian", "Latvian", "Polish","Ukrainen", "Russian","Serbian","Slovak","Slovenian", "Spanish", "Ukrainian" ]
     LanguageBot = ["Belarusian", "Ukrainian", "English", "Czech"]
     FormatBookKeyboard = [".epub", ".fb2", ".pdf"]
@@ -93,6 +93,10 @@ class Keyboard:
         "en": ["Add a book", "Search by author", "Search by title", "Number of books", "List of books read"],
         "fr": ["Ajouter le livre", "Recherche par auteur", "Rechercher par title", "Nombre des livres", "Liste des livres lus"],
         "cs": ["Přidejte knihu", "Hledání podle autora", "Hledat podle názvu", "Počet knih", "Seznam přečtených knih"],
+    }
+    MenuBinanceKeyboard ={
+        "uk": ["Додати пару крипти", "Видалити пару", "Показати стан обраних криптовалют"],
+        "be": ["Дадаць крыптапару", "Выдаліць пару", "Паказаць стан выбраных криптовалют"]
     }
     ConfirmKeyboard = {
         "uk": ["Так", "Ні"],
