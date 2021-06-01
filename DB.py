@@ -217,6 +217,8 @@ class DataBase:
             self.GetCursor()
             self.cursor.execute(sql)
             self.db.commit()
+        else:
+            return 1
 
     def InsertSysWeather(self, chat_id, status):
         sql = "INSERT INTO heroku_c93f6b06b535bb4.job_queue(status_sys_weather, id_user)VALUES(%s, %s);"
