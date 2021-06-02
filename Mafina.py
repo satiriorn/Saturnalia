@@ -40,6 +40,7 @@ class Mafina(object):
         self._meme.StartSystemMeme()
         self._weather.StartSysWeather()
         self._animal.StartSysAnimal()
+        self._binance.Start_Crypto_job()
         self.updater.start_polling(timeout=1990000, poll_interval=3)
         self.updater.idle()
 

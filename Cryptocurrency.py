@@ -1,4 +1,4 @@
-import os
+import os, telegram.ext
 from binance.client import Client
 
 class Binance:
@@ -34,8 +34,18 @@ class Binance:
     def Delete_Pair(self):
         pass
 
-    def Crypto_job(self):
-        pass
+    def Start_Crypto_job(self):
+        cursor = self._mafina._DB.GetAllCryptoUsers()
+        for x in cursor:
+            for y in range(len(x)):
+                data = (x[y], self)
+                self._mafina.jobchat[str(x[y])]=self._mafina.job.run_repeating(self.Notification, interval=900, first=0, context=data)
+
+    @staticmethod
+    def Notification(context: telegram.ext.CallbackContext):
+        result = context.job.context[1]._mafina._DB.GetCryptoPairUser(context.job.context[0])
+        a = context.job.context[1]._instance.client.get_symbol_ticker(symbol=result[0])
+        print(a)
 #api_key = os.getenv('Binance_key')
 #api_secret = os.getenv('Binance_secret')
 #client = Client(api_key, api_secret)
