@@ -21,7 +21,7 @@ class Binance:
     def Add_Pair(self, update, context, answer, lang, chat_id):
         if chat_id in self._mafina.UseCommand.keys():
             if self._mafina.UseCommand[chat_id] == "GetPair":
-                price = self._instance.client.get_symbol_ticker(symbol=update.message.text)
+                price = self._instance.client.get_symbol_ticker(symbol=update.message.text.upper())
                 context.bot.send_message(chat_id, price['symbol']+ " "+ price['price'])
                 if(self._mafina._DB.InsertCrypto(price['symbol'], chat_id, price['price'])):
                     context.bot.send_message(chat_id, answer["72"])
@@ -43,9 +43,26 @@ class Binance:
 
     @staticmethod
     def Notification(context: telegram.ext.CallbackContext):
-        result = context.job.context[1]._mafina._DB.GetCryptoPairUser(context.job.context[0])
-        a = context.job.context[1]._instance.client.get_symbol_ticker(symbol=result[0])
-        print(a)
+        db = context.job.context[1]._mafina._DB
+        chat_id = context.job.context[0]
+        result = db.GetCryptoPairUser(chat_id)
+        x = 0
+        while x < len(result):
+            print(result[x])
+            binance_result = context.job.context[1]._instance.client.get_symbol_ticker(symbol=result[x])
+            price = float(binance_result['price'])
+            print(price)
+            m = price-(price/100*(5))
+            p = price+(price/100*(5))
+            if(price>=p):
+                context.bot.send_message(chat_id, "Rose up 5%"+binance_result['symbol']+" "+ price)
+                db.UpdateCryptoPair(chat_id, binance_result)
+            elif(price<=m):
+                context.bot.send_message(chat_id, "Fell by 5%" + binance_result['symbol'] + " " + price)
+                db.UpdateCryptoPair(chat_id, binance_result)
+            x+=3
+
+
 #api_key = os.getenv('Binance_key')
 #api_secret = os.getenv('Binance_secret')
 #client = Client(api_key, api_secret)

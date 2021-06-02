@@ -70,6 +70,20 @@ class DataBase:
         self.cursor.execute(sql)
         return self.cursor
 
+    def GetCountAnimal(self, chat_id):
+        sql = "SELECT j.count_animal FROM heroku_c93f6b06b535bb4.user u, heroku_c93f6b06b535bb4.job_queue j WHERE u.id_user = j.id_user and u.chatID ='%s';"%chat_id
+        self.GetCursor()
+        self.cursor.execute(sql)
+        self.db.commit()
+        return self.GetValue()
+
+    def GetFileId(self, x):
+        sql = "SELECT TelegramFileID FROM heroku_c93f6b06b535bb4.file  WHERE fileID ={0};".format(x)
+        self.GetCursor()
+        self.cursor.execute(sql)
+        self.db.commit()
+        return self.GetValue()
+
     def GetBookInReadList(self, chat_id):
         user_id = self.GetIdUser(chat_id)
         sql = """SELECT b.Name, a.Name, b.book_lang  FROM heroku_c93f6b06b535bb4.list_read_book lrb
@@ -92,6 +106,28 @@ class DataBase:
             for y in range(len(x)):
                 res.append(x[y])
         return res
+    def GetTranslateLanguage(self,chat_id):
+        self.GetCursor()
+        id = self.GetIdUser(chat_id)
+        sql = "SELECT TranslateLanguage FROM heroku_c93f6b06b535bb4.bot WHERE id_user = '%s'" % id
+        self.cursor.execute(sql)
+        return self.GetValue()
+
+    def GetLanguageBot(self, chat_id):
+        self.GetCursor()
+        id = self.GetIdUser(chat_id)
+        sql = "SELECT LanguageBot FROM heroku_c93f6b06b535bb4.bot WHERE id_user = '%s'" % id
+        self.cursor.execute(sql)
+        res = self.GetValue()
+        return (lambda self, res :"uk" if res == None else res)(self, res)
+
+    def GetJsonLanguageBot(self, chat_id):
+        lang = self.GetLanguageBot(chat_id)
+        patch ="languages/{0}.json".format(lang)
+        with open(patch, "r", encoding="utf-8") as json_file:
+            data = json.load(json_file)
+            json_file.close()
+        return data, lang
 
     def GetAllCryptoUsers(self):
         sql = """SELECT chatID FROM heroku_c93f6b06b535bb4.Cryptocurrency c
@@ -304,19 +340,13 @@ class DataBase:
         self.db.commit()
         return self.cursor
 
-    def GetCountAnimal(self, chat_id):
-        sql = "SELECT j.count_animal FROM heroku_c93f6b06b535bb4.user u, heroku_c93f6b06b535bb4.job_queue j WHERE u.id_user = j.id_user and u.chatID ='%s';"%chat_id
+    def UpdateCryptoPair(self, chat_id, binance):
+        id_user = self.GetIdUser(chat_id)
+        sql = """UPDATE Cryptocurrency SET price =({0}) WHERE id_user = {1} AND pair_crypto = {2}};""".format(binance['price'], id_user, binance['symbol'])
         self.GetCursor()
         self.cursor.execute(sql)
         self.db.commit()
-        return self.GetValue()
-
-    def GetFileId(self, x):
-        sql = "SELECT TelegramFileID FROM heroku_c93f6b06b535bb4.file  WHERE fileID ={0};".format(x)
-        self.GetCursor()
-        self.cursor.execute(sql)
-        self.db.commit()
-        return self.GetValue()
+        return self.cursor
 
     def UpCountAnimal(self, chat_id):
         x = self.GetCountAnimal(chat_id)
@@ -336,26 +366,3 @@ class DataBase:
         val =(preferred_language, id)
         self.cursor.execute(sql, val)
         self.db.commit()
-
-    def GetTranslateLanguage(self,chat_id):
-        self.GetCursor()
-        id = self.GetIdUser(chat_id)
-        sql = "SELECT TranslateLanguage FROM heroku_c93f6b06b535bb4.bot WHERE id_user = '%s'" % id
-        self.cursor.execute(sql)
-        return self.GetValue()
-
-    def GetLanguageBot(self, chat_id):
-        self.GetCursor()
-        id = self.GetIdUser(chat_id)
-        sql = "SELECT LanguageBot FROM heroku_c93f6b06b535bb4.bot WHERE id_user = '%s'" % id
-        self.cursor.execute(sql)
-        res = self.GetValue()
-        return (lambda self, res :"uk" if res == None else res)(self, res)
-
-    def GetJsonLanguageBot(self, chat_id):
-        lang = self.GetLanguageBot(chat_id)
-        patch ="languages/{0}.json".format(lang)
-        with open(patch, "r", encoding="utf-8") as json_file:
-            data = json.load(json_file)
-            json_file.close()
-        return data, lang
