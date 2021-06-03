@@ -18,7 +18,7 @@ class Binance:
                                  reply_markup=self._mafina._keyboard.InlineKeyboard(self._mafina._keyboard.MenuBinanceKeyboard[lang], False))
 
     @classmethod
-    def Add_Pair(self, update, context, answer, lang, chat_id):
+    def Add_Pair(self, update, context, answer, chat_id):
         if chat_id in self._mafina.UseCommand.keys():
             if self._mafina.UseCommand[chat_id] == "GetPair":
                 price = self._instance.client.get_symbol_ticker(symbol=update.message.text.upper())
@@ -31,8 +31,21 @@ class Binance:
             context.bot.edit_message_text(chat_id=chat_id, text=answer["71"], message_id=update.callback_query.message.message_id)
             self._mafina.UseCommand[chat_id] = "GetPair"
 
-    def Delete_Pair(self):
-        pass
+    @classmethod
+    def Delete_Pair(self, update, context, answer, chat_id):
+        if chat_id in self._mafina.UseCommand.keys():
+            if self._mafina.UseCommand[chat_id] == "DeletePair":
+                self._mafina._DB.DeleteCryptoPair(chat_id, update.callback_query.data)
+                context.bot.edit_message_text(chat_id=chat_id, text=answer["37"],
+                                              message_id=update.callback_query.message.message_id)
+                self._mafina.UseCommand.pop(chat_id)
+        else:
+            result=self._mafina._DB. GetCryptoPairUser(chat_id, True)
+            context.bot.edit_message_text(chat_id=chat_id, text=answer["74"], message_id=update.callback_query.message.message_id)
+            context.bot.edit_message_reply_markup(chat_id,
+                                                  reply_markup=self._mafina._keyboard.InlineKeyboard(result, False),
+                                                  message_id=update.callback_query.message.message_id)
+            self._mafina.UseCommand[chat_id] = "DeletePair"
 
     def Start_Crypto_job(self):
         cursor = self._mafina._DB.GetAllCryptoUsers()
@@ -47,10 +60,7 @@ class Binance:
         chat_id = context.job.context[0]
         result = db.GetCryptoPairUser(chat_id)
         x = 0
-        print(len(result))
-        print(result)
         while x < len(result):
-            print(result[x])
             binance_result = context.job.context[1]._instance.client.get_symbol_ticker(symbol=result[x])
             bprice = float(binance_result['price'])
             price = float(result[x+2])

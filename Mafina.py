@@ -110,7 +110,8 @@ class Mafina(object):
                 "GetBook": lambda:Thread.Thread(self._book.SendListReadBooks, (update, context, answer, lang, chat_id)),
                 "ChangeSysAnimal": lambda:Thread.Thread(self._animal.SysAnimal, (update, context, answer, lang, chat_id)),
                 "LangBot": lambda:Thread.Thread(self._setting.LanguageBot, (update, context, answer, chat_id)),
-                "GetPair": lambda: Thread.Thread(self._binance.Add_Pair, (update, context, answer, lang, chat_id)),
+                "GetPair": lambda: Thread.Thread(self._binance.Add_Pair, (update, context, answer, chat_id)),
+                "DeletePair": lambda: Thread.Thread(self._binance.Delete_Pair, (update, context, answer, chat_id)),
                 (self._keyboard.CancelButton[lang][0], self._keyboard.BookStateKeyboard[lang][2]):
                     lambda: Thread.Thread(self._book.Cancel, (update, context, answer, chat_id))
                 }
@@ -144,7 +145,8 @@ class Mafina(object):
                 "4": lambda: Thread.Thread(self._meme.CountMem, (update, context, answer, lang)),
                 "5": lambda: Thread.Thread(self._setting.SettingAnswer, (update, context, answer, chat_id)),
                 "6": lambda: Thread.Thread(self._meme.NightMode, (update, context, answer, chat_id)),
-                self._keyboard.MenuBinanceKeyboard[lang][0]: lambda: Thread.Thread(self._binance.Add_Pair, (update, context, answer, lang, chat_id)),
+                self._keyboard.MenuBinanceKeyboard[lang][0]: lambda: Thread.Thread(self._binance.Add_Pair, (update, context, answer, chat_id)),
+                self._keyboard.MenuBinanceKeyboard[lang][1]: lambda: Thread.Thread(self._binance.Delete_Pair, (update, context, answer, chat_id)),
                 self._keyboard.YoutubeKeyboard[lang][0]: lambda: Thread.Thread(self._youtube.Get_Video,(update, context, answer, chat_id)),
                 self._keyboard.YoutubeKeyboard[lang][1]: lambda: Thread.Thread(self._youtube.Get_Audio,(update, context, answer, chat_id)),
                 self._keyboard.CutKeyboard[lang][0]: lambda: Thread.Thread(self._cut.CutVideo,(update, context, answer, chat_id)),

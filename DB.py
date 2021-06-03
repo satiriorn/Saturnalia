@@ -96,9 +96,10 @@ class DataBase:
         self.cursor.execute(sql)
         return self.cursor
 
-    def GetCryptoPairUser(self, chat_id):
+    def GetCryptoPairUser(self, chat_id, onlyname = False):
         user_id = self.GetIdUser(chat_id)
-        sql = """SELECT * FROM heroku_c93f6b06b535bb4.Cryptocurrency WHERE id_user = {0};""".format(user_id)
+        if onlyname: sql = """SELECT pair_crypto FROM heroku_c93f6b06b535bb4.Cryptocurrency WHERE id_user = {0};""".format(user_id)
+        else: sql = """SELECT * FROM heroku_c93f6b06b535bb4.Cryptocurrency WHERE id_user = {0};""".format(user_id)
         self.GetCursor()
         self.cursor.execute(sql)
         res = []
@@ -154,6 +155,13 @@ class DataBase:
         user_id = self.GetIdUser(chat_id)
         id_book = self.GetIdBook(Name)
         sql = """DELETE FROM heroku_c93f6b06b535bb4.list_read_book WHERE id_book = "{0}" and id_user = "{1}";""".format(id_book, user_id)
+        self.GetCursor()
+        self.cursor.execute(sql)
+        self.db.commit()
+
+    def DeleteCryptoPair(self, chat_id, name):
+        user_id = self.GetIdUser(chat_id)
+        sql = """DELETE FROM heroku_c93f6b06b535bb4.Cryptocurrency WHERE id_user = {0} and pair_crypto = "{1}";""".format(user_id, name)
         self.GetCursor()
         self.cursor.execute(sql)
         self.db.commit()
