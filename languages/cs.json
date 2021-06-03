@@ -73,5 +73,6 @@
   "71": "Zadejte požadovaný pár kryptoměny. Následuje příklad.\nXEMUSDT\nONEUSDT\nZECUSDT\nTRXUSDT\nBNBUSDT\nXTZUSDT\nXRPUSDT\nCAKEUSDT\nDOGEUSDT\nMATICUSDT\nADAUSDT\nCOMPUSDT\nBTCUSDT\nETHUSDT",
   "72": "Už jste přidali takový krypto pár. Zkuste něco jiného.",
   "73": "Váš krypto pár byl úspěšně přidán. Začínající cena: {0}",
-  "74": "Vyberte požadovaný krypto pár, který chcete odstranit: "
+  "74": "Vyberte požadovaný krypto pár, který chcete odstranit: ",
+  "75": "Aktuální ceny vašich kryptoměn: \n{0}"
 }
