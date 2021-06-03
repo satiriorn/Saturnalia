@@ -70,7 +70,8 @@
   "68": "Získejte maximální klid",
   "69": "Zrušení proběhlo úspěšně",
   "70": "Nespustili jste funkci robota, nic zrušte",
-  "71": "Zadejte požadovaný pár kryptoměny. Následuje příklad.\nXEMUSDT",
+  "71": "Zadejte požadovaný pár kryptoměny. Následuje příklad.\nXEMUSDT\nONEUSDT\nZECUSDT\nTRXUSDT\nBNBUSDT\nXTZUSDT\nXRPUSDT\nCAKEUSDT\nDOGEUSDT\nMATICUSDT\nADAUSDT\nCOMPUSDT\nBTCUSDT\nETHUSDT",
   "72": "Už jste přidali takový krypto pár. Zkuste něco jiného.",
-  "73": "Váš krypto pár byl úspěšně přidán. Začínající cena:{0}"
+  "73": "Váš krypto pár byl úspěšně přidán. Začínající cena: {0}",
+  "74": "Vyberte požadovaný krypto pár, který chcete odstranit: "
 }

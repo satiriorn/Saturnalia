@@ -22,7 +22,7 @@ class Binance:
         if chat_id in self._mafina.UseCommand.keys():
             if self._mafina.UseCommand[chat_id] == "GetPair":
                 price = self._instance.client.get_symbol_ticker(symbol=update.message.text.upper())
-                context.bot.send_message(chat_id, answer["74"].format(price['symbol']+ " "+ price['price']))
+                context.bot.send_message(chat_id, answer["73"].format(price['symbol']+ " "+ price['price']))
                 if(self._mafina._DB.InsertCrypto(price['symbol'], chat_id, price['price'])):
                     context.bot.send_message(chat_id, answer["72"])
                 else:
@@ -40,12 +40,23 @@ class Binance:
                                               message_id=update.callback_query.message.message_id)
                 self._mafina.UseCommand.pop(chat_id)
         else:
-            result=self._mafina._DB. GetCryptoPairUser(chat_id, True)
+            result=self._mafina._DB.GetCryptoPairUser(chat_id, True)
             context.bot.edit_message_text(chat_id=chat_id, text=answer["74"], message_id=update.callback_query.message.message_id)
             context.bot.edit_message_reply_markup(chat_id,
                                                   reply_markup=self._mafina._keyboard.InlineKeyboard(result, False),
                                                   message_id=update.callback_query.message.message_id)
             self._mafina.UseCommand[chat_id] = "DeletePair"
+
+    @classmethod
+    def Display_selected_pairs(self, update, context, answer, chat_id):
+        res = self._mafina._DB.GetCryptoPairUser(chat_id, True)
+        x = 0
+        result = ""
+        while x < len(res):
+            bn = self._instance.client.get_symbol_ticker(symbol=res[x])
+            result += bn['symbol']+" "+bn['price']+"\n"
+            x+=1
+        context.bot.edit_message_text(chat_id=chat_id, text=answer["75"].format(result),  message_id=update.callback_query.message.message_id)
 
     def Start_Crypto_job(self):
         cursor = self._mafina._DB.GetAllCryptoUsers()

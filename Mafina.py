@@ -147,6 +147,7 @@ class Mafina(object):
                 "6": lambda: Thread.Thread(self._meme.NightMode, (update, context, answer, chat_id)),
                 self._keyboard.MenuBinanceKeyboard[lang][0]: lambda: Thread.Thread(self._binance.Add_Pair, (update, context, answer, chat_id)),
                 self._keyboard.MenuBinanceKeyboard[lang][1]: lambda: Thread.Thread(self._binance.Delete_Pair, (update, context, answer, chat_id)),
+                self._keyboard.MenuBinanceKeyboard[lang][2]: lambda: Thread.Thread(self._binance.Display_selected_pairs, (update, context, answer, chat_id)),
                 self._keyboard.YoutubeKeyboard[lang][0]: lambda: Thread.Thread(self._youtube.Get_Video,(update, context, answer, chat_id)),
                 self._keyboard.YoutubeKeyboard[lang][1]: lambda: Thread.Thread(self._youtube.Get_Audio,(update, context, answer, chat_id)),
                 self._keyboard.CutKeyboard[lang][0]: lambda: Thread.Thread(self._cut.CutVideo,(update, context, answer, chat_id)),
