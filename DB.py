@@ -342,7 +342,7 @@ class DataBase:
 
     def UpdateCryptoPair(self, chat_id, binance):
         id_user = self.GetIdUser(chat_id)
-        sql = """UPDATE Cryptocurrency SET price =({0}) WHERE id_user = {1} AND pair_crypto = {2}};""".format(binance['price'], id_user, binance['symbol'])
+        sql = """UPDATE Cryptocurrency SET price =({0}) WHERE id_user = {1} AND pair_crypto = "{2}";""".format(binance['price'], id_user, binance['symbol'])
         self.GetCursor()
         self.cursor.execute(sql)
         self.db.commit()
