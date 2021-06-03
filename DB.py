@@ -106,6 +106,19 @@ class DataBase:
             for y in range(len(x)):
                 res.append(x[y])
         return res
+
+    def GetFile(self, Name):
+        sql = """SELECT file_id_epub, file_id_fb2, file_id_pdf FROM heroku_c93f6b06b535bb4.book WHERE Name = trim("{0}");""".format(Name)
+        self.GetCursor()
+        self.cursor.execute(sql)
+        return self.cursor
+
+    def GetIdBook(self, Name):
+        sql = """SELECT id_book FROM heroku_c93f6b06b535bb4.book WHERE Name = "{0}";""".format(Name)
+        self.GetCursor()
+        self.cursor.execute(sql)
+        return self.GetValue()
+
     def GetTranslateLanguage(self,chat_id):
         self.GetCursor()
         id = self.GetIdUser(chat_id)
@@ -130,7 +143,7 @@ class DataBase:
         return data, lang
 
     def GetAllCryptoUsers(self):
-        sql = """SELECT chatID FROM heroku_c93f6b06b535bb4.Cryptocurrency c
+        sql = """SELECT DISTINCT chatID FROM heroku_c93f6b06b535bb4.Cryptocurrency c
                     JOIN heroku_c93f6b06b535bb4.user u 
                         ON c.id_user=u.id_user;"""
         self.GetCursor()
@@ -167,18 +180,6 @@ class DataBase:
         self.GetCursor()
         self.cursor.execute(sql,val)
         self.db.commit()
-
-    def GetFile(self, Name):
-        sql = """SELECT file_id_epub, file_id_fb2, file_id_pdf FROM heroku_c93f6b06b535bb4.book WHERE Name = trim("{0}");""".format(Name)
-        self.GetCursor()
-        self.cursor.execute(sql)
-        return self.cursor
-
-    def GetIdBook(self, Name):
-        sql = """SELECT id_book FROM heroku_c93f6b06b535bb4.book WHERE Name = "{0}";""".format(Name)
-        self.GetCursor()
-        self.cursor.execute(sql)
-        return self.GetValue()
 
     def AddBookInListRead(self, chat_id, NameBook):
         id_user = self.GetIdUser(chat_id)

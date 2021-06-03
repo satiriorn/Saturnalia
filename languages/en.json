@@ -72,5 +72,6 @@
   "69": "The cancellation was successful",
   "70": "You didn't run anything",
   "71": "Enter the cryptocurrency pair you need. The following is an example.\nXEMUSDT",
-  "72": "You have already added such a cryptocurrency pair. Try something else."
+  "72": "You have already added such a cryptocurrency pair. Try something else.",
+  "73": "Your crypto pair has been successfully added. Starting price:{0}"
 }

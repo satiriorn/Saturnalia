@@ -22,7 +22,7 @@ class Binance:
         if chat_id in self._mafina.UseCommand.keys():
             if self._mafina.UseCommand[chat_id] == "GetPair":
                 price = self._instance.client.get_symbol_ticker(symbol=update.message.text.upper())
-                context.bot.send_message(chat_id, price['symbol']+ " "+ price['price'])
+                context.bot.send_message(chat_id, answer["74"].format(price['symbol']+ " "+ price['price']))
                 if(self._mafina._DB.InsertCrypto(price['symbol'], chat_id, price['price'])):
                     context.bot.send_message(chat_id, answer["72"])
                 else:
@@ -47,6 +47,8 @@ class Binance:
         chat_id = context.job.context[0]
         result = db.GetCryptoPairUser(chat_id)
         x = 0
+        print(len(result))
+        print(result)
         while x < len(result):
             print(result[x])
             binance_result = context.job.context[1]._instance.client.get_symbol_ticker(symbol=result[x])
@@ -56,10 +58,10 @@ class Binance:
             m = price-(price/100*(5))
             p = price+(price/100*(5))
             if(bprice>=p):
-                context.bot.send_message(chat_id, "Rose up 5%"+str(binance_result['symbol'])+" "+ str(bprice))
+                context.bot.send_message(chat_id, "Rose up 5% "+str(binance_result['symbol'])+" "+ str(bprice))
                 db.UpdateCryptoPair(chat_id, binance_result)
             elif(bprice<=m):
-                context.bot.send_message(chat_id, "Fell by 5%" + str(binance_result['symbol']) + " " + str(bprice))
+                context.bot.send_message(chat_id, "Fell by 5% " + str(binance_result['symbol']) + " " + str(bprice))
                 db.UpdateCryptoPair(chat_id, binance_result)
             x+=3
 

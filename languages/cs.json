@@ -71,5 +71,6 @@
   "69": "Zrušení proběhlo úspěšně",
   "70": "Nespustili jste funkci robota, nic zrušte",
   "71": "Zadejte požadovaný pár kryptoměny. Následuje příklad.\nXEMUSDT",
-  "72": "Už jste přidali takový krypto pár. Zkuste něco jiného."
+  "72": "Už jste přidali takový krypto pár. Zkuste něco jiného.",
+  "73": "Váš krypto pár byl úspěšně přidán. Začínající cena:{0}"
 }
