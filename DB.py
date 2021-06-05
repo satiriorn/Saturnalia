@@ -1,4 +1,4 @@
-import mysql.connector, os, json, Thread
+import mysql.connector, os, json
 
 class DataBase:
     def __init__(self, M):
@@ -97,7 +97,7 @@ class DataBase:
         return self.cursor
 
     def GetCryptoPairUser(self, chat_id, onlyname = False):
-        user_id = Thread.Thread(self.GetIdUser, (chat_id))
+        user_id = self.GetIdUser(chat_id)
         if onlyname: sql = """SELECT pair_crypto FROM heroku_c93f6b06b535bb4.Cryptocurrency WHERE id_user = {0};""".format(user_id)
         else: sql = """SELECT * FROM heroku_c93f6b06b535bb4.Cryptocurrency WHERE id_user = {0};""".format(user_id)
         self.GetCursor()
@@ -350,7 +350,7 @@ class DataBase:
         return self.cursor
 
     def UpdateCryptoPair(self, chat_id, binance):
-        id_user = Thread.Thread(self.GetIdUser, (chat_id))
+        id_user = self.GetIdUser(chat_id)
         sql = """UPDATE Cryptocurrency SET price =({0}) WHERE id_user = {1} AND pair_crypto = "{2}";""".format(binance['price'], id_user, binance['symbol'])
         self.GetCursor()
         self.cursor.execute(sql)
