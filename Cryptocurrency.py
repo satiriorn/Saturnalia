@@ -70,6 +70,7 @@ class Binance:
         db = context.job.context[1]._mafina._DB
         chat_id = context.job.context[0]
         result = db.GetCryptoPairUser(chat_id)
+        print(result)
         x = 0
         while x < len(result):
             binance_result = context.job.context[1]._instance.client.get_symbol_ticker(symbol=result[x])

@@ -1,4 +1,4 @@
-import mysql.connector, os, json
+import mysql.connector, os, json, Thread
 
 class DataBase:
     def __init__(self, M):
@@ -29,7 +29,8 @@ class DataBase:
     def GetIdUser(self, chat_id):
         sql = "SELECT id_user FROM heroku_c93f6b06b535bb4.user WHERE chatID = '%s';" % chat_id
         self.cursor.execute(sql)
-        return self.GetValue()
+        return self.cursor.fetchone()[0]
+        #return self.GetValue()
 
     def GetIDAuthor(self, Name):
         sql = """SELECT id_author FROM heroku_c93f6b06b535bb4.author WHERE Name = "{0}";""".format(Name)
@@ -97,9 +98,15 @@ class DataBase:
         return self.cursor
 
     def GetCryptoPairUser(self, chat_id, onlyname = False):
-        user_id = self.GetIdUser(chat_id)
-        if onlyname: sql = """SELECT pair_crypto FROM heroku_c93f6b06b535bb4.Cryptocurrency WHERE id_user = {0};""".format(user_id)
-        else: sql = """SELECT * FROM heroku_c93f6b06b535bb4.Cryptocurrency WHERE id_user = {0};""".format(user_id)
+       # user_id = self.GetIdUser(chat_id)
+        if onlyname: sql = """SELECT pair_crypto FROM heroku_c93f6b06b535bb4.Cryptocurrency с 
+                                JOIN heroku_c93f6b06b535bb4.user u 
+                                    USING (id_user)
+                                        WHERE u.chatID = {0};""".format(chat_id)
+        else: sql = """SELECT pair_crypto, id_user, price FROM heroku_c93f6b06b535bb4.Cryptocurrency с 
+                                JOIN heroku_c93f6b06b535bb4.user u 
+                                    USING (id_user)
+                                        WHERE u.chatID = {0};""".format(chat_id)
         self.GetCursor()
         self.cursor.execute(sql)
         res = []
