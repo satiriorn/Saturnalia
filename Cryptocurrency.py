@@ -63,7 +63,7 @@ class Binance:
         for x in cursor:
             for y in range(len(x)):
                 data = (x[y], self)
-                self._mafina.jobchat[str(x[y])]=self._mafina.job.run_repeating(self.Notification, interval=700, first=0, context=data)
+                self._mafina.jobchat[str(x[y])]=self._mafina.job.run_repeating(self.Notification, interval=350, first=0, context=data)
 
     @staticmethod
     def Notification(context: telegram.ext.CallbackContext):
