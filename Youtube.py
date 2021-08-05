@@ -28,7 +28,7 @@ class Youtube:
                     except Exception:
                          youtube = pytube.YouTube(url).streams.filter(only_audio=True).all()
                          file = youtube[0].download()
-                    details = pytube.YouTube(url).player_response['videoDetails']
+                    details = pytube.YouTube(url)
                     print(details)
                     NameMusic = file.replace('.mp4','.mp3')
                     subprocess.call([
@@ -37,8 +37,8 @@ class Youtube:
                         os.path.join(NameMusic)
                     ])
                     audio = EasyID3(NameMusic)
-                    audio['title'] = details['title'].replace(details['author'], "").replace('- ','')
-                    audio['artist'] = details['author']
+                    audio['title'] = details.title.replace(details.author, "").replace('- ','')
+                    audio['artist'] = details.author
                     audio.save()
                     context.bot.send_audio(chat_id, open(NameMusic, 'rb'))
                     self._mafina.UseCommand.pop(chat_id)
