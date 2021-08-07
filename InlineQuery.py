@@ -20,7 +20,7 @@ class Inline:
                     id=x,
                     title=str(title),
                     description=str(description),
-                    input_message_content=InputTextMessageContent("https://www.youtube.com/watch?v=" + str(url)),
+                    input_message_content=InputTextMessageContent("https://www.youtube.com/" + str(url)),
                     parse_mode=ParseMode.MARKDOWN))
         self._mafina.ResultInline[chat_id] = result
         update.inline_query.answer(results=result, cache_time=0, timeout=190000)
