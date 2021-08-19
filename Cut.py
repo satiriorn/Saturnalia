@@ -86,10 +86,10 @@ class Cut:
                 if self._mafina.UseCommand[chat_id] == "GetCutVideo":
                     video_url = update.message.text
                     try:
-                        youtube = pytube.YouTube(video_url).streams.first()
+                        youtube = pytube.YouTube(video_url).streams.filter(res="720p").first()
                         file = youtube.download()
                     except Exception:
-                        youtube = pytube.YouTube(video_url).streams.all()
+                        youtube = pytube.YouTube(video_url).streams.filter(res="480p").first()
                         file = youtube[0].download()
                     name = str(chat_id).replace('-','')
                     print(name)

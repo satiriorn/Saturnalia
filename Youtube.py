@@ -60,7 +60,7 @@ class Youtube:
             if chat_id in self._mafina.UseCommand.keys():
                 if self._mafina.UseCommand[chat_id] == "Video":
                     video_url = update.message.text
-                    youtube = pytube.YouTube(video_url).streams.first()
+                    youtube = pytube.YouTube(video_url).streams.filter(res = "720p").first()
                     file = youtube.download()
                     context.bot.send_video(update.message.chat_id, open(file, 'rb'))
                     self._mafina.UseCommand.pop(chat_id)
