@@ -50,12 +50,12 @@ class Animal:
         cursor = self._mafina._DB.UsersSysAnimal()
         target_tzinfo = datetime.timezone(datetime.timedelta(hours=3))
         target_time = None
-        times = [21, 9, 22, 18]
+        times = [12, 9, 22, 18]
         for x in cursor:
             for y in range(len(x)):
                 if y + 2 < len(x):
                     for i in range(x[y+2]):
-                        target_time = datetime.time(hour=times[i], minute=10, second=15).replace(tzinfo=target_tzinfo)
+                        target_time = datetime.time(hour=times[i], minute=00, second=15).replace(tzinfo=target_tzinfo)
                         self._mafina.jobchat[str(x[y])] = self._mafina.job.run_daily(self.AnimalJob, target_time,
                                                                              context=x[y])
 
@@ -97,13 +97,12 @@ class Animal:
             x = Animal._mafina._DB.GetCountAnimal(context.job.context)
             fileID = Animal._mafina._DB.GetFileId(x)
             file = context.bot.getFile(fileID)
-            if '-' in context.job.context:
+            if '-' in str(context.job.context):
                 a = str(context.job.contex).replace('-', '')
                 title = ("""{0}.gif""").format(a)
             else:
                 title = ("""{0}.gif""").format(context.job.context)
             file.download(title)
-            print(Animal.has_audio(title))
             if(Animal.has_audio(title)):
                 context.bot.send_video(context.job.context, open(title, 'rb'))
             else:
