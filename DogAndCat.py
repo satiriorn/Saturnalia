@@ -38,6 +38,7 @@ class Animal:
 
     @staticmethod
     def has_audio(filename):
+        print(filename)
         result = subprocess.run(["ffprobe", "-v", "error", "-show_entries",
                                  "format=nb_streams", "-of",
                                  "default=noprint_wrappers=1:nokey=1", filename],
@@ -49,12 +50,12 @@ class Animal:
         cursor = self._mafina._DB.UsersSysAnimal()
         target_tzinfo = datetime.timezone(datetime.timedelta(hours=3))
         target_time = None
-        times = [20, 9, 22, 18]
+        times = [21, 9, 22, 18]
         for x in cursor:
             for y in range(len(x)):
                 if y + 2 < len(x):
                     for i in range(x[y+2]):
-                        target_time = datetime.time(hour=times[i], minute=47, second=15).replace(tzinfo=target_tzinfo)
+                        target_time = datetime.time(hour=times[i], minute=2, second=15).replace(tzinfo=target_tzinfo)
                         self._mafina.jobchat[str(x[y])] = self._mafina.job.run_daily(self.AnimalJob, target_time,
                                                                              context=x[y])
 
@@ -96,14 +97,14 @@ class Animal:
         x = Animal._mafina._DB.GetCountAnimal(context.job.context)
         fileID = Animal._mafina._DB.GetFileId(x)
         file = context.bot.getFile(fileID)
-        title = ("{0}.gif").format(context.job.context)
+        title = ("""{0}.gif""").format(context.job.context)
         file.download(title)
         print(Animal.has_audio(title))
         if(Animal.has_audio(title)):
             context.bot.send_video(context.job.context, open(title, 'rb'))
         else:
             context.bot.send_animation(context.job.context, open(title, 'rb'))
-        #Animal._mafina._DB.UpCountAnimal(context.job.context)
+        Animal._mafina._DB.UpCountAnimal(context.job.context)
         os.remove(os.path.join(os.path.abspath(os.path.dirname(__file__)), title))
        # except Exception:
        #    Animal._mafina._DB.UpCountAnimal(context.job.context)
