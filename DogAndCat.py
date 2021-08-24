@@ -1,4 +1,8 @@
 import Url, telegram.ext, datetime, os
+from subprocess import check_output
+import json
+
+
 
 class Animal:
     _instance, _mafina = None, None
@@ -21,6 +25,17 @@ class Animal:
             Url.Photo(Url.get_url('https://random.dog/woof.json'), update, context)
         except Exception:
             context.bot.send_message(context.bot_data[update.poll_answer.poll_id], answer["7"])
+
+    @staticmethod
+    def has_audio_streams(file_path):
+        command = ['ffprobe', '-show_streams',
+                   '-print_format', 'json', file_path]
+        output = check_output(command)
+        parsed = json.loads(output)
+        streams = parsed['streams']
+        audio_streams = list(filter((lambda x: x['codec_type'] == 'audio'), streams))
+        return len(audio_streams) > 0
+
     @classmethod
     def StartSysAnimal(self):
         cursor = self._mafina._DB.UsersSysAnimal()
@@ -75,9 +90,9 @@ class Animal:
             file = context.bot.getFile(fileID)
             title = ("{0}.gif").format(context.job.context)
             file.download(title)
-            try:
+            if(Animal._mafina._D.Bhas_audio_streams(title)):
                 context.bot.send_video(context.job.context, open(title, 'rb'))
-            except Exception:
+            else:
                 context.bot.send_animation(context.job.context, open(title, 'rb'))
             Animal._mafina._DB.UpCountAnimal(context.job.context)
             os.remove(os.path.join(os.path.abspath(os.path.dirname(__file__)), title))
