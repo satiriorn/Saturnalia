@@ -1,7 +1,7 @@
 import Url, telegram.ext, datetime, os
 from subprocess import check_output
 import json
-
+import subprocess
 
 
 class Animal:
@@ -36,17 +36,25 @@ class Animal:
         audio_streams = list(filter((lambda x: x['codec_type'] == 'audio'), streams))
         return len(audio_streams) > 0
 
+    @staticmethod
+    def has_audio(filename):
+        result = subprocess.run(["ffprobe", "-v", "error", "-show_entries",
+                                 "format=nb_streams", "-of",
+                                 "default=noprint_wrappers=1:nokey=1", filename],
+                                stdout=subprocess.PIPE,
+                                stderr=subprocess.STDOUT)
+        return (int(result.stdout) - 1)
     @classmethod
     def StartSysAnimal(self):
         cursor = self._mafina._DB.UsersSysAnimal()
         target_tzinfo = datetime.timezone(datetime.timedelta(hours=3))
         target_time = None
-        times = [12, 9, 22, 18]
+        times = [20, 9, 22, 18]
         for x in cursor:
             for y in range(len(x)):
                 if y + 2 < len(x):
                     for i in range(x[y+2]):
-                        target_time = datetime.time(hour=times[i], minute=00, second=25).replace(tzinfo=target_tzinfo)
+                        target_time = datetime.time(hour=times[i], minute=47, second=15).replace(tzinfo=target_tzinfo)
                         self._mafina.jobchat[str(x[y])] = self._mafina.job.run_daily(self.AnimalJob, target_time,
                                                                              context=x[y])
 
@@ -84,17 +92,18 @@ class Animal:
 
     @staticmethod
     def AnimalJob(context: telegram.ext.CallbackContext):
-        try:
-            x = Animal._mafina._DB.GetCountAnimal(context.job.context)
-            fileID = Animal._mafina._DB.GetFileId(x)
-            file = context.bot.getFile(fileID)
-            title = ("{0}.gif").format(context.job.context)
-            file.download(title)
-            if(Animal._mafina._D.Bhas_audio_streams(title)):
-                context.bot.send_video(context.job.context, open(title, 'rb'))
-            else:
-                context.bot.send_animation(context.job.context, open(title, 'rb'))
-            Animal._mafina._DB.UpCountAnimal(context.job.context)
-            os.remove(os.path.join(os.path.abspath(os.path.dirname(__file__)), title))
-        except Exception:
-            Animal._mafina._DB.UpCountAnimal(context.job.context)
+       # try:
+        x = Animal._mafina._DB.GetCountAnimal(context.job.context)
+        fileID = Animal._mafina._DB.GetFileId(x)
+        file = context.bot.getFile(fileID)
+        title = ("{0}.gif").format(context.job.context)
+        file.download(title)
+        print(Animal.has_audio(title))
+        if(Animal.has_audio(title)):
+            context.bot.send_video(context.job.context, open(title, 'rb'))
+        else:
+            context.bot.send_animation(context.job.context, open(title, 'rb'))
+        #Animal._mafina._DB.UpCountAnimal(context.job.context)
+        os.remove(os.path.join(os.path.abspath(os.path.dirname(__file__)), title))
+       # except Exception:
+       #    Animal._mafina._DB.UpCountAnimal(context.job.context)
