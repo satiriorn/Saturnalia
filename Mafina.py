@@ -166,7 +166,7 @@ class Mafina(object):
                 }
             if self.multi_key_dict_get(CommandTxtButton, text)() and '?' in text: Thread.Thread(self._std.question, (update, context, answer))
         else:
-            self._instance.Users[chat_id] = User(chat_id, self._instance)
+            self._instance.Users[chat_id] = User(chat_id, self._instance, update)
             self._instance.Dispatcher(update, context)
 
     def data(self, update):
@@ -178,7 +178,9 @@ class Mafina(object):
         except Exception:  return str(update.message.chat_id)
 
 class User():
-    def __init__(self, chat_id, mafina):
+    def __init__(self, chat_id, mafina, update):
+        mafina._DB.CheckUser(update.message.chat.title, update.message.chat.username, chat_id,
+                update.message.from_user.language_code, update.message.chat.type)
         self.chat_id = chat_id
         self.answer, self.lang = mafina._DB.GetJsonLanguageBot(chat_id)
 

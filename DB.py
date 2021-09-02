@@ -209,6 +209,7 @@ class DataBase:
         self.GetCursor()
         self.cursor.execute(sql)
         for x in self.cursor:
+            print(x[0])
             if int(x[0]) == 0:
                 self.Insert(first_name,username, chat_id, language_code, type)
 
