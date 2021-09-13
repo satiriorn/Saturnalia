@@ -18,17 +18,22 @@ class Hunter:
 
 	@staticmethod
 	def CheckListingJob(context: telegram.ext.CallbackContext):
+		hunter = Hunter._instance._mafina
 		UpdateListing = Hunter.getLatestNews()[0]
-		LastListing = Hunter._instance._mafina._DB.GetUsername(context.job.context)
-		if "binance will list" in UpdateListing.lower():
-			if (LastListing!=UpdateListing):
-				print(UpdateListing)
-				Hunter.NewListing = UpdateListing
-				Hunter._instance._mafina.UseCommand[context.job.context] = "NewListing"
-
-	@staticmethod
-	def AttentionJob(context: telegram.ext.CallbackContext):
-		context.bot.send_message(context.job.context, Hunter.NewListing)
+		LastListing = hunter._DB.GetUsername(context.job.context)
+		if context.job.context in hunter.UseCommand.keys():
+			if hunter.UseCommand[context.job.context] == "NewListing":
+				for x in range(3):
+					context.bot.send_message(context.job.context, Hunter.NewListing)
+		else:
+			if "binance will list" in UpdateListing.lower():
+				if LastListing != UpdateListing:
+					print(UpdateListing)
+					Hunter.NewListing = UpdateListing
+					Hunter._instance._mafina.UseCommand[context.job.context] = "NewListing"
+					hunter._DB.UpdateListing(context.job.context, UpdateListing)
+					for x in range(3):
+						context.bot.send_message(context.job.context, Hunter.NewListing)
 
 	@staticmethod
 	def getLatestNews(url = "https://www.binance.com/en/support/announcement/c-48"):

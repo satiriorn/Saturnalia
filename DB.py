@@ -329,7 +329,12 @@ class DataBase:
         val = (status, self.GetIdUser(chat_id))
         self.UpdateSys(sql, val)
 
-    def UpdateSys(self,sql,val):
+    def UpdateListing(self, chat_id, NewListing):
+        sql = "UPDATE heroku_c93f6b06b535bb4.user SET Username=%s WHERE chatID =%s;"
+        val = (NewListing, chat_id)
+        self.UpdateSys(sql, val)
+
+    def UpdateSys(self, sql, val):
         self.GetCursor()
         self.cursor.execute(sql,val)
         self.db.commit()
