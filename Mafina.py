@@ -1,10 +1,11 @@
-import Thread, Cryptocurrency, Quotes, StandartCommand, weather, Evtuh,  CreateVoice, DogAndCat, InlineQuery, os, Meme, Youtube, Translate, DB, Keyboard, Setting,  Cut, File, Book, Cancel
+import Thread, Cryptocurrency, Quotes, StandartCommand, weather, Evtuh,  CreateVoice, DogAndCat, InlineQuery, os, Meme, Youtube, Translate, DB, Keyboard, Setting,  \
+    Cut, File, Book, Cancel, Hunter_of_BinanceAnnouncements
 from telegram.ext import Updater, MessageHandler, Filters, InlineQueryHandler, CallbackQueryHandler, ChosenInlineResultHandler
 from googletrans import Translator
 
 class Mafina(object):
     _instance, _DB, job, _translator, _keyboard, _weather, _voice, _std, _animal, _meme = None, None, None, None, None, None, None, None, None, None
-    _youtube, _setting, _cut, _book, _file, _translate, _inline, _cancel, _binance = None, None, None, None, None, None, None, None, None
+    _youtube, _setting, _cut, _book, _file, _translate, _inline, _cancel, _binance, _hunter = None, None, None, None, None, None, None, None, None, None
     UseCommand, CutFile, jobchat, Book, ResultSearch, KeyboardFormat, Users, ResultInline = {}, {}, {}, {}, {}, {}, {}, {}
     NameFormat = [".epub", ".fb2", ".pdf"]
     fileformat = {".epub": "file_id_epub", ".fb2": "file_id_fb2", ".pdf": "file_id_pdf"}
@@ -20,7 +21,7 @@ class Mafina(object):
         Mafina._voice, Mafina._std, Mafina._animal = CreateVoice.Voice(self), StandartCommand.StandartCommand(self), DogAndCat.Animal(self)
         Mafina._meme, Mafina._youtube, Mafina._setting, Mafina._cut = Meme.Meme(self), Youtube.Youtube(self), Setting.SettingMafina(self), Cut.Cut(self)
         Mafina._book, Mafina._file, Mafina._translate, Mafina._inline = Book.Book(self), File.File(self), Translate.Translate(self), InlineQuery.Inline(self)
-        Mafina._translator, Mafina._cancel, Mafina._binance = Translator(), Cancel.Cancel(self), Cryptocurrency.Binance(self)
+        Mafina._translator, Mafina._cancel, Mafina._binance, Mafina._hunter = Translator(), Cancel.Cancel(self), Cryptocurrency.Binance(self), Hunter_of_BinanceAnnouncements.Hunter(self)
         self.dispatcher = self.updater.dispatcher
         self.CreateHandler()
         self.run()
@@ -38,6 +39,7 @@ class Mafina(object):
 
     def run(self):
         self._meme.StartSystemMeme()
+        self._hunter.start()
         self._weather.StartSysWeather()
         self._animal.StartSysAnimal()
         self._binance.Start_Crypto_job()

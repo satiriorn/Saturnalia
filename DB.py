@@ -32,6 +32,11 @@ class DataBase:
         return self.cursor.fetchone()[0]
         #return self.GetValue()
 
+    def GetUsername(self, chat_id):
+        sql = "SELECT Username FROM heroku_c93f6b06b535bb4.user WHERE chatID = '%s';" % chat_id
+        self.cursor.execute(sql)
+        return self.GetValue()
+
     def GetIDAuthor(self, Name):
         sql = """SELECT id_author FROM heroku_c93f6b06b535bb4.author WHERE Name = "{0}";""".format(Name)
         self.cursor.execute(sql)
