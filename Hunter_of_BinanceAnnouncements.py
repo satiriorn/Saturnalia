@@ -1,11 +1,14 @@
 from requests import get
 from bs4 import BeautifulSoup
-import telegram.ext
+import telegram.ext, os, re
+
+from gate_api import ApiClient, Configuration, Order, SpotApi
 
 class Hunter:
 	_instance, _mafina = None, None
 	NewListing = ""
 	chat_id = "-506807179"
+	Currency = "_USDT"
 	def __new__(cls, M):
 		if not hasattr(cls, '_inst'):
 			Hunter._instance = super(Hunter, cls).__new__(cls)
@@ -44,3 +47,11 @@ class Hunter:
 		for ann in a:
 			newList.append(ann.text)
 		return newList
+
+	@staticmethod
+	def BuyingNewCrypto():
+		Name_crypto = re.search(r"\(([A-Za-z0-9_]+)\)", Hunter.NewListing)
+		currency_pair = str(Name_crypto.group(1)) + "_USDT"
+		config = Configuration(key=os.getenv('Gate_Key'), secret=os.getenv('Gate_secret'))
+		spot_api = SpotApi(ApiClient(config))
+		pair = spot_api.get_currency_pair(currency_pair)

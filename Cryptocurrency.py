@@ -80,10 +80,10 @@ class Binance:
             m = price-(price/100*(5))
             p = price+(price/100*(5))
             if(bprice>=p):
-                context.bot.send_message(chat_id, "Rose up 5% "+str(binance_result['symbol'])+" "+ str(bprice))
+                context.bot.send_message(chat_id, "Rose up {0}% ".format(bprice)+str(binance_result['symbol'])+" "+ str(bprice))
                 db.UpdateCryptoPair(chat_id, binance_result)
             elif(bprice<=m):
-                context.bot.send_message(chat_id, "Fell by 5% " + str(binance_result['symbol']) + " " + str(bprice))
+                context.bot.send_message(chat_id, "Fell by {0}% ".format(bprice) + str(binance_result['symbol']) + " " + str(bprice))
                 db.UpdateCryptoPair(chat_id, binance_result)
             x+=3
 
