@@ -70,29 +70,17 @@ class Binance:
         db = context.job.context[1]._mafina._DB
         chat_id = context.job.context[0]
         result = db.GetCryptoPairUser(chat_id)
-        print(result)
         x = 0
         while x < len(result):
             binance_result = context.job.context[1]._instance.client.get_symbol_ticker(symbol=result[x])
             CurrentPrice = float(binance_result['price'])
             LastPrice = float(result[x+2])
             percentage = (CurrentPrice-LastPrice)*100/LastPrice
-            if(percentage>=5):
+            percentage = round(percentage, 1)
+            if(int(percentage)>=5):
                 context.bot.send_message(chat_id, "Rose up {0}% ".format(percentage)+str(binance_result['symbol'])+" "+ str(CurrentPrice))
                 db.UpdateCryptoPair(chat_id, binance_result)
-            elif(percentage<=5):
+            elif(int(percentage)<=-5):
                 context.bot.send_message(chat_id, "Fell by {0}% ".format(percentage) + str(binance_result['symbol']) + " " + str(CurrentPrice))
                 db.UpdateCryptoPair(chat_id, binance_result)
             x+=3
-
-
-#api_key = os.getenv('Binance_key')
-#api_secret = os.getenv('Binance_secret')
-#client = Client(api_key, api_secret)
-#btc_price = client.get_symbol_ticker(symbol="XEMUSDT")
-#print(client)
-#print(btc_price)
-#timestamp = client._get_earliest_valid_timestamp('XEMUSDT', '1d')
-#print(timestamp)
-#bars = client.get_historical_klines('XEMUSDT', '1d', timestamp, limit=1000)
-#print(bars)
