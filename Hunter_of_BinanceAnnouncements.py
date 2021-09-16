@@ -28,6 +28,7 @@ class Hunter:
 			if hunter.UseCommand[context.job.context] == "NewListing":
 				for x in range(3):
 					context.bot.send_message(context.job.context, Hunter.NewListing)
+					#Hunter.BuyingNewCrypto()
 		else:
 			if "binance will list" in UpdateListing.lower():
 				if LastListing != UpdateListing:
