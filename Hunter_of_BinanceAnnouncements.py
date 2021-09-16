@@ -1,7 +1,7 @@
 from requests import get
 from bs4 import BeautifulSoup
 import telegram.ext, os, re
-
+from decimal import Decimal as D
 from gate_api import ApiClient, Configuration, Order, SpotApi
 
 class Hunter:
@@ -17,7 +17,7 @@ class Hunter:
 
 	@classmethod
 	def StartHunter(self):
-		self._mafina.jobchat[self.chat_id] = self._mafina.job.run_repeating(self.CheckListingJob, interval=30, first=0, context=self.chat_id)
+		self._mafina.jobchat[self.chat_id] = self._mafina.job.run_repeating(self.CheckListingJob, interval=10, first=0, context=self.chat_id)
 
 	@staticmethod
 	def CheckListingJob(context: telegram.ext.CallbackContext):
@@ -35,6 +35,7 @@ class Hunter:
 					Hunter.NewListing = UpdateListing
 					Hunter._instance._mafina.UseCommand[context.job.context] = "NewListing"
 					hunter._DB.UpdateListing(context.job.context, UpdateListing)
+					Hunter.BuyingNewCrypto()
 					for x in range(3):
 						context.bot.send_message(context.job.context, Hunter.NewListing)
 
@@ -54,4 +55,11 @@ class Hunter:
 		currency_pair = str(Name_crypto.group(1)) + "_USDT"
 		config = Configuration(key=os.getenv('Gate_Key'), secret=os.getenv('Gate_secret'))
 		spot_api = SpotApi(ApiClient(config))
-		pair = spot_api.get_currency_pair(currency_pair)
+		tickers = spot_api.list_tickers(currency_pair=currency_pair)
+		last_price = tickers[0].last
+		accounts = spot_api.list_spot_accounts(currency="USDT")
+		available = D(accounts[0].available)
+		order = Order(amount=str(available), price=last_price, side='buy', currency_pair=currency_pair)
+		print(order)
+		created = spot_api.create_order(order)
+		print(order.status)
