@@ -74,16 +74,14 @@ class Binance:
         x = 0
         while x < len(result):
             binance_result = context.job.context[1]._instance.client.get_symbol_ticker(symbol=result[x])
-            bprice = float(binance_result['price'])
-            price = float(result[x+2])
-            print(price)
-            m = price-(price/100*(5))
-            p = price+(price/100*(5))
-            if(bprice>=p):
-                context.bot.send_message(chat_id, "Rose up {0}% ".format(bprice)+str(binance_result['symbol'])+" "+ str(bprice))
+            CurrentPrice = float(binance_result['price'])
+            LastPrice = float(result[x+2])
+            percentage = (CurrentPrice-LastPrice)*100/LastPrice
+            if(percentage>=5):
+                context.bot.send_message(chat_id, "Rose up {0}% ".format(percentage)+str(binance_result['symbol'])+" "+ str(CurrentPrice))
                 db.UpdateCryptoPair(chat_id, binance_result)
-            elif(bprice<=m):
-                context.bot.send_message(chat_id, "Fell by {0}% ".format(bprice) + str(binance_result['symbol']) + " " + str(bprice))
+            elif(percentage<=5):
+                context.bot.send_message(chat_id, "Fell by {0}% ".format(percentage) + str(binance_result['symbol']) + " " + str(CurrentPrice))
                 db.UpdateCryptoPair(chat_id, binance_result)
             x+=3
 
