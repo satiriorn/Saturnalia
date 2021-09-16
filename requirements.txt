@@ -19,3 +19,4 @@ mutagen==1.45.1
 pydub==0.25.1
 youtube-search==2.1.0
 python-binance==1.0.12
+gate-api==4.22.1
