@@ -23,10 +23,10 @@ class Youtube:
                     url= (lambda x: update if x == True else update.message.text)(inline)
                     print(url)
                     try:
-                        youtube = pytube.YouTube(url).streams.filter(only_audio=True).first()
+                        youtube = pytube.YouTube(url).streams.filter(only_audio=True, abr='128kbps').first()
                         file = youtube.download()
                     except Exception:
-                         youtube = pytube.YouTube(url).streams.filter(only_audio=True).all()
+                         youtube = pytube.YouTube(url).streams.filter(only_audio=True).last()
                          file = youtube[0].download()
                     details = pytube.YouTube(url)
                     print(details)
