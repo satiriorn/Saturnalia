@@ -39,7 +39,7 @@ class Mafina(object):
 
     def run(self):
         self._meme.StartSystemMeme()
-        self._hunter.BuyingNewCrypto()
+        self._hunter.StartHunter()
         self._weather.StartSysWeather()
         self._animal.StartSysAnimal()
         self._binance.Start_Crypto_job()
