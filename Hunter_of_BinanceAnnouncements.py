@@ -6,7 +6,7 @@ from gate_api import ApiClient, Configuration, Order, SpotApi
 
 class Hunter:
 	_instance, _mafina = None, None
-	NewListing = ""
+	NewListing = "Binance will list (TRX)"
 	chat_id = "-506807179"
 	Currency = "_USDT"
 	def __new__(cls, M):
@@ -54,13 +54,13 @@ class Hunter:
 	def BuyingNewCrypto():
 		Name_crypto = re.search(r"\(([A-Za-z0-9_]+)\)", Hunter.NewListing)
 		currency_pair = str(Name_crypto.group(1)) + "_USDT"
-		config = Configuration(key=os.getenv('Gate_Key'), secret=os.getenv('Gate_secret'))
+		config = Configuration(key=os.getenv('Gate_key'), secret=os.getenv('Gate_secret'))
 		spot_api = SpotApi(ApiClient(config))
 		tickers = spot_api.list_tickers(currency_pair=currency_pair)
 		last_price = tickers[0].last
 		accounts = spot_api.list_spot_accounts(currency="USDT")
 		available = D(accounts[0].available)
-		order = Order(amount=str(available), price=last_price, side='buy', currency_pair=currency_pair)
-		print(order)
+		amount_order = float(available)/float(last_price)
+		order = Order(amount=str(amount_order), price=last_price, side='buy', currency_pair=currency_pair)
 		created = spot_api.create_order(order)
-		print(order.status)
+		print(created.status)
