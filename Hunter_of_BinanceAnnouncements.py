@@ -17,7 +17,7 @@ class Hunter:
 
 	@classmethod
 	def StartHunter(self):
-		self._mafina.jobchat[self.chat_id] = self._mafina.job.run_repeating(self.CheckListingJob, interval=10, first=0, context=self.chat_id)
+		self._mafina.jobchat[self.chat_id] = self._mafina.job.run_repeating(self.CheckListingJob, interval=1, first=0, context=self.chat_id)
 
 	@staticmethod
 	def CheckListingJob(context: telegram.ext.CallbackContext):
@@ -28,7 +28,6 @@ class Hunter:
 			if hunter.UseCommand[context.job.context] == "NewListing":
 				for x in range(3):
 					context.bot.send_message(context.job.context, Hunter.NewListing)
-					#Hunter.BuyingNewCrypto()
 		else:
 			if "binance will list" in UpdateListing.lower():
 				if LastListing != UpdateListing:
@@ -61,6 +60,7 @@ class Hunter:
 		accounts = spot_api.list_spot_accounts(currency="USDT")
 		available = D(accounts[0].available)
 		amount_order = float(available)/float(last_price)
-		order = Order(amount=str(amount_order), price=last_price, side='buy', currency_pair=currency_pair)
+		price_buying = int(last_price)+(int(last_price)/100*(10))
+		order = Order(amount=str(amount_order), price=str(last_price), side='buy', currency_pair=currency_pair)
 		created = spot_api.create_order(order)
 		print(created.status)
