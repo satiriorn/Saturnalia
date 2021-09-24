@@ -61,6 +61,6 @@ class Hunter:
 		available = D(accounts[0].available)
 		amount_order = float(available)/float(last_price)
 		price_buying = int(last_price)+(int(last_price)/100*(10))
-		order = Order(amount=str(amount_order), price=str(last_price), side='buy', currency_pair=currency_pair)
+		order = Order(amount=str(amount_order), price=str(price_buying), side='buy', currency_pair=currency_pair)
 		created = spot_api.create_order(order)
 		print(created.status)
