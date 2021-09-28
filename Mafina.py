@@ -53,7 +53,7 @@ class Mafina(object):
             answer, lang = self._instance.Users[chat_id].answer, self._instance.Users[chat_id].lang
             self._file.file(update, context, answer, lang, chat_id)
         else:
-            self._instance.Users[chat_id] = User(chat_id, self._instance)
+            self._instance.Users[chat_id] = User(chat_id, self._instance, update)
             self._instance.DispatcherFile(update, context)
 
     @classmethod
@@ -67,7 +67,7 @@ class Mafina(object):
             self._youtube.Get_Audio(self._instance.ResultInline[chat_id][int(result.result_id)]['input_message_content']['message_text'],
                                     context, answer, chat_id, inline=True)
         else:
-            self._instance.Users[chat_id] = User(chat_id, self._instance)
+            self._instance.Users[chat_id] = User(chat_id, self._instance, update)
             self._instance.DispatcherInline(update, context)
 
     @staticmethod
@@ -82,7 +82,6 @@ class Mafina(object):
 
     @classmethod
     def Dispatcher(self, update, context):
-        print(update)
         chat_id =self._instance.GetChatID(update)
         if chat_id in self._instance.Users.keys():
             answer, lang = self._instance.Users[chat_id].answer, self._instance.Users[chat_id].lang

@@ -9,6 +9,7 @@ class Hunter:
 	NewListing = ""
 	chat_id = "-506807179"
 	Currency = "_USDT"
+	LastListing = ""
 	def __new__(cls, M):
 		if not hasattr(cls, '_inst'):
 			Hunter._instance = super(Hunter, cls).__new__(cls)
@@ -19,23 +20,27 @@ class Hunter:
 	def StartHunter(self):
 		self._mafina.jobchat[self.chat_id] = self._mafina.job.run_repeating(self.CheckListingJob, interval=1, first=0, context=self.chat_id)
 
+
+
 	@staticmethod
 	def CheckListingJob(context: telegram.ext.CallbackContext):
 		hunter = Hunter._instance._mafina
 		UpdateListing = Hunter.getLatestNews()[0]
-		LastListing = hunter._DB.GetUsername(context.job.context)
+		if Hunter.LastListing == "":
+			Hunter.LastListing = hunter._DB.GetUsername(context.job.context)
 		if context.job.context in hunter.UseCommand.keys():
 			if hunter.UseCommand[context.job.context] == "NewListing":
 				for x in range(3):
 					context.bot.send_message(context.job.context, Hunter.NewListing)
 		else:
 			if "binance will list" in UpdateListing.lower():
-				if LastListing != UpdateListing:
+				if Hunter.LastListing != UpdateListing:
 					print(UpdateListing)
 					Hunter.NewListing = UpdateListing
 					Hunter._instance._mafina.UseCommand[context.job.context] = "NewListing"
 					hunter._DB.UpdateListing(context.job.context, UpdateListing)
 					Hunter.BuyingNewCrypto()
+					Hunter.LastListing = UpdateListing
 					for x in range(3):
 						context.bot.send_message(context.job.context, Hunter.NewListing)
 
