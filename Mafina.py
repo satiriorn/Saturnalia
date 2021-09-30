@@ -38,11 +38,11 @@ class Mafina(object):
         self.dispatcher.add_handler(InlineQueryHandler(Mafina._inline.inlinequery))
 
     def run(self):
-        Thread.Thread(self._hunter.StartHunter, ())
-        Thread.Thread(self._meme.StartSystemMeme, ())
-        Thread.Thread(self._weather.StartSysWeather, ())
-        Thread.Thread(self._animal.StartSysAnimal, ())
-        Thread.Thread(self._binance.Start_Crypto_job, ())
+        self._hunter.StartHunter()
+        self._meme.StartSystemMeme()
+        self._weather.StartSysWeather()
+        self._animal.StartSysAnimal()
+        self._binance.Start_Crypto_job()
         self.updater.start_polling(timeout=1990000, poll_interval=1)
         self.updater.idle()
 
