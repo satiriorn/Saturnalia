@@ -6,7 +6,7 @@ from gate_api import ApiClient, Configuration, Order, SpotApi
 
 class Hunter:
 	_instance, _mafina = None, None
-	NewListing = "Binance Will List Bonfida (FIDA)"
+	NewListing = ""
 	chat_id = "-506807179"
 	Currency = "_USDT"
 	LastListing = ""
