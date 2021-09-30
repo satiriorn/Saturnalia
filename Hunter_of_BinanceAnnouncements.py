@@ -6,7 +6,7 @@ from gate_api import ApiClient, Configuration, Order, SpotApi
 
 class Hunter:
 	_instance, _mafina = None, None
-	NewListing = ""
+	NewListing = "Binance Will List Bonfida (FIDA)"
 	chat_id = "-506807179"
 	Currency = "_USDT"
 	LastListing = ""
@@ -20,8 +20,6 @@ class Hunter:
 	def StartHunter(self):
 		self._mafina.jobchat[self.chat_id] = self._mafina.job.run_repeating(self.CheckListingJob, interval=1, first=0, context=self.chat_id)
 
-
-
 	@staticmethod
 	def CheckListingJob(context: telegram.ext.CallbackContext):
 		hunter = Hunter._instance._mafina
@@ -30,19 +28,17 @@ class Hunter:
 			Hunter.LastListing = hunter._DB.GetUsername(context.job.context)
 		if context.job.context in hunter.UseCommand.keys():
 			if hunter.UseCommand[context.job.context] == "NewListing":
-				for x in range(3):
-					context.bot.send_message(context.job.context, Hunter.NewListing)
+				context.bot.send_message(context.job.context, Hunter.NewListing)
 		else:
 			if "binance will list" in UpdateListing.lower():
 				if Hunter.LastListing != UpdateListing:
 					print(UpdateListing)
+					Hunter.BuyingNewCrypto()
 					Hunter.NewListing = UpdateListing
 					Hunter._instance._mafina.UseCommand[context.job.context] = "NewListing"
 					hunter._DB.UpdateListing(context.job.context, UpdateListing)
-					Hunter.BuyingNewCrypto()
 					Hunter.LastListing = UpdateListing
-					for x in range(3):
-						context.bot.send_message(context.job.context, Hunter.NewListing)
+					context.bot.send_message(context.job.context, Hunter.NewListing)
 
 	@staticmethod
 	def getLatestNews(url = "https://www.binance.com/en/support/announcement/c-48"):
@@ -61,11 +57,11 @@ class Hunter:
 		config = Configuration(key=os.getenv('Gate_key'), secret=os.getenv('Gate_secret'))
 		spot_api = SpotApi(ApiClient(config))
 		tickers = spot_api.list_tickers(currency_pair=currency_pair)
-		last_price = tickers[0].last
+		last_price = float(tickers[0].last)
 		accounts = spot_api.list_spot_accounts(currency="USDT")
-		available = D(accounts[0].available)
-		amount_order = float(available)/float(last_price)
-		price_buying = int(last_price)+(int(last_price)/100*(10))
+		available = float(D(accounts[0].available))
+		amount_order = available/last_price
+		price_buying = last_price+last_price/100*(10)
 		order = Order(amount=str(amount_order), price=str(price_buying), side='buy', currency_pair=currency_pair)
 		created = spot_api.create_order(order)
 		print(created.status)
