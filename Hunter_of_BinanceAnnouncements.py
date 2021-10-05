@@ -1,6 +1,6 @@
 from requests import get
 from bs4 import BeautifulSoup
-import telegram.ext, os, re
+import telegram.ext, os, re, math
 from decimal import Decimal as D
 from gate_api import ApiClient, Configuration, Order, SpotApi
 
@@ -60,7 +60,10 @@ class Hunter:
 		last_price = float(tickers[0].last)
 		accounts = spot_api.list_spot_accounts(currency="USDT")
 		available = float(D(accounts[0].available))
+		print(available)
 		amount_order = available/last_price
+		amount_order = math.floor(amount_order * 10) / 10
+		print(amount_order)
 		price_buying = last_price+last_price/100*(10)
 		order = Order(amount=str(amount_order), price=str(price_buying), side='buy', currency_pair=currency_pair)
 		created = spot_api.create_order(order)
