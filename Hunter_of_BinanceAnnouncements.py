@@ -33,8 +33,8 @@ class Hunter:
 			if "binance will list" in UpdateListing.lower():
 				if Hunter.LastListing != UpdateListing:
 					print(UpdateListing)
-					Hunter.BuyingNewCrypto()
 					Hunter.NewListing = UpdateListing
+					Hunter.BuyingNewCrypto()
 					Hunter._instance._mafina.UseCommand[context.job.context] = "NewListing"
 					hunter._DB.UpdateListing(context.job.context, UpdateListing)
 					Hunter.LastListing = UpdateListing
@@ -52,19 +52,20 @@ class Hunter:
 
 	@staticmethod
 	def BuyingNewCrypto():
-		Name_crypto = re.search(r"\(([A-Za-z0-9_]+)\)", Hunter.NewListing)
-		currency_pair = str(Name_crypto.group(1)) + "_USDT"
+		Name_crypto = re.search(r"\(([A-Za-z0-9_]+)\)", Hunter.NewListing).group(1)
+		currency_pair = Name_crypto + "_USDT"
 		config = Configuration(key=os.getenv('Gate_key'), secret=os.getenv('Gate_secret'))
 		spot_api = SpotApi(ApiClient(config))
 		tickers = spot_api.list_tickers(currency_pair=currency_pair)
 		last_price = float(tickers[0].last)
 		accounts = spot_api.list_spot_accounts(currency="USDT")
 		available = float(D(accounts[0].available))
-		print(available)
-		amount_order = available/last_price
+		price_buying = last_price + last_price / 100 * (10)
+		amount_order = available/price_buying
 		amount_order = math.floor(amount_order * 10) / 10
 		print(amount_order)
-		price_buying = last_price+last_price/100*(10)
+		print(available)
+		print(str(price_buying))
 		order = Order(amount=str(amount_order), price=str(price_buying), side='buy', currency_pair=currency_pair)
 		created = spot_api.create_order(order)
 		print(created.status)
