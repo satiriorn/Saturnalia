@@ -1,6 +1,7 @@
 from requests import get
 from bs4 import BeautifulSoup
-import telegram.ext, os, re, math
+import telegram.ext, os, re, math, Thread
+import time
 from decimal import Decimal as D
 from gate_api import ApiClient, Configuration, Order, SpotApi
 
@@ -17,28 +18,42 @@ class Hunter:
 			return Hunter._instance
 
 	@classmethod
-	def StartHunter(self):
-		self._mafina.jobchat[self.chat_id] = self._mafina.job.run_repeating(self.CheckListingJob, interval=1, first=0, context=self.chat_id)
+	def HunterListing(self):
+		print("StartListing")
+		try:
+			hunter = Hunter._instance._mafina
+			bot = Hunter._instance._mafina.updater.dispatcher.bot
+			if Hunter.LastListing == "":
+				Hunter.LastListing = hunter._DB.GetUsername(self.chat_id)
+			while True:
+				time.sleep(0.5)
+				try:
+					Thread.Thread(self.CheckListing, (hunter, bot))
+				except Exception:
+					time.sleep(0.5)
+					Thread.Thread(self.HunterListing(), ())
 
-	@staticmethod
-	def CheckListingJob(context: telegram.ext.CallbackContext):
-		hunter = Hunter._instance._mafina
+		except Exception:
+			time.sleep(3)
+			Thread.Thread(self.HunterListing(), ())
+
+
+	@classmethod
+	def CheckListing(self, hunter, bot):
 		UpdateListing = Hunter.getLatestNews()[0]
-		if Hunter.LastListing == "":
-			Hunter.LastListing = hunter._DB.GetUsername(context.job.context)
-		if context.job.context in hunter.UseCommand.keys():
-			if hunter.UseCommand[context.job.context] == "NewListing":
-				context.bot.send_message(context.job.context, Hunter.NewListing)
+		if self.chat_id in hunter.UseCommand.keys():
+			if hunter.UseCommand[self.chat_id] == "NewListing":
+				bot.send_messages(self.chat_id, Hunter.NewListing)
 		else:
 			if "binance will list" in UpdateListing.lower():
 				if Hunter.LastListing != UpdateListing:
 					print(UpdateListing)
 					Hunter.NewListing = UpdateListing
 					Hunter.BuyingNewCrypto()
-					Hunter._instance._mafina.UseCommand[context.job.context] = "NewListing"
-					hunter._DB.UpdateListing(context.job.context, UpdateListing)
+					Hunter._instance._mafina.UseCommand[self.chat_id] = "NewListing"
+					hunter._DB.UpdateListing(self.chat_id, UpdateListing)
 					Hunter.LastListing = UpdateListing
-					context.bot.send_message(context.job.context, Hunter.NewListing)
+					bot.send_message(self.chat_id, Hunter.NewListing)
 
 	@staticmethod
 	def getLatestNews(url = "https://www.binance.com/en/support/announcement/c-48"):
