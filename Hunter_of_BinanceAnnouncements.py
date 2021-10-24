@@ -20,6 +20,7 @@ class Hunter:
 	@classmethod
 	def HunterListing(self):
 		print("StartListing")
+		"""
 		try:
 			hunter = Hunter._instance._mafina
 			bot = Hunter._instance._mafina.updater.dispatcher.bot
@@ -36,6 +37,7 @@ class Hunter:
 		except Exception:
 			time.sleep(3)
 			Thread.Thread(self.HunterListing(), ())
+			"""
 
 
 	@classmethod

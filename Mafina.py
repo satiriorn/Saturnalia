@@ -2,7 +2,6 @@ import Thread, Cryptocurrency, Quotes, StandartCommand, weather, Evtuh,  CreateV
     Cut, File, Book, Cancel, Hunter_of_BinanceAnnouncements
 from telegram.ext import Updater, MessageHandler, Filters, InlineQueryHandler, CallbackQueryHandler, ChosenInlineResultHandler
 from googletrans import Translator
-import telegram.ext
 
 class Mafina(object):
     _instance, _DB, job, _translator, _keyboard, _weather, _voice, _std, _animal, _meme = None, None, None, None, None, None, None, None, None, None
@@ -39,7 +38,6 @@ class Mafina(object):
         self.dispatcher.add_handler(InlineQueryHandler(Mafina._inline.inlinequery))
 
     def run(self):
-        print(self.updater.dispatcher.bot)
         Thread.Thread(self._hunter.HunterListing, ())
         self._meme.StartSystemMeme()
         self._weather.StartSysWeather()
