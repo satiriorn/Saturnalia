@@ -20,7 +20,6 @@ class Hunter:
 	@classmethod
 	def HunterListing(self):
 		print("StartListing")
-		"""
 		try:
 			hunter = Hunter._instance._mafina
 			bot = Hunter._instance._mafina.updater.dispatcher.bot
@@ -37,7 +36,7 @@ class Hunter:
 		except Exception:
 			time.sleep(3)
 			Thread.Thread(self.HunterListing(), ())
-			"""
+
 
 
 	@classmethod
@@ -51,7 +50,7 @@ class Hunter:
 				if Hunter.LastListing != UpdateListing:
 					print(UpdateListing)
 					Hunter.NewListing = UpdateListing
-					Hunter.BuyingNewCrypto()
+					#Hunter.BuyingNewCrypto()
 					Hunter._instance._mafina.UseCommand[self.chat_id] = "NewListing"
 					hunter._DB.UpdateListing(self.chat_id, UpdateListing)
 					Hunter.LastListing = UpdateListing
