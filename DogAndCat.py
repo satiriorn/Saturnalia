@@ -45,17 +45,19 @@ class Animal:
                                 stdout=subprocess.PIPE,
                                 stderr=subprocess.STDOUT)
         return (int(result.stdout) - 1)
+
     @classmethod
     def StartSysAnimal(self):
         cursor = self._mafina._DB.UsersSysAnimal()
         target_tzinfo = datetime.timezone(datetime.timedelta(hours=3))
         target_time = None
-        times = [12, 9, 22, 18]
+        #times = [12, 9, 22, 18]
+        winter_times = [13, 10, 23, 19]
         for x in cursor:
             for y in range(len(x)):
                 if y + 2 < len(x):
                     for i in range(x[y+2]):
-                        target_time = datetime.time(hour=times[i], minute=00, second=15).replace(tzinfo=target_tzinfo)
+                        target_time = datetime.time(hour=winter_times[i], minute=00, second=15).replace(tzinfo=target_tzinfo)
                         self._mafina.jobchat[str(x[y])] = self._mafina.job.run_daily(self.AnimalJob, target_time,
                                                                              context=x[y])
 
