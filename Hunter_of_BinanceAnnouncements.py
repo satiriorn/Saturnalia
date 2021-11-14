@@ -15,7 +15,6 @@ class Hunter:
 			Hunter._mafina = M
 			return Hunter._instance
 
-	@classmethod
 	def HunterListing(self):
 		try:
 			hunter = Hunter._instance._mafina
@@ -23,12 +22,14 @@ class Hunter:
 			if Hunter.LastListing == "":
 				Hunter.LastListing = hunter._DB.GetUsername(self.chat_id)
 			while True:
-				time.sleep(0.5)
+				time.sleep(3)
 				try:
 					Thread.Thread(self.CheckListing, (hunter, bot))
 				except Exception:
+					time.sleep(1)
 					Thread.Thread(self.HunterListing(), ())
 		except Exception:
+			time.sleep(3)
 			Thread.Thread(self.HunterListing(), ())
 
 	def CheckListing(self, hunter, bot):
