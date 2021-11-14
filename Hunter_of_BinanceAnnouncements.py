@@ -1,6 +1,4 @@
-from requests import get
-from bs4 import BeautifulSoup
-import telegram.ext, os, re, math, Thread
+import telegram.ext, os, re, math, Thread, requests
 import time
 from decimal import Decimal as D
 from gate_api import ApiClient, Configuration, Order, SpotApi
@@ -19,7 +17,6 @@ class Hunter:
 
 	@classmethod
 	def HunterListing(self):
-		print("StartListing")
 		try:
 			hunter = Hunter._instance._mafina
 			bot = Hunter._instance._mafina.updater.dispatcher.bot
@@ -30,41 +27,33 @@ class Hunter:
 				try:
 					Thread.Thread(self.CheckListing, (hunter, bot))
 				except Exception:
-					time.sleep(0.5)
 					Thread.Thread(self.HunterListing(), ())
-
 		except Exception:
-			time.sleep(3)
 			Thread.Thread(self.HunterListing(), ())
 
-
-
-	@classmethod
 	def CheckListing(self, hunter, bot):
-		UpdateListing = Hunter.getLatestNews()[0]
-		if self.chat_id in hunter.UseCommand.keys():
-			if hunter.UseCommand[self.chat_id] == "NewListing":
-				bot.send_messages(self.chat_id, Hunter.NewListing)
-		else:
-			if "binance will list" in UpdateListing.lower():
-				if Hunter.LastListing != UpdateListing:
-					print(UpdateListing)
-					Hunter.NewListing = UpdateListing
-					#Hunter.BuyingNewCrypto()
-					Hunter._instance._mafina.UseCommand[self.chat_id] = "NewListing"
-					hunter._DB.UpdateListing(self.chat_id, UpdateListing)
-					Hunter.LastListing = UpdateListing
-					bot.send_message(self.chat_id, Hunter.NewListing)
-
-	@staticmethod
-	def getLatestNews(url = "https://www.binance.com/en/support/announcement/c-48"):
-		newList = []
-		text = get(url).text
-		html = BeautifulSoup(text, 'html.parser')
-		a = html.find_all("a", {'class': 'css-1ej4hfo'})
-		for ann in a:
-			newList.append(ann.text)
-		return newList
+		try:
+			while True:
+				if self.chat_id in hunter.UseCommand.keys():
+					if hunter.UseCommand[self.chat_id] == "NewListing":
+						bot.send_messages(self.chat_id, Hunter.NewListing)
+				time.sleep(2)
+				latest_announcement = requests.get(
+					"https://www.binance.com/bapi/composite/v1/public/cms/article/catalog/list/query?catalogId=48&pageNo=1&pageSize=15&rnd=" + str(
+						time.time())).json()
+				UpdateListing = latest_announcement['data']['articles'][0]['title'] + " " + time.strftime("%H:%M:%S",
+																										  time.localtime())
+				print(UpdateListing)
+				if "binance will list" in UpdateListing.lower():
+					if self.LastListing != UpdateListing:
+						Hunter._instance._mafina.UseCommand[self.chat_id] = "NewListing"
+						hunter._DB.UpdateListing(self.chat_id, UpdateListing)
+						self.LastListing = UpdateListing
+						bot.send_message(self.chat_id, Hunter.NewListing)
+		except Exception:
+			time.sleep(2)
+			self.CheckListing(hunter, bot)
+	"""
 
 	@staticmethod
 	def BuyingNewCrypto():
@@ -85,3 +74,4 @@ class Hunter:
 		order = Order(amount=str(amount_order), price=str(price_buying), side='buy', currency_pair=currency_pair)
 		created = spot_api.create_order(order)
 		print(created.status)
+	"""
