@@ -34,23 +34,22 @@ class Hunter:
 
 	def CheckListing(self, hunter, bot):
 		try:
-			while True:
-				if self.chat_id in hunter.UseCommand.keys():
-					if hunter.UseCommand[self.chat_id] == "NewListing":
-						bot.send_messages(self.chat_id, Hunter.NewListing)
-				time.sleep(2)
-				latest_announcement = requests.get(
-					"https://www.binance.com/bapi/composite/v1/public/cms/article/catalog/list/query?catalogId=48&pageNo=1&pageSize=15&rnd=" + str(
-						time.time())).json()
-				UpdateListing = latest_announcement['data']['articles'][0]['title'] + " " + time.strftime("%H:%M:%S",
-																										  time.localtime())
-				print(UpdateListing)
-				if "binance will list" in UpdateListing.lower():
-					if self.LastListing != UpdateListing:
-						Hunter._instance._mafina.UseCommand[self.chat_id] = "NewListing"
-						hunter._DB.UpdateListing(self.chat_id, UpdateListing)
-						self.LastListing = UpdateListing
-						bot.send_message(self.chat_id, Hunter.NewListing)
+			if self.chat_id in hunter.UseCommand.keys():
+				if hunter.UseCommand[self.chat_id] == "NewListing":
+					bot.send_messages(self.chat_id, Hunter.NewListing)
+			time.sleep(2)
+			latest_announcement = requests.get(
+				"https://www.binance.com/bapi/composite/v1/public/cms/article/catalog/list/query?catalogId=48&pageNo=1&pageSize=15&rnd=" + str(
+					time.time())).json()
+			UpdateListing = latest_announcement['data']['articles'][0]['title'] + " " + time.strftime("%H:%M:%S",
+																									  time.localtime())
+			print(UpdateListing)
+			if "binance will list" in UpdateListing.lower():
+				if self.LastListing != UpdateListing:
+					Hunter._instance._mafina.UseCommand[self.chat_id] = "NewListing"
+					hunter._DB.UpdateListing(self.chat_id, UpdateListing)
+					self.LastListing = UpdateListing
+					bot.send_message(self.chat_id, Hunter.NewListing)
 		except Exception:
 			time.sleep(2)
 			self.CheckListing(hunter, bot)
