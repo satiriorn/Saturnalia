@@ -22,14 +22,14 @@ class Hunter:
 			if Hunter.LastListing == "":
 				Hunter.LastListing = hunter._DB.GetUsername(self.chat_id)
 			while True:
-				time.sleep(3)
+				time.sleep(2)
 				try:
 					Thread.Thread(self.CheckListing, (hunter, bot))
 				except Exception:
 					time.sleep(1)
 					Thread.Thread(self.HunterListing(), ())
 		except Exception:
-			time.sleep(3)
+			time.sleep(2)
 			Thread.Thread(self.HunterListing(), ())
 
 	def CheckListing(self, hunter, bot):
@@ -37,7 +37,6 @@ class Hunter:
 			if self.chat_id in hunter.UseCommand.keys():
 				if hunter.UseCommand[self.chat_id] == "NewListing":
 					bot.send_messages(self.chat_id, Hunter.NewListing)
-			time.sleep(2)
 			latest_announcement = requests.get(
 				"https://www.binance.com/bapi/composite/v1/public/cms/article/catalog/list/query?catalogId=48&pageNo=1&pageSize=15&rnd=" + str(
 					time.time())).json()

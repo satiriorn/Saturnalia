@@ -39,12 +39,12 @@ class Mafina(object):
 
     def run(self):
         Thread.Thread(self._hunter.HunterListing, ())
-        #self._meme.StartSystemMeme()
-        #self._weather.StartSysWeather()
-        #self._animal.StartSysAnimal()
-        #self._binance.Start_Crypto_job()
-        #self.updater.start_polling(timeout=1990000, poll_interval=1)
-        #self.updater.idle()
+        self._meme.StartSystemMeme()
+        self._weather.StartSysWeather()
+        self._animal.StartSysAnimal()
+        self._binance.Start_Crypto_job()
+        self.updater.start_polling(timeout=1990000, poll_interval=1)
+        self.updater.idle()
 
     @classmethod
     def DispatcherFile(self, update, context):
