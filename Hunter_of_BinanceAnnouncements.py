@@ -20,9 +20,9 @@ class Hunter:
 			hunter = Hunter._instance._mafina
 			bot = Hunter._instance._mafina.updater.dispatcher.bot
 			if Hunter.LastListing == "":
-				Hunter.LastListing = hunter._DB.GetUsername(self.chat_id)
+				Hunter.LastListing = hunter._DB.GetUsername(self.chat_id).split("|")[0]
 			while True:
-				time.sleep(3)
+				time.sleep(5)
 				try:
 					if self.Purchased:
 						Thread.Thread(self.SellCrypto, ())
@@ -50,11 +50,11 @@ class Hunter:
 			if "binance will list" in UpdateListing.lower():
 				if self.LastListing != UpdateListing:
 					print("Check")
-					self.BuyingNewCrypto(UpdateListing)
+					#self.BuyingNewCrypto(UpdateListing)
 					Hunter._instance._mafina.UseCommand[self.chat_id] = "NewListing"
 					self.LastListing = UpdateListing
 					bot.send_message(self.chat_id, self.LastListing)
-					hunter._DB.UpdateListing(self.chat_id, UpdateListing+" " + time.strftime("%H:%M:%S", time.localtime()))
+					hunter._DB.UpdateListing(self.chat_id, UpdateListing+"|" + time.strftime("%H:%M:%S", time.localtime()))
 
 		except Exception:
 			time.sleep(2)
