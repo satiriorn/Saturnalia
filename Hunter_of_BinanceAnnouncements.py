@@ -50,7 +50,7 @@ class Hunter:
 			if "binance will list" in UpdateListing.lower():
 				if self.LastListing != UpdateListing:
 					print("Check")
-					#self.BuyingNewCrypto(UpdateListing)
+					self.BuyingNewCrypto(UpdateListing)
 					Hunter._instance._mafina.UseCommand[self.chat_id] = "NewListing"
 					self.LastListing = UpdateListing
 					bot.send_message(self.chat_id, self.LastListing)
