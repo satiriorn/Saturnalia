@@ -20,7 +20,7 @@ class Hunter:
 			hunter = Hunter._instance._mafina
 			bot = Hunter._instance._mafina.updater.dispatcher.bot
 			if Hunter.LastListing == "":
-				Hunter.LastListing = hunter._DB.GetUsername(self.chat_id).split("|")[0
+				Hunter.LastListing = hunter._DB.GetUsername(self.chat_id).split("|")[0]
 			while True:
 				time.sleep(9)
 				try:
