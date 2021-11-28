@@ -20,9 +20,9 @@ class Hunter:
 			hunter = Hunter._instance._mafina
 			bot = Hunter._instance._mafina.updater.dispatcher.bot
 			if Hunter.LastListing == "":
-				Hunter.LastListing = hunter._DB.GetUsername(self.chat_id).split("|")[0]
+				Hunter.LastListing = hunter._DB.GetUsername(self.chat_id).split("|")[0
 			while True:
-				time.sleep(5)
+				time.sleep(9)
 				try:
 					if self.Purchased:
 						Thread.Thread(self.SellCrypto, ())
@@ -30,10 +30,10 @@ class Hunter:
 					else:
 						Thread.Thread(self.CheckListing, (hunter, bot))
 				except Exception:
-					time.sleep(2)
+					time.sleep(3)
 					Thread.Thread(self.HunterListing(), ())
 		except Exception:
-			time.sleep(2)
+			time.sleep(3)
 			Thread.Thread(self.HunterListing(), ())
 
 	def CheckListing(self, hunter, bot):
