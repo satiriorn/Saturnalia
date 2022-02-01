@@ -8,15 +8,16 @@ class StandartCommand:
             StandartCommand._instance = super(StandartCommand, cls).__new__(cls)
             StandartCommand._mafina = M
             return StandartCommand._instance
+
     @classmethod
     def start(self, update, context, answer, chat_id):
         try:
-            first_name = update.message.chat.first_name
             self._mafina._DB.CheckUser(update.message.chat.title, update.message.chat.username, chat_id,
                 update.message.from_user.language_code, update.message.chat.type)
-            context.bot.send_message(chat_id, answer["start"], reply_markup =self._mafina._keyboard.InitKeyboard(self._mafina._keyboard.MainKeyboard))
+            context.bot.send_message(chat_id, answer["start"], reply_markup = self._mafina._keyboard.InitKeyboard(self._mafina._keyboard.MainKeyboard))
+            self._mafina._setting.LanguageBot(update, context, answer, chat_id, True)
         except Exception:
-            context.bot.send_message(update.message.chat_id, "щось пішло не так")
+            context.bot.send_message(update.message.chat_id, answer["0"])
     @classmethod
     def help(self, update, context, answer):
         context.bot.send_message(update.message.chat_id, answer["8"],
@@ -40,6 +41,7 @@ class StandartCommand:
                 time.sleep(5)
             context.bot.send_message(chat_id=update.callback_query.message.chat_id, text=answer["68"])
             self._mafina.UseCommand.pop(chat_id)
+
     @classmethod
     def convert(self, update, context, answer, chat_id):
         if chat_id in self._mafina.UseCommand.keys():

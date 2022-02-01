@@ -46,7 +46,7 @@ class Weather(object):
         target_tzinfo = datetime.timezone(datetime.timedelta(hours=2))
         now = datetime.datetime.now().replace(tzinfo=target_tzinfo)
         print(now)
-        if "10:00" in str(now) or "08:00" in str(now):
+        if "11:00" in str(now) or "09:00" in str(now):
             text += answer["38"]+self.PrognosisWeather(answer, True)
         return text
 
@@ -57,7 +57,7 @@ class Weather(object):
             context.bot.send_message(update.message.chat.id, text)
         except Exception:
             context.bot.send_message(update.message.chat_id, answer["27"])
-
+    
     @classmethod
     def StartSysWeather(self):
         cursor = self._mafina._DB.UsersSysWeather()

@@ -25,7 +25,7 @@ class SettingMafina:
             self._mafina.UseCommand[chat_id] = "SettingTranslate"
 
     @classmethod
-    def LanguageBot(self, update, context, answer, chat_id):
+    def LanguageBot(self, update, context, answer, chat_id, start_command = False):
         if chat_id in self._mafina.UseCommand.keys():
             if self._mafina.UseCommand[str(update.callback_query.message.chat_id)] == "LangBot":
                 self._mafina._DB.VerificationLanguage(chat_id, self._mafina._keyboard.b[update.callback_query.data], False)
@@ -36,7 +36,10 @@ class SettingMafina:
                 if chat_id in self._mafina.Users.keys():self._mafina.Users.pop(chat_id)
                 self._mafina.Dispatcher(update, context)
         else:
-            context.bot.edit_message_text(chat_id=update.callback_query.message.chat_id,
+            if (start_command):context.bot.send_message(chat_id=chat_id,
+                                          text=answer["12"],
+                                          reply_markup=self._mafina._keyboard.InlineKeyboard(self._mafina._keyboard.LanguageBot, False))
+            else:context.bot.edit_message_text(chat_id=chat_id,
                                           text=answer["12"],
                                           reply_markup=self._mafina._keyboard.InlineKeyboard(self._mafina._keyboard.LanguageBot, False),
                                           message_id=update.callback_query.message.message_id)
