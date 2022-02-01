@@ -165,7 +165,8 @@ class Mafina(object):
                 self._keyboard.BookStateKeyboardDelete[lang][0]: lambda: Thread.Thread(self._book.DeleteInReadList, (update, context, answer, chat_id)),
                 self._keyboard.Setting[lang][6]: lambda: Thread.Thread(self._setting.ExistentialResponse, (update, context, answer, chat_id))
                 }
-            if self.multi_key_dict_get(CommandTxtButton, text)() and '?' in text: Thread.Thread(self._std.question, (update, context, answer))
+            if text.len() > 1:
+                if self.multi_key_dict_get(CommandTxtButton, text)() and '?' in text: Thread.Thread(self._std.question, (update, context, answer))
         else:
             self._instance.Users[chat_id] = User(chat_id, self._instance, update)
             self._instance.Dispatcher(update, context)
