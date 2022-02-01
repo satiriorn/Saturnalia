@@ -104,7 +104,6 @@ class Mafina(object):
                 "Rest": lambda:Thread.Thread(self._std.Rest, (update, context, answer, lang, chat_id, False)),
                 "MemeChange": lambda:Thread.Thread(self._meme.MoreMeme, (update, context, lang, chat_id)),
                 "SettingTranslate": lambda:Thread.Thread(self._setting.SettingTranslate, (update, context, answer, chat_id)),
-                #elif res == "Dologusha": Thread.Thread(Dologusha.start, (update, context))
                 "SeveralResult": lambda:Thread.Thread(self._book.SearchBook, (update, context, answer, lang, chat_id)),
                 "ConfirmTypeFile": lambda:Thread.Thread(self._book.GetFile, (update, context, answer, chat_id)),
                 ("GetBookViaAuthor", "SelectBookByAuthor"): lambda:Thread.Thread(self._book.SearchAuthor, (update, context, answer, lang, chat_id)),
@@ -165,7 +164,7 @@ class Mafina(object):
                 self._keyboard.BookStateKeyboardDelete[lang][0]: lambda: Thread.Thread(self._book.DeleteInReadList, (update, context, answer, chat_id)),
                 self._keyboard.Setting[lang][6]: lambda: Thread.Thread(self._setting.ExistentialResponse, (update, context, answer, chat_id))
                 }
-            if text.len() > 1:
+            if len(text) > 1:
                 if self.multi_key_dict_get(CommandTxtButton, text)() and '?' in text: Thread.Thread(self._std.question, (update, context, answer))
         else:
             self._instance.Users[chat_id] = User(chat_id, self._instance, update)
