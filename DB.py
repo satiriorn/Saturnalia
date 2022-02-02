@@ -101,6 +101,11 @@ class DataBase:
         self.GetCursor()
         self.cursor.execute(sql)
         return self.cursor
+    def GetCountOfFileAnimal(self):
+        sql = """SELECT count(*) FROM file;"""
+        self.GetCursor()
+        self.cursor.execute(sql)
+        return self.GetValue()
 
     def GetCryptoPairUser(self, chat_id, onlyname = False):
        # user_id = self.GetIdUser(chat_id)

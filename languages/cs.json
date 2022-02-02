@@ -74,5 +74,6 @@
   "72": "Už jste přidali takový krypto pár. Zkuste něco jiného.",
   "73": "Váš krypto pár byl úspěšně přidán. Začínající cena: {0}",
   "74": "Vyberte požadovaný krypto pár, který chcete odstranit: ",
-  "75": "Aktuální ceny vašich kryptoměn: \n{0}"
+  "75": "Aktuální ceny vašich kryptoměn: \n{0}",
+  "76": "Celkový počet koček: {0}\nPočet koček, které vám zbývají: {1}"
 }

@@ -36,8 +36,9 @@ class Youtube:
                         '-i', os.path.join(file),
                         os.path.join(NameMusic)
                     ])
+                    #print(details.title.replace(details.author, "").replace("- Topic", ""))
                     audio = EasyID3(NameMusic)
-                    audio['title'] = details.title.replace(details.author, "").replace('- ','')
+                    audio['title'] = details.title.replace(details.author, "").replace("- Topic", "")
                     audio['artist'] = details.author
                     audio.save()
                     context.bot.send_audio(chat_id, open(NameMusic, 'rb'))

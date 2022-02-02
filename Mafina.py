@@ -38,10 +38,10 @@ class Mafina(object):
         self.dispatcher.add_handler(InlineQueryHandler(Mafina._inline.inlinequery))
 
     def run(self):
-        Thread.Thread(self._hunter.HunterListing, ())
-        self._meme.StartSystemMeme()
-        self._weather.StartSysWeather()
-        self._animal.StartSysAnimal()
+        #Thread.Thread(self._hunter.HunterListing, ())
+        #self._meme.StartSystemMeme()
+        #self._weather.StartSysWeather()
+        #self._animal.StartSysAnimal()
         self._binance.Start_Crypto_job()
         self.updater.start_polling(timeout=1990000, poll_interval=1)
         self.updater.idle()
@@ -164,8 +164,8 @@ class Mafina(object):
                 self._keyboard.BookStateKeyboardDelete[lang][0]: lambda: Thread.Thread(self._book.DeleteInReadList, (update, context, answer, chat_id)),
                 self._keyboard.Setting[lang][6]: lambda: Thread.Thread(self._setting.ExistentialResponse, (update, context, answer, chat_id))
                 }
-            if len(text) > 1:
-                if self.multi_key_dict_get(CommandTxtButton, text)() and '?' in text: Thread.Thread(self._std.question, (update, context, answer))
+            if len(text) > 1 or text.isnumeric():
+                if self.multi_key_dict_get(CommandTxtButton, text.replace("@IMafinabot", ""))() and '?' in text: Thread.Thread(self._std.question, (update, context, answer))
         else:
             self._instance.Users[chat_id] = User(chat_id, self._instance, update)
             self._instance.Dispatcher(update, context)

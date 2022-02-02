@@ -63,35 +63,49 @@ class Animal:
 
     @classmethod
     def SysAnimal(self, update, context, answer, lang, chat_id):
-        if chat_id in self._mafina.UseCommand.keys():
-            cursor = self._mafina._DB.CheckUserInJob(chat_id)
+        keyboard = self._mafina._keyboard
+        mafina = self._mafina
+        if chat_id in mafina.UseCommand.keys():
+            cursor = mafina._DB.CheckUserInJob(chat_id)
             target_tzinfo = datetime.timezone(datetime.timedelta(hours=3))
             target_time = datetime.time(hour=9, minute=00, second=25).replace(tzinfo=target_tzinfo)
             for x in cursor:
                 if str(x[0]) == str(chat_id):
-                    print("j")
-                    for y in range(len(self._mafina._keyboard.AnimalButton[lang])):
-                        if update.callback_query.data == self._mafina._keyboard.AnimalButton[lang][0]:
-                            self._mafina._DB.UpdateSysAnimal(chat_id, False)
-                            break
-                        elif update.callback_query.data == self._mafina._keyboard.AnimalButton[lang][y]:
-                            print(y)
-                            self._mafina._DB.UpdateFrequency(y, chat_id)
-                            if x[1] == False:
-                                self._mafina._DB.UpdateSysAnimal(chat_id, True)
+                    print(len(keyboard.AnimalButton[lang]))
+                    if update.callback_query.data == keyboard.AnimalButton[lang][len(keyboard.AnimalButton[lang])-1]:
+                        self.ShowCountOfAnimal(update, context, answer, chat_id)
+                        mafina.UseCommand.pop(chat_id)
+                        return 0
+                    else:
+                        for y in range(len(keyboard.AnimalButton[lang])-1):
+                            if update.callback_query.data == keyboard.AnimalButton[lang][0]:
+                                mafina._DB.UpdateSysAnimal(chat_id, False)
+                                break
+                            elif update.callback_query.data == keyboard.AnimalButton[lang][y]:
+                                print(y)
+                                mafina._DB.UpdateFrequency(y, chat_id)
+                                if x[1] == False:
+                                    mafina._DB.UpdateSysAnimal(chat_id, True)
+
                 else:
-                    self._mafina._DB.InsertSysAnimal(chat_id, True)
-                    self._mafina.jobchat[chat_id] = self._mafina.job.run_daily(self.AnimalJob, target_time, context=chat_id)
+                    mafina._DB.InsertSysAnimal(chat_id, True)
+                    mafina.jobchat[chat_id] = mafina.job.run_daily(self.AnimalJob, target_time, context=chat_id)
             context.bot.edit_message_text(chat_id=chat_id, text=answer["37"],
                                           message_id=update.callback_query.message.message_id)
-            self._mafina.UseCommand.pop(chat_id)
+            mafina.UseCommand.pop(chat_id)
         else:
             context.bot.edit_message_text(chat_id=chat_id, text=answer["56"],
                                           message_id=update.callback_query.message.message_id)
-            context.bot.edit_message_reply_markup(chat_id, reply_markup=self._mafina._keyboard.InlineKeyboard(
-                self._mafina._keyboard.AnimalButton[lang], False),
+            context.bot.edit_message_reply_markup(chat_id, reply_markup=keyboard.InlineKeyboard(keyboard.AnimalButton[lang], False),
                                                   message_id=update.callback_query.message.message_id)
-            self._mafina.UseCommand[str(chat_id)] = "ChangeSysAnimal"
+            mafina.UseCommand[str(chat_id)] = "ChangeSysAnimal"
+
+    @classmethod
+    def ShowCountOfAnimal(self, update, context, answer, chat_id):
+        context.bot.edit_message_text(chat_id=chat_id, text=answer["76"].format(self._mafina._DB.GetCountOfFileAnimal(),
+                                    self._mafina._DB.GetCountOfFileAnimal() - self._mafina._DB.GetCountAnimal(chat_id)),
+                                      message_id=update.callback_query.message.message_id)
+
 
     @staticmethod
     def AnimalJob(context: telegram.ext.CallbackContext):

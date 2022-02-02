@@ -34,7 +34,7 @@ class Weather(object):
         return text
 
     @classmethod
-    def WeatherNow(self, chat_id):
+    def WeatherNow(self, chat_id, ):
         res = requests.get("http://api.openweathermap.org/data/2.5/weather",
                            params={'q': 'Kharkiv', 'units': 'metric', 'lang': 'uk', 'APPID': os.getenv("WeatherToken")})
         data = res.json()
@@ -46,7 +46,7 @@ class Weather(object):
         target_tzinfo = datetime.timezone(datetime.timedelta(hours=2))
         now = datetime.datetime.now().replace(tzinfo=target_tzinfo)
         print(now)
-        if "11:00" in str(now) or "09:00" in str(now):
+        if "10:" in str(now) or "09:" in str(now):
             text += answer["38"]+self.PrognosisWeather(answer, True)
         return text
 
@@ -61,8 +61,7 @@ class Weather(object):
     @classmethod
     def StartSysWeather(self):
         cursor = self._mafina._DB.UsersSysWeather()
-        target_tzinfo = datetime.timezone(datetime.timedelta(hours=3))
-        target_time = datetime.time(hour=9, minute=00, second=20).replace(tzinfo=target_tzinfo)
+        target_tzinfo = datetime.timezone(datetime.timedelta(hours=2))
         for x in cursor:
             for y in range(len(x)):
                 if y + 1 < len(x) and x[y + 1] == True:
@@ -73,6 +72,7 @@ class Weather(object):
                             target_time = datetime.time(hour=15, minute=00, second=00).replace(tzinfo=target_tzinfo)
                         else:
                             target_time = datetime.time(hour=18, minute=00, second=00).replace(tzinfo=target_tzinfo)
+                        print(target_time)
                         self._mafina.jobchat[str(x[y])] = self._mafina.job.run_daily(self.WeatherJob, target_time, context=x[y])
 
     @staticmethod
