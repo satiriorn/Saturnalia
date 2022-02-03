@@ -98,7 +98,7 @@ class StandartCommand:
                     break
         print(answers)
         if(insert): self._mafina._DB.InsertNewAnswer(update.message.text, chat_id)
-        context.bot.send_message(chat_id, answers[random.randint(0, (len(answers)))])
+        context.bot.send_message(chat_id, answers[random.randrange((len(answers)))])
 
 
     @staticmethod
