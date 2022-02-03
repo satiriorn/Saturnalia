@@ -89,15 +89,16 @@ class StandartCommand:
     def Answers(self, update, context, chat_id):
         insert = True
         cursor = self._mafina._DB.GetAnswers(chat_id)
-        answers = None
+        answers = ()
         for x in cursor:
-            answers = x
+            answers = answers + x
             for y in range(len(x)):
                 if x[y]==update.message.text:
                     insert = False
                     break
+        print(answers)
         if(insert): self._mafina._DB.InsertNewAnswer(update.message.text, chat_id)
-        context.bot.send_message(chat_id, answers[random.randrange(len(answers))])
+        context.bot.send_message(chat_id, answers[random.randint(0, (len(answers)))])
 
 
     @staticmethod

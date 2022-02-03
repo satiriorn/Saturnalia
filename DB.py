@@ -222,13 +222,13 @@ class DataBase:
         self.db.commit()
 
     def CheckUser(self, first_name, username, chat_id, language_code, type):
-        sql = "SELECT count(*) FROM heroku_c93f6b06b535bb4.user WHERE chatID = '%s';"   % chat_id
+        sql = "SELECT count(*) FROM heroku_c93f6b06b535bb4.user WHERE chatID = '%s';" % chat_id
         self.GetCursor()
         self.cursor.execute(sql)
         for x in self.cursor:
             print(x[0])
             if int(x[0]) == 0:
-                self.Insert(first_name,username, chat_id, language_code, type)
+                self.Insert(first_name, username, chat_id, language_code, type)
 
     def CheckTypeFile(self, Book):
         sql = """SELECT {0} FROM heroku_c93f6b06b535bb4.book WHERE Name = "{1}"; """.format(self._mafina.fileformat[Book.format], Book.Name)
