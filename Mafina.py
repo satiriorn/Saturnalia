@@ -85,6 +85,7 @@ class Mafina(object):
         chat_id =self._instance.GetChatID(update)
         if chat_id in self._instance.Users.keys():
             answer, lang = self._instance.Users[chat_id].answer, self._instance.Users[chat_id].lang
+            print(update)
             if 'reply_to_message' in str(update):
                 self._instance._std.Answers(update, context, chat_id)
                 return 0

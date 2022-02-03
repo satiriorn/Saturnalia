@@ -96,9 +96,33 @@ class StandartCommand:
                 if x[y]==update.message.text:
                     insert = False
                     break
-        print(answers)
-        if(insert): self._mafina._DB.InsertNewAnswer(update.message.text, chat_id)
-        context.bot.send_message(chat_id, answers[random.randrange((len(answers)))])
+
+        if(insert) and len(str(update.message.text.split))>1: self._mafina._DB.InsertNewAnswer(update.message.text, chat_id)
+        if 'IMafinabot' in str(update): context.bot.send_message(chat_id, self.CreateAnswer(answers))
+
+    @staticmethod
+    def CreateAnswer(answers):
+        merge = random.randint(3, 7)
+        text = ""
+        for x in range(merge):
+            pos =random.randrange(len(answers))
+            res_split = answers[pos].split()
+            print(res_split)
+            pos_word=random.randrange(len(res_split))
+            if pos_word>0:pos_word-=1
+            if res_split[pos_word] in text:pass
+            else:text += " " + res_split[pos_word]
+            print(pos_word)
+            print(len(res_split))
+            for y in range(3):
+                if pos_word<len(res_split)-1:
+                    pos_word+=1
+                    if res_split[pos_word] in text:
+                        pass
+                    else:
+                        text += " "+res_split[pos_word]
+                else:break
+        return text
 
 
     @staticmethod
