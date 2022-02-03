@@ -85,6 +85,20 @@ class StandartCommand:
                 context.bot.send_message(update.message.chat_id, answer["24"])
             elif (r <= 100):
                 context.bot.send_message(update.message.chat_id, answer["25"])
+    @classmethod
+    def Answers(self, update, context, chat_id):
+        insert = True
+        cursor = self._mafina._DB.GetAnswers(chat_id)
+        answers = None
+        for x in cursor:
+            answers = x
+            for y in range(len(x)):
+                if x[y]==update.message.text:
+                    insert = False
+                    break
+        if(insert): self._mafina._DB.InsertNewAnswer(update.message.text, chat_id)
+        context.bot.send_message(chat_id, answers[random.randrange(len(answers))])
+
 
     @staticmethod
     def DeletePath(file):

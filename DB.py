@@ -83,6 +83,13 @@ class DataBase:
         self.db.commit()
         return self.GetValue()
 
+    def GetAnswers(self, chat_id):
+        id = self.GetIdUser(chat_id)
+        sql = "SELECT text_answer FROM heroku_c93f6b06b535bb4.answers WHERE id_user ='%s';" % id
+        self.GetCursor()
+        self.cursor.execute(sql)
+        return self.cursor
+
     def GetFileId(self, x):
         sql = "SELECT TelegramFileID FROM heroku_c93f6b06b535bb4.file  WHERE fileID ={0};".format(x)
         self.GetCursor()
@@ -287,6 +294,13 @@ class DataBase:
 
     def InsertFile(self, fileID):
         sql = "INSERT INTO heroku_c93f6b06b535bb4.file(TelegramFileID)VALUES('%s');"%fileID
+        self.GetCursor()
+        self.cursor.execute(sql)
+        self.db.commit()
+
+    def InsertNewAnswer(self, text, chat_id):
+        id = self.GetIdUser(chat_id)
+        sql = """INSERT INTO heroku_c93f6b06b535bb4.answers(text_answer, id_user) VALUES("{0}", {1});""".format(text, id)
         self.GetCursor()
         self.cursor.execute(sql)
         self.db.commit()

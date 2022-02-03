@@ -38,10 +38,10 @@ class Mafina(object):
         self.dispatcher.add_handler(InlineQueryHandler(Mafina._inline.inlinequery))
 
     def run(self):
-        #Thread.Thread(self._hunter.HunterListing, ())
-        #self._meme.StartSystemMeme()
-        #self._weather.StartSysWeather()
-        #self._animal.StartSysAnimal()
+        Thread.Thread(self._hunter.HunterListing, ())
+        self._meme.StartSystemMeme()
+        self._weather.StartSysWeather()
+        self._animal.StartSysAnimal()
         self._binance.Start_Crypto_job()
         self.updater.start_polling(timeout=1990000, poll_interval=1)
         self.updater.idle()
@@ -85,6 +85,9 @@ class Mafina(object):
         chat_id =self._instance.GetChatID(update)
         if chat_id in self._instance.Users.keys():
             answer, lang = self._instance.Users[chat_id].answer, self._instance.Users[chat_id].lang
+            if 'reply_to_message' in str(update):
+                self._instance._std.Answers(update, context, chat_id)
+                return 0
             text = self._instance.data(update)
             if "/cancel" in text: Thread.Thread(self._cancel.cancel, (update, context, answer, chat_id))
             if chat_id in self._instance.UseCommand.keys():
