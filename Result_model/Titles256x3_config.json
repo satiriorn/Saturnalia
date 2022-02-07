@@ -1,0 +1,1 @@
+{"rnn_layers": 3, "rnn_size": 256, "rnn_bidirectional": true, "max_length": 40, "max_words": 10000, "dim_embeddings": 200, "word_level": false, "single_text": false, "name": "Titles256x3"}
