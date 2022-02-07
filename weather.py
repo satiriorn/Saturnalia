@@ -46,7 +46,7 @@ class Weather(object):
         target_tzinfo = datetime.timezone(datetime.timedelta(hours=2))
         now = datetime.datetime.now().replace(tzinfo=target_tzinfo)
         print(now)
-        if "10:" in str(now) or "09:" in str(now):
+        if "08:" in str(now) or "09:" in str(now):
             text += answer["38"]+self.PrognosisWeather(answer, True)
         return text
 
