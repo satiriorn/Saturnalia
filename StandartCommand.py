@@ -39,7 +39,7 @@ class StandartCommand:
                 time.sleep(5)
                 context.bot.send_message(chat_id=chat_id, text=answer["67"])
                 time.sleep(5)
-            context.bot.send_message(chat_id=update.callback_query.message.chat_id, text=answer["68"])
+            context.bot.send_message(chat_id=chat_id, text=answer["68"])
             self._mafina.UseCommand.pop(chat_id)
 
     @classmethod
