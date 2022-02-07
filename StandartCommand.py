@@ -30,7 +30,7 @@ class StandartCommand:
             context.bot.send_message(chat_id=chat_id, text=answer["65"],
                                      reply_markup=self._mafina._keyboard.InlineKeyboard(self._mafina._keyboard.RestButton[lang], False))
         else:
-            context.bot.edit_message_text(chat_id=update.callback_query.message.chat_id,
+            context.bot.edit_message_text(chat_id=chat_id,
                                           text=self._mafina._keyboard.RestButton[lang][0],
                                           message_id=update.callback_query.message.message_id)
             for i in range(6):
