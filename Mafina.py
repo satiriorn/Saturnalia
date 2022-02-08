@@ -40,11 +40,11 @@ class Mafina(object):
         self.dispatcher.add_handler(InlineQueryHandler(Mafina._inline.inlinequery))
 
     def run(self):
-        Thread.Thread(self._hunter.HunterListing, ())
-        self._meme.StartSystemMeme()
-        self._weather.StartSysWeather()
+        #Thread.Thread(self._hunter.HunterListing, ())
+        #self._meme.StartSystemMeme()
+        #self._weather.StartSysWeather()
         self._animal.StartSysAnimal()
-        self._binance.Start_Crypto_job()
+        #self._binance.Start_Crypto_job()
         self.updater.start_polling(timeout=1990000, poll_interval=1)
         self.updater.idle()
 
@@ -72,26 +72,16 @@ class Mafina(object):
             self._instance.Users[chat_id] = User(chat_id, self._instance, update)
             self._instance.DispatcherInline(update, context)
 
-    @staticmethod
-    def multi_key_dict_get(d, k):
-        for keys, v in d.items():
-            if k in keys:
-                return v
-        return Mafina.answer
-
-    @staticmethod
-    def answer(): return True
-
     @classmethod
     def Dispatcher(self, update, context):
         chat_id =self._instance.GetChatID(update)
         if chat_id in self._instance.Users.keys():
             answer, lang = self._instance.Users[chat_id].answer, self._instance.Users[chat_id].lang
-            print(update)
-            if 'reply_to_message' in str(update)and 'IMafinabot' in str(update):
-                self._instance._textgen.Answer(update, context)
+            if 'reply_to_message' in str(update) and 'IMafinabot' in str(update):
+                update.message.reply_text(self._textgen.generate_by_prefix(str(update.message.text)))
                 return 0
             text = self._instance.data(update)
+            if self._textgen.generate_by_prefix_city(update, context, text): return 0
             if "/cancel" in text: Thread.Thread(self._cancel.cancel, (update, context, answer, chat_id))
             if chat_id in self._instance.UseCommand.keys():
                 res = self._instance.UseCommand[chat_id]
@@ -121,8 +111,8 @@ class Mafina(object):
                 (self._keyboard.CancelButton[lang][0], self._keyboard.BookStateKeyboard[lang][2]):
                     lambda: Thread.Thread(self._book.Cancel, (update, context, answer, chat_id))
                 }
-                self.multi_key_dict_get(Process, res)()
-                self.multi_key_dict_get(Process, text)()
+                if res in Process.keys():Process[res]()
+                if text in Process.keys(): Process[text]()
                 return
             CommandTxtButton = {
                 "/help": lambda : Thread.Thread(self._std.help, (update, context, answer)),
@@ -142,6 +132,7 @@ class Mafina(object):
                 "/convert": lambda :Thread.Thread(self._std.convert, (update, context, answer, chat_id)),
                 "/book": lambda :Thread.Thread(self._book.MenuBook, (update, context, answer, lang)),
                 "/translate": lambda :Thread.Thread(self._translate.translate, (update, context, answer, chat_id)),
+                "/gen": lambda :update.message.reply_text(self._instance._textgen.generate_random()),
                 "погода": lambda: Thread.Thread(self._weather.CurrentWeather, (update, context, answer)),
                 "animal": lambda: Thread.Thread(self._file.SendFile, (update, context)),
                 "0": lambda: Thread.Thread(Thread.Thread(self._setting.SettingTranslate, (update, context, answer, chat_id))),
@@ -171,7 +162,7 @@ class Mafina(object):
                 self._keyboard.Setting[lang][6]: lambda: Thread.Thread(self._setting.ExistentialResponse, (update, context, answer, chat_id))
                 }
             if len(text) > 1 or text.isnumeric():
-                if self.multi_key_dict_get(CommandTxtButton, text.replace("@IMafinabot", ""))() and '?' in text: Thread.Thread(self._std.question, (update, context, answer))
+                if CommandTxtButton[text.replace("@imafinabot", "")]() and '?' in text: Thread.Thread(self._std.question, (update, context, answer))
         else:
             self._instance.Users[chat_id] = User(chat_id, self._instance, update)
             self._instance.Dispatcher(update, context)
@@ -182,7 +173,7 @@ class Mafina(object):
 
     def GetChatID(self, update):
         try: return str(update.callback_query.message.chat_id)
-        except Exception:  return str(update.message.chat_id)
+        except Exception: return str(update.message.chat_id)
 
 class User():
     def __init__(self, chat_id, mafina, update):
