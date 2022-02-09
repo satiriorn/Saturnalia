@@ -50,7 +50,7 @@ class Mafina(object):
 
     @classmethod
     def DispatcherFile(self, update, context):
-        chat_id = self._instance.GetChatID(update)
+        chat_id = self._instance.GetChatID(update)  
         if chat_id in self._instance.Users.keys():
             answer, lang = self._instance.Users[chat_id].answer, self._instance.Users[chat_id].lang
             self._file.file(update, context, answer, lang, chat_id)
@@ -86,26 +86,26 @@ class Mafina(object):
             if chat_id in self._instance.UseCommand.keys():
                 res = self._instance.UseCommand[chat_id]
                 Process ={
-                "Audio": lambda:Thread.Thread(self._youtube.Get_Audio, (update, context, answer, chat_id)),
-                "Video": lambda:Thread.Thread(self._youtube.Get_Video, (update, context, answer, chat_id)),
-                "CutAudio": lambda:Thread.Thread(self._cut.CutAudio, (update, context, answer, chat_id)),
-                "CutVideo": lambda:Thread.Thread(self._cut.CutVideo, (update, context, answer, chat_id)),
-                "CreateVoice" : lambda:Thread.Thread(self._voice.voice, (update, context, answer, chat_id)),
-                "Translate": lambda:Thread.Thread(self._translate.translate, (update, context, answer, chat_id)),
-                "GetCutVideo": lambda:Thread.Thread(self._cut.GetCutStart, (update, context, answer, chat_id)),
-                "CutEnd": lambda:Thread.Thread(self._cut.Cut, (update, context, chat_id)),
-                ("Check", "Confirm", "BookLang", "FormatBook"): lambda:Thread.Thread(self._book.UploadBook, (update, context, answer, lang, chat_id)),
-                "SearchViaName": lambda:Thread.Thread(self._book.SearchBook, (update, context, answer, lang, chat_id)),
-                "SearchViaAuthor": lambda:Thread.Thread(self._book.SearchAuthor, (update, context, answer, lang, chat_id)),
-                "Rest": lambda:Thread.Thread(self._std.Rest, (update, context, answer, lang, chat_id, False)),
-                "MemeChange": lambda:Thread.Thread(self._meme.MoreMeme, (update, context, lang, chat_id)),
-                "SettingTranslate": lambda:Thread.Thread(self._setting.SettingTranslate, (update, context, answer, chat_id)),
-                "SeveralResult": lambda:Thread.Thread(self._book.SearchBook, (update, context, answer, lang, chat_id)),
-                "ConfirmTypeFile": lambda:Thread.Thread(self._book.GetFile, (update, context, answer, chat_id)),
-                ("GetBookViaAuthor", "SelectBookByAuthor"): lambda:Thread.Thread(self._book.SearchAuthor, (update, context, answer, lang, chat_id)),
-                "GetBook": lambda:Thread.Thread(self._book.SendListReadBooks, (update, context, answer, lang, chat_id)),
-                "ChangeSysAnimal": lambda:Thread.Thread(self._animal.SysAnimal, (update, context, answer, lang, chat_id)),
-                "LangBot": lambda:Thread.Thread(self._setting.LanguageBot, (update, context, answer, chat_id)),
+                "Audio": lambda: Thread.Thread(self._youtube.Get_Audio, (update, context, answer, chat_id)),
+                "Video": lambda: Thread.Thread(self._youtube.Get_Video, (update, context, answer, chat_id)),
+                "CutAudio": lambda: Thread.Thread(self._cut.CutAudio, (update, context, answer, chat_id)),
+                "CutVideo": lambda: Thread.Thread(self._cut.CutVideo, (update, context, answer, chat_id)),
+                "CreateVoice" : lambda: Thread.Thread(self._voice.voice, (update, context, answer, chat_id, text)),
+                "Translate": lambda: Thread.Thread(self._translate.translate, (update, context, answer, chat_id)),
+                "GetCutVideo": lambda: Thread.Thread(self._cut.GetCutStart, (update, context, answer, chat_id)),
+                "CutEnd": lambda: Thread.Thread(self._cut.Cut, (update, context, chat_id)),
+                ("Check", "Confirm", "BookLang", "FormatBook"): lambda: Thread.Thread(self._book.UploadBook, (update, context, answer, lang, chat_id)),
+                "SearchViaName": lambda: Thread.Thread(self._book.SearchBook, (update, context, answer, lang, chat_id)),
+                "SearchViaAuthor": lambda: Thread.Thread(self._book.SearchAuthor, (update, context, answer, lang, chat_id)),
+                "Rest": lambda: Thread.Thread(self._std.Rest, (update, context, answer, lang, chat_id, False)),
+                "MemeChange": lambda: Thread.Thread(self._meme.MoreMeme, (update, context, lang, chat_id)),
+                "SettingTranslate": lambda: Thread.Thread(self._setting.SettingTranslate, (update, context, answer, chat_id)),
+                "SeveralResult": lambda: Thread.Thread(self._book.SearchBook, (update, context, answer, lang, chat_id)),
+                "ConfirmTypeFile": lambda: Thread.Thread(self._book.GetFile, (update, context, answer, chat_id)),
+                ("GetBookViaAuthor", "SelectBookByAuthor"): lambda: Thread.Thread(self._book.SearchAuthor, (update, context, answer, lang, chat_id)),
+                "GetBook": lambda: Thread.Thread(self._book.SendListReadBooks, (update, context, answer, lang, chat_id)),
+                "ChangeSysAnimal": lambda: Thread.Thread(self._animal.SysAnimal, (update, context, answer, lang, chat_id)),
+                "LangBot": lambda: Thread.Thread(self._setting.LanguageBot, (update, context, answer, chat_id)),
                 "GetPair": lambda: Thread.Thread(self._binance.Add_Pair, (update, context, answer, chat_id)),
                 "DeletePair": lambda: Thread.Thread(self._binance.Delete_Pair, (update, context, answer, chat_id)),
                 (self._keyboard.CancelButton[lang][0], self._keyboard.BookStateKeyboard[lang][2]):
@@ -115,24 +115,25 @@ class Mafina(object):
                 if text in Process.keys(): Process[text]()
                 return
             CommandTxtButton = {
-                "/help": lambda : Thread.Thread(self._std.help, (update, context, answer)),
-                "/evtuh": lambda : Thread.Thread(Evtuh.Evtuh, (update, context)),
-                "/start": lambda : Thread.Thread(self._std.start(update, context, answer, chat_id)),
-                "/weather": lambda :Thread.Thread(self._weather.weather, (update, context, answer)),
-                "/voice":lambda :Thread.Thread(self._voice.voice, (update, context, answer, chat_id)),
-                "/dog": lambda :Thread.Thread(self._animal.Dog_photo, (update, context, answer)),
-                "/binance": lambda :Thread.Thread(self._binance.Menu_Binance, (update, context, answer, lang)),
-                ("/cat", "котик"): lambda :Thread.Thread(self._animal.Cat_photo, (update, context, answer)),
-                "/sheva": lambda :Thread.Thread(Quotes.ShevchenkoStyle, (update, context)),
-                ("/meme", "мем"): lambda :Thread.Thread(self._meme.Get_meme, (update, context, answer)),
-                "/youtube": lambda :Thread.Thread(self._youtube.Start, (update, context, answer, lang)),
-                "/settingbot": lambda :Thread.Thread(self._setting.ShowSetting, (update, context, answer, chat_id, lang)),
-                "/rest": lambda :Thread.Thread(self._std.Rest, (update, context, answer, lang, chat_id)),
-                "/cut": lambda :Thread.Thread(self._cut.CutStart, (update, context, answer, lang)),
-                "/convert": lambda :Thread.Thread(self._std.convert, (update, context, answer, chat_id)),
-                "/book": lambda :Thread.Thread(self._book.MenuBook, (update, context, answer, lang)),
-                "/translate": lambda :Thread.Thread(self._translate.translate, (update, context, answer, chat_id)),
-                "/gen": lambda :update.message.reply_text(self._instance._textgen.generate_random()),
+                "/help": lambda: Thread.Thread(self._std.help, (update, context, answer)),
+                "/evtuh": lambda: Thread.Thread(Evtuh.Evtuh, (update, context)),
+                "/start": lambda: Thread.Thread(self._std.start(update, context, answer, chat_id)),
+                "/weather": lambda: Thread.Thread(self._weather.weather, (update, context, answer)),
+                "/voice":lambda: Thread.Thread(self._voice.voice, (update, context, answer, chat_id)),
+                "/dog": lambda: Thread.Thread(self._animal.Dog_photo, (update, context, answer)),
+                "/binance": lambda: Thread.Thread(self._binance.Menu_Binance, (update, context, answer, lang)),
+                ("/cat", "котик"): lambda: Thread.Thread(self._animal.Cat_photo, (update, context, answer)),
+                "/sheva": lambda: Thread.Thread(Quotes.ShevchenkoStyle, (update, context)),
+                ("/meme", "мем"): lambda: Thread.Thread(self._meme.Get_meme, (update, context, answer)),
+                "/youtube": lambda: Thread.Thread(self._youtube.Start, (update, context, answer, lang)),
+                "/settingbot": lambda: Thread.Thread(self._setting.ShowSetting, (update, context, answer, chat_id, lang)),
+                "/rest": lambda: Thread.Thread(self._std.Rest, (update, context, answer, lang, chat_id)),
+                "/cut": lambda: Thread.Thread(self._cut.CutStart, (update, context, answer, lang)),
+                "/convert": lambda: Thread.Thread(self._std.convert, (update, context, answer, chat_id)),
+                "/book": lambda: Thread.Thread(self._book.MenuBook, (update, context, answer, lang)),
+                "/translate": lambda: Thread.Thread(self._translate.translate, (update, context, answer, chat_id)),
+                "/gen": lambda: update.message.reply_text(self._instance._textgen.generate_random()),
+                "/genvoice": lambda: Thread.Thread(self._voice.gen_voice, (update, context, answer, chat_id, self._instance._textgen.generate_random())),
                 "погода": lambda: Thread.Thread(self._weather.CurrentWeather, (update, context, answer)),
                 "animal": lambda: Thread.Thread(self._file.SendFile, (update, context)),
                 "0": lambda: Thread.Thread(Thread.Thread(self._setting.SettingTranslate, (update, context, answer, chat_id))),
@@ -161,8 +162,9 @@ class Mafina(object):
                 self._keyboard.BookStateKeyboardDelete[lang][0]: lambda: Thread.Thread(self._book.DeleteInReadList, (update, context, answer, chat_id)),
                 self._keyboard.Setting[lang][6]: lambda: Thread.Thread(self._setting.ExistentialResponse, (update, context, answer, chat_id))
                 }
-            if len(text) > 1 or text.isnumeric():
-                if CommandTxtButton[text.replace("@imafinabot", "")]() and '?' in text: Thread.Thread(self._std.question, (update, context, answer))
+            if text.replace("@imafinabot", "") in CommandTxtButton.keys():
+                if len(text) > 1 or text.isnumeric():
+                    if CommandTxtButton[text.replace("@imafinabot", "")]() and '?' in text: Thread.Thread(self._std.question, (update, context, answer))
         else:
             self._instance.Users[chat_id] = User(chat_id, self._instance, update)
             self._instance.Dispatcher(update, context)

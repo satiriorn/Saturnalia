@@ -11,19 +11,22 @@ class Voice:
             return Voice._instance
 
     @classmethod
-    def voice(self, update, context, answer, chat_id):
+    def gen_voice(self, update, context, answer, chat_id, text):
+        self._mafina.UseCommand[chat_id] = "CreateVoice"
+        self.voice(update, context, answer, chat_id, text)
+
+    @classmethod
+    def voice(self, update, context, answer, chat_id, text = ""):
         mp3_name = chat_id+'.mp3'
         file = shutil.copy(r'voice.mp3', mp3_name)
         try:
             if chat_id in self._mafina.UseCommand.keys():
                 if self._mafina.UseCommand[chat_id] == "CreateVoice":
-                    mes = update.message.text
-                    gTTS(text=mes, lang=detect(mes)).save(file)
+                    gTTS(text=text, lang=detect(text)).save(file)
                     context.bot.send_voice(chat_id, open(file, 'rb'))
                     os.remove(os.path.join(os.path.abspath(os.path.dirname(__file__)), file))
                     self._mafina.UseCommand.pop(chat_id)
             else:
-
                 self._mafina.UseCommand[chat_id] = "CreateVoice"
                 context.bot.send_message(chat_id, answer["4"])
         except Exception:
