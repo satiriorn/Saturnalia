@@ -95,5 +95,4 @@ class Hunter:
 				order = Order(amount=str(available), price=str(last_price), side='sell',
 							  currency_pair=self.currency_pair)
 				self.created_sell = self.spot_api.create_order(order)
-				if (self.created_sell.status == "closed"):
-					self.Purchased = False
+				if (self.created_sell.status == "closed"): self.Purchased = False

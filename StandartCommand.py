@@ -12,8 +12,11 @@ class StandartCommand:
     @classmethod
     def start(self, update, context, answer, chat_id):
         try:
-            self._mafina._DB.CheckUser(update.message.chat.title, update.message.chat.username, chat_id,
+            if update.message.from_user.language_code == "uk":
+                self._mafina._DB.CheckUser(update.message.chat.title, update.message.chat.username, chat_id,
                 update.message.from_user.language_code, update.message.chat.type)
+            else: self._mafina._DB.CheckUser(update.message.chat.title, update.message.chat.username, chat_id,
+                "en", update.message.chat.type)
             context.bot.send_message(chat_id, answer["start"], reply_markup = self._mafina._keyboard.InitKeyboard(self._mafina._keyboard.MainKeyboard))
             self._mafina._setting.LanguageBot(update, context, answer, chat_id, True)
         except Exception:
