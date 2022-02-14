@@ -12,7 +12,7 @@ class TextGeneration:
         self.strength = 0.55
         self.batchSize = 128
         self.textgen = textgenrnn(name='Result_model/Titles256x3',
-                                weights_path='Result_model/Titles256x3_weights.hdf5 ',
+                                weights_path='Result_model/Titles256x3_weights.hdf5',
                                 vocab_path='Result_model/Titles256x3_vocab.json',
                                 config_path='Result_model/Titles256x3_config.json')
         self.kharkiv_prefix_list = ['У Харкові ', 'Жителі харківщини ', 'На харківщині ', 'Харківська ', 'Під харковом ',
