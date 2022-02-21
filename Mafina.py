@@ -40,11 +40,11 @@ class Mafina(object):
         self.dispatcher.add_handler(InlineQueryHandler(Mafina._inline.inlinequery))
 
     def run(self):
-        Thread.Thread(self._hunter.HunterListing, ())
-        self._meme.StartSystemMeme()
-        self._weather.StartSysWeather()
-        self._animal.StartSysAnimal()
-        self._binance.Start_Crypto_job()
+        #Thread.Thread(self._hunter.HunterListing, ())
+        #self._meme.StartSystemMeme()
+        #self._weather.StartSysWeather()
+        #self._animal.StartSysAnimal()
+        #self._binance.Start_Crypto_job()
         self.updater.start_polling(timeout=1990000, poll_interval=1)
         self.updater.idle()
 
@@ -87,6 +87,7 @@ class Mafina(object):
                 res = self._instance.UseCommand[chat_id]
                 Process ={
                 "Audio": lambda: Thread.Thread(self._youtube.Get_Audio, (update, context, answer, chat_id)),
+                "ChooseQuality": lambda: Thread.Thread(self._youtube.Get_Audio, (update, context, answer, chat_id)),
                 "Video": lambda: Thread.Thread(self._youtube.Get_Video, (update, context, answer, chat_id)),
                 "CutAudio": lambda: Thread.Thread(self._cut.CutAudio, (update, context, answer, chat_id)),
                 "CutVideo": lambda: Thread.Thread(self._cut.CutVideo, (update, context, answer, chat_id)),
@@ -94,7 +95,10 @@ class Mafina(object):
                 "Translate": lambda: Thread.Thread(self._translate.translate, (update, context, answer, chat_id)),
                 "GetCutVideo": lambda: Thread.Thread(self._cut.GetCutStart, (update, context, answer, chat_id)),
                 "CutEnd": lambda: Thread.Thread(self._cut.Cut, (update, context, chat_id)),
-                ("Check", "Confirm", "BookLang", "FormatBook"): lambda: Thread.Thread(self._book.UploadBook, (update, context, answer, lang, chat_id)),
+                "Check": lambda: Thread.Thread(self._book.UploadBook, (update, context, answer, lang, chat_id)),
+                "Confirm": lambda: Thread.Thread(self._book.UploadBook, (update, context, answer, lang, chat_id)),
+                "BookLang": lambda: Thread.Thread(self._book.UploadBook, (update, context, answer, lang, chat_id)),
+                "FormatBook": lambda: Thread.Thread(self._book.UploadBook, (update, context, answer, lang, chat_id)),
                 "SearchViaName": lambda: Thread.Thread(self._book.SearchBook, (update, context, answer, lang, chat_id)),
                 "SearchViaAuthor": lambda: Thread.Thread(self._book.SearchAuthor, (update, context, answer, lang, chat_id)),
                 "Rest": lambda: Thread.Thread(self._std.Rest, (update, context, answer, lang, chat_id, False)),
@@ -102,14 +106,15 @@ class Mafina(object):
                 "SettingTranslate": lambda: Thread.Thread(self._setting.SettingTranslate, (update, context, answer, chat_id)),
                 "SeveralResult": lambda: Thread.Thread(self._book.SearchBook, (update, context, answer, lang, chat_id)),
                 "ConfirmTypeFile": lambda: Thread.Thread(self._book.GetFile, (update, context, answer, chat_id)),
-                ("GetBookViaAuthor", "SelectBookByAuthor"): lambda: Thread.Thread(self._book.SearchAuthor, (update, context, answer, lang, chat_id)),
+                "GetBookViaAuthor": lambda: Thread.Thread(self._book.SearchAuthor, (update, context, answer, lang, chat_id)),
+                "SelectBookByAuthor": lambda: Thread.Thread(self._book.SearchAuthor, (update, context, answer, lang, chat_id)),
                 "GetBook": lambda: Thread.Thread(self._book.SendListReadBooks, (update, context, answer, lang, chat_id)),
                 "ChangeSysAnimal": lambda: Thread.Thread(self._animal.SysAnimal, (update, context, answer, lang, chat_id)),
                 "LangBot": lambda: Thread.Thread(self._setting.LanguageBot, (update, context, answer, chat_id)),
                 "GetPair": lambda: Thread.Thread(self._binance.Add_Pair, (update, context, answer, chat_id)),
                 "DeletePair": lambda: Thread.Thread(self._binance.Delete_Pair, (update, context, answer, chat_id)),
-                (self._keyboard.CancelButton[lang][0], self._keyboard.BookStateKeyboard[lang][2]):
-                    lambda: Thread.Thread(self._book.Cancel, (update, context, answer, chat_id))
+                self._keyboard.CancelButton[lang][0]: lambda: Thread.Thread(self._book.Cancel, (update, context, answer, chat_id)),
+                self._keyboard.BookStateKeyboard[lang][2]: lambda: Thread.Thread(self._book.Cancel, (update, context, answer, chat_id))
                 }
                 if res in Process.keys():Process[res]()
                 if text in Process.keys(): Process[text]()
