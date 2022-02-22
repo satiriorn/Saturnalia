@@ -54,6 +54,7 @@ class Keyboard:
     TranslateKeyboard = ["Azerbaijani", "Belarusian", "Bulgarian", "Croatian", "Czech", "English","Estonian", "French", "Finnish", "Georgian", "German", "Italian", "Latvian", "Polish","Ukrainen", "Russian","Serbian","Slovak","Slovenian", "Spanish", "Ukrainian" ]
     LanguageBot = ["Belarusian", "Ukrainian", "English", "Czech"]
     FormatBookKeyboard = [".epub", ".fb2", ".pdf"]
+    QualityAudio = ["48", "128", "160", "256", "320"]
     CountMeme = {
         "uk": ["Вимкнення", "1 мем у 15 хвилин", "1 мем у 30 хвилин", "1 мем у 60 хвилин", "1 мем у 120 хвилин"],
         "be": ["Адключэнне", "1 мем за 15 хвілін", "1 мем за 30 хвілін", "1 мем за 60 хвілін", "1 мем за 120 хвілін"],
