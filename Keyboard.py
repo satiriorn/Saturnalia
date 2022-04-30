@@ -47,11 +47,11 @@ class Keyboard:
          "Croatian":"hr","Czech":"cs","Danish":"da","Dutch":"nl","English":"en","Estonian":"et","French":"fr","Finnish":"fi","Georgian":"ka",
          "German":"de","Greek":"el","Hungarian":"hu","Icelandic":"is","Indonesian":"id","Italian":"it","Japanese":"ja","Javanese":"jw",
          "Kannada":"kn","Kazakh":"kk","Kongo":"kg","Korean":"ko","Latin":"la","Latvian":"lv","Moldavian":"mo","Mongolian":"mn","Polish":"pl","Portuguese (Brazil)":"pt-BR",
-         "Portuguese (Portugal)":"pt-PT","Ukrainen":"ro","Russian":"ru","Serbian":"sr","Slovak":"sk","Slovenian":"sl","Spanish":"es","Swahili":"sw",
+         "Portuguese (Portugal)":"pt-PT","Russian":"ru","Serbian":"sr","Slovak":"sk","Slovenian":"sl","Spanish":"es","Swahili":"sw",
          "Swedish":"sv","Tatar":"tt","Turkish":"tr","Turkmen":"tk","Ukrainian":"uk"}
 
     MainKeyboard = ["/Cut", "/Rest", "/Voice", "/Book", "/Evtuh", "/Sheva", "/Meme", "/Weather", "/Convert", "/Youtube", "/Binance", "/SettingBot","/Dog","/Cat", "/Cancel"]
-    TranslateKeyboard = ["Azerbaijani", "Belarusian", "Bulgarian", "Croatian", "Czech", "English","Estonian", "French", "Finnish", "Georgian", "German", "Italian", "Latvian", "Polish","Ukrainen", "Russian","Serbian","Slovak","Slovenian", "Spanish", "Ukrainian" ]
+    TranslateKeyboard = ["Azerbaijani", "Belarusian", "Bulgarian", "Croatian", "Czech", "English","Estonian", "French", "Finnish", "Georgian", "German", "Italian", "Latvian", "Polish", "Russian","Serbian","Slovak","Slovenian", "Spanish", "Ukrainian" ]
     LanguageBot = ["Belarusian", "Ukrainian", "English", "Czech"]
     FormatBookKeyboard = [".epub", ".fb2", ".pdf"]
     QualityAudio = ["48", "128", "160", "256", "320"]

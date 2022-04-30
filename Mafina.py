@@ -1,12 +1,12 @@
 import Thread, Cryptocurrency, Quotes, StandartCommand, weather, Evtuh,  CreateVoice, DogAndCat, InlineQuery, os, Meme, Youtube, Translate, DB, Keyboard, Setting,  \
-    Cut, File, Book, Cancel, Hunter_of_BinanceAnnouncements, TextGen
+    Cut, File, Book, Cancel, Hunter_of_BinanceAnnouncements, TextGen, TextRecognition
 from telegram.ext import Updater, MessageHandler, Filters, InlineQueryHandler, CallbackQueryHandler, ChosenInlineResultHandler
 from googletrans import Translator
 
 class Mafina(object):
     _instance, _DB, job, _translator, _keyboard, _weather, _voice, _std, _animal, _meme = None, None, None, None, None, None, None, None, None, None
     _youtube, _setting, _cut, _book, _file, _translate, _inline, _cancel, _binance, _hunter = None, None, None, None, None, None, None, None, None, None
-    _textgen = None
+    _textgen, _textrec = None, None
     UseCommand, CutFile, jobchat, Book, ResultSearch, KeyboardFormat, Users, ResultInline = {}, {}, {}, {}, {}, {}, {}, {}
     NameFormat = [".epub", ".fb2", ".pdf"]
     fileformat = {".epub": "file_id_epub", ".fb2": "file_id_fb2", ".pdf": "file_id_pdf"}
@@ -23,7 +23,7 @@ class Mafina(object):
         Mafina._meme, Mafina._youtube, Mafina._setting, Mafina._cut = Meme.Meme(self), Youtube.Youtube(self), Setting.SettingMafina(self), Cut.Cut(self)
         Mafina._book, Mafina._file, Mafina._translate, Mafina._inline = Book.Book(self), File.File(self), Translate.Translate(self), InlineQuery.Inline(self)
         Mafina._translator, Mafina._cancel, Mafina._binance, Mafina._hunter = Translator(), Cancel.Cancel(self), Cryptocurrency.Binance(self), Hunter_of_BinanceAnnouncements.Hunter(self)
-        Mafina._textgen = TextGen.TextGeneration(self)
+        Mafina._textgen, Mafina._textrec = TextGen.TextGeneration(self), TextRecognition.OCR(self)
         self.dispatcher = self.updater.dispatcher
         self.CreateHandler()
         self.run()
@@ -31,7 +31,7 @@ class Mafina(object):
     def CreateHandler(self):
         dispatchermafina_handler = MessageHandler(Filters.command|Filters.text, Mafina.Dispatcher)
         callback_query_handler = CallbackQueryHandler(Mafina.Dispatcher)
-        file_message_handler = MessageHandler(Filters.audio | Filters.video | Filters.animation | Filters.document, Mafina.DispatcherFile)
+        file_message_handler = MessageHandler(Filters.audio | Filters.video | Filters.animation | Filters.document | Filters.photo, Mafina.DispatcherFile)
         result_chosen_handler = ChosenInlineResultHandler(Mafina.DispatcherInline)
         self.dispatcher.add_handler(dispatchermafina_handler)
         self.dispatcher.add_handler(callback_query_handler)
@@ -113,6 +113,7 @@ class Mafina(object):
                 "LangBot": lambda: Thread.Thread(self._setting.LanguageBot, (update, context, answer, chat_id)),
                 "GetPair": lambda: Thread.Thread(self._binance.Add_Pair, (update, context, answer, chat_id)),
                 "DeletePair": lambda: Thread.Thread(self._binance.Delete_Pair, (update, context, answer, chat_id)),
+                "WaitLangForTextDetect": lambda: Thread.Thread(self._textrec.readText, (update, context, answer, chat_id, lang)),
                 self._keyboard.CancelButton[lang][0]: lambda: Thread.Thread(self._book.Cancel, (update, context, answer, chat_id)),
                 self._keyboard.BookStateKeyboard[lang][2]: lambda: Thread.Thread(self._book.Cancel, (update, context, answer, chat_id))
                 }
@@ -139,6 +140,7 @@ class Mafina(object):
                 "/translate": lambda: Thread.Thread(self._translate.translate, (update, context, answer, chat_id)),
                 "/gen": lambda: update.message.reply_text(self._instance._textgen.generate_random()),
                 "/genvoice": lambda: Thread.Thread(self._voice.gen_voice, (update, context, answer, chat_id, self._instance._textgen.generate_random())),
+                "/ocr":lambda: Thread.Thread(self._textrec.readText, (update, context, answer, chat_id, lang)),
                 "погода": lambda: Thread.Thread(self._weather.CurrentWeather, (update, context, answer)),
                 "animal": lambda: Thread.Thread(self._file.SendFile, (update, context)),
                 "0": lambda: Thread.Thread(Thread.Thread(self._setting.SettingTranslate, (update, context, answer, chat_id))),

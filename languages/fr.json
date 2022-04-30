@@ -76,5 +76,8 @@
   "73": "Your crypto pair has been successfully added. Starting price: {0}",
   "74": "Select the desired crypto pair to delete: ",
   "75": "Current prices of your cryptocurrencies: \n{0}",
-  "76": "Nombre total de chats: {0}\nNombre de chats qu'il vous reste: {1}"
+  "76": "Nombre total de chats: {0}\nNombre de chats qu'il vous reste: {1}",
+  "77": "Sélectionnez la qualité du fichier audio:",
+  "78": "Envoyer une image/une capture d'écran avec du texte",
+  "79": "Choisissez la langue utilisée dans l'écran / la photo / l'image:"
 }
