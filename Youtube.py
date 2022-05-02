@@ -74,23 +74,23 @@ class Youtube:
     @classmethod
     def Get_Video(self, update, context, answer, chat_id):
         file = ""
-        try:
-            if chat_id in self._mafina.UseCommand.keys():
-                if self._mafina.UseCommand[chat_id] == "Video":
-                    video_url = update.message.text
-                    youtube = pytube.YouTube(video_url).streams.filter(res = "720p").first()
-                    file = youtube.download()
-                    context.bot.send_video(update.message.chat_id, open(file, 'rb'))
-                    self._mafina.UseCommand.pop(chat_id)
-                    self.DeletePath(file)
-            else:
-                context.bot.edit_message_text(chat_id=update.callback_query.message.chat_id, text=answer["1"],
-                                              message_id=update.callback_query.message.message_id)
-                self._mafina.UseCommand[chat_id] = "Video"
-        except Exception:
-            self._mafina.UseCommand.pop(chat_id)
-            context.bot.send_message(chat_id, answer["2"])
-            self.DeletePath(file)
+        #try:
+        if chat_id in self._mafina.UseCommand.keys():
+            if self._mafina.UseCommand[chat_id] == "Video":
+                video_url = update.message.text
+                youtube = pytube.YouTube(video_url).streams.filter(res = "720p").first()
+                file = youtube.download()
+                context.bot.send_video(update.message.chat_id, open(file, 'rb'))
+                self._mafina.UseCommand.pop(chat_id)
+                self.DeletePath(file)
+        else:
+            context.bot.edit_message_text(chat_id=update.callback_query.message.chat_id, text=answer["1"],
+                                          message_id=update.callback_query.message.message_id)
+            self._mafina.UseCommand[chat_id] = "Video"
+        #except Exception:
+        #    self._mafina.UseCommand.pop(chat_id)
+        #    context.bot.send_message(chat_id, answer["2"])
+         #   self.DeletePath(file)
 
     @staticmethod
     def GetFormat(format = '.mp3'):

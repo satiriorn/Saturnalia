@@ -1,5 +1,3 @@
-import numpy as np
-from PIL import Image
 from easyocr import Reader
 import os
 
