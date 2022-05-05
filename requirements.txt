@@ -22,5 +22,5 @@ python-binance==1.0.12
 gate-api==4.22.1
 sklearn==0.0
 tqdm==4.62.3
-tensorflow-cpu==2.2.0
+tensorflow-cpu==2.5.3
 keras==2.2.4
