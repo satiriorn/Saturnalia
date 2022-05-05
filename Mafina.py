@@ -112,7 +112,7 @@ class Mafina(object):
                 "ChangeSysAnimal": lambda: Thread.Thread(self._animal.SysAnimal, (update, context, answer, lang, chat_id)),
                 "LangBot": lambda: Thread.Thread(self._setting.LanguageBot, (update, context, answer, chat_id)),
                 "GetPair": lambda: Thread.Thread(self._binance.Add_Pair, (update, context, answer, chat_id)),
-                "DeletePair": lambda: Thread.Thread(self._binance.Delete_Pair, (update, context, answer, chat_id))
+                "DeletePair": lambda: Thread.Thread(self._binance.Delete_Pair, (update, context, answer, chat_id)),
                 #"WaitLangForTextDetect": lambda: Thread.Thread(self._textrec.readText, (update, context, answer, chat_id, lang)),
                 self._keyboard.CancelButton[lang][0]: lambda: Thread.Thread(self._book.Cancel, (update, context, answer, chat_id)),
                 self._keyboard.BookStateKeyboard[lang][2]: lambda: Thread.Thread(self._book.Cancel, (update, context, answer, chat_id))
