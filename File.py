@@ -22,8 +22,8 @@ class File:
             elif res == "ConfirmSendVideo": Thread.Thread(self._mafina._std.convert, (update, context, answer, chat_id))
             elif res == "Check" or res == "UploadFile" or res == "Confirm" or res == "BookLang" or res == "FormatBook":
                 Thread.Thread(self._mafina._book.UploadBook, (update, context, answer, lang, chat_id))
-            elif res == "WaitPhoto":
-                Thread.Thread(self._mafina._textrec.readText, (update, context, answer, chat_id, lang))
+           # elif res == "WaitPhoto":
+                #Thread.Thread(self._mafina._textrec.readText, (update, context, answer, chat_id, lang))
 
     @classmethod
     def SendFile(self, update, context):

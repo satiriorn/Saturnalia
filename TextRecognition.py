@@ -1,3 +1,4 @@
+"""
 from easyocr import Reader
 import os
 
@@ -26,7 +27,7 @@ class OCR:
                except Exception:
                   file_id = update.message.document.file_id
                file = context.bot.getFile(file_id)
-               title = """{0}.jpg""".format(chat_id)
+               title = "{0}.jpg".format(chat_id)
                file.download(title)
                text = self.reader.readtext(title, detail=0, paragraph=True)
                print('\n'.join(text))
@@ -41,5 +42,5 @@ class OCR:
       except Exception:
          self._mafina.UseCommand.pop(chat_id)
          os.remove(os.path.join(os.path.abspath(os.path.dirname(__file__)), title))
-
+"""
 
