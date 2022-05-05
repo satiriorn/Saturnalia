@@ -22,6 +22,4 @@ tqdm==4.62.3
 tensorflow-cpu==2.2.0
 keras==2.2.4
 opencv-python==4.4.0.42
-https://download.pytorch.org/whl/cpu/torch-1.4.0%2Bcpu-cp36-cp36m-linux_x86_64.whl
-https://download.pytorch.org/whl/cpu/torchvision-0.5.0%2Bcpu-cp36-cp36m-linux_x86_64.whl
-easyocr==1.4.0
+

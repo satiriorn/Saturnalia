@@ -140,7 +140,7 @@ class Mafina(object):
                 "/translate": lambda: Thread.Thread(self._translate.translate, (update, context, answer, chat_id)),
                 "/gen": lambda: update.message.reply_text(self._instance._textgen.generate_random()),
                 "/genvoice": lambda: Thread.Thread(self._voice.gen_voice, (update, context, answer, chat_id, self._instance._textgen.generate_random())),
-                "/ocr":lambda: Thread.Thread(self._textrec.readText, (update, context, answer, chat_id, lang)),
+                #"/ocr":lambda: Thread.Thread(self._textrec.readText, (update, context, answer, chat_id, lang)),
                 "погода": lambda: Thread.Thread(self._weather.CurrentWeather, (update, context, answer)),
                 "animal": lambda: Thread.Thread(self._file.SendFile, (update, context)),
                 "0": lambda: Thread.Thread(Thread.Thread(self._setting.SettingTranslate, (update, context, answer, chat_id))),
