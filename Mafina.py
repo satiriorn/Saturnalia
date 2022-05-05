@@ -23,7 +23,7 @@ class Mafina(object):
         Mafina._meme, Mafina._youtube, Mafina._setting, Mafina._cut = Meme.Meme(self), Youtube.Youtube(self), Setting.SettingMafina(self), Cut.Cut(self)
         Mafina._book, Mafina._file, Mafina._translate, Mafina._inline = Book.Book(self), File.File(self), Translate.Translate(self), InlineQuery.Inline(self)
         Mafina._translator, Mafina._cancel, Mafina._binance, Mafina._hunter = Translator(), Cancel.Cancel(self), Cryptocurrency.Binance(self), Hunter_of_BinanceAnnouncements.Hunter(self)
-        Mafina._textgen, Mafina._textrec = TextGen.TextGeneration(self), TextRecognition.OCR(self)
+        Mafina._textgen = TextGen.TextGeneration(self)
         self.dispatcher = self.updater.dispatcher
         self.CreateHandler()
         self.run()
