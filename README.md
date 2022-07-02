@@ -16,11 +16,11 @@ The idea of this bot is to create a bot with different functionality that works 
 • cat - Cats that will inspire you\
 • dog - Dogs that will make you happy\
 • sheva - something that will inspire you\
-• evtuh - Make yourself complete\
+• evtuh - Make yourself complete
 
-There is also support for the following languages:\
+There is also support for the following languages:
 
 •belarusian\
 •ukrainian\
 •сzech\
-•english\
+•english
