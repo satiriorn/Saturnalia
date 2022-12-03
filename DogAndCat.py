@@ -51,8 +51,8 @@ class Animal:
         cursor = self._mafina._DB.UsersSysAnimal()
         target_tzinfo = datetime.timezone(datetime.timedelta(hours=3))
         target_time = None
-        times = [12, 9, 22, 18]
-        #winter_times = [13, 10, 23, 19]
+        #times = [12, 9, 22, 18] #summer
+        times = [13, 10, 23, 19] #winter
         for x in cursor:
             for y in range(len(x)):
                 if y + 2 < len(x):
