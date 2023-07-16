@@ -23,20 +23,16 @@ class Mafina(object):
         Mafina._meme, Mafina._youtube, Mafina._setting, Mafina._cut = Meme.Meme(self), Youtube.Youtube(self), Setting.SettingMafina(self), Cut.Cut(self)
         Mafina._book, Mafina._file, Mafina._translate, Mafina._inline = Book.Book(self), File.File(self), Translate.Translate(self), InlineQuery.Inline(self)
         Mafina._translator, Mafina._cancel, Mafina._binance, Mafina._hunter = Translator(), Cancel.Cancel(self), Cryptocurrency.Binance(self), Hunter_of_BinanceAnnouncements.Hunter(self)
-        Mafina._textgen = TextGen.TextGeneration(self)
+        #Mafina._textgen = TextGen.TextGeneration(self)
         self.dispatcher = self.updater.dispatcher
         self.CreateHandler()
         self.run()
 
     def CreateHandler(self):
-        dispatchermafina_handler = MessageHandler(Filters.command|Filters.text, Mafina.Dispatcher)
-        callback_query_handler = CallbackQueryHandler(Mafina.Dispatcher)
-        file_message_handler = MessageHandler(Filters.audio | Filters.video | Filters.animation | Filters.document | Filters.photo, Mafina.DispatcherFile)
-        result_chosen_handler = ChosenInlineResultHandler(Mafina.DispatcherInline)
-        self.dispatcher.add_handler(dispatchermafina_handler)
-        self.dispatcher.add_handler(callback_query_handler)
-        self.dispatcher.add_handler(file_message_handler)
-        self.dispatcher.add_handler(result_chosen_handler)
+        self.dispatcher.add_handler(MessageHandler(Filters.command|Filters.text, Mafina.Dispatcher))
+        self.dispatcher.add_handler(CallbackQueryHandler(Mafina.Dispatcher))
+        self.dispatcher.add_handler(MessageHandler(Filters.audio | Filters.video | Filters.animation | Filters.document | Filters.photo, Mafina.DispatcherFile))
+        self.dispatcher.add_handler(ChosenInlineResultHandler(Mafina.DispatcherInline))
         self.dispatcher.add_handler(InlineQueryHandler(Mafina._inline.inlinequery))
 
     def run(self):

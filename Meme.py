@@ -9,7 +9,7 @@ class Meme:
     @staticmethod
     def Get_meme(update, context,  answer):
         try:
-            Url.Photo(Url.get_url('https://meme-api.herokuapp.com/gimme'), update, context)
+            Url.Photo(Url.get_url('https://meme-api.com/gimme'), update, context)
         except Exception:
             context.bot.send_message(update.message.chat_id, answer["3"])
     @classmethod
@@ -57,7 +57,7 @@ class Meme:
 
     @staticmethod
     def MemeChatGroup(context: telegram.ext.CallbackContext):
-        url = Url.get_url('https://meme-api.herokuapp.com/gimme')
+        url = Url.get_url('https://meme-api.com/gimme')
         if Url.is_image(url):
             context.bot.send_photo(context.job.context, url)
         elif Url.is_animation(url):
