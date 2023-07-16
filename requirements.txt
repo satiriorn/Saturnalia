@@ -21,6 +21,6 @@ youtube-search==2.1.0
 python-binance==1.0.12
 gate-api==4.22.1
 sklearn==0.0
-tqdm==4.65.0
-tensorflow-cpu==2.13.0
-keras==2.13.1
+tqdm==4.62.3
+tensorflow-cpu==2.8.0
+keras==2.8.0
