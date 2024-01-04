@@ -19,7 +19,7 @@ class DataBase:
             host=os.getenv("HOST"),
             user=os.getenv("USER"),
             password=os.getenv("PASSWORD"),
-            database="heroku_c93f6b06b535bb4"
+            database="vgjy6o15h95ug01f"
         )
         self.cursor = self.db.cursor(buffered=True)
         sql = "SET @@auto_increment_increment=1;"
@@ -27,24 +27,24 @@ class DataBase:
         return self.cursor
 
     def GetIdUser(self, chat_id):
-        sql = "SELECT id_user FROM heroku_c93f6b06b535bb4.user WHERE chatID = '%s';" % chat_id
+        sql = "SELECT id_user FROM vgjy6o15h95ug01f.user WHERE chatID = '%s';" % chat_id
         self.cursor.execute(sql)
         return self.cursor.fetchone()[0]
         #return self.GetValue()
 
     def GetUsername(self, chat_id):
-        sql = "SELECT Username FROM heroku_c93f6b06b535bb4.user WHERE chatID = '%s';" % chat_id
+        sql = "SELECT Username FROM vgjy6o15h95ug01f.user WHERE chatID = '%s';" % chat_id
         self.cursor.execute(sql)
         return self.GetValue()
 
     def GetIDAuthor(self, Name):
-        sql = """SELECT id_author FROM heroku_c93f6b06b535bb4.author WHERE Name = "{0}";""".format(Name)
+        sql = """SELECT id_author FROM vgjy6o15h95ug01f.author WHERE Name = "{0}";""".format(Name)
         self.cursor.execute(sql)
         return self.GetValue()
 
     def SearchBook(self, Name):
-        sql = """SELECT b.Name, aut.Name, b.book_lang FROM heroku_c93f6b06b535bb4.book b 
-                 JOIN heroku_c93f6b06b535bb4.author aut 
+        sql = """SELECT b.Name, aut.Name, b.book_lang FROM vgjy6o15h95ug01f.book b 
+                 JOIN vgjy6o15h95ug01f.author aut 
                  ON aut.id_author=b.id_author
                  WHERE b.Name LIKE "%{0}%";""".format(Name)
         self.GetCursor()
@@ -52,8 +52,8 @@ class DataBase:
         return self.cursor
 
     def BookSystem(self, Book):
-        sql = """SELECT count(*) FROM heroku_c93f6b06b535bb4.book b 
-                 JOIN heroku_c93f6b06b535bb4.author a 
+        sql = """SELECT count(*) FROM vgjy6o15h95ug01f.book b 
+                 JOIN vgjy6o15h95ug01f.author a 
                  ON a.id_author=b.id_author
                  WHERE b.Name = "{0}" and a.Name = "{1}";""".format(Book.Name, Book.Author)
         Book.Author = int(self.CheckAuthor(Book))
@@ -68,8 +68,8 @@ class DataBase:
         return self.GetValue()
 
     def GetBookViaAuthor(self, Name):
-        sql = """SELECT b.Name, aut.Name, b.book_lang FROM heroku_c93f6b06b535bb4.book b 
-                 JOIN heroku_c93f6b06b535bb4.author aut 
+        sql = """SELECT b.Name, aut.Name, b.book_lang FROM vgjy6o15h95ug01f.book b 
+                 JOIN vgjy6o15h95ug01f.author aut 
                  ON aut.id_author=b.id_author
                  WHERE aut.Name = "{0}";""".format(Name)
         self.GetCursor()
@@ -77,7 +77,7 @@ class DataBase:
         return self.cursor
 
     def GetCountAnimal(self, chat_id):
-        sql = "SELECT j.count_animal FROM heroku_c93f6b06b535bb4.user u, heroku_c93f6b06b535bb4.job_queue j WHERE u.id_user = j.id_user and u.chatID ='%s';"%chat_id
+        sql = "SELECT j.count_animal FROM vgjy6o15h95ug01f.user u, vgjy6o15h95ug01f.job_queue j WHERE u.id_user = j.id_user and u.chatID ='%s';"%chat_id
         self.GetCursor()
         self.cursor.execute(sql)
         self.db.commit()
@@ -85,13 +85,13 @@ class DataBase:
 
     def GetAnswers(self, chat_id):
         id = self.GetIdUser(chat_id)
-        sql = "SELECT text_answer FROM heroku_c93f6b06b535bb4.answers WHERE id_user ='%s';" % id
+        sql = "SELECT text_answer FROM vgjy6o15h95ug01f.answers WHERE id_user ='%s';" % id
         self.GetCursor()
         self.cursor.execute(sql)
         return self.cursor
 
     def GetFileId(self, x):
-        sql = "SELECT TelegramFileID FROM heroku_c93f6b06b535bb4.file  WHERE fileID ={0};".format(x)
+        sql = "SELECT TelegramFileID FROM vgjy6o15h95ug01f.file  WHERE fileID ={0};".format(x)
         self.GetCursor()
         self.cursor.execute(sql)
         self.db.commit()
@@ -99,10 +99,10 @@ class DataBase:
 
     def GetBookInReadList(self, chat_id):
         user_id = self.GetIdUser(chat_id)
-        sql = """SELECT b.Name, a.Name, b.book_lang  FROM heroku_c93f6b06b535bb4.list_read_book lrb
-                    JOIN heroku_c93f6b06b535bb4.book b
+        sql = """SELECT b.Name, a.Name, b.book_lang  FROM vgjy6o15h95ug01f.list_read_book lrb
+                    JOIN vgjy6o15h95ug01f.book b
                         ON lrb.id_book = b.id_book
-                            JOIN heroku_c93f6b06b535bb4.author a
+                            JOIN vgjy6o15h95ug01f.author a
                                 ON b.id_author = a.id_author
 	                WHERE lrb.id_user = "{0}";""".format(user_id)
         self.GetCursor()
@@ -116,12 +116,12 @@ class DataBase:
 
     def GetCryptoPairUser(self, chat_id, onlyname = False):
        # user_id = self.GetIdUser(chat_id)
-        if onlyname: sql = """SELECT pair_crypto FROM heroku_c93f6b06b535bb4.Cryptocurrency с 
-                                JOIN heroku_c93f6b06b535bb4.user u 
+        if onlyname: sql = """SELECT pair_crypto FROM vgjy6o15h95ug01f.Cryptocurrency с 
+                                JOIN vgjy6o15h95ug01f.user u 
                                     USING (id_user)
                                         WHERE u.chatID = {0};""".format(chat_id)
-        else: sql = """SELECT pair_crypto, id_user, price FROM heroku_c93f6b06b535bb4.Cryptocurrency с 
-                                JOIN heroku_c93f6b06b535bb4.user u 
+        else: sql = """SELECT pair_crypto, id_user, price FROM vgjy6o15h95ug01f.Cryptocurrency с 
+                                JOIN vgjy6o15h95ug01f.user u 
                                     USING (id_user)
                                         WHERE u.chatID = {0};""".format(chat_id)
         self.GetCursor()
@@ -133,13 +133,13 @@ class DataBase:
         return res
 
     def GetFile(self, Name):
-        sql = """SELECT file_id_epub, file_id_fb2, file_id_pdf FROM heroku_c93f6b06b535bb4.book WHERE Name = trim("{0}");""".format(Name)
+        sql = """SELECT file_id_epub, file_id_fb2, file_id_pdf FROM vgjy6o15h95ug01f.book WHERE Name = trim("{0}");""".format(Name)
         self.GetCursor()
         self.cursor.execute(sql)
         return self.cursor
 
     def GetIdBook(self, Name):
-        sql = """SELECT id_book FROM heroku_c93f6b06b535bb4.book WHERE Name = "{0}";""".format(Name)
+        sql = """SELECT id_book FROM vgjy6o15h95ug01f.book WHERE Name = "{0}";""".format(Name)
         self.GetCursor()
         self.cursor.execute(sql)
         return self.GetValue()
@@ -147,14 +147,14 @@ class DataBase:
     def GetTranslateLanguage(self,chat_id):
         self.GetCursor()
         id = self.GetIdUser(chat_id)
-        sql = "SELECT TranslateLanguage FROM heroku_c93f6b06b535bb4.bot WHERE id_user = '%s'" % id
+        sql = "SELECT TranslateLanguage FROM vgjy6o15h95ug01f.bot WHERE id_user = '%s'" % id
         self.cursor.execute(sql)
         return self.GetValue()
 
     def GetLanguageBot(self, chat_id):
         self.GetCursor()
         id = self.GetIdUser(chat_id)
-        sql = "SELECT LanguageBot FROM heroku_c93f6b06b535bb4.bot WHERE id_user = '%s'" % id
+        sql = "SELECT LanguageBot FROM vgjy6o15h95ug01f.bot WHERE id_user = '%s'" % id
         self.cursor.execute(sql)
         res = self.GetValue()
         return (lambda self, res :"uk" if res == None else res)(self, res)
@@ -168,8 +168,8 @@ class DataBase:
         return data, lang
 
     def GetAllCryptoUsers(self):
-        sql = """SELECT DISTINCT chatID FROM heroku_c93f6b06b535bb4.Cryptocurrency c
-                    JOIN heroku_c93f6b06b535bb4.user u 
+        sql = """SELECT DISTINCT chatID FROM vgjy6o15h95ug01f.Cryptocurrency c
+                    JOIN vgjy6o15h95ug01f.user u 
                         ON c.id_user=u.id_user;"""
         self.GetCursor()
         self.cursor.execute(sql)
@@ -178,27 +178,27 @@ class DataBase:
     def DeleteBookInReadList(self, chat_id, Name):
         user_id = self.GetIdUser(chat_id)
         id_book = self.GetIdBook(Name)
-        sql = """DELETE FROM heroku_c93f6b06b535bb4.list_read_book WHERE id_book = "{0}" and id_user = "{1}";""".format(id_book, user_id)
+        sql = """DELETE FROM vgjy6o15h95ug01f.list_read_book WHERE id_book = "{0}" and id_user = "{1}";""".format(id_book, user_id)
         self.GetCursor()
         self.cursor.execute(sql)
         self.db.commit()
 
     def DeleteCryptoPair(self, chat_id, name):
         user_id = self.GetIdUser(chat_id)
-        sql = """DELETE FROM heroku_c93f6b06b535bb4.Cryptocurrency WHERE id_user = {0} and pair_crypto = "{1}";""".format(user_id, name)
+        sql = """DELETE FROM vgjy6o15h95ug01f.Cryptocurrency WHERE id_user = {0} and pair_crypto = "{1}";""".format(user_id, name)
         self.GetCursor()
         self.cursor.execute(sql)
         self.db.commit()
 
     def SearchAuthor(self, Name):
-        sql = """SELECT Name FROM heroku_c93f6b06b535bb4.author WHERE Name LIKE "%{0}%";""".format(Name)
+        sql = """SELECT Name FROM vgjy6o15h95ug01f.author WHERE Name LIKE "%{0}%";""".format(Name)
         self.GetCursor()
         self.cursor.execute(sql)
         return self.cursor
 
     def GetAnswerSystem(self, chat_id):
         user_id = self.GetIdUser(chat_id)
-        sql = "SELECT SystemOfAnswer FROM heroku_c93f6b06b535bb4.bot WHERE id_user = '%s'" % user_id
+        sql = "SELECT SystemOfAnswer FROM vgjy6o15h95ug01f.bot WHERE id_user = '%s'" % user_id
         self.GetCursor()
         self.cursor.execute(sql)
         return self.GetValue()
@@ -206,7 +206,7 @@ class DataBase:
     def ChangeAnswerSystem(self, chat_id):
         user_id = self.GetIdUser(chat_id)
         value = self.GetAnswerSystem(chat_id)
-        sql = "UPDATE heroku_c93f6b06b535bb4.bot SET SystemOfAnswer =(%s)WHERE id_user =%s;"
+        sql = "UPDATE vgjy6o15h95ug01f.bot SET SystemOfAnswer =(%s)WHERE id_user =%s;"
         v = (lambda x: False if x else True)(value)
         val = (v, user_id)
         self.GetCursor()
@@ -216,13 +216,13 @@ class DataBase:
     def AddBookInListRead(self, chat_id, NameBook):
         id_user = self.GetIdUser(chat_id)
         id_book = self.GetIdBook(NameBook)
-        sql = "INSERT INTO heroku_c93f6b06b535bb4.list_read_book(id_user, id_book) VALUES({0},{1});".format(id_user, id_book)
+        sql = "INSERT INTO vgjy6o15h95ug01f.list_read_book(id_user, id_book) VALUES({0},{1});".format(id_user, id_book)
         self.GetCursor()
         self.cursor.execute(sql)
         self.db.commit()
 
     def CheckUser(self, first_name, username, chat_id, language_code, type):
-        sql = "SELECT count(*) FROM heroku_c93f6b06b535bb4.user WHERE chatID = '%s';" % chat_id
+        sql = "SELECT count(*) FROM vgjy6o15h95ug01f.user WHERE chatID = '%s';" % chat_id
         self.GetCursor()
         self.cursor.execute(sql)
         for x in self.cursor:
@@ -231,7 +231,7 @@ class DataBase:
                 self.Insert(first_name, username, chat_id, language_code, type)
 
     def CheckTypeFile(self, Book):
-        sql = """SELECT {0} FROM heroku_c93f6b06b535bb4.book WHERE Name = "{1}"; """.format(self._mafina.fileformat[Book.format], Book.Name)
+        sql = """SELECT {0} FROM vgjy6o15h95ug01f.book WHERE Name = "{1}"; """.format(self._mafina.fileformat[Book.format], Book.Name)
         self.GetCursor()
         self.cursor.execute(sql)
         x = self.GetValue()
@@ -239,7 +239,7 @@ class DataBase:
         return (lambda x: self.UpdateFileId(Book) if x == "" else False)(x)
 
     def CheckAuthor(self, Book):
-        sql = """SELECT * FROM heroku_c93f6b06b535bb4.author WHERE Name = trim("{0}"); """ .format(Book.Author)
+        sql = """SELECT * FROM vgjy6o15h95ug01f.author WHERE Name = trim("{0}"); """ .format(Book.Author)
         self.GetCursor()
         self.cursor.execute(sql)
         x = self.GetValue()
@@ -251,56 +251,56 @@ class DataBase:
 
     def CheckUserInJob(self, chat_id):
         id_user = self.GetIdUser(chat_id)
-        sql = """SELECT chatID, status_sys_sweet_animal, animal_frequency FROM heroku_c93f6b06b535bb4.user u, heroku_c93f6b06b535bb4.job_queue j WHERE u.id_user = {0};""".format(id_user)
+        sql = """SELECT chatID, status_sys_sweet_animal, animal_frequency FROM vgjy6o15h95ug01f.user u, vgjy6o15h95ug01f.job_queue j WHERE u.id_user = {0};""".format(id_user)
         self.GetCursor()
         self.cursor.execute(sql)
         self.db.commit()
         return self.cursor
 
     def CheckCrypto(self, id, name):
-        sql = """SELECT count(*) FROM heroku_c93f6b06b535bb4.Cryptocurrency WHERE id_user = {0} AND pair_crypto = "{1}";""".format(id, name)
+        sql = """SELECT count(*) FROM vgjy6o15h95ug01f.Cryptocurrency WHERE id_user = {0} AND pair_crypto = "{1}";""".format(id, name)
         self.GetCursor()
         self.cursor.execute(sql)
         return self.GetValue()
 
     def InsertAuthor(self, Book):
-        sql = """INSERT INTO heroku_c93f6b06b535bb4.author(Name) VALUES(trim("{0}"));""".format(Book.Author)
+        sql = """INSERT INTO vgjy6o15h95ug01f.author(Name) VALUES(trim("{0}"));""".format(Book.Author)
         self.GetCursor()
         self.cursor.execute(sql)
         self.db.commit()
 
     def InsertBook(self, Book):
         format = self._mafina.fileformat[Book.format]
-        sql = """INSERT INTO heroku_c93f6b06b535bb4.book(Name,{0}, id_author, book_lang) VALUES("{1}", "{2}", "{3}", "{4}");""".format(str(format), Book.Name, Book.file_id, Book.Author, Book.book_lang)
+        sql = """INSERT INTO vgjy6o15h95ug01f.book(Name,{0}, id_author, book_lang) VALUES("{1}", "{2}", "{3}", "{4}");""".format(str(format), Book.Name, Book.file_id, Book.Author, Book.book_lang)
         self.cursor.execute(sql)
         self.db.commit()
         return True
 
     def Insert(self, first_name, username, chat_id, language_code, type):
-        s = "INSERT INTO heroku_c93f6b06b535bb4.user(Name, Username, chatID, TypeChat) VALUES(%s, %s, %s, %s);"
+        s = "INSERT INTO vgjy6o15h95ug01f.user(Name, Username, chatID, TypeChat) VALUES(%s, %s, %s, %s);"
         val = (first_name,  username, chat_id, type)
         self.cursor.execute(s, val)
         self.db.commit()
         id = self.GetIdUser(chat_id)
-        s = "INSERT INTO heroku_c93f6b06b535bb4.bot(LanguageBot, id_user) VALUES(%s, %s);"
+        s = "INSERT INTO vgjy6o15h95ug01f.bot(LanguageBot, id_user) VALUES(%s, %s);"
         val = (language_code, id)
         self.cursor.execute(s, val)
         self.db.commit()
 
     def InsertSysMeme(self, chat_id, status, interval):
-        sql = "INSERT INTO heroku_c93f6b06b535bb4.job_queue(Span, status_sys_meme, id_user)VALUES(%s, %s, %s);"
+        sql = "INSERT INTO vgjy6o15h95ug01f.job_queue(Span, status_sys_meme, id_user)VALUES(%s, %s, %s);"
         val = (interval, status, self.GetIdUser(chat_id))
         self.UpdateSys(sql, val)
 
     def InsertFile(self, fileID):
-        sql = "INSERT INTO heroku_c93f6b06b535bb4.file(TelegramFileID)VALUES('%s');"%fileID
+        sql = "INSERT INTO vgjy6o15h95ug01f.file(TelegramFileID)VALUES('%s');"%fileID
         self.GetCursor()
         self.cursor.execute(sql)
         self.db.commit()
 
     def InsertNewAnswer(self, text, chat_id):
         id = self.GetIdUser(chat_id)
-        sql = """INSERT INTO heroku_c93f6b06b535bb4.answers(text_answer, id_user) VALUES("{0}", {1});""".format(text, id)
+        sql = """INSERT INTO vgjy6o15h95ug01f.answers(text_answer, id_user) VALUES("{0}", {1});""".format(text, id)
         self.GetCursor()
         self.cursor.execute(sql)
         self.db.commit()
@@ -308,7 +308,7 @@ class DataBase:
     def InsertCrypto(self, name, chat_id, price):
         id = self.GetIdUser(chat_id)
         if (self.CheckCrypto(id, name)==0):
-            sql = """INSERT INTO heroku_c93f6b06b535bb4.Cryptocurrency(pair_crypto, id_user, price) VALUES("{0}", {1}, {2});""".format(name, id, price)
+            sql = """INSERT INTO vgjy6o15h95ug01f.Cryptocurrency(pair_crypto, id_user, price) VALUES("{0}", {1}, {2});""".format(name, id, price)
             print(sql)
             self.GetCursor()
             self.cursor.execute(sql)
@@ -317,39 +317,39 @@ class DataBase:
             return 1
 
     def InsertSysWeather(self, chat_id, status):
-        sql = "INSERT INTO heroku_c93f6b06b535bb4.job_queue(status_sys_weather, id_user)VALUES(%s, %s);"
+        sql = "INSERT INTO vgjy6o15h95ug01f.job_queue(status_sys_weather, id_user)VALUES(%s, %s);"
         val = (status, self.GetIdUser(chat_id))
         self.UpdateSys(sql, val)
 
     def InsertSysAnimal(self, chat_id, status):
-        sql = "INSERT INTO heroku_c93f6b06b535bb4.job_queue(status_sys_sweet_animal, id_user)VALUES(%s, %s);"
+        sql = "INSERT INTO vgjy6o15h95ug01f.job_queue(status_sys_sweet_animal, id_user)VALUES(%s, %s);"
         val = (status, self.GetIdUser(chat_id))
         self.UpdateSys(sql, val)
 
     def UpdateFileId(self, Book):
-        sql = """UPDATE heroku_c93f6b06b535bb4.book SET {0} =("{1}")WHERE id_book ="{2}";""".format(str(self._mafina.fileformat[Book.format]),str(Book.file_id), str(self.GetIdBook(Book.Name)))
+        sql = """UPDATE vgjy6o15h95ug01f.book SET {0} =("{1}")WHERE id_book ="{2}";""".format(str(self._mafina.fileformat[Book.format]),str(Book.file_id), str(self.GetIdBook(Book.Name)))
         self.GetCursor()
         self.cursor.execute(sql)
         self.db.commit()
         return True
 
     def UpdateSysWeather(self, chat_id, status):
-        sql = "UPDATE heroku_c93f6b06b535bb4.job_queue SET status_sys_weather=%s WHERE id_user =%s;"
+        sql = "UPDATE vgjy6o15h95ug01f.job_queue SET status_sys_weather=%s WHERE id_user =%s;"
         val = (status, self.GetIdUser(chat_id))
         self.UpdateSys(sql, val)
 
     def UpdateSysMeme(self, chat_id, status, interval):
-        sql = "UPDATE heroku_c93f6b06b535bb4.job_queue SET Span =%s, status_sys_meme=%s WHERE id_user =%s;"
+        sql = "UPDATE vgjy6o15h95ug01f.job_queue SET Span =%s, status_sys_meme=%s WHERE id_user =%s;"
         val = (interval, status, self.GetIdUser(chat_id))
         self.UpdateSys(sql,val)
 
     def UpdateSysAnimal(self, chat_id, status):
-        sql = "UPDATE heroku_c93f6b06b535bb4.job_queue SET status_sys_sweet_animal=%s WHERE id_user =%s;"
+        sql = "UPDATE vgjy6o15h95ug01f.job_queue SET status_sys_sweet_animal=%s WHERE id_user =%s;"
         val = (status, self.GetIdUser(chat_id))
         self.UpdateSys(sql, val)
 
     def UpdateListing(self, chat_id, NewListing):
-        sql = "UPDATE heroku_c93f6b06b535bb4.user SET Username=%s WHERE chatID =%s;"
+        sql = "UPDATE vgjy6o15h95ug01f.user SET Username=%s WHERE chatID =%s;"
         val = (NewListing, chat_id)
         self.UpdateSys(sql, val)
 
@@ -359,14 +359,14 @@ class DataBase:
         self.db.commit()
 
     def UsersSysMeme(self):
-        sql="SELECT chatID, j.Span, j.status_sys_meme FROM heroku_c93f6b06b535bb4.user u, heroku_c93f6b06b535bb4.job_queue j WHERE u.id_user = j.id_user;"
+        sql="SELECT chatID, j.Span, j.status_sys_meme FROM vgjy6o15h95ug01f.user u, vgjy6o15h95ug01f.job_queue j WHERE u.id_user = j.id_user;"
         self.GetCursor()
         self.cursor.execute(sql)
         self.db.commit()
         return self.cursor
 
     def UsersSysAnimal(self):
-        sql="SELECT chatID, j.status_sys_sweet_animal, animal_frequency FROM heroku_c93f6b06b535bb4.user u, heroku_c93f6b06b535bb4.job_queue j WHERE u.id_user = j.id_user and j.status_sys_sweet_animal = 1;"
+        sql="SELECT chatID, j.status_sys_sweet_animal, animal_frequency FROM vgjy6o15h95ug01f.user u, vgjy6o15h95ug01f.job_queue j WHERE u.id_user = j.id_user and j.status_sys_sweet_animal = 1;"
         self.GetCursor()
         self.cursor.execute(sql)
         self.db.commit()
@@ -380,7 +380,7 @@ class DataBase:
         self.db.commit()
 
     def UsersSysWeather(self):
-        sql="SELECT chatID, j.status_sys_weather FROM heroku_c93f6b06b535bb4.user u, heroku_c93f6b06b535bb4.job_queue j WHERE u.id_user = j.id_user;"
+        sql="SELECT chatID, j.status_sys_weather FROM vgjy6o15h95ug01f.user u, vgjy6o15h95ug01f.job_queue j WHERE u.id_user = j.id_user;"
         self.GetCursor()
         self.cursor.execute(sql)
         self.db.commit()
@@ -398,7 +398,7 @@ class DataBase:
         x = self.GetCountAnimal(chat_id)
         print(x)
         x+=1
-        sql = "UPDATE heroku_c93f6b06b535bb4.job_queue SET count_animal=%s WHERE id_user =%s;"
+        sql = "UPDATE vgjy6o15h95ug01f.job_queue SET count_animal=%s WHERE id_user =%s;"
         val =(x, self.GetIdUser(chat_id))
         self.UpdateSys(sql, val)
 
@@ -406,9 +406,9 @@ class DataBase:
         self.GetCursor()
         id = self.GetIdUser(chat_id)
         if Translatelanguage:
-            sql = "UPDATE heroku_c93f6b06b535bb4.bot SET TranslateLanguage = %s WHERE id_user =%s;"
+            sql = "UPDATE vgjy6o15h95ug01f.bot SET TranslateLanguage = %s WHERE id_user =%s;"
         else:
-            sql = "UPDATE heroku_c93f6b06b535bb4.bot SET LanguageBot = %s WHERE id_user =%s;"
+            sql = "UPDATE vgjy6o15h95ug01f.bot SET LanguageBot = %s WHERE id_user =%s;"
         val =(preferred_language, id)
         self.cursor.execute(sql, val)
         self.db.commit()
